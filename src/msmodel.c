@@ -25,10 +25,10 @@ void readinp_msmodel(cJSON *json, int Ndof1, int Ndof2, int Nstate) {
 
 
 
-void parameter_msmodel(double *mass){
+void init_msmodel(double *mass){
     if (strcmp(trim(adjustl(msmodelname)), "SBM") == 0 ||
        strcmp(trim(adjustl(msmodelname)), "sbm") == 0) {
-        parameter_msmodel(mass);
+        parameter_SBM(mass);
     }
 }
 

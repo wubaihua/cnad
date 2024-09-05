@@ -294,7 +294,7 @@ extern int forcetype;// should be removed!!!!!!!!!!!!!!!!!!!!
 extern char msmodelname[200]; // should be removed!!!!!!!!!!!!!!!!!!!!
 
 void initial_para();
-void readinp_para(cJSON *json);
+void readinp();
 void initial_vari();
 
 void print_info();
@@ -302,7 +302,11 @@ void sample_ele();
 
 void cal_correfun();
 
+void cal_propagator(int Nstate, double *H, double dt, double complex *U);
+void evo_traj_ele(double deltat);
+void evo_traj_nucP(double deltat);
 
+void evo_traj_new(int itraj);
 
 
 

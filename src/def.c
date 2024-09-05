@@ -505,36 +505,156 @@ void initial_para() {
 
 
 
-void readinp_para(cJSON *json){
-    cJSON *item;
-    if ((item = cJSON_GetObjectItem(json, "beta"))) beta = item->valuedouble;
-    if ((item = cJSON_GetObjectItem(json, "Ntraj"))) Ntraj = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "dt"))) dt = item->valuedouble;
-    if ((item = cJSON_GetObjectItem(json, "ttot"))) ttot = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "Nbreak"))) Nbreak = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "method"))) strcpy(method, item->valuestring);
-    if ((item = cJSON_GetObjectItem(json, "init_occ"))) init_occ = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "rep"))) rep = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "outputtype"))) outputtype = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "forcetype"))) forcetype = item->valueint;
-    if ((item = cJSON_GetObjectItem(json, "calforcetype"))) calforcetype = item->valueint;
-    // if ((item = cJSON_GetObjectItem(json, "nproc_sw"))) nproc_sw = item->valueint;
+void readinp(){
 
-    //debug
-    printf("beta: %f\n", beta);
-    printf("Ntraj: %d\n", Ntraj);
-    printf("dt: %f\n", dt);
-    printf("ttot: %d\n", ttot);
-    printf("Nbreak: %d\n", Nbreak);
-    printf("method: %s\n", method);
-    printf("init_occ: %d\n", init_occ);
-    printf("rep: %d\n", rep);
-    printf("outputtype: %d\n", outputtype);
-    printf("forcetype: %d\n", forcetype);
-    printf("calforcetype: %d\n", calforcetype);
-    // printf("nproc_sw: %d\n", nproc_sw);
+    
 
-    //debug
+    FILE *file = fopen(filepath, "rb");
+    if (!file) {
+        perror("File opening failed");
+        return NULL;
+    }
+    fseek(file, 0, SEEK_END);
+    long length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    char *data = (char *)malloc(length + 1);
+    if (data) {
+        fread(data, 1, length, file);
+        data[length] = '\0';
+    }
+    fclose(file);
+    
+    cJSON *json = cJSON_Parse(data);
+    if (!json) {
+        printf("Error parsing JSON: %s\n", cJSON_GetErrorPtr());
+        return;
+    }
+
+    cJSON *item = json;
+    cJSON *list;
+        // cJSON *msmodelname = cJSON_GetObjectItem(item, "msmodelname");
+    // if (cJSON_GetObjectItem(item, "msmodelname")!=NULL) {
+    //     list=cJSON_GetObjectItem(item, "msmodelname");
+    //     strcpy(msmodelname, list->valuestring); // 假设msmodelname_var在def.h中声明为char msmodelname_var[256];
+    //     printf(msmodelname,"\n");
+    //     item = item->next;
+    // }
+
+    if (NULL !=  cJSON_GetObjectItem(item, "msmodelname")){
+        list=cJSON_GetObjectItem(item,  "msmodelname");
+        strcpy(msmodelname, list->valuestring);
+    }
+
+        
+        
+    while (item) {
+        
+
+        readinp_msmodel(item, Ndof1, Ndof2, Nstate);
+        
+
+        if (NULL != cJSON_GetObjectItem(item, "beta")) {
+            list = cJSON_GetObjectItem(item, "beta");
+            if (list->type == cJSON_Number) {
+                beta = list->valuedouble; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ntraj")) {
+            list = cJSON_GetObjectItem(item, "ntraj");
+            if (list->type == cJSON_Number) {
+                Ntraj= list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "dt")) {
+            list = cJSON_GetObjectItem(item, "dt");
+            if (list->type == cJSON_Number) {
+                dt = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ttot")) {
+            list = cJSON_GetObjectItem(item, "ttot");
+            if (list->type == cJSON_Number) {
+                ttot = list->valuedouble; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "nbreak")) {
+            list = cJSON_GetObjectItem(item, "nbreak");
+            if (list->type == cJSON_Number) {
+                Nbreak = list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "method")) {
+            list = cJSON_GetObjectItem(item, "method");
+            if (list->type == cJSON_String) {
+                strcpy(method, list->valuestring); 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "init_occ")) {
+            list = cJSON_GetObjectItem(item, "init_occ");
+            if (list->type == cJSON_Number) {
+                init_occ = list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "rep")) {
+            list = cJSON_GetObjectItem(item, "rep");
+            if (list->type == cJSON_Number) {
+                rep = list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "outputtype")) {
+            list = cJSON_GetObjectItem(item, "outputtype");
+            if (list->type == cJSON_Number) {
+                outputtype = list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "forcetype")) {
+            list = cJSON_GetObjectItem(item, "forcetype");
+            if (list->type == cJSON_Number) {
+                forcetype = list->valueint; 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "calforcetype")) {
+            list = cJSON_GetObjectItem(item, "calforcetype");
+            if (list->type == cJSON_Number) {
+                calforcetype = list->valueint; 
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
+        //     list = cJSON_GetObjectItem(item, "nproc_sw");
+        //     if (list->type == cJSON_Number) {
+        //         nproc_sw = list->valueint; 
+        //     }
+        // }
+
+        item = item->next;
+    }
+
+    cJSON_Delete(json);
+    // printf("msmodelname: %s\n",msmodelname);
+
+   
+    // printf("beta: %f\n", beta);
+    // printf("Ntraj: %d\n", Ntraj);
+    // printf("dt: %f\n", dt);
+    // printf("ttot: %f\n", ttot);
+    // printf("Nbreak: %d\n", Nbreak);
+    // printf("method: %s\n", method);
+    // printf("init_occ: %d\n", init_occ);
+    // printf("rep: %d\n", rep);
+    // printf("outputtype: %d\n", outputtype);
+    // printf("forcetype: %d\n", forcetype);
+    // printf("calforcetype: %d\n", calforcetype);
 
 }
 
@@ -1291,22 +1411,26 @@ void evo_traj_ele(double deltat) {
     int i;
     double complex tempcm1[Nstate*Nstate],tempcm2[Nstate*Nstate];
     // if (U_d2a_old != NULL) memcpy(U_d2a_old, U_d2a, sizeof(U_d2a));
-
+    printf("11111\n");
     switch (type_evo) {
         case 0:{
+            printf("11111\n");
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
             // if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
             memcpy(x0, xe, Nstate * sizeof(double));
             memcpy(p0, pe, Nstate * sizeof(double));
             // matmul_real_imag(Nstate, propagator, x0, p0, xe, pe);
+            printf("22222\n");
             double complex tempv1[Nstate],tempv2[Nstate];
             cd_matmul(propagator,x0,tempv1,Nstate,Nstate,1);
             cd_matmul(propagator,p0,tempv2,Nstate,Nstate,1);
+            printf("33333\n");
             for(i=0;i<Nstate;i++){
                 xe[i]=creal(tempv1[i])-cimag(tempv2[i]);
                 pe[i]=creal(tempv2[i])+cimag(tempv1[i]);
             }
-            break;
+            printf("444444\n");
+            // break;
         }
         case 1:{
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
@@ -1319,7 +1443,7 @@ void evo_traj_ele(double deltat) {
             // if (inverse_kernel != NULL) {
             //     matmul_complex(Nstate, propagator, inverse_kernel, inverse_kernel);
             // }
-            break;
+            // break;
         }
             
         // case 2:
@@ -1688,18 +1812,26 @@ void energy_conserve_naf_3(double deltat) {
 }
 
 void evo_traj_algorithm1(double deltat) {
+    
     evo_traj_nucP(deltat / 2);
+   
     if (scaleenergy_type == 3) energy_conserve_naf_3(deltat / 2);
+    
     // if (strcmp(trim(adjustl(msmodelname)), "LZ") == 0) {
     //     memcpy(P_nuc, Pinit_LZ, sizeof(double));
     // }
     evo_traj_nucR(deltat);
-    // dV_msmodel(R_nuc, dV);
+
+   
+    // dV_msmodel(R_nuc, dV, forcetype);
     // V_msmodel(R_nuc, V, t_now);
     // if (rep == 1) cal_NACV();
     evo_traj_ele(deltat);
+    
     cal_force();
+    
     evo_traj_nucP(deltat / 2);
+
     if (scaleenergy_type == 3) energy_conserve_naf_3(deltat / 2);
 }
 
@@ -1757,6 +1889,217 @@ void evo_traj_back() {
     // }
 }
 
+
+void evo_traj_new(int itraj) {
+    int i_re, igrid;
+    int nstep, itime, icfall, iref;
+    int i, j, k;//, i_lbd, hop_lbd;
+    // double x0[Nstate], p0[Nstate], bound, deltaE, deltaE_all[Nstate];
+    double tt1, tt2, x1, x2, sumpop, diagden[Nstate];
+    // double E_diag[Nstate * Nstate];
+    // double P_s[Ndof1 * Ndof2], P_s_all[Nstate * Ndof1 * Ndof2], P_s_main[Ndof1 * Ndof2], R_s[Ndof1 * Ndof2], f_s[Ndof1 * Ndof2], pex, pt, proj[Nstate];
+    // double Etot, Ekin, Epot, dE;
+    // double vmp[Nstate * Nstate];
+    // double Rinit, Pinit;
+    // double complex rho_save[Nstate * Nstate], Aforsave[Nstate * Nstate];
+    // double P_nuc_BA_old[Ndof1 * Ndof2];
+    // double P_nuc_old[Ndof1 * Ndof2 * memorylength], R_nuc_old[Ndof1 * Ndof2 * memorylength], E_adia_old[Nstate * memorylength], nac_old[Nstate * Nstate * Ndof1 * Ndof2 * memorylength], force_old[Ndof1 * Ndof2 * memorylength], deltaE_all_old[Nstate * memorylength];
+    // int loc_bak, id_memory, jstate;
+    bool if_bak;
+    // long long *approachtimes;
+    // double action_switchcv[Nstate], off_gamma_cv, Vij;
+    // double complex c_main[Nstate];
+    // int i_max, npack, index_state[Nstate];
+    // double *depack;
+    // int *index_pack;
+    double dt_evo;
+    // int nstep_small, istep_small;
+    // double t_now_small;
+    // bool alive;
+
+    if_bak = false;
+    itime_save = 0;
+
+    count_pertraj = 0;
+
+    t_now = 0;
+    nstep = (int)(ttot / dt);
+
+    V_msmodel(R_nuc, V, 0.0);
+    dV_msmodel(R_nuc, dV, forcetype);
+    // if (rep == 1) cal_NACV();
+
+    i_re = Nbreak;
+    igrid = 1;
+
+    if (ifscaleenergy > 0) {
+        E_conserve = 0.0;
+        for(i=0;i<Ndof1*Ndof2;i++){
+            E_conserve += P_nuc[i] * P_nuc[i] / mass[i];
+        }
+        E_conserve *= 0.5;
+        E_conserve += E_adia[id_state];
+    }
+
+    if (ifscaleenergy > 0) {
+        switch (ifscaleenergy) {
+            case 1:
+            case 4:
+            case 5:
+                scaleenergy_type = 1;
+                break;
+            case 3:
+                scaleenergy_type = 3;
+                break;
+        }
+    }
+
+    cal_force();
+
+    itime = 0;
+
+   
+    
+    while (itime <= nstep) {
+        if (i_re >= Nbreak) {
+            evo_traj_calProp(igrid);
+            timegrid[igrid] = t_now;
+            igrid++;
+            i_re = 0;
+        }
+
+        evo_traj_savetraj();
+
+        dt_evo = dt;
+
+
+        
+
+        switch (type_algorithm) {
+            case 1:
+            printf('1111');
+                evo_traj_algorithm1(dt_evo);
+                break;
+            // case 2:
+            //     evo_traj_algorithm2(dt_evo);
+            //     break;
+            // case 3:
+            //     evo_traj_algorithm3(dt_evo);
+            //     break;
+            // case 4:
+            //     evo_traj_algorithm4(dt_evo);
+            //     break;
+            // case 5:
+            //     evo_traj_algorithm5(dt_evo, n_step_algo5);
+            //     break;
+            // case 6:
+            //     evo_traj_algorithm6(dt_evo);
+            //     break;
+            // case 7:
+            //     evo_traj_algorithm7(dt_evo);
+            //     break;
+            // case 8:
+            //     evo_traj_algorithm8(dt_evo);
+            //     break;
+            // case 9:
+            //     evo_traj_algorithm9(dt_evo);
+            //     break;
+            // case 10:
+            //     evo_traj_algorithm10(dt_evo);
+            //     break;
+        }
+
+        
+
+        // if (ifscaleenergy > 0) {
+        //     if (scaleenergy_type == 1) energy_conserve_naf_1(E_conserve, deltaE);
+        //     if (ifscaleenergy == 4 && scaleenergy_type == 1 && deltaE < 0) {
+        //         nstep_small = 2;
+        //         dt_evo /= 2;
+        //         t_now_small = 0;
+        //         evo_traj_back();
+        //         for (istep_small = 1; istep_small <= nstep_small; istep_small++) {
+        //             switch (type_algorithm) {
+        //                 case 1:
+        //                     evo_traj_algorithm1(dt_evo);
+        //                     break;
+        //                 case 2:
+        //                     evo_traj_algorithm2(dt_evo);
+        //                     break;
+        //             }
+        //             if (scaleenergy_type == 1) energy_conserve_naf_1(E_conserve, deltaE);
+        //             if (scaleenergy_type == 1 && deltaE < 0) {
+        //                 if (dt_evo > dt / 1024) {
+        //                     nstep_small *= 2;
+        //                     dt_evo /= 2;
+        //                     evo_traj_back();
+        //                 }
+        //             }
+        //         }
+        //         if (scaleenergy_type == 3) scaleenergy_type = 1;
+        //     }
+        // }
+
+        t_now = (itime + 1) * dt;
+        i_re++;
+        itime++;
+        // if (ifzpecorr > 0) zpecorr_msmodel(P_nuc, R_nuc, ifzpecorr);
+
+        // if (strcmp(trim(adjustl(msmodelname)), "morse3") == 0 && ifhardwall == 1) {
+        //     if (P_nuc[0] < 0 && R_nuc[0] < 0) P_nuc[0] = -P_nuc[0];
+        //     if (if_ref == 1) {
+        //         for (iref = 0; iref < Nref; iref++) {
+        //             if (P_nuc_ref[iref * Ndof1 * Ndof2] < 0 && R_nuc_ref[iref * Ndof1 * Ndof2] < 0) P_nuc_ref[iref * Ndof1 * Ndof2] = -P_nuc_ref[iref * Ndof1 * Ndof2];
+        //         }
+        //     }
+        // }
+    }
+
+    if (if_Pdis == 1) {
+        if (strcmp(method, "mash") == 0 || strcmp(method, "MASH") == 0) {
+    
+            for(i=0;i<s_N;i++){
+                expisP[i] += correfun_0 * cexp(I * P_nuc[0] * s[i]) * 2 * rho0_mash[(init_occ-1) * Nstate + (init_occ-1)] * measure_mash;
+            }
+                // break;
+        } else if (strcmp(method, "unsmash") == 0 ||
+                  strcmp(method, "UNSMASH") == 0 ||
+                  strcmp(method, "unSMASH") == 0 ){
+            for(i=0;i<s_N;i++){
+                expisP[i] += correfun_0 * cexp(I * P_nuc[0] * s[i]) * Nstate * rho0_unsmash[(init_occ-1) * Nstate + (init_occ-1)] * measure_mash;
+            }
+                // break;
+        } else if (strcmp(method, "mash-mf") == 0 ||
+                    strcmp(method, "MASH-MF") == 0 ){
+            for(i=0;i<s_N;i++){
+                expisP[i] += correfun_0 * cexp(I * P_nuc[0] * s[i]) * 2 * measure_mash;
+            }
+                // break;
+        } else if (strcmp(method, "sqc") == 0 ||
+                   strcmp(method, "SQC") == 0 ||                 
+                   strcmp(method, "mf3") == 0 ||
+                   strcmp(method, "MF3") == 0 ||
+                   strcmp(method, "sqc2") == 0 ||
+                   strcmp(method, "SQC2") == 0 ||
+                   strcmp(method, "sqc3") == 0 ||
+                   strcmp(method, "SQC3") == 0 ){
+            x2 = 0;
+            for (i = 0; i < Nstate; i++) {
+                x2 += creal(correfun_t[i * Nstate + i]);
+            }
+            for(i=0;i<s_N;i++){
+                expisP[i] += correfun_0 * cexp(I * P_nuc[0] * s[i]) * x2;
+            }
+                // break;
+
+        } else {
+                for(i=0;i<s_N;i++){
+                    expisP[i] += correfun_0 * cexp(I * P_nuc[0] * s[i]);
+                }
+                // break;
+        }
+    }
+}
 
 void cal_force() {
     int iref, i, j;

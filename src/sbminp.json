@@ -7,7 +7,7 @@
     "alpha_SBM": 0.1,
     "bathtype": 1,
     "beta": 0.25,
-    "ntraj": 120000, "dt": 0.01,
+    "ntraj": 1, "dt": 0.01,
     "ttot": 15,
     "nbreak": 1,"method": "mft",
     "init_occ": 1,

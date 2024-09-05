@@ -15,7 +15,7 @@ extern double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
 extern double *c_SBM, *omega_SBM;
 
 // Read the model type from the input file
-void readinp_SBM(cJSON *json, int Ndof1, int Ndof2, int Nstate);
+void readinp_SBM(cJSON *item, int Ndof1, int Ndof2, int Nstate);
 // Initialize model parameters
 void parameter_SBM(double *mass);
 

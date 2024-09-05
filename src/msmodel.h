@@ -17,7 +17,7 @@ extern char msmodelname[200];
 
 void readinp_msmodel(cJSON *json, int Ndof1, int Ndof2, int Nstate) ;
 
-void parameter_msmodel(double *mass);
+void init_msmodel(double *mass);
 
 // Sample the initial conditionals for trajectories of the model
 void sample_msmodel(double *P, double *R, double beta);
