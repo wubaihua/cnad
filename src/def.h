@@ -1,9 +1,13 @@
 // #ifndef DEF_H
 // #define DEF_H
-
 #include <complex.h>
 #include <stdint.h>
-#include <string.h>
+#include "constant.h"
+#include "gmath.h"
+#include <stdio.h>
+#include <math.h>
+#include "cJSON.h"
+#include "msmodel.h"
 #include <stdbool.h>
 
 // MPI Variables
@@ -35,8 +39,8 @@ extern double *P_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *R2_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
  
-extern char filepath[200]; // Path of Model input file
-extern char workpath[200];
+extern char *filepath; // Path of Model input file
+extern char *workpath;
  
 extern int Ndof1, Ndof2;
 extern int Nstate;
@@ -290,13 +294,15 @@ extern int forcetype;// should be removed!!!!!!!!!!!!!!!!!!!!
 extern char msmodelname[200]; // should be removed!!!!!!!!!!!!!!!!!!!!
 
 void initial_para();
-
+void readinp_para(cJSON *json);
 void initial_vari();
 
 void print_info();
 void sample_ele();
 
 void cal_correfun();
+
+
 
 
 

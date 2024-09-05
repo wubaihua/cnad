@@ -8,6 +8,7 @@
 #include "constant.h"
 #include <string.h>
 #include <stdio.h>
+#include "cJSON.h"
 
 
 
@@ -17,33 +18,56 @@ double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
 double *c_SBM, *omega_SBM;
 
 // Read the model type from the input file
-void readinp_SBM(FILE *idinp, int Ndof1, int Ndof2, int Nstate) {
-    fscanf(idinp, "\n");
-    fscanf(idinp, "%d", &bathtype);
-    switch (bathtype) {
-        case 1:
-            fscanf(idinp, "%lf", &alpha_SBM);
-            break;
-        case 2:
-            fscanf(idinp, "%lf", &lambda_SBM);
-            break;
-        case 3:
-            fscanf(idinp, "%lf", &alpha_SBM);
-            fscanf(idinp, "%lf", &s_SBM);
-            break;
-        default:
-            fprintf(stderr, "ERROR: unknown Spin-Boson Model bath type\n");
-            exit(1);
-    }
+void readinp_SBM(cJSON *json, int Ndof1, int Ndof2, int Nstate) {
+    // fscanf(idinp, "\n");
+    // fscanf(idinp, "%d", &bathtype);
+    // switch (bathtype) {
+    //     case 1:
+    //         fscanf(idinp, "%lf", &alpha_SBM);
+    //         break;
+    //     case 2:
+    //         fscanf(idinp, "%lf", &lambda_SBM);
+    //         break;
+    //     case 3:
+    //         fscanf(idinp, "%lf", &alpha_SBM);
+    //         fscanf(idinp, "%lf", &s_SBM);
+    //         break;
+    //     default:
+    //         fprintf(stderr, "ERROR: unknown Spin-Boson Model bath type\n");
+    //         exit(1);
+    // }
 
-    fscanf(idinp, "%lf", &eps_SBM);
-    fscanf(idinp, "%lf", &delta_SBM);
-    fscanf(idinp, "%lf", &omega_c_SBM);
-    fscanf(idinp, "%d", &N_bath_SBM);
+    // fscanf(idinp, "%lf", &eps_SBM);
+    // fscanf(idinp, "%lf", &delta_SBM);
+    // fscanf(idinp, "%lf", &omega_c_SBM);
+    // fscanf(idinp, "%d", &N_bath_SBM);
+
+
+    cJSON *item;
+    
+    if ((item = cJSON_GetObjectItem(json, "N_bath_SBM"))) N_bath_SBM = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "bathtype"))) bathtype = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "eps_SBM"))) eps_SBM = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "delta_SBM"))) delta_SBM = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "alpha_SBM"))) alpha_SBM = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "lambda_SBM"))) lambda_SBM = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "omega_c_SBM"))) omega_c_SBM = item->valuedouble;
+
 
     Ndof1 = 1;
     Ndof2 = N_bath_SBM;
     Nstate = 2;
+
+
+    //debug
+    printf("N_bath_SBM: %d\n", N_bath_SBM);
+    printf("bathtype: %d\n", bathtype);
+    printf("eps_SBM: %f\n", eps_SBM);
+    printf("delta_SBM: %f\n", delta_SBM);
+    printf("alpha_SBM: %f\n", alpha_SBM);
+    printf("omega_c_SBM: %f\n", omega_c_SBM);
+
+    //debug
 }
 
 // Initialize model parameters

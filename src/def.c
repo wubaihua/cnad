@@ -7,7 +7,9 @@
 #include "gmath.h"
 #include <stdio.h>
 #include <math.h>
-
+#include "cJSON.h"
+#include "msmodel.h"
+#include <stdbool.h>
 
 
 int mpi_size, mpi_rank, mpi_ierr;
@@ -39,8 +41,8 @@ double *P_nuc_mean; // 3D double array: [size1][size2][size3]
 double *R2_nuc_mean; // 3D double array: [size1][size2][size3]
 double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
 
-char filepath[200]; // Path of Model input file
-char workpath[200];
+char *filepath; // Path of Model input file
+char *workpath;
 
 int Ndof1, Ndof2;
 int Nstate;
@@ -81,8 +83,6 @@ double *force_old; // 2D double array: [size1][size2]
 double complex *gamma_cv_old, *den_e_old; // 2D complex arrays: [size1][size2]
 double *nacv_old, *V_old, *dV_old, *E_adia_old, *dv_adia_old; // Various dimensional arrays
 
-#include <complex.h>
-#include <stdbool.h>
 
 // 动态分配的数组声明
 double *nac_check_old; // 4D double array: [size1][size2][size3][size4]
@@ -501,6 +501,41 @@ void initial_para() {
     allow_hop = 0;
 
     if_traceless_force = 0;
+}
+
+
+
+void readinp_para(cJSON *json){
+    cJSON *item;
+    if ((item = cJSON_GetObjectItem(json, "beta"))) beta = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "Ntraj"))) Ntraj = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "dt"))) dt = item->valuedouble;
+    if ((item = cJSON_GetObjectItem(json, "ttot"))) ttot = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "Nbreak"))) Nbreak = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "method"))) strcpy(method, item->valuestring);
+    if ((item = cJSON_GetObjectItem(json, "init_occ"))) init_occ = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "rep"))) rep = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "outputtype"))) outputtype = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "forcetype"))) forcetype = item->valueint;
+    if ((item = cJSON_GetObjectItem(json, "calforcetype"))) calforcetype = item->valueint;
+    // if ((item = cJSON_GetObjectItem(json, "nproc_sw"))) nproc_sw = item->valueint;
+
+    //debug
+    printf("beta: %f\n", beta);
+    printf("Ntraj: %d\n", Ntraj);
+    printf("dt: %f\n", dt);
+    printf("ttot: %d\n", ttot);
+    printf("Nbreak: %d\n", Nbreak);
+    printf("method: %s\n", method);
+    printf("init_occ: %d\n", init_occ);
+    printf("rep: %d\n", rep);
+    printf("outputtype: %d\n", outputtype);
+    printf("forcetype: %d\n", forcetype);
+    printf("calforcetype: %d\n", calforcetype);
+    // printf("nproc_sw: %d\n", nproc_sw);
+
+    //debug
+
 }
 
 
