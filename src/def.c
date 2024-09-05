@@ -9,6 +9,7 @@
 #include <math.h>
 
 
+
 int mpi_size, mpi_rank, mpi_ierr;
 
 // Dynamically allocated arrays
@@ -367,8 +368,6 @@ int allow_hop;
 
 int if_traceless_force;
 
-int forcetype;// should be removed!!!!!!!!!!!!!!!!!!!!
-char msmodelname[200]; // should be removed!!!!!!!!!!!!!!!!!!!!
 
 
 void initial_para() {
@@ -1656,13 +1655,13 @@ void energy_conserve_naf_3(double deltat) {
 void evo_traj_algorithm1(double deltat) {
     evo_traj_nucP(deltat / 2);
     if (scaleenergy_type == 3) energy_conserve_naf_3(deltat / 2);
-    if (strcmp(trim(adjustl(msmodelname)), "LZ") == 0) {
-        memcpy(P_nuc, Pinit_LZ, sizeof(double));
-    }
+    // if (strcmp(trim(adjustl(msmodelname)), "LZ") == 0) {
+    //     memcpy(P_nuc, Pinit_LZ, sizeof(double));
+    // }
     evo_traj_nucR(deltat);
-    dV_msmodel(R_nuc, dV);
-    V_msmodel(R_nuc, V, t_now);
-    if (rep == 1) cal_NACV();
+    // dV_msmodel(R_nuc, dV);
+    // V_msmodel(R_nuc, V, t_now);
+    // if (rep == 1) cal_NACV();
     evo_traj_ele(deltat);
     cal_force();
     evo_traj_nucP(deltat / 2);
@@ -1723,3 +1722,329 @@ void evo_traj_back() {
     // }
 }
 
+
+void cal_force() {
+    int iref, i, j;
+    double frdm, x2;
+
+    // force = 0.0;
+    memset(force,0,Ndof1*Ndof2*sizeof(double));
+
+    if (strcmp(trim(adjustl(method)), "FSSH") == 0 || strcmp(trim(adjustl(method)), "fssh") == 0) {
+        // cal_force_fssh();
+        // force = -dv_adia[id_state][id_state];
+    } else {
+        // if (if_ref == 1) {
+        //     cal_force_mf_ref();
+        // } else if (if_1st > 0) {
+        //     cal_force_mf_1st();
+        // } else if (ifmsbranch > 0) {
+        //     cal_force_msbranch();
+        // } else if (ifswitchforce == 1) {
+        //     cal_force_switch();
+        // } else if (ifswitchforce == 2) {
+        //     cal_force_switch2();
+        // } else if (ifswitchforce == 3) {
+        //     cal_force_switch();
+        // } else if (ifswitchforce == 4) {
+        //     cal_force_switch4();
+        // } else if (ifswitchforce == 5) {
+        //     cal_force_switch5();
+        // } else if (ifswitchforce == 6) {
+        //     cal_force_switch6();
+        // } else if (ifswitchforce == 7) {
+        //     cal_force_switch7();
+        // } else if (ifswitchforce == 8) {
+        //     cal_force_switch8();
+        // } else if (ifmashforce > 0) {
+        //     cal_force_mashforce();
+        // } else {
+            cal_force_mf();
+        // }
+    }
+
+    if (forcetype == 1) {
+        // nucforce_msmodel(R_nuc, force_nuc);
+        force -= force_nuc;
+        // if (if_ref == 1) {
+        //     for (iref = 1; iref <= Nref; iref++) {
+        //         nucforce_msmodel(R_nuc_ref[iref], force_nuc_ref[iref]);
+        //         force_ref[iref] -= force_nuc_ref[iref];
+        //     }
+        // }
+    }
+}
+
+
+
+void cal_force_mf() {
+    int i, j, k;
+    double force_trace[Ndof1 * Ndof2];
+
+    if (if_traceless_force == 1) {
+        // for (i = 0; i < Ndof1 * Ndof2; i++) {
+        //     force_trace[i] = 0;
+        // }
+        memset(force_trace,0,Ndof1*Ndof2*sizeof(double));
+        for (i = 0; i < Nstate; i++) {
+            for (j = 0; j < Ndof1 * Ndof2; j++) {
+                force_trace[j] += dV[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + j] / Nstate;
+            }
+        }
+        for (j = 0; j < Ndof1 * Ndof2; j++) {
+            for (i = 0; i < Nstate; i++) {
+                dV[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + j] -= force_trace[j];
+            }
+            force[j] = -force_trace[j];
+        }
+        // for (j = 0; j < Ndof1 * Ndof2; j++) {
+        //     force[j] = -force_trace[j];
+        // }
+    }
+
+    switch (type_evo) {
+        case 0:
+        case 2:
+            if (rep == 0) {
+                if (calforcetype == 1) {
+                    for (i = 0; i < Nstate; i++) {
+                        for (j = 0; j < Ndof1 * Ndof2; j++) {
+                            force[j] -= dV[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + j] * ((xe[i] * xe[i] + pe[i] * pe[i]) * 0.5 - creal(gamma_cv[i * Nstate + i]));
+                        }
+                    }
+                } else {
+                    for (i = 0; i < Nstate; i++) {
+                        for (j = 0; j < Nstate; j++) {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= dV[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k] * ((xe[i] * xe[j] + pe[i] * pe[j]) * 0.5 - creal(gamma_cv[i * Nstate + j]));
+                            }
+                        }
+                    }
+                }
+            } else if (rep == 1) {
+                for (i = 0; i < Nstate; i++) {
+                    for (j = 0; j < Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= (0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) - creal(gamma_cv[i * Nstate + i])) * dv_adia[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + k];
+                            }
+                        } else {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= (0.5 * (xe[i] * xe[j] + pe[i] * pe[j]) - creal(gamma_cv[i * Nstate + j])) * (E_adia[j] - E_adia[i]) * nac[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k];
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        case 1:
+            if (rep == 0) {
+                if (calforcetype == 1) {
+                    for (i = 0; i < Nstate; i++) {
+                        for (j = 0; j < Ndof1 * Ndof2; j++) {
+                            force[j] -= dV[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + j] * creal(den_e[i * Nstate + i] - gamma_cv[i * Nstate + i]);
+                        }
+                    }
+                } else {
+                    for (i = 0; i < Nstate; i++) {
+                        for (j = 0; j < Nstate; j++) {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= dV[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k] * creal(den_e[i * Nstate + j] - gamma_cv[i * Nstate + j]);
+                            }
+                        }
+                    }
+                }
+            } else if (rep == 1) {
+                for (i = 0; i < Nstate; i++) {
+                    for (j = 0; j < Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= creal(den_e[i * Nstate + i] - gamma_cv[i * Nstate + i]) * dv_adia[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + k];
+                            }
+                        } else {
+                            for (k = 0; k < Ndof1 * Ndof2; k++) {
+                                force[k] -= creal(den_e[i * Nstate + j] - gamma_cv[i * Nstate + j]) * (E_adia[j] - E_adia[i]) * nac[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k];
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        // case 3:
+        //     if (rep == 0) {
+        //         if (calforcetype == 1) {
+        //             for (i = 0; i < Nstate; i++) {
+        //                 for (j = 0; j < Ndof1 * Ndof2; j++) {
+        //                     force[j] -= dV[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + j] * creal(den_e4nuc[i * Nstate + i]);
+        //                 }
+        //             }
+        //         } else {
+        //             for (i = 0; i < Nstate; i++) {
+        //                 for (j = 0; j < Nstate; j++) {
+        //                     for (k = 0; k < Ndof1 * Ndof2; k++) {
+        //                         force[k] -= dV[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k] * creal(den_e4nuc[i * Nstate + j]);
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     } else if (rep == 1) {
+        //         for (i = 0; i < Nstate; i++) {
+        //             for (j = 0; j < Nstate; j++) {
+        //                 if (i == j) {
+        //                     for (k = 0; k < Ndof1 * Ndof2; k++) {
+        //                         force[k] -= creal(den_e4nuc[i * Nstate + i]) * dv_adia[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + k];
+        //                     }
+        //                 } else {
+        //                     for (k = 0; k < Ndof1 * Ndof2; k++) {
+        //                         force[k] -= creal(den_e4nuc[i * Nstate + j]) * (E_adia[j] - E_adia[i]) * nac[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k];
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     break;
+    }
+}
+
+
+void fileout() {
+    int i, totn;
+
+    if (if_allcf == 0) {
+        printf("output type= %d\n", outputtype);
+        if (outputtype == 0) {
+            printf("Density matrix will be given in *.den.\n");
+        } else if (outputtype > 0) {
+            printf("Both density matrix and population data will be given in *.den and *.pop, respectively.\n");
+        } else if (outputtype < 0) {
+            printf("Only population data will be given in *.pop.\n");
+        }
+    } else if (if_allcf == 1) {
+        printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
+    } else if (if_allcf == 2 || if_allcf == 3) {
+        printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
+    }
+
+    if (den != NULL) {
+        FILE *den_file = fopen(strcat(filepath, ".den"), "w");
+        totn = 2 * Nstate * Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(den_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E%18.8E", creal(den[j * Ngrid + i]), cimag(den[j * Ngrid + i]));
+            }
+            fprintf(den_file, "\n");
+        }
+        fclose(den_file);
+    }
+
+    if (population != NULL) {
+        FILE *pop_file = fopen(strcat(filepath, ".pop"), "w");
+        totn = Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(pop_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < Nstate; j++) {
+                fprintf(pop_file, "%18.8E", population[j * Ngrid + i]);
+            }
+            fprintf(pop_file, "\n");
+        }
+        fclose(pop_file);
+    }
+
+    if (if_st_nan == 1) {
+        printf("Number of failed trajectories will be given in *.nfailtraj\n");
+        FILE *nfailtraj_file = fopen(strcat(filepath, ".nfailtraj"), "w");
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(nfailtraj_file, "%18.8E %d\n", timegrid[i] / unittrans_t, N_nan_sum[i]);
+        }
+        fclose(nfailtraj_file);
+    }
+
+    if (if_st_fb == 1) {
+        printf("Population for forward/backward trajectories will be given in *.fbpop\n");
+        FILE *fbpop_file = fopen(strcat(filepath, ".fbpop"), "w");
+        totn = Nstate * 2 + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(fbpop_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < Nstate; j++) {
+                fprintf(fbpop_file, "%18.8E%18.8E", pop_fb[j * Ngrid * 2 + i * 2], pop_fb[j * Ngrid * 2 + i * 2 + 1]);
+            }
+            fprintf(fbpop_file, "\n");
+        }
+        fclose(fbpop_file);
+    }
+
+    // if (cfall != NULL) {
+    //     FILE *cf_file = fopen(strcat(filepath, ".cf"), "w");
+    //     totn = 2 * Nstate * Nstate * Nstate * Nstate + 1;
+    //     for (i = 0; i < Ngrid; i++) {
+    //         fprintf(cf_file, "%18.8E", time[i] / unittrans_t);
+    //         for (int j = 0; j < Nstate * Nstate * Nstate * Nstate; j++) {
+    //             fprintf(cf_file, "%18.8E%18.8E", creal(cfall[j * Ngrid + i]), cimag(cfall[j * Ngrid + i]));
+    //         }
+    //         fprintf(cf_file, "\n");
+    //     }
+    //     fclose(cf_file);
+    // }
+
+    if (cfeff != NULL) {
+        FILE *cfeff_file = fopen(strcat(filepath, ".cfeff"), "w");
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(cfeff_file, "%18.8E%18.8E%18.8E\n", timegrid[i] / unittrans_t, creal(cfeff[i]), cimag(cfeff[i]));
+        }
+        fclose(cfeff_file);
+    }
+
+    if (P_nuc_mean != NULL) {
+        FILE *Pmean_file = fopen(strcat(filepath, ".Pmean"), "w");
+        FILE *Rmean_file = fopen(strcat(filepath, ".Rmean"), "w");
+        totn = Ndof1 * Ndof2 + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(Pmean_file, "%18.8E", timegrid[i] / unittrans_t);
+            fprintf(Rmean_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < Ndof1 * Ndof2; j++) {
+                fprintf(Pmean_file, "%18.8E", P_nuc_mean[j * Ngrid + i]);
+                fprintf(Rmean_file, "%18.8E", R_nuc_mean[j * Ngrid + i]);
+            }
+            fprintf(Pmean_file, "\n");
+            fprintf(Rmean_file, "\n");
+        }
+        fclose(Pmean_file);
+        fclose(Rmean_file);
+
+        FILE *P2mean_file = fopen(strcat(filepath, ".P2mean"), "w");
+        FILE *R2mean_file = fopen(strcat(filepath, ".R2mean"), "w");
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(P2mean_file, "%18.8E", timegrid[i] / unittrans_t);
+            fprintf(R2mean_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < Ndof1 * Ndof2; j++) {
+                fprintf(P2mean_file, "%18.8E", P2_nuc_mean[j * Ngrid + i]);
+                fprintf(R2mean_file, "%18.8E", R2_nuc_mean[j * Ngrid + i]);
+            }
+            fprintf(P2mean_file, "\n");
+            fprintf(R2mean_file, "\n");
+        }
+        fclose(P2mean_file);
+        fclose(R2mean_file);
+    }
+
+    if (energy_est != NULL) {
+        FILE *energy_file = fopen(strcat(filepath, ".energy"), "w");
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(energy_file, "%18.8E %18.8E\n", timegrid[i] / unittrans_t, energy_est[i]);
+        }
+        fclose(energy_file);
+    }
+
+    if (count_st != NULL) {
+        FILE *count_file = fopen(strcat(filepath, ".count"), "w");
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(count_file, "%18.8E", timegrid[i] / unittrans_t);
+            for (int j = 0; j < 5; j++) {
+                fprintf(count_file, " %10d", count_st[j * Ngrid + i]);
+            }
+            fprintf(count_file, "\n");
+        }
+        fclose(count_file);
+    }
+}
