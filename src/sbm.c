@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <complex.h>
 #include "constant.h"
 #include "gmath.h"  // Assuming you have a math.h header for functions like box_muller
@@ -18,7 +19,7 @@ double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
 double *c_SBM, *omega_SBM;
 
 // Read the model type from the input file
-void readinp_SBM(cJSON *item, int Ndof1, int Ndof2, int Nstate) {
+void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate) {
     
 
     cJSON *list;
@@ -64,9 +65,9 @@ void readinp_SBM(cJSON *item, int Ndof1, int Ndof2, int Nstate) {
     
 
 
-    Ndof1 = 1;
-    Ndof2 = N_bath_SBM;
-    Nstate = 2;
+    *Ndof1 = 1;
+    *Ndof2 = N_bath_SBM;
+    *Nstate = 2;
 
 
     // //debug
@@ -76,19 +77,19 @@ void readinp_SBM(cJSON *item, int Ndof1, int Ndof2, int Nstate) {
     // printf("delta_SBM: %f\n", delta_SBM);
     // printf("alpha_SBM: %f\n", alpha_SBM);
     // printf("omega_c_SBM: %f\n", omega_c_SBM);
+    // printf("F: %d\n", Nstate);
 
     // //debug
 }
 
 // Initialize model parameters
 void parameter_SBM(double *mass) {
+
     for (int j = 0; j < N_bath_SBM; j++) {
         mass[j] = 1.0;
     }
-
-    c_SBM = (double *)malloc(N_bath_SBM * sizeof(double));
-    omega_SBM = (double *)malloc(N_bath_SBM * sizeof(double));
-
+    c_SBM = (double *)malloc(N_bath_SBM*sizeof(double));
+    omega_SBM = (double *)malloc(N_bath_SBM*sizeof(double));
     switch (bathtype) {
         case 1: // Ohmic, para=alpha
             for (int j = 0; j < N_bath_SBM; j++) {
@@ -116,6 +117,7 @@ void parameter_SBM(double *mass) {
 
 // Sample the initial conditionals for trajectories of the model
 void sample_SBM(double *P, double *R, double beta) {
+    
     double x2;
     for (int j = 0; j < N_bath_SBM; j++) {
         if (beta > 99999) {
@@ -124,6 +126,8 @@ void sample_SBM(double *P, double *R, double beta) {
         } else {
             box_muller(&P[j], &x2, sqrt(0.5 * hbar * omega_SBM[j] / tanh(0.5 * beta * hbar * omega_SBM[j])), 0.0);
             box_muller(&R[j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * omega_SBM[j]) * omega_SBM[j])), 0.0);
+            // P[j]=0,R[j]=0;   //debug 
+        
         }
     }
 }

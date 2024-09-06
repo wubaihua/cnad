@@ -8,6 +8,7 @@
 #include "gmath.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdio.h>
 
 // Generate two random numbers x1, x2 with Gaussian distribution N(miu, sigma)
 void box_muller(double *x1, double *x2, double sigma, double miu) {
@@ -157,10 +158,12 @@ double complex trace_comp(int n, double complex *A) {
 
 
 void dd_matmul(double *A, double *B, double *C, int nA, int nB, int nC){
+    
+    double sum;
     for(int i=0; i < nA; i++){
         for(int k=0; k<nC; k++){
-            double sum=0;
-            for(int j=0; k<nC; k++){
+            sum=0;
+            for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
             }
             C[i*nC+k]=sum;
@@ -172,13 +175,20 @@ void dd_matmul(double *A, double *B, double *C, int nA, int nB, int nC){
 
 
 void cc_matmul(double complex *A, double complex *B, double complex *C, int nA, int nB, int nC){
+    // if (A == NULL || B == NULL || C == NULL) {
+    //     fprintf(stderr, "Error: Null pointer passed to cc_matmul\n");
+    //     exit(EXIT_FAILURE);
+    // }
+
+    double complex sum;
     for(int i=0; i<nA; i++){
         for(int k=0; k<nC; k++){
-            double complex sum=0;
-            for(int j=0; k<nC; k++){
+            sum=0;
+            for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
             }
             C[i*nC+k]=sum;
+
         }
     }
 }
@@ -186,10 +196,11 @@ void cc_matmul(double complex *A, double complex *B, double complex *C, int nA, 
 
 
 void dc_matmul(double *A, double complex *B, double complex *C, int nA, int nB, int nC){
+    double complex sum;
     for(int i=0; i<nA; i++){
         for(int k=0; k<nC; k++){
-            double complex sum=0;
-            for(int j=0; k<nC; k++){
+            sum=0;
+            for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
             }
             C[i*nC+k]=sum;
@@ -198,10 +209,11 @@ void dc_matmul(double *A, double complex *B, double complex *C, int nA, int nB, 
 }
 
 void cd_matmul(double complex *A, double *B, double complex *C, int nA, int nB, int nC){
+    double complex sum;
     for(int i=0; i<nA; i++){
         for(int k=0; k<nC; k++){
-            double complex sum=0;
-            for(int j=0; k<nC; k++){
+            sum=0;
+            for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
             }
             C[i*nC+k]=sum;

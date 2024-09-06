@@ -30,7 +30,7 @@ double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
 double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
 double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
 double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
-int *mpi_N_nan_sum; // 1D int array: [size1]
+unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
 
 int *count_st; // 2D int array: [size1][size2]
 int *mpi_count_st; // 2D int array: [size1][size2]
@@ -162,7 +162,7 @@ char method[20];
 
 double dt, ttot, t_now;
 double *timegrid; // 1D double array: [size1]
-int Nbreak, Ngrid;
+long long Nbreak, Ngrid;
 long long Ntraj;
 
 char unit_t[20];
@@ -177,7 +177,7 @@ int ifoutputmpi;
 int sampletype;
 
 int if_st_nan;
-int *N_nan_sum; // 1D int array: [size1]
+unsigned long long *N_nan_sum; // 1D int array: [size1]
 
 int if_traj;
 
@@ -392,7 +392,7 @@ void initial_para() {
 
     sampletype = 0;
 
-    // forcetype = 0;
+    forcetype = 0;
 
     ifid = 0;
 
@@ -548,10 +548,11 @@ void readinp(){
         
         
     while (item) {
-        
+        // printf("F1=%d\n",Nstate);
 
-        readinp_msmodel(item, Ndof1, Ndof2, Nstate);
+        readinp_msmodel(item, &Ndof1, &Ndof2, &Nstate);
         
+        // printf("F2=%d\n",Nstate);
 
         if (NULL != cJSON_GetObjectItem(item, "beta")) {
             list = cJSON_GetObjectItem(item, "beta");
@@ -641,6 +642,8 @@ void readinp(){
     }
 
     cJSON_Delete(json);
+    // free(item);
+    // free(list);
     // printf("msmodelname: %s\n",msmodelname);
 
    
@@ -661,9 +664,10 @@ void readinp(){
 
 
 void initial_vari() {
-    int i, Ngrid;
+    int i;
 
     // 分配内存
+    
     R_nuc = (double *)malloc(Ndof1 * Ndof2 * sizeof(double));
     P_nuc = (double *)malloc(Ndof1 * Ndof2 * sizeof(double));
     mass = (double *)malloc(Ndof1 * Ndof2 * sizeof(double));
@@ -679,14 +683,14 @@ void initial_vari() {
     force_old = (double *)malloc(Ndof1 * Ndof2 * sizeof(double));
     V_old = (double *)malloc(Nstate * Nstate * sizeof(double));
     dV_old = (double *)malloc(Nstate * Nstate * Ndof1 * Ndof2 * sizeof(double));
-
+    
     propagator = (double complex *)malloc(Nstate * Nstate * sizeof(double complex ));
-    // propagator_switch = (double complex *)malloc(Nstate * Nstate * sizeof(double complex ));
-    // if (ifmodprop == 1) {
-    //     propagator_ref = (double complex *)malloc(Nstate * Nstate * sizeof(double complex ));
-    // }
+    propagator_switch = (double complex *)malloc(Nstate * Nstate * sizeof(double complex ));
+    if (ifmodprop == 1) {
+        propagator_ref = (double complex *)malloc(Nstate * Nstate * sizeof(double complex ));
+    }
 
-    Ngrid = (int)(ttot / dt) / Nbreak + 1;
+    Ngrid = (long long)(ttot / dt) / Nbreak + 1;
     timegrid = (double *)malloc(Ngrid * sizeof(double));
     if (if_allcf == 0) {
         if (outputtype >= 0) {
@@ -712,7 +716,7 @@ void initial_vari() {
         weight0 = (double *)malloc(Nstate * Nstate * sizeof(double));
         weightt = (double *)malloc(Nstate * Nstate * sizeof(double));
     }
-
+    
     if (if_st_eng == 1) {
         energy_est = (double *)malloc(Ngrid * sizeof(double));
     }
@@ -729,11 +733,11 @@ void initial_vari() {
     }
 
     correfun_t = (double complex *)malloc(Nstate * Nstate * sizeof(double complex));
-    memset(correfun_t, 0, Nstate * Nstate * sizeof(double));
-    gamma_cv = (double complex *)malloc(Nstate * Nstate * sizeof(double));
+    memset(correfun_t, 0, Nstate * Nstate * sizeof(double complex));
+    gamma_cv = (double complex *)malloc(Nstate * Nstate * sizeof(double complex));
     memset(gamma_cv, 0, Nstate * Nstate * sizeof(double complex));
     gamma_cv_old = (double complex *)malloc(Nstate * Nstate * sizeof(double complex));
-
+    
     // if (ifcv == 3) {
     //     commu_vari = (double *)malloc(Nstate * Nstate * sizeof(double));
     //     eig_cv = (double *)malloc(Nstate * sizeof(double));
@@ -745,6 +749,7 @@ void initial_vari() {
         if (if_inv_focus == 1) {
             inverse_kernel = (double  complex *)malloc(Nstate * Nstate * sizeof(double  complex ));
         }
+   
     // } else if (strcmp(method, "test") == 0) {
     //     // type_evo = 1;
     // } else if (strcmp(method, "DISH") == 0 || strcmp(method, "dish") == 0) {
@@ -913,6 +918,7 @@ void initial_vari() {
         //     G_xpconfg = (double *)malloc(Nstate * Nstate * sizeof(double));
         //     break;
     }
+    
     xe_cv = (double *)malloc(Nstate * sizeof(double));
     pe_cv = (double *)malloc(Nstate * sizeof(double));
     if (sampletype == 2) {
@@ -945,6 +951,7 @@ void initial_vari() {
         //     memset(tdc_BA, 0, Nstate * Nstate * sizeof(double));
         // }
     }
+    
     if (if_st_fb == 1) {
         pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
         memset(pop_fb, 0, Nstate * Ngrid * 2 * sizeof(double));
@@ -957,10 +964,12 @@ void initial_vari() {
             s[i] = s_start + i * (s_end - s_start) / s_N;
         }
     }
+   
     if (temperature != 0.0 && beta == 0.0) {
         beta = 1 / (kb * temperature);
         if (temperature < 1.0) beta = 10000000;
     }
+    
     if (ifrw > 0) {
         if (beta_rw < 0) {
             beta_rw = 1.0 / (kb * temperature_rw);
@@ -972,6 +981,7 @@ void initial_vari() {
     } else if (strcmp(unit_t, "fs") == 0) {
         unittrans_t = 1.0 / au_2_fs;
     }
+    
     ttot *= unittrans_t;
     dt *= unittrans_t;
 
@@ -989,13 +999,21 @@ void initial_vari() {
             P_nuc_oldtraj = (double *)malloc(Ndof1 * Ndof2 * Ngrid * sizeof(double));
         }
     }
+
+    // printf("111166\n");
     // if (if_engconsv == 1) {
     //     if (type_evo != 3) type_evo = 1;
     //     engconsv_adjmat = (double *)malloc(Nstate * Nstate * sizeof(double));
     // }
-    N_nan_sum = (int *)malloc(Ngrid * sizeof(int));
-    mpi_N_nan_sum = (int *)malloc(Ngrid * sizeof(int));
-    memset(N_nan_sum, 0, Ngrid * sizeof(int));
+    // printf("111166\n");
+    //  printf("Ngrid=%d\n",Ngrid);
+    // unsigned long long Ntemp=Ngrid;
+    N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    // printf("22266\n");
+    mpi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    // printf("333366\n");
+    memset(N_nan_sum, 0, Ngrid * sizeof(unsigned long long));
+    // printf("444466\n");
     if (ifswitchforce > 0) {
         if (rep == 0) {
             U_d2a = (double *)malloc(Nstate * Nstate * sizeof(double));
@@ -1004,6 +1022,8 @@ void initial_vari() {
             E_adia_old = (double *)malloc(Nstate * sizeof(double));
         }
     }
+
+    // printf("666666\n");
 
 }
 
@@ -1203,6 +1223,153 @@ void print_info(){
         printf("!@TestTestTestTestTestTest===test module===TestTestTestTestTestTest@!\n");
     }
 
+    printf("--------------------------------------------------------------------\n");
+        switch (ifcv) {
+            case 0:
+                // printf("ifcv=0: original version\n");
+                break;
+            case 1:
+                printf("ifcv=1: Commutator Variables will be used for adjustment\n");
+                printf("Related Publication: J. Phys. Chem. A 2021, 125(31), 6845-6863\n");
+                break;
+            case -1:
+                printf("ifcv=-1: time-independent ZPE adjustment will be used\n");
+                printf("Related Publication: J. Chem. Phys. 2019, 150, 194110\n");
+                break;
+            case 2:
+                printf("ifcv=2: Commutator Variables will be used for adjustment\n");
+                printf("But using GDTWA form\n");
+                break;
+            case -2:
+                printf("ifcv=-2: time-independent ZPE adjustment will be used\n");
+                printf("But using GDTWA form\n");
+                break;
+        }
+        printf("--------------------------------------------------------------------\n");
+        switch (type_evo) {
+            case 1:
+                printf("type_evo=1: using density form for evolution\n");
+                break;
+            case 2:
+                printf("type_evo=2: x,p and den_e\n");
+                break;
+            case 3:
+                printf("type_evo=3: den_e and den_e4nuc\n");
+                break;
+            case 4:
+                printf("type_evo=4: x,p and G\n");
+                break;
+            case 5:
+                printf("type_evo=5: x_mb, p_mb\n");
+                break;
+        }
+
+        switch (if_ref) {
+            case 1:
+                printf("if_ref=1: Reference Twins Trajectory will be used\n");
+                break;
+        }
+        switch (ifBA) {
+            case 1:
+                printf("ifBA=1: Using approximated Baeck-An nonadiabatic coupling\n");
+                break;
+        }
+        printf("--------------------------------------------------------------------\n");
+        printf("Number of trajectories: %d\n", Ntraj);
+        if (strcmp(unit_t, "au") == 0) {
+            printf("total time: %f au\n", ttot);
+            printf("time step: %f au\n", dt);
+        } else {
+            printf("total time: %f %s = %f au\n", ttot / unittrans_t, unit_t, ttot);
+            printf("time step: %f %s = %f au\n", dt / unittrans_t, unit_t, dt);
+        }
+        printf("Nbreak: %d; number of grids: %d\n", Nbreak, Ngrid);
+        printf("beta= %f  (%f K)\n", beta, 1.0 / (kb * beta));
+        printf("=====================================================================\n");
+
+        if (calforcetype == 1) {
+            printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+            printf("         Warning:   Detected calforcetype = 1  \n");
+            printf("In this case, only diagonal nuclear force will be calculated.\n");
+            printf("It should only be used for the model whose electronic off-diagonal\n");
+            printf("elements are not depend on the nuclear DOFs. (e.g., spin-boson model\n");
+            printf("or site-exciton model)\n");
+            printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        }
+        if (if_st_nan == 1) {
+            printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!WARNING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+            printf("         Warning:   Detected if_st_nan = 1  \n");
+            printf("unfinished  \n");
+            printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        }
+        if (if_allcf == 1) {
+            printf("if_allcf = 1: All time correlation functions will be calculated.\n");
+        } else if (if_allcf == 2) {
+            printf("if_allcf = %d: All time correlation functions will be calculated,\n", if_allcf);
+            printf("But only a weighted effective time correlation function will be saved.\n");
+        }
+        if (mean_nuc == 1) {
+            printf("mean_nuc = 1: Output mean nuclear DOFs.\n");
+        }
+        if (if_st_eng == 1) {
+            printf("if_st_eng = 1: estimate total energy \n");
+        }
+        if (if_engconsv == 1) {
+            printf("if_engconsv = 1: Adjustment for Energy Conservation \n");
+        }
+        if (iflbd > 0) {
+            printf("iflbd = %d: Lindblad equation for evolution\n", iflbd);
+            printf("rate parameter= %f\n", rate_para_lbd);
+        }
+        if (ifmfsh > 0) {
+            printf("ifmfsh = %d: mean-field surface hopping\n", ifmfsh);
+            printf("memory length = %d\n", memorylength);
+        }
+        if (ifrw > 0) {
+            printf("ifrw = %d: rewighting adjustment \n", ifrw);
+            printf("beta_rw= %f  (%f K)\n", beta_rw, 1.0 / (kb * beta_rw));
+        }
+        if (typeevo_ele > 0) {
+            printf("typeevo_ele= %d\n", typeevo_ele);
+        }
+        if (type_prop_adia > 0) {
+            printf("type_prop_adia= %d\n", type_prop_adia);
+        }
+        if (ifmsbranch > 0) {
+            printf("msbranch, ifmsbranch= %d\n", ifmsbranch);
+        }
+        if (ifswitchforce > 0) {
+            printf("ifswitchforce= %d\n", ifswitchforce);
+            printf("ifreflp= %d\n", ifreflp);
+            if (ifscalegamma == 1) printf("scale gamma to %f\n", gamma_rescale);
+            printf("direction for adjustment P: %d\n", direc_padj);
+        }
+        if (ifmashforce > 0) {
+            printf("ifmashforce= %d\n", ifmashforce);
+            printf("ifreflp= %d\n", ifreflp);
+            if (ifscalegamma == 1) printf("scale gamma to %f\n", gamma_rescale);
+            printf("direction for adjustment P: %d\n", direc_padj);
+        }
+        if (ifscaleenergy > 0) {
+            printf("ifscaleenergy= %d\n", ifscaleenergy);
+        }
+        if (ifcount == 1) {
+            printf("ifcount= %d\n", ifcount);
+        }
+        if (ifzpecorr > 0) {
+            printf("ZPE correction, ifzpecorr= %d\n", ifzpecorr);
+        }
+        if (iflangevin == 1) {
+            printf("Using Langevin dynamics, eta= %f\n", eta_langevin);
+        }
+        printf("index of algorithm: %d\n", type_algorithm);
+        if (type_algorithm == 5) printf("n_step_algo5= %d\n", n_step_algo5);
+        if (allow_hop != 0) {
+            printf("allow_hop= %d\n", allow_hop);
+        }
+        if (if_traceless_force != 0) {
+            printf("if_traceless_force= %d\n", if_traceless_force);
+        }
 
 }
 
@@ -1244,10 +1411,16 @@ void sample_ele() {
             action[i] = 0;
         }
         action[init_occ-1] = 1;
+    //    printf("%f,%f\n",action[0],action[1],action[0],action[1]);
+    //    printf("%f,%f\n",sqrt(2 * action[i]),cos(theta[i]));
+    //    printf("%d\n",Nstate);
         for (i = 0; i < Nstate; i++) {
             xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
+            // printf("%f,%d\n",xe[i],i);
             pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
+            // printf("%f,%d\n",pe[i],i);
         }
+        // printf("%f,%f,%f,%f\n",xe[0],xe[1],pe[0],pe[1]);
         memset(gamma_cv,0,Nstate*Nstate*sizeof(double complex));
         correfun_0 = 0.5 * (xe[init_occ-1] * xe[init_occ-1] + pe[init_occ-1] * pe[init_occ-1]);
 
@@ -1409,30 +1582,31 @@ void evo_traj_ele(double deltat) {
     double x0_mb[2 * (Nstate - 1)], p0_mb[2 * (Nstate - 1)];
     double complex propagator_unsmash[2 * 2 * (Nstate - 1)];
     int i;
+    double complex tempv1[Nstate],tempv2[Nstate];
     double complex tempcm1[Nstate*Nstate],tempcm2[Nstate*Nstate];
     // if (U_d2a_old != NULL) memcpy(U_d2a_old, U_d2a, sizeof(U_d2a));
-    printf("11111\n");
+    // printf("11111\n");
     switch (type_evo) {
-        case 0:{
-            printf("11111\n");
+        case 0:
+            
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
             // if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
             memcpy(x0, xe, Nstate * sizeof(double));
             memcpy(p0, pe, Nstate * sizeof(double));
             // matmul_real_imag(Nstate, propagator, x0, p0, xe, pe);
-            printf("22222\n");
-            double complex tempv1[Nstate],tempv2[Nstate];
+            // printf("22222\n");
+            
             cd_matmul(propagator,x0,tempv1,Nstate,Nstate,1);
             cd_matmul(propagator,p0,tempv2,Nstate,Nstate,1);
-            printf("33333\n");
+            
             for(i=0;i<Nstate;i++){
                 xe[i]=creal(tempv1[i])-cimag(tempv2[i]);
                 pe[i]=creal(tempv2[i])+cimag(tempv1[i]);
             }
-            printf("444444\n");
-            // break;
-        }
-        case 1:{
+           
+            break;
+        
+        case 1:
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
             // if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
             // matmul_complex(Nstate, propagator, den_e, den_e);
@@ -1444,7 +1618,7 @@ void evo_traj_ele(double deltat) {
             //     matmul_complex(Nstate, propagator, inverse_kernel, inverse_kernel);
             // }
             // break;
-        }
+        
             
         // case 2:
         //     if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
@@ -1572,6 +1746,8 @@ void evo_traj_calProp(int igrid_cal) {
         N_nan_sum[igrid_cal] = N_nan_sum[igrid_cal];
     }
 
+    // printf("ii=%d\n",igrid_cal);
+
     if (den != NULL) {
         if (strcmp(trim(adjustl(method)), "gauss") == 0 || strcmp(trim(adjustl(method)), "genLSC") == 0 || strcmp(trim(adjustl(method)), "genlsc") == 0) {
             if (ifid == 0) {
@@ -1603,31 +1779,31 @@ void evo_traj_calProp(int igrid_cal) {
         for (i = 0; i < Nstate; i++) {
             if (strcmp(trim(adjustl(method)), "gauss") == 0 || strcmp(trim(adjustl(method)), "genLSC") == 0 || strcmp(trim(adjustl(method)), "genlsc") == 0) {
                 if (ifid == 0) {
-                    population[i + igrid_cal * Nstate] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                    population[i * Ngrid  + igrid_cal] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                     if (if_st_fb == 1) {
                         if (P_nuc[0] > 0) {
-                            pop_fb[i * 2 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                            pop_fb[i * Ngrid *2  + igrid_cal*2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                         } else {
-                            pop_fb[i * 2 + 1 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                            pop_fb[i * Ngrid *2  + igrid_cal*2 + 1] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                         }
                     }
                 } else if (ifid == 1) {
-                    population[i + igrid_cal * Nstate] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
+                    population[i * Ngrid  + igrid_cal] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
                     if (if_st_fb == 1) {
                         if (P_nuc[0] > 0) {
-                            pop_fb[i * 2 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
+                            pop_fb[i * Ngrid *2  + igrid_cal*2] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
                         } else {
-                            pop_fb[i * 2 + 1 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
+                            pop_fb[i * Ngrid *2  + igrid_cal*2 + 1] += creal(correfun_0 * correfun_t[i * Nstate + i]) + 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
                         }
                     }
                 }
             } else {
-                population[i + igrid_cal * Nstate] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                population[i * Ngrid  + igrid_cal] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                 if (if_st_fb == 1) {
                     if (P_nuc[0] > 0) {
-                        pop_fb[i * 2 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                        pop_fb[i * Ngrid *2  + igrid_cal*2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                     } else {
-                        pop_fb[i * 2 + 1 + igrid_cal * Nstate * 2] += creal(correfun_0 * correfun_t[i * Nstate + i]);
+                        pop_fb[i * Ngrid *2  + igrid_cal*2 + 1] += creal(correfun_0 * correfun_t[i * Nstate + i]);
                     }
                 }
             }
@@ -1823,8 +1999,8 @@ void evo_traj_algorithm1(double deltat) {
     evo_traj_nucR(deltat);
 
    
-    // dV_msmodel(R_nuc, dV, forcetype);
-    // V_msmodel(R_nuc, V, t_now);
+    dV_msmodel(R_nuc, dV);
+    V_msmodel(R_nuc, V, t_now);
     // if (rep == 1) cal_NACV();
     evo_traj_ele(deltat);
     
@@ -1926,11 +2102,11 @@ void evo_traj_new(int itraj) {
     nstep = (int)(ttot / dt);
 
     V_msmodel(R_nuc, V, 0.0);
-    dV_msmodel(R_nuc, dV, forcetype);
+    dV_msmodel(R_nuc, dV);
     // if (rep == 1) cal_NACV();
 
     i_re = Nbreak;
-    igrid = 1;
+    igrid = 0;
 
     if (ifscaleenergy > 0) {
         E_conserve = 0.0;
@@ -1977,7 +2153,7 @@ void evo_traj_new(int itraj) {
 
         switch (type_algorithm) {
             case 1:
-            printf('1111');
+            
                 evo_traj_algorithm1(dt_evo);
                 break;
             // case 2:
@@ -2317,12 +2493,12 @@ void fileout() {
     }
 
     if (population != NULL) {
-        FILE *pop_file = fopen(strcat(filepath, ".pop"), "w");
+        FILE *pop_file = fopen(strcat(filepath, ".pop"), "w+");
         totn = Nstate + 1;
         for (i = 0; i < Ngrid; i++) {
             fprintf(pop_file, "%18.8E", timegrid[i] / unittrans_t);
             for (int j = 0; j < Nstate; j++) {
-                fprintf(pop_file, "%18.8E", population[j * Ngrid + i]);
+                fprintf(pop_file, "%18.8E", population[j*Ngrid+i]);
             }
             fprintf(pop_file, "\n");
         }

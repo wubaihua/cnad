@@ -28,7 +28,7 @@ extern double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
-extern int *mpi_N_nan_sum; // 1D int array: [size1]
+extern unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
 
 extern int *count_st; // 2D int array: [size1][size2]
 extern int *mpi_count_st; // 2D int array: [size1][size2]
@@ -145,7 +145,7 @@ extern double beta, temperature;
 extern char method[20];
 extern double dt, ttot, t_now;
 extern double *timegrid; // 1D double array: [size1]
-extern int Nbreak, Ngrid;
+extern long long Nbreak, Ngrid;
 extern long long Ntraj;
 extern char unit_t[20];
 extern double unittrans_t;
@@ -154,7 +154,7 @@ extern int calforcetype;
 extern int ifoutputmpi;
 extern int sampletype;
 extern int if_st_nan;
-extern int *N_nan_sum; // 1D int array: [size1]
+extern unsigned long long *N_nan_sum; // 1D int array: [size1]
 extern int if_traj;
 extern int type_phase;
 extern int type_ad_fssh;
