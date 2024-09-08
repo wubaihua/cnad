@@ -62,6 +62,7 @@ void nucforce_msmodel(double *R, double *nf){
     if (strcmp(trim(adjustl(msmodelname)), "SBM") == 0 ||
        strcmp(trim(adjustl(msmodelname)), "sbm") == 0) {
         nucforce_SBM(R, nf);
+        
     }
 }
 

@@ -1671,6 +1671,7 @@ void evo_traj_ele(double deltat) {
 
 void evo_traj_nucP(double deltat) {
     // 假设 P_nuc 和 force 是一维数组
+   
     for (int i = 0; i < Ndof1*Ndof2; i++) {
         P_nuc[i] += force[i] * deltat;
     }
@@ -1753,23 +1754,23 @@ void evo_traj_calProp(int igrid_cal) {
             if (ifid == 0) {
                 for (i = 0; i < Nstate; i++) {
                     for (j = 0; j < Nstate; j++) {
-                        den[i * Nstate + j + igrid_cal * Nstate * Nstate] += correfun_0 * correfun_t[i * Nstate + j];
+                        den[i * Nstate * Ngrid + j * Ngrid  + igrid_cal] += correfun_0 * correfun_t[i * Nstate + j];
                     }
                 }
             } else if (ifid == 1) {
                 for (i = 0; i < Nstate; i++) {
                     for (j = 0; j < Nstate; j++) {
-                        den[i * Nstate + j + igrid_cal * Nstate * Nstate] += correfun_0 * correfun_t[i * Nstate + j];
+                        den[i * Nstate * Ngrid + j * Ngrid  + igrid_cal] += correfun_0 * correfun_t[i * Nstate + j];
                     }
                 }
                 for (j = 0; j < Nstate; j++) {
-                    den[j * Nstate + j + igrid_cal * Nstate * Nstate] += 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
+                    den[j * Nstate * Ngrid + j * Ngrid + igrid_cal] += 1.0 / Nstate - 1.0 / (sigma2_lsc * sigma2_lsc * Nstate * Nstate);
                 }
             }
         } else {
             for (i = 0; i < Nstate; i++) {
                 for (j = 0; j < Nstate; j++) {
-                    den[i * Nstate + j + igrid_cal * Nstate * Nstate] += correfun_0 * correfun_t[i * Nstate + j];
+                    den[i * Nstate * Ngrid + j * Ngrid + igrid_cal] += correfun_0 * correfun_t[i * Nstate + j];
                 }
             }
         }
@@ -1988,6 +1989,8 @@ void energy_conserve_naf_3(double deltat) {
 }
 
 void evo_traj_algorithm1(double deltat) {
+
+    
     
     evo_traj_nucP(deltat / 2);
    
@@ -2092,7 +2095,7 @@ void evo_traj_new(int itraj) {
     // int nstep_small, istep_small;
     // double t_now_small;
     // bool alive;
-
+    
     if_bak = false;
     itime_save = 0;
 
@@ -2129,6 +2132,8 @@ void evo_traj_new(int itraj) {
                 break;
         }
     }
+
+    
 
     cal_force();
 
@@ -2282,6 +2287,7 @@ void cal_force() {
     double frdm, x2;
 
     // force = 0.0;
+    
     memset(force,0,Ndof1*Ndof2*sizeof(double));
 
     if (strcmp(trim(adjustl(method)), "FSSH") == 0 || strcmp(trim(adjustl(method)), "fssh") == 0) {
@@ -2316,10 +2322,12 @@ void cal_force() {
             cal_force_mf();
         // }
     }
-
+    
     if (forcetype == 1) {
-        // nucforce_msmodel(R_nuc, force_nuc);
-        force -= force_nuc;
+        nucforce_msmodel(R_nuc, force_nuc);
+        for(i=1;i<Ndof1*Ndof2;i++){
+            force[i] -= force_nuc[i];
+        }
         // if (if_ref == 1) {
         //     for (iref = 1; iref <= Nref; iref++) {
         //         nucforce_msmodel(R_nuc_ref[iref], force_nuc_ref[iref]);
@@ -2327,6 +2335,7 @@ void cal_force() {
         //     }
         // }
     }
+    
 }
 
 
@@ -2463,6 +2472,8 @@ void cal_force_mf() {
 
 void fileout() {
     int i, totn;
+    char outname[256];
+
 
     if (if_allcf == 0) {
         printf("output type= %d\n", outputtype);
@@ -2479,13 +2490,21 @@ void fileout() {
         printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
     }
 
+    size_t len = strlen(filepath);
+    
+
     if (den != NULL) {
-        FILE *den_file = fopen(strcat(filepath, ".den"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".den");
+        FILE *den_file = fopen(outname, "w");
         totn = 2 * Nstate * Nstate + 1;
         for (i = 0; i < Ngrid; i++) {
             fprintf(den_file, "%18.8E", timegrid[i] / unittrans_t);
             for (int j = 0; j < Nstate * Nstate; j++) {
-                fprintf(den_file, "%18.8E%18.8E", creal(den[j * Ngrid + i]), cimag(den[j * Ngrid + i]));
+                fprintf(den_file, "%18.8E", creal(den[j * Ngrid + i]));
+            }
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E", cimag(den[j * Ngrid + i]));
             }
             fprintf(den_file, "\n");
         }
@@ -2493,7 +2512,9 @@ void fileout() {
     }
 
     if (population != NULL) {
-        FILE *pop_file = fopen(strcat(filepath, ".pop"), "w+");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".pop");
+        FILE *pop_file = fopen(outname, "w");
         totn = Nstate + 1;
         for (i = 0; i < Ngrid; i++) {
             fprintf(pop_file, "%18.8E", timegrid[i] / unittrans_t);
@@ -2506,8 +2527,10 @@ void fileout() {
     }
 
     if (if_st_nan == 1) {
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".nfailtraj");
         printf("Number of failed trajectories will be given in *.nfailtraj\n");
-        FILE *nfailtraj_file = fopen(strcat(filepath, ".nfailtraj"), "w");
+        FILE *nfailtraj_file = fopen(outname, "w");
         for (i = 0; i < Ngrid; i++) {
             fprintf(nfailtraj_file, "%18.8E %d\n", timegrid[i] / unittrans_t, N_nan_sum[i]);
         }
@@ -2515,8 +2538,10 @@ void fileout() {
     }
 
     if (if_st_fb == 1) {
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".fbpop");
         printf("Population for forward/backward trajectories will be given in *.fbpop\n");
-        FILE *fbpop_file = fopen(strcat(filepath, ".fbpop"), "w");
+        FILE *fbpop_file = fopen(outname, "w");
         totn = Nstate * 2 + 1;
         for (i = 0; i < Ngrid; i++) {
             fprintf(fbpop_file, "%18.8E", timegrid[i] / unittrans_t);
@@ -2542,7 +2567,9 @@ void fileout() {
     // }
 
     if (cfeff != NULL) {
-        FILE *cfeff_file = fopen(strcat(filepath, ".cfeff"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5,".cfeff");
+        FILE *cfeff_file = fopen(outname, "w");
         for (i = 0; i < Ngrid; i++) {
             fprintf(cfeff_file, "%18.8E%18.8E%18.8E\n", timegrid[i] / unittrans_t, creal(cfeff[i]), cimag(cfeff[i]));
         }
@@ -2550,8 +2577,12 @@ void fileout() {
     }
 
     if (P_nuc_mean != NULL) {
-        FILE *Pmean_file = fopen(strcat(filepath, ".Pmean"), "w");
-        FILE *Rmean_file = fopen(strcat(filepath, ".Rmean"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".Pmean");
+        FILE *Pmean_file = fopen(outname, "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".Rmean");
+        FILE *Rmean_file = fopen(outname, "w");
         totn = Ndof1 * Ndof2 + 1;
         for (i = 0; i < Ngrid; i++) {
             fprintf(Pmean_file, "%18.8E", timegrid[i] / unittrans_t);
@@ -2566,8 +2597,12 @@ void fileout() {
         fclose(Pmean_file);
         fclose(Rmean_file);
 
-        FILE *P2mean_file = fopen(strcat(filepath, ".P2mean"), "w");
-        FILE *R2mean_file = fopen(strcat(filepath, ".R2mean"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".P2mean");
+        FILE *P2mean_file = fopen(outname, "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".R2mean");
+        FILE *R2mean_file = fopen(outname, "w");
         for (i = 0; i < Ngrid; i++) {
             fprintf(P2mean_file, "%18.8E", timegrid[i] / unittrans_t);
             fprintf(R2mean_file, "%18.8E", timegrid[i] / unittrans_t);
@@ -2583,7 +2618,9 @@ void fileout() {
     }
 
     if (energy_est != NULL) {
-        FILE *energy_file = fopen(strcat(filepath, ".energy"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".energy");
+        FILE *energy_file = fopen(outname, "w");
         for (i = 0; i < Ngrid; i++) {
             fprintf(energy_file, "%18.8E %18.8E\n", timegrid[i] / unittrans_t, energy_est[i]);
         }
@@ -2591,7 +2628,9 @@ void fileout() {
     }
 
     if (count_st != NULL) {
-        FILE *count_file = fopen(strcat(filepath, ".count"), "w");
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5,  ".count");
+        FILE *count_file = fopen(outname, "w");
         for (i = 0; i < Ngrid; i++) {
             fprintf(count_file, "%18.8E", timegrid[i] / unittrans_t);
             for (int j = 0; j < 5; j++) {

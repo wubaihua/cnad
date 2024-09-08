@@ -2,16 +2,16 @@
     "msmodelname":"sbm",
     "N_bath_SBM": 300, 
     "eps_SBM": 1,
-	"omega_c_SBM": 1,
+	"omega_c_SBM": 2.5,
     "delta_SBM": 1,
 	"rep": 0,
-    "alpha_SBM": 0,
+    "alpha_SBM": 0.4,
     "bathtype": 1,
     "beta": 5,
-    "ntraj": 100, "dt": 0.01,
+    "ntraj": 100,
+   	"dt": 0.01,
     "ttot": 15,
-    "nbreak": 1,"method": "mft",
+    "nbreak": 1, "method": "mft",
     "init_occ": 1,
-    "outputtype": -1,"forcetype": 0, "calforcetype": 1,
-    "nproc_sw": 30
+    "outputtype": 1,"forcetype": 0, "calforcetype": 1
 }

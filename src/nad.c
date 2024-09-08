@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
     //     cfweight_msmodel(weight0, weightt, beta);
     // }
 
-    
+   
     // tt2 = MPI_Wtime();
     if (mpi_rank == 0) {
         printf("Initializing model Finish, using time: %f\n", tt2 - tt1);
@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
 
     // tt1 = MPI_Wtime();
     // init_seed(mpi_rank);
-    
+     
     for (int itraj = 1; itraj <= Ntraj; itraj++) {
         // if (itraj % mpi_size == mpi_rank) {
             
@@ -139,28 +139,26 @@ int main(int argc, char *argv[]) {
     // // 继续MPI reduce和数据输出的代码转换
 
     if (mpi_rank == 0) {
-        // if (den != NULL) {
-        //     for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-        //         den[i] = real_rho[i] + I * imag_rho[i];
-        //     }
-        //     if (if_st_nan == 1) {
-        //         for (int igrid = 0; igrid < Ngrid; igrid++) {
-        //             for (int i = 0; i < Nstate * Nstate; i++) {
-        //                 den[igrid * Nstate * Nstate + i] /= (Ntraj - N_nan_sum[igrid]);
-        //             }
-        //         }
-        //     } else {
-        //         for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-        //             den[i] /= Ntraj;
-        //         }
-        //     }
-        //     if (strcmp(method, "sqc") == 0 || strcmp(method, "SQC") == 0) {
-        //         // Add specific method handling here
-        //     }
-        //     if (ifcorreden == 1) {
-        //         correct_den();
-        //     }
-        // }
+        if (den != NULL) {
+            // for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
+            //     den[i] = real_rho[i] + I * imag_rho[i];
+            // }
+            if (if_st_nan == 1) {
+                for (int igrid = 0; igrid < Ngrid; igrid++) {
+                    for (int i = 0; i < Nstate * Nstate; i++) {
+                        den[igrid * Nstate * Nstate + i] /= (Ntraj - N_nan_sum[igrid]);
+                    }
+                }
+            } else {
+                for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
+                    den[i] /= Ntraj;
+                }
+            }
+            
+            // if (ifcorreden == 1) {
+            //     correct_den();
+            // }
+        }
 
         if (population != NULL) {
             // if (if_st_nan == 1) {

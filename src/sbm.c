@@ -172,14 +172,15 @@ void dV_SBM(double *R, double *dH, int forcetype) {
     switch (forcetype) {
         case 0:
             for (int j = 0; j < N_bath_SBM; j++) {
-                dH[0*2*N_bath_SBM+0*N_bath_SBM+j] += c_SBM[j] + omega_SBM[j]* omega_SBM[j] * R[j];
-                dH[1*2*N_bath_SBM+1*N_bath_SBM+j] -= c_SBM[j] + omega_SBM[j]* omega_SBM[j] * R[j];
+                dH[0*2*N_bath_SBM+0*N_bath_SBM+j] = c_SBM[j]+omega_SBM[j]* omega_SBM[j] * R[j];
+                dH[1*2*N_bath_SBM+1*N_bath_SBM+j] = -c_SBM[j]+omega_SBM[j]* omega_SBM[j] * R[j];
+              
             }
             break;
         case 1:
             for (int j = 0; j < N_bath_SBM; j++) {
-                dH[0*2*N_bath_SBM+0*N_bath_SBM+j] += c_SBM[j];
-                dH[1*2*N_bath_SBM+1*N_bath_SBM+j] -= c_SBM[j];
+                dH[0*2*N_bath_SBM+0*N_bath_SBM+j] = c_SBM[j];
+                dH[1*2*N_bath_SBM+1*N_bath_SBM+j] = -c_SBM[j];
             }
             break;
         default:
@@ -193,6 +194,7 @@ void nucforce_SBM(double *R, double *nf) {
     for (int j = 0; j < N_bath_SBM; j++) {
         nf[j] = omega_SBM[j]* omega_SBM[j] * R[j];
     }
+    
 }
 
 // Compute the cfweight of the model
