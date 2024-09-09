@@ -29,6 +29,13 @@ extern double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
 extern unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
+extern double *mpi_real_den;
+extern double *mpi_imag_den;
+extern double *mpi_real_cfeff;
+extern double *mpi_imag_cfeff;
+
+
+
 
 extern int *count_st; // 2D int array: [size1][size2]
 extern int *mpi_count_st; // 2D int array: [size1][size2]
@@ -165,9 +172,12 @@ extern int if_Pdis, s_N;
 extern double s_start, s_end;
 extern double *s; // 1D double array: [size1]
 extern double *real_expisP; // 1D double array: [size1]
-extern double *img_expisP; // 1D double array: [size1]
+extern double *imag_expisP; // 1D double array: [size1]
 extern double complex *expisP; // 1D complex array: [size1]
 extern double complex *mpi_expisP; // 1D complex array: [size1]
+extern double *mpi_real_expisP;
+extern double *mpi_imag_expisP;
+
 extern double *R_nuc_ref; // 3D double array: [size1][size2][size3]
 extern double *P_nuc_ref; // 3D double array: [size1][size2][size3]
 extern double *xe_ref; // 2D double array: [size1][size2]

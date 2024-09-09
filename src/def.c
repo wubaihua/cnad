@@ -31,6 +31,11 @@ double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
 double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
 double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
 unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
+double *mpi_real_den;
+double *mpi_imag_den;
+double *mpi_real_cfeff;
+double *mpi_imag_cfeff;
+
 
 int *count_st; // 2D int array: [size1][size2]
 int *mpi_count_st; // 2D int array: [size1][size2]
@@ -195,9 +200,11 @@ int if_Pdis, s_N;
 double s_start, s_end;
 double *s; // 1D double array: [size1]
 double *real_expisP; // 1D double array: [size1]
-double *img_expisP; // 1D double array: [size1]
+double *imag_expisP; // 1D double array: [size1]
 double complex *expisP; // 1D complex array: [size1]
 double complex *mpi_expisP; // 1D complex array: [size1]
+double *mpi_real_expisP;
+double *mpi_imag_expisP;
 
 double *R_nuc_ref; // 3D double array: [size1][size2][size3]
 double *P_nuc_ref; // 3D double array: [size1][size2][size3]
@@ -2639,5 +2646,15 @@ void fileout() {
             fprintf(count_file, "\n");
         }
         fclose(count_file);
+    }
+
+    if (if_Pdis == 1) {   
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5,  ".expisp");
+        FILE *file = fopen(outname, "w");
+        for (int i = 0; i < s_N; i++) {
+            fprintf(file, "%f %f %f\n", s[i], real_expisP[i], imag_expisP[i]);
+        }
+        fclose(file);
     }
 }
