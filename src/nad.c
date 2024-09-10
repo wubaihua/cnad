@@ -119,18 +119,22 @@ int main(int argc, char *argv[]) {
             
         }
     }
-    // tt2 = MPI_Wtime();
-    // printf("MPI process %d using time: %f\n", mpi_rank, tt2 - tt1);
-    
+    tt2 = MPI_Wtime();
+    printf("MPI process %d using time: %f\n", mpi_rank, tt2 - tt1);
+    fflush(stdout);  // 强制刷新输出缓冲区
 
 
     // // 以下代码将依次转化为C语言，省略了大部分详细实现
-
+    // printf("Process %d before barrier\n", mpi_rank);
     MPI_Barrier(MPI_COMM_WORLD);
+    // printf("Process %d after barrier\n", mpi_rank);
 
     if (mpi_rank == 0) printf("Simulation Finish\n");
+    fflush(stdout);  // 强制刷新输出缓冲区
     if (mpi_rank == 0) printf("=====================================================================\n");
+    fflush(stdout);  // 强制刷新输出缓冲区
     if (mpi_rank == 0) printf("Outputting data ..\n");
+    fflush(stdout);  // 强制刷新输出缓冲区
     tt1 = MPI_Wtime();
 
     // if (ifoutputmpi == 1) {
@@ -140,9 +144,10 @@ int main(int argc, char *argv[]) {
 
     // // 继续MPI reduce和数据输出的代码转换
     mpi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
-    memcpy(mpi_N_nan_sum, N_nan_sum, sizeof(N_nan_sum));
-    MPI_Reduce(&N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    memcpy(mpi_N_nan_sum, N_nan_sum, Ngrid * sizeof(unsigned long long));
+    MPI_Reduce(N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     if (mpi_rank == 0) printf("Number of failed trajectories: %d\n", mpi_N_nan_sum[Ngrid-1]);
+    MPI_Barrier(MPI_COMM_WORLD);
 
     if (den != NULL) {
         mpi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
@@ -290,17 +295,17 @@ int main(int argc, char *argv[]) {
         }
 
         if (population != NULL) {
-            // if (if_st_nan == 1) {
-            //     for (int igrid = 0; igrid < Ngrid; igrid++) {
-            //         for (int i = 0; i < Nstate; i++) {
-            //             population[igrid * Nstate + i] /= (Ntraj - N_nan_sum[igrid]);
-            //         }
-            //     }
-            // } else {
+            if (if_st_nan == 1) {
+                for (int igrid = 0; igrid < Ngrid; igrid++) {
+                    for (int i = 0; i < Nstate; i++) {
+                        population[igrid * Nstate + i] /= (Ntraj - N_nan_sum[igrid]);
+                    }
+                }
+            } else {
                 for (int i = 0; i < Ngrid * Nstate; i++) {
                     population[i] /= Ntraj;
                 }
-            // }
+            }
             if (if_st_fb == 1) {
                 for (int i = 0; i < 2 * Ngrid * Nstate; i++) {
                     pop_fb[i] /= Ntraj;
