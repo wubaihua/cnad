@@ -29,7 +29,7 @@ void dynamics_slave(int run_size){
 
      
     for (int itraj = 1; itraj <= run_size; itraj++) {
-        if (itraj % run_size == slavecore_id) {
+        if (itraj % 64 == slavecore_id) {
             
             sample_msmodel(P_nuc, R_nuc, beta);
 
@@ -46,12 +46,15 @@ void dynamics_slave(int run_size){
            
             evo_traj_new(itraj);
 
-            // printf("%f\n",population[0 * Ngrid  + Ngrid -1 ]); // debug
-
+            
 
             
         }
     }
+
+
+    // printf("%f\n",population[0 * Ngrid  + Ngrid -1 ]); // debug
+
 
 
 
@@ -88,13 +91,16 @@ void data_transport(int id){
 
     if(slavecore_id == id){
         for (int i = 0; i < Ngrid; i++){
-        mpi_N_nan_sum[i] += N_nan_sum[i];
+            mpi_N_nan_sum[i] += N_nan_sum[i];
         }
 
         if (den != NULL) {
             
             for (int i = 0; i < Nstate * Nstate * Ngrid; i++){
-                mpi_den[i] += den[i];
+                // mpi_den[i] += den[i];
+                mpi_real_den[i] += creal(den[i]);
+                mpi_imag_den[i] += cimag(den[i]);
+
             }
         }
 
@@ -103,6 +109,15 @@ void data_transport(int id){
                 mpi_population[i] += population[i];
             }
         }
+
+
+
+
+
+        if(id==0){
+            memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));
+        }
+
         
     }
 

@@ -49,6 +49,7 @@ extern double *fi_real_den;
 extern double *fi_imag_den;
 extern double *fi_real_cfeff;
 extern double *fi_imag_cfeff;
+extern double *fi_time_grid;
 
 
 // int *count_st; // 2D int array: [size1][size2]
@@ -400,7 +401,7 @@ void init_host();
 
 void print_info();
 
-// void fileout() ;
+void fileout() ;
 
 
 

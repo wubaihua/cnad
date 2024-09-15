@@ -51,6 +51,7 @@ double *fi_real_den;
 double *fi_imag_den;
 double *fi_real_cfeff;
 double *fi_imag_cfeff;
+double *fi_time_grid;
 
 
 // int *count_st; // 2D int array: [size1][size2]
@@ -694,13 +695,21 @@ void readinp(){
 
 
 void init_host(){
+
+    fi_time_grid = (double *)malloc(Ngrid * sizeof(double));
+
     mpi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     memset(mpi_N_nan_sum, 0, Ngrid * sizeof(unsigned long long));
     
     if (if_allcf == 0) {
         if (outputtype >= 0) {
-        mpi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
-        memset(mpi_den, 0, Nstate * Nstate * Ngrid * sizeof(double complex));     
+        // mpi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
+        // memset(mpi_den, 0, Nstate * Nstate * Ngrid * sizeof(double complex));
+
+        mpi_real_den = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
+        mpi_imag_den = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));  
+        memset(mpi_real_den, 0, Nstate * Nstate * Ngrid * sizeof(double));
+        memset(mpi_imag_den, 0, Nstate * Nstate * Ngrid * sizeof(double));   
         }
 
         if (outputtype != 0){
@@ -709,6 +718,10 @@ void init_host(){
         }
         
     }
+
+
+
+
 
    
 
@@ -1066,61 +1079,61 @@ void print_info(){
 
 
 
-// void fileout() {
-//     int i, totn;
-//     char outname[256];
+void fileout() {
+    int i, totn;
+    char outname[256];
 
 
-//     if (if_allcf == 0) {
-//         printf("output type= %d\n", outputtype);
-//         if (outputtype == 0) {
-//             printf("Density matrix will be given in *.den.\n");
-//         } else if (outputtype > 0) {
-//             printf("Both density matrix and population data will be given in *.den and *.pop, respectively.\n");
-//         } else if (outputtype < 0) {
-//             printf("Only population data will be given in *.pop.\n");
-//         }
-//     } else if (if_allcf == 1) {
-//         printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
-//     } else if (if_allcf == 2 || if_allcf == 3) {
-//         printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
-//     }
+    if (if_allcf == 0) {
+        printf("output type= %d\n", outputtype);
+        if (outputtype == 0) {
+            printf("Density matrix will be given in *.den.\n");
+        } else if (outputtype > 0) {
+            printf("Both density matrix and population data will be given in *.den and *.pop, respectively.\n");
+        } else if (outputtype < 0) {
+            printf("Only population data will be given in *.pop.\n");
+        }
+    } else if (if_allcf == 1) {
+        printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
+    } else if (if_allcf == 2 || if_allcf == 3) {
+        printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
+    }
 
-//     size_t len = strlen(filepath);
+    size_t len = strlen(filepath);
     
 
-//     if (den != NULL) {
-//         strncpy(outname, filepath, len - 5);
-//         strcpy(outname + len - 5, ".den");
-//         FILE *den_file = fopen(outname, "w");
-//         totn = 2 * Nstate * Nstate + 1;
-//         for (i = 0; i < Ngrid; i++) {
-//             fprintf(den_file, "%18.8E", timegrid[i] / unittrans_t);
-//             for (int j = 0; j < Nstate * Nstate; j++) {
-//                 fprintf(den_file, "%18.8E", creal(den[j * Ngrid + i]));
-//             }
-//             for (int j = 0; j < Nstate * Nstate; j++) {
-//                 fprintf(den_file, "%18.8E", cimag(den[j * Ngrid + i]));
-//             }
-//             fprintf(den_file, "\n");
-//         }
-//         fclose(den_file);
-//     }
+    if (fi_den != NULL) {
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".den");
+        FILE *den_file = fopen(outname, "w");
+        totn = 2 * Nstate * Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(den_file, "%18.8E", fi_time_grid[i] / unittrans_t);
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E", creal(fi_den[j * Ngrid + i]));
+            }
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E", cimag(fi_den[j * Ngrid + i]));
+            }
+            fprintf(den_file, "\n");
+        }
+        fclose(den_file);
+    }
 
-//     if (population != NULL) {
-//         strncpy(outname, filepath, len - 5);
-//         strcpy(outname + len - 5, ".pop");
-//         FILE *pop_file = fopen(outname, "w");
-//         totn = Nstate + 1;
-//         for (i = 0; i < Ngrid; i++) {
-//             fprintf(pop_file, "%18.8E", timegrid[i] / unittrans_t);
-//             for (int j = 0; j < Nstate; j++) {
-//                 fprintf(pop_file, "%18.8E", population[j*Ngrid+i]);
-//             }
-//             fprintf(pop_file, "\n");
-//         }
-//         fclose(pop_file);
-//     }
+    if (fi_population != NULL) {
+        strncpy(outname, filepath, len - 5);
+        strcpy(outname + len - 5, ".pop");
+        FILE *pop_file = fopen(outname, "w");
+        totn = Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(pop_file, "%18.8E", fi_time_grid[i] / unittrans_t);
+            for (int j = 0; j < Nstate; j++) {
+                fprintf(pop_file, "%18.8E", fi_population[j*Ngrid+i]);
+            }
+            fprintf(pop_file, "\n");
+        }
+        fclose(pop_file);
+    }
 
 //     if (if_st_nan == 1) {
 //         strncpy(outname, filepath, len - 5);
@@ -1246,5 +1259,5 @@ void print_info(){
 //         }
 //         fclose(file);
 //     }
-// }
+}
 
