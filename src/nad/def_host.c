@@ -8,7 +8,7 @@
 #include "cJSON.h"
 #include "msmodel.h"
 #include <stdbool.h>
-
+#include <iofun.h>
 
 int mpi_size, mpi_rank, mpi_ierr;
 
@@ -33,6 +33,24 @@ double *mpi_real_den;
 double *mpi_imag_den;
 double *mpi_real_cfeff;
 double *mpi_imag_cfeff;
+
+
+
+
+double complex *fi_den; // 3D complex array: [size1][size2][size3]
+double complex *fi_cfall; // 5D complex array: [size1][size2][size3][size4][size5]
+double complex *fi_cfeff; // 1D complex array: [size1]
+double *fi_population; // 2D double array: [size1][size2]
+double *fi_pop_fb; // 3D double array: [size1][size2][size3]
+double *fi_R_nuc_mean; // 3D double array: [size1][size2][size3]
+double *fi_P_nuc_mean; // 3D double array: [size1][size2][size3]
+double *fi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
+double *fi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
+unsigned long long *fi_N_nan_sum; // 1D int array: [size1]
+double *fi_real_den;
+double *fi_imag_den;
+double *fi_real_cfeff;
+double *fi_imag_cfeff;
 
 
 // int *count_st; // 2D int array: [size1][size2]
@@ -675,7 +693,26 @@ void readinp(){
 
 
 
+void init_host(){
+    mpi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    memset(mpi_N_nan_sum, 0, Ngrid * sizeof(unsigned long long));
+    
+    if (if_allcf == 0) {
+        if (outputtype >= 0) {
+        mpi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
+        memset(mpi_den, 0, Nstate * Nstate * Ngrid * sizeof(double complex));     
+        }
 
+        if (outputtype != 0){
+            mpi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
+            memset(mpi_population,0, Nstate * Ngrid * sizeof(double));
+        }
+        
+    }
+
+   
+
+}
 
 
 void print_info(){
@@ -1024,4 +1061,190 @@ void print_info(){
 
 }
 
+
+
+
+
+
+// void fileout() {
+//     int i, totn;
+//     char outname[256];
+
+
+//     if (if_allcf == 0) {
+//         printf("output type= %d\n", outputtype);
+//         if (outputtype == 0) {
+//             printf("Density matrix will be given in *.den.\n");
+//         } else if (outputtype > 0) {
+//             printf("Both density matrix and population data will be given in *.den and *.pop, respectively.\n");
+//         } else if (outputtype < 0) {
+//             printf("Only population data will be given in *.pop.\n");
+//         }
+//     } else if (if_allcf == 1) {
+//         printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
+//     } else if (if_allcf == 2 || if_allcf == 3) {
+//         printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
+//     }
+
+//     size_t len = strlen(filepath);
+    
+
+//     if (den != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".den");
+//         FILE *den_file = fopen(outname, "w");
+//         totn = 2 * Nstate * Nstate + 1;
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(den_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < Nstate * Nstate; j++) {
+//                 fprintf(den_file, "%18.8E", creal(den[j * Ngrid + i]));
+//             }
+//             for (int j = 0; j < Nstate * Nstate; j++) {
+//                 fprintf(den_file, "%18.8E", cimag(den[j * Ngrid + i]));
+//             }
+//             fprintf(den_file, "\n");
+//         }
+//         fclose(den_file);
+//     }
+
+//     if (population != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".pop");
+//         FILE *pop_file = fopen(outname, "w");
+//         totn = Nstate + 1;
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(pop_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < Nstate; j++) {
+//                 fprintf(pop_file, "%18.8E", population[j*Ngrid+i]);
+//             }
+//             fprintf(pop_file, "\n");
+//         }
+//         fclose(pop_file);
+//     }
+
+//     if (if_st_nan == 1) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".nfailtraj");
+//         printf("Number of failed trajectories will be given in *.nfailtraj\n");
+//         FILE *nfailtraj_file = fopen(outname, "w");
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(nfailtraj_file, "%18.8E %d\n", timegrid[i] / unittrans_t, N_nan_sum[i]);
+//         }
+//         fclose(nfailtraj_file);
+//     }
+
+//     if (if_st_fb == 1) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".fbpop");
+//         printf("Population for forward/backward trajectories will be given in *.fbpop\n");
+//         FILE *fbpop_file = fopen(outname, "w");
+//         totn = Nstate * 2 + 1;
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(fbpop_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < Nstate; j++) {
+//                 fprintf(fbpop_file, "%18.8E%18.8E", pop_fb[j * Ngrid * 2 + i * 2], pop_fb[j * Ngrid * 2 + i * 2 + 1]);
+//             }
+//             fprintf(fbpop_file, "\n");
+//         }
+//         fclose(fbpop_file);
+//     }
+
+//     // if (cfall != NULL) {
+//     //     FILE *cf_file = fopen(strcat(filepath, ".cf"), "w");
+//     //     totn = 2 * Nstate * Nstate * Nstate * Nstate + 1;
+//     //     for (i = 0; i < Ngrid; i++) {
+//     //         fprintf(cf_file, "%18.8E", time[i] / unittrans_t);
+//     //         for (int j = 0; j < Nstate * Nstate * Nstate * Nstate; j++) {
+//     //             fprintf(cf_file, "%18.8E%18.8E", creal(cfall[j * Ngrid + i]), cimag(cfall[j * Ngrid + i]));
+//     //         }
+//     //         fprintf(cf_file, "\n");
+//     //     }
+//     //     fclose(cf_file);
+//     // }
+
+//     if (cfeff != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5,".cfeff");
+//         FILE *cfeff_file = fopen(outname, "w");
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(cfeff_file, "%18.8E%18.8E%18.8E\n", timegrid[i] / unittrans_t, creal(cfeff[i]), cimag(cfeff[i]));
+//         }
+//         fclose(cfeff_file);
+//     }
+
+//     if (P_nuc_mean != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".Pmean");
+//         FILE *Pmean_file = fopen(outname, "w");
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".Rmean");
+//         FILE *Rmean_file = fopen(outname, "w");
+//         totn = Ndof1 * Ndof2 + 1;
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(Pmean_file, "%18.8E", timegrid[i] / unittrans_t);
+//             fprintf(Rmean_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < Ndof1 * Ndof2; j++) {
+//                 fprintf(Pmean_file, "%18.8E", P_nuc_mean[j * Ngrid + i]);
+//                 fprintf(Rmean_file, "%18.8E", R_nuc_mean[j * Ngrid + i]);
+//             }
+//             fprintf(Pmean_file, "\n");
+//             fprintf(Rmean_file, "\n");
+//         }
+//         fclose(Pmean_file);
+//         fclose(Rmean_file);
+
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".P2mean");
+//         FILE *P2mean_file = fopen(outname, "w");
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".R2mean");
+//         FILE *R2mean_file = fopen(outname, "w");
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(P2mean_file, "%18.8E", timegrid[i] / unittrans_t);
+//             fprintf(R2mean_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < Ndof1 * Ndof2; j++) {
+//                 fprintf(P2mean_file, "%18.8E", P2_nuc_mean[j * Ngrid + i]);
+//                 fprintf(R2mean_file, "%18.8E", R2_nuc_mean[j * Ngrid + i]);
+//             }
+//             fprintf(P2mean_file, "\n");
+//             fprintf(R2mean_file, "\n");
+//         }
+//         fclose(P2mean_file);
+//         fclose(R2mean_file);
+//     }
+
+//     if (energy_est != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5, ".energy");
+//         FILE *energy_file = fopen(outname, "w");
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(energy_file, "%18.8E %18.8E\n", timegrid[i] / unittrans_t, energy_est[i]);
+//         }
+//         fclose(energy_file);
+//     }
+
+//     if (count_st != NULL) {
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5,  ".count");
+//         FILE *count_file = fopen(outname, "w");
+//         for (i = 0; i < Ngrid; i++) {
+//             fprintf(count_file, "%18.8E", timegrid[i] / unittrans_t);
+//             for (int j = 0; j < 5; j++) {
+//                 fprintf(count_file, " %10d", count_st[j * Ngrid + i]);
+//             }
+//             fprintf(count_file, "\n");
+//         }
+//         fclose(count_file);
+//     }
+
+//     if (if_Pdis == 1) {   
+//         strncpy(outname, filepath, len - 5);
+//         strcpy(outname + len - 5,  ".expisp");
+//         FILE *file = fopen(outname, "w");
+//         for (int i = 0; i < s_N; i++) {
+//             fprintf(file, "%f %f %f\n", s[i], real_expisP[i], imag_expisP[i]);
+//         }
+//         fclose(file);
+//     }
+// }
 

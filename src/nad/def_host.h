@@ -35,6 +35,22 @@ extern double *mpi_real_cfeff;
 extern double *mpi_imag_cfeff;
 
 
+extern double complex *fi_den; // 3D complex array: [size1][size2][size3]
+extern double complex *fi_cfall; // 5D complex array: [size1][size2][size3][size4][size5]
+extern double complex *fi_cfeff; // 1D complex array: [size1]
+extern double *fi_population; // 2D double array: [size1][size2]
+extern double *fi_pop_fb; // 3D double array: [size1][size2][size3]
+extern double *fi_R_nuc_mean; // 3D double array: [size1][size2][size3]
+extern double *fi_P_nuc_mean; // 3D double array: [size1][size2][size3]
+extern double *fi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
+extern double *fi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
+extern unsigned long long *fi_N_nan_sum; // 1D int array: [size1]
+extern double *fi_real_den;
+extern double *fi_imag_den;
+extern double *fi_real_cfeff;
+extern double *fi_imag_cfeff;
+
+
 // int *count_st; // 2D int array: [size1][size2]
 // int *mpi_count_st; // 2D int array: [size1][size2]
 // int *count_pertraj; // 1D int array: [size1]
@@ -380,6 +396,11 @@ extern int if_traceless_force;
 
 void initial_para();
 void readinp();
-
+void init_host();
 
 void print_info();
+
+// void fileout() ;
+
+
+

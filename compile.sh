@@ -4,8 +4,8 @@
 # 主核版本的静态库路径
 # 提供netlib的LAPACK标准版本 (in F77)，有C和C++接口。
 
-LAPACK_HOST_LIB=/home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/host/LAPACKE/include/
-LAPACK_HOST_LIB2=/home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/host/
+LAPACK_HOST_LIB=/home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/device/LAPACKE/include/
+LAPACK_HOST_LIB2=/home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/device/
 modpath=src/mod/
 modelpath=src/msmodel/
 
@@ -23,17 +23,21 @@ modelpath=src/msmodel/
 # mpifort -O3 -mhybrid demo.o run.o athread_get_id.o var.o  -L$LAPACK_HOST_LIB  -lcblasd -llapacked -llapackd -lrefblasd -lm -lm_slave -mieee -o test
 
 
-swgcc -c src/mod/cJSON.c -o cJSON.o
-swgcc -c src/mod/constant.c -o constant.o
-swgcc -c src/mod/gmath.c -o gmath.o -I$LAPACK_HOST_LIB -I$modpath
+swgcc -mhost -c src/mod/cJSON.c -o cJSON.o
+swgcc -mhost -c src/mod/constant.c -o constant.o
+swgcc -mslave -c src/mod/gmath.c -o gmath.o -I$LAPACK_HOST_LIB -I$modpath
+swgcc -mhost -c src/mod/iofun.c -o iofun.o -I$LAPACK_HOST_LIB -I$modpath
+swgcc -mslave -c src/mod/iofun_slave.c -o iofun_slave.o -I$LAPACK_HOST_LIB -I$modpath
 
-swgcc -c src/msmodel/sbm.c -o sbm.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
-swgcc -c src/msmodel/msmodelio.c -o msmodelio.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
-swgcc -c src/msmodel/msmodel.c -o msmodel.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+swgcc -mhost -c src/msmodel/msmodelio.c -o msmodelio.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+swgcc -mslave -c src/msmodel/sbm.c -o sbm.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 
-swgcc -c src/nad/def_host.c -o def_host.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
-swgcc -c src/nad/def.c -o def.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
-mpicc -c src/nad/nad.c -o nad.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+swgcc -mslave -c src/msmodel/msmodel.c -o msmodel.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 
-mpicc -O3  *.o  -L$LAPACK_HOST_LIB2  -llapacke -lcblas -llapack -lrefblas -lgfortran  -lm -mieee -o cnad
+swgcc -mslave -c src/nad/def.c -o def.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath -lm -lm_slave -lgfortran_slave
+swgcc -mslave -c src/nad/run_slave.c -o run_slave.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+swgcc -mhost -c src/nad/def_host.c -o def_host.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+mpicc -mhost -c src/nad/nad.c -o nad.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+
+mpicc -O3 -mhybrid  *.o  -L$LAPACK_HOST_LIB2  -llapacked -lcblasd -llapackd -lrefblasd -lm -lm_slave -lgfortran_slave -mieee -o cnad
 

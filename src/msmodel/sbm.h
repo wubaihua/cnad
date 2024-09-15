@@ -6,7 +6,7 @@
 #include "constant.h"
 #include "gmath.h"  // Assuming you have a math.h header for functions like box_muller
 #include <stdio.h>
-#include "cJSON.h"
+// #include "cJSON.h"
 #include "msmodelio.h"
 
 // Spin-Boson Model parameters
@@ -15,7 +15,7 @@
 // extern double *c_SBM, *omega_SBM;
 
 // Read the model type from the input file
-void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate);
+// void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate);
 // Initialize model parameters
 void parameter_SBM(double *mass);
 
