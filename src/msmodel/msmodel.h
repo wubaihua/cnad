@@ -10,12 +10,12 @@
 
 
 
-extern int forcetype;
-extern char msmodelname[200];
+// extern int forcetype;
+// extern char msmodelname[200];
 
 
 
-void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate) ;
+// void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate) ;
 
 void init_msmodel(double *mass);
 

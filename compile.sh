@@ -28,10 +28,12 @@ swgcc -c src/mod/constant.c -o constant.o
 swgcc -c src/mod/gmath.c -o gmath.o -I$LAPACK_HOST_LIB -I$modpath
 
 swgcc -c src/msmodel/sbm.c -o sbm.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
+swgcc -c src/msmodel/msmodelio.c -o msmodelio.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 swgcc -c src/msmodel/msmodel.c -o msmodel.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 
+swgcc -c src/nad/def_host.c -o def_host.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 swgcc -c src/nad/def.c -o def.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 mpicc -c src/nad/nad.c -o nad.o -I$LAPACK_HOST_LIB -I$modpath -I$modelpath
 
-mpicc -O3  *.o  -L$LAPACK_HOST_LIB2  -llapacke -lcblas -llapack -lrefblas -lgfortran  -lm -mieee -v -o cnad
+mpicc -O3  *.o  -L$LAPACK_HOST_LIB2  -llapacke -lcblas -llapack -lrefblas -lgfortran  -lm -mieee -o cnad
 

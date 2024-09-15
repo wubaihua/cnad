@@ -10,10 +10,12 @@
 
 // 假设所有使用的模块已经转换为C库或函数
 #include "def.h"
+#include "def_host.h"
 // #include "def_sse.h"
 #include "constant.h"
 #include "gmath.h"
 #include "msmodel.h"
+#include "msmodelio.h"
 
 int main(int argc, char *argv[]) {
     // int mpi_size, mpi_rank, mpi_ierr;

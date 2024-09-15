@@ -8,31 +8,32 @@
 #include <math.h>
 #include "cJSON.h"
 #include "msmodel.h"
+#include "msmodelio.h"
 #include <stdbool.h>
 
 // MPI Variables
-extern int mpi_size, mpi_rank, mpi_ierr;
+// extern int mpi_size, mpi_rank, mpi_ierr;
 // Dynamically allocated arrays
-extern double complex *mpi_den; // 3D complex array: [size1][size2][size3]
-extern double complex *mpi_cfall; // 5D complex array: [size1][size2][size3][size4][size5]
-extern double complex *mpi_cfeff; // 1D complex array: [size1]
-extern double *real_rho; // 3D double array: [size1][size2][size3]
-extern double *imag_rho; // 3D double array: [size1][size2][size3]
-extern double *real_cfall; // 5D double array: [size1][size2][size3][size4][size5]
-extern double *imag_cfall; // 5D double array: [size1][size2][size3][size4][size5]
-extern double *real_cfeff; // 1D double array: [size1]
-extern double *imag_cfeff; // 1D double array: [size1]
-extern double *mpi_population; // 2D double array: [size1][size2]
-extern double *mpi_pop_fb; // 3D double array: [size1][size2][size3]
-extern double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
-extern double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
-extern double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
-extern double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
-extern unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
-extern double *mpi_real_den;
-extern double *mpi_imag_den;
-extern double *mpi_real_cfeff;
-extern double *mpi_imag_cfeff;
+// extern double complex *mpi_den; // 3D complex array: [size1][size2][size3]
+// extern double complex *mpi_cfall; // 5D complex array: [size1][size2][size3][size4][size5]
+// extern double complex *mpi_cfeff; // 1D complex array: [size1]
+// extern double *real_rho; // 3D double array: [size1][size2][size3]
+// extern double *imag_rho; // 3D double array: [size1][size2][size3]
+// extern double *real_cfall; // 5D double array: [size1][size2][size3][size4][size5]
+// extern double *imag_cfall; // 5D double array: [size1][size2][size3][size4][size5]
+// extern double *real_cfeff; // 1D double array: [size1]
+// extern double *imag_cfeff; // 1D double array: [size1]
+// extern double *mpi_population; // 2D double array: [size1][size2]
+// extern double *mpi_pop_fb; // 3D double array: [size1][size2][size3]
+// extern double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
+// extern double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
+// extern double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
+// extern double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
+// extern unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
+// extern double *mpi_real_den;
+// extern double *mpi_imag_den;
+// extern double *mpi_real_cfeff;
+// extern double *mpi_imag_cfeff;
 
 
 
@@ -46,8 +47,8 @@ extern double *P_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *R2_nuc_mean; // 3D double array: [size1][size2][size3]
 extern double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
  
-extern char *filepath; // Path of Model input file
-extern char *workpath;
+// extern char *filepath; // Path of Model input file
+// extern char *workpath;
  
 extern int Ndof1, Ndof2;
 extern int Nstate;
@@ -62,24 +63,24 @@ extern double complex *den_e, *den_e4nuc; // 2D complex arrays: [size1][size2]
  
 extern double *xe_mb, *pe_mb; // 2D double arrays: [size1][size2]
 extern int *state_unsmash; // 1D int array: [size1]
-extern int if_typemb;
+// extern int if_typemb;
 extern double *gc_unsmash, *gp_unsmash; // 1D double arrays: [size1]
  
 extern double *xe_cv, *pe_cv; // 1D double arrays: [size1]
 
 
-extern int type_evo;
-extern double gamma_zpe;
-extern double sigma2_lsc;
-extern double gamma1_lsc, gamma2_lsc;
+// extern int type_evo;
+// extern double gamma_zpe;
+// extern double sigma2_lsc;
+// extern double gamma1_lsc, gamma2_lsc;
 extern double identity_M1, identity_M2;
-extern int scheme_cvk, scheme_focus;
-extern double alpha_gdtwa, beta_gdtwa, delta_gdtwa, eps_gdtwa;
-extern int if_alpha;
+// extern int scheme_cvk, scheme_focus;
+// extern double alpha_gdtwa, beta_gdtwa, delta_gdtwa, eps_gdtwa;
+// extern int if_alpha;
 extern int id_state, id_hop;
 extern int id_state_old;
 extern double *t_decoh, *t_coh, *L_red; // 1D double arrays: [size1]
-extern double w_dish;
+// extern double w_dish;
 
 extern double *xe_old, *pe_old; // 1D double arrays: [size1]
 extern double *P_nuc_old, *R_nuc_old; // 2D double arrays: [size1][size2]
@@ -99,8 +100,8 @@ extern double *R_nuc_old_traj; // 2D double array: [size1][size2]
 extern double *deltaR_afssh; // 4D double array: [size1][size2][size3][size4]
 extern double *deltaP_afssh; // 4D double array: [size1][size2][size3][size4]
 extern double *deltaF_afssh; // 4D double array: [size1][size2][size3][size4]
-extern int index_t0;
-extern int index_t0_1, index_t0_2;
+// extern int index_t0;
+// extern int index_t0_1, index_t0_2;
 extern double complex correfun_0;
 extern double complex *correfun_0_ms2; // 1D complex array: [size1]
 extern double complex *cf0; // 2D complex array: [size1][size2]
@@ -108,8 +109,8 @@ extern double complex *cfall; // 5D complex array: [size1][size2][size3][size4][
 extern double complex *cfeff; // 1D complex array: [size1]
 extern double *weight0; // 2D double array: [size1][size2]
 extern double *weightt; // 2D double array: [size1][size2]
-extern int if_allcf, allcf_times;
-extern double complex correfun_0_pldm1, correfun_0_pldm2;
+// extern int if_allcf, allcf_times;
+// extern double complex correfun_0_pldm1, correfun_0_pldm2;
 extern double complex *prop_pldm; // 2D complex array: [size1][size2]
 extern double *U_d2a; // 2D double array: [size1][size2]
 extern double *E_adia; // 1D double array: [size1]
@@ -119,10 +120,10 @@ extern double *P_kin; // 2D double array: [size1][size2]
 extern double *nac_check; // 4D double array: [size1][size2][size3][size4]
 extern double *U_ref; // 2D double array: [size1][size2]
 extern double *overlap_adia; // 2D double array: [size1][size2]
-extern int rep; // 0 for diabatic, 1 for adiabatic
+// extern int rep; // 0 for diabatic, 1 for adiabatic
 extern double *U_d2a_old; // 2D double array: [size1][size2]
-extern int ifcv; // 0: no adjustment; -1: adjustment without evolution; 1: cv adjustment 
-extern int ifid;
+// extern int ifcv; // 0: no adjustment; -1: adjustment without evolution; 1: cv adjustment 
+// extern int ifid;
 extern double complex *den; // 3D complex array: [size1][size2][size3] (total electronic reduced density matrix)
 extern double *population; // 2D double array: [size1][size2]
 extern double *pop_fb; // 3D double array: [size1][size2][size3]
@@ -132,7 +133,7 @@ extern double *population_traj; // 2D double array: [size1][size2]
 extern double *population2_traj; // 2D double array: [size1][size2]
 extern double *pop_fb_traj; // 3D double array: [size1][size2][size3]
 extern double *pop_fb2_traj; // 3D double array: [size1][size2][size3]
-extern int if_st_fb;
+// extern int if_st_fb;
 extern double *V; // 2D double array: [size1][size2]
 extern double *dV; // 4D double array: [size1][size2][size3][size4]
 extern double *V_ref; // 3D double array: [size1][size2][size3]
@@ -147,29 +148,30 @@ extern double *force; // 2D double array: [size1][size2]
 extern double *force_nuc; // 2D double array: [size1][size2]
 extern double *force_ref; // 3D double array: [size1][size2][size3]
 extern double *force_nuc_ref; // 3D double array: [size1][size2][size3]
-extern int type_traj_sed;
-extern double beta, temperature;
-extern char method[20];
-extern double dt, ttot, t_now;
+// extern int type_traj_sed;
+// extern double beta, temperature;
+// extern char method[20];
+// extern double dt, ttot, 
+extern double t_now;
 extern double *timegrid; // 1D double array: [size1]
-extern long long Nbreak, Ngrid;
-extern long long Ntraj;
-extern char unit_t[20];
-extern double unittrans_t;
-extern int outputtype;
-extern int calforcetype;
-extern int ifoutputmpi;
-extern int sampletype;
-extern int if_st_nan;
+// extern long long Nbreak, Ngrid;
+// extern long long Ntraj;
+// extern char unit_t[20];
+// extern double unittrans_t;
+// extern int outputtype;
+// extern int calforcetype;
+// extern int ifoutputmpi;
+// extern int sampletype;
+// extern int if_st_nan;
 extern unsigned long long *N_nan_sum; // 1D int array: [size1]
-extern int if_traj;
-extern int type_phase;
-extern int type_ad_fssh;
-extern int if_ref;
-extern int if_1st;
-extern int if_inv_focus;
-extern int if_Pdis, s_N;
-extern double s_start, s_end;
+// extern int if_traj;
+// extern int type_phase;
+// extern int type_ad_fssh;
+// extern int if_ref;
+// extern int if_1st;
+// extern int if_inv_focus;
+// extern int if_Pdis, s_N;
+// extern double s_start, s_end;
 extern double *s; // 1D double array: [size1]
 extern double *real_expisP; // 1D double array: [size1]
 extern double *imag_expisP; // 1D double array: [size1]
@@ -188,23 +190,23 @@ extern double *pye_ref; // 2D double array: [size1][size2]
 extern double complex *gamma_cv_ref; // 3D complex array: [size1][size2][size3]
 extern double complex *den_e_ref; // 3D complex array: [size1][size2][size3]
 extern double complex *inverse_kernel; // 2D complex array: [size1][size2]
-extern int Nref;
+// extern int Nref;
 extern double *pop0; // 1D double array: [size1]
-extern bool if_ad_nac;
-extern int mean_nuc;
-extern bool if_occ_rand;
-extern int if_engconsv;
+// extern bool if_ad_nac;
+// extern int mean_nuc;
+// extern bool if_occ_rand;
+// extern int if_engconsv;
 extern double complex *engconsv_adjmat; // 2D complex array: [size1][size2]
-extern int if_RBC;
+// extern int if_RBC;
 extern double measure_mash;
-extern int type_mash;
+// extern int type_mash;
 extern double complex rho0_mash[4], rhot_mash[4];
 extern double U0_mash[4], mea_mat_mash[4];
 extern double complex *rho0_unsmash; // 2D complex array: [size1][size2]
 extern double complex *rhot_unsmash; // 2D complex array: [size1][size2]
 extern double *U0_unsmash; // 2D double array: [size1][size2]
 extern double *mea_mat_unsmash; // 2D double array: [size1][size2]
-extern int ifBA;
+// extern int ifBA;
 extern double *E_adia_old_traj; // 1D double array: [size1]
 extern double *nac_BAeff; // 4D double array: [size1][size2][size3][size4]
 extern double *tdc_BA; // 2D double array: [size1][size2]
@@ -218,15 +220,15 @@ extern double thres;
 extern int occ_rdmfocus;
 extern int ifrw;
 extern double rwfactor, beta_rw, temperature_rw;
-extern int ifmodprop;
+// extern int ifmodprop;
 extern double complex *propagator_ref; // 2D complex array: [size1][size2]
-extern int ifcorreden;
+// extern int ifcorreden;
 extern int memorylength;
 extern int itime_save, i_re_save;
-extern int if_st_eng;
+// extern int if_st_eng;
 extern double *energy_est; // 1D double array: [size1]
 extern double *mpi_energy_est; // 1D double array: [size1]
-extern int typeevo_ele;
+// extern int typeevo_ele;
 extern double *A_jump; // 2D double array: [size1][size2]
 extern double *lambda_jump; // 1D double array: [size1]
 extern double *U_jump; // 2D double array: [size1][size2]
@@ -242,7 +244,7 @@ extern double *xe_old_mf2cv; // 1D double array: [size1]
 extern double *pe_old_mf2cv; // 1D double array: [size1]
 extern double *dE_old_mf2cv; // 1D double array: [size1]
 extern double *dE_mf2cv; // 1D double array: [size1]
-extern int type_prop_adia;
+// extern int type_prop_adia;
 extern double complex *G_xpconfg; // 2D complex array: [size1][size2]
 extern double *permutation_ms2; // 3D double array: [size1][size2][size3]
 extern double complex *G_ms2; // 2D complex array: [size1][size2]
@@ -260,10 +262,10 @@ extern double *force_nuc_state; // 2D double array: [size1][size2]
 extern int if_statetraj;
 extern bool ifBC_BCMF;
 extern int scheme_cvsh;
-extern int ifswitchforce, ifmashforce;
-extern int ifscaleenergy;
-extern double gamma_rescale;
-extern int ifscalegamma;
+// extern int ifswitchforce, ifmashforce;
+// extern int ifscaleenergy;
+// extern double gamma_rescale;
+// extern int ifscalegamma;
 extern double E_conserve;
 extern int ifmsbranch, type_traj_msbranch;
 extern int itime_start_msbranch, itime_end_msbranch;
@@ -279,35 +281,35 @@ extern double complex *den_e_brapoint; // 2D complex array: [size1][size2]
 extern double complex *correfun_t_oldtraj; // 3D complex array: [size1][size2][size3]
 extern double *R_nuc_oldtraj; // 3D double array: [size1][size2][size3]
 extern double *P_nuc_oldtraj; // 3D double array: [size1][size2][size3]
-extern int direc_padj;
-extern int ifcount;
-extern int ifreflp;
-extern int ifreflp_mash;
-extern int ifhardwall;
+// extern int direc_padj;
+// extern int ifcount;
+// extern int ifreflp;
+// extern int ifreflp_mash;
+// extern int ifhardwall;
 extern double *eig_cv; // 1D double array: [size1]
 extern double *eig_cv_mat; // 2D double array: [size1][size2]
 extern double complex *commu_vari; // 2D complex array: [size1][size2]
-extern int ifzpecorr;
-extern int iflangevin;
-extern double eta_langevin;
-extern double scale_sqc2;
-extern int type_algorithm;
-extern int type_prop_4cont;
-extern int scaleenergy_type;
-extern int n_step_algo5;
-extern int allow_hop;
-extern int if_traceless_force;
+// extern int ifzpecorr;
+// extern int iflangevin;
+// extern double eta_langevin;
+// extern double scale_sqc2;
+// extern int type_algorithm;
+// extern int type_prop_4cont;
+// extern int scaleenergy_type;
+// extern int n_step_algo5;
+// extern int allow_hop;
+// extern int if_traceless_force;
 
 // Continue translating other variables...
 
-extern int forcetype;// should be removed!!!!!!!!!!!!!!!!!!!!
-extern char msmodelname[200]; // should be removed!!!!!!!!!!!!!!!!!!!!
+// extern int forcetype;// should be removed!!!!!!!!!!!!!!!!!!!!
+// extern char msmodelname[200]; // should be removed!!!!!!!!!!!!!!!!!!!!
 
-void initial_para();
-void readinp();
+// void initial_para();
+// void readinp();
 void initial_vari();
 
-void print_info();
+// void print_info();
 void sample_ele();
 
 void cal_correfun();

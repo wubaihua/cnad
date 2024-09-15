@@ -10,17 +10,17 @@
 
 
 
-int forcetype;
-char msmodelname[200];
+// int forcetype;
+// char msmodelname[200];
 
 
 
-void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate) {
-    if (strcmp(trim(adjustl(msmodelname)), "SBM") == 0 ||
-       strcmp(trim(adjustl(msmodelname)), "sbm") == 0) {
-        readinp_SBM(json, Ndof1, Ndof2, Nstate);
-    }
-}
+// void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate) {
+//     if (strcmp(trim(adjustl(msmodelname)), "SBM") == 0 ||
+//        strcmp(trim(adjustl(msmodelname)), "sbm") == 0) {
+//         readinp_SBM(json, Ndof1, Ndof2, Nstate);
+//     }
+// }
 
 
 

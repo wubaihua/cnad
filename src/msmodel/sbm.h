@@ -7,7 +7,7 @@
 #include "gmath.h"  // Assuming you have a math.h header for functions like box_muller
 #include <stdio.h>
 #include "cJSON.h"
-
+#include "msmodelio.h"
 
 // Spin-Boson Model parameters
 // extern int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
