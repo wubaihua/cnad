@@ -403,5 +403,5 @@ void print_info();
 
 void fileout() ;
 
-
+void fileout_mpi(int id);
 

@@ -662,6 +662,13 @@ void readinp(){
             }
         }
 
+        if (NULL != cJSON_GetObjectItem(item, "ifoutputmpi")) {
+            list = cJSON_GetObjectItem(item, "ifoutputmpi");
+            if (list->type == cJSON_Number) {
+                ifoutputmpi = list->valueint; 
+            }
+        }
+
         // if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
         //     list = cJSON_GetObjectItem(item, "nproc_sw");
         //     if (list->type == cJSON_Number) {
@@ -1102,7 +1109,7 @@ void fileout() {
     size_t len = strlen(filepath);
     
 
-    if (fi_den != NULL) {
+    if (mpi_real_den != NULL) {
         strncpy(outname, filepath, len - 5);
         strcpy(outname + len - 5, ".den");
         FILE *den_file = fopen(outname, "w");
@@ -1110,17 +1117,17 @@ void fileout() {
         for (i = 0; i < Ngrid; i++) {
             fprintf(den_file, "%18.8E", fi_time_grid[i] / unittrans_t);
             for (int j = 0; j < Nstate * Nstate; j++) {
-                fprintf(den_file, "%18.8E", creal(fi_den[j * Ngrid + i]));
+                fprintf(den_file, "%18.8E", mpi_real_den[j * Ngrid + i]);
             }
             for (int j = 0; j < Nstate * Nstate; j++) {
-                fprintf(den_file, "%18.8E", cimag(fi_den[j * Ngrid + i]));
+                fprintf(den_file, "%18.8E", mpi_imag_den[j * Ngrid + i]);
             }
             fprintf(den_file, "\n");
         }
         fclose(den_file);
     }
 
-    if (fi_population != NULL) {
+    if (mpi_population != NULL) {
         strncpy(outname, filepath, len - 5);
         strcpy(outname + len - 5, ".pop");
         FILE *pop_file = fopen(outname, "w");
@@ -1128,7 +1135,7 @@ void fileout() {
         for (i = 0; i < Ngrid; i++) {
             fprintf(pop_file, "%18.8E", fi_time_grid[i] / unittrans_t);
             for (int j = 0; j < Nstate; j++) {
-                fprintf(pop_file, "%18.8E", fi_population[j*Ngrid+i]);
+                fprintf(pop_file, "%18.8E", mpi_population[j*Ngrid+i]);
             }
             fprintf(pop_file, "\n");
         }
@@ -1261,3 +1268,76 @@ void fileout() {
 //     }
 }
 
+
+
+
+
+
+void fileout_mpi(int id) {
+    int i, totn;
+    char outname[256];
+    char cid[20];
+
+    snprintf(cid, sizeof(cid), "%d", id);
+
+    // if (if_allcf == 0) {
+    //     printf("output type= %d\n", outputtype);
+    //     if (outputtype == 0) {
+    //         printf("Density matrix will be given in *.den.\n");
+    //     } else if (outputtype > 0) {
+    //         printf("Both density matrix and population data will be given in *.den and *.pop, respectively.\n");
+    //     } else if (outputtype < 0) {
+    //         printf("Only population data will be given in *.pop.\n");
+    //     }
+    // } else if (if_allcf == 1) {
+    //     printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
+    // } else if (if_allcf == 2 || if_allcf == 3) {
+    //     printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", if_allcf);
+    // }
+
+    size_t len = strlen(filepath);
+    
+
+    if (mpi_real_den != NULL) {
+        strncpy(outname, filepath, len - 5);
+        // strcpy(outname + len - 5, ".den");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".den");
+        FILE *den_file = fopen(outname, "w");
+        totn = 2 * Nstate * Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(den_file, "%18.8E", fi_time_grid[i] / unittrans_t);
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E", mpi_real_den[j * Ngrid + i]/Ntraj*mpi_size);
+            }
+            for (int j = 0; j < Nstate * Nstate; j++) {
+                fprintf(den_file, "%18.8E", mpi_imag_den[j * Ngrid + i]/Ntraj*mpi_size);
+            }
+            fprintf(den_file, "\n");
+        }
+        fclose(den_file);
+    }
+
+    if (mpi_population != NULL) {
+        strncpy(outname, filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".pop");
+        FILE *pop_file = fopen(outname, "w");
+        totn = Nstate + 1;
+        for (i = 0; i < Ngrid; i++) {
+            fprintf(pop_file, "%18.8E", fi_time_grid[i] / unittrans_t);
+            for (int j = 0; j < Nstate; j++) {
+                fprintf(pop_file, "%18.8E", mpi_population[j*Ngrid+i]/Ntraj*mpi_size);
+            }
+            fprintf(pop_file, "\n");
+        }
+        fclose(pop_file);
+    }
+
+
+}

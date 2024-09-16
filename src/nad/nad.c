@@ -9,7 +9,7 @@
 #include <memory.h>
 #include <complex.h>
 // 假设所有使用的模块已经转换为C库或函数
-#include "def.h"
+// #include "def.h"
 #include "def_host.h"
 // #include "def_sse.h"
 #include "constant.h"
@@ -170,39 +170,39 @@ int main(int argc, char *argv[]) {
     // printf("den=%18.8E\n",mpi_real_den[0 * Ngrid*Nstate + 0* Ngrid + Ngrid -1 ]); // debug
 
 
-    // if (ifoutputmpi == 1) {
-    //     if (mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
-    //     fileout_mpi(mpi_rank);
-    // }
+    if (ifoutputmpi == 1) {
+        if (mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
+        fileout_mpi(mpi_rank);
+    }
 
     // 继续MPI reduce和数据输出的代码转换
     // printf("1111\n");
-    fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    // fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     // printf("2222\n");
-    MPI_Reduce(mpi_N_nan_sum, fi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
-    if (mpi_rank == 0) printf("Number of failed trajectories: %d\n", fi_N_nan_sum[Ngrid-1]);
+    MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    if (mpi_rank == 0) printf("Number of failed trajectories: %d\n", mpi_N_nan_sum[Ngrid-1]);
     
 
     if (mpi_population != NULL) {
-        fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
-        MPI_Reduce(mpi_population, fi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
+        MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         if (if_st_fb == 1) {
-            fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
+            // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
             
-            MPI_Reduce(mpi_pop_fb, fi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            free(mpi_pop_fb);
+            MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            // free(mpi_pop_fb);
         }
-        free(mpi_population);
+        // free(mpi_population);
     }
 
     // if (mpi_den != NULL) {
     if (mpi_real_den != NULL) {
         // printf("test111111\n");
-        fi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
+        // fi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
         // printf("test2222\n");
-        real_rho = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
+        // real_rho = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
         // printf("test3\n");
-        imag_rho = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
+        // imag_rho = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
         // printf("test4\n");
         // mpi_real_den = (double *)malloc(Nstate * Nstate * Ngrid * sizeof(double));
         // // printf("test5\n");
@@ -222,18 +222,19 @@ int main(int argc, char *argv[]) {
 
         // printf("test7777771\n");
         // MPI_Barrier(MPI_COMM_WORLD);
-        MPI_Reduce(mpi_real_den, real_rho, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        MPI_Reduce(mpi_real_den, mpi_real_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // // printf("test888888\n");
-        MPI_Reduce(mpi_imag_den, imag_rho, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        MPI_Reduce(mpi_imag_den, mpi_imag_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // // printf("test9999999\n");
         // // free(mpi_den);
         // // printf("test10\n");
-        free(mpi_real_den);
+        // free(mpi_real_den);
         // // printf("test11\n");
-        free(mpi_imag_den);
+        // free(mpi_imag_den);
         // // printf("test12s\n");
     }
 
+    // if(mpi_rank==0)printf("den=%18.8E\n",mpi_real_den[0 * Ngrid*Nstate + 0* Ngrid + Ngrid -1 ]); // debug
     
 
     
@@ -327,19 +328,21 @@ int main(int argc, char *argv[]) {
     // }
 
     if (mpi_rank == 0) {
-        if (fi_den != NULL) {
-            for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-                fi_den[i] = real_rho[i] + I * imag_rho[i];
-            }
+        if (mpi_real_den != NULL) {
+            // for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
+            //     fi_den[i] = real_rho[i] + I * imag_rho[i];
+            // }
             if (if_st_nan == 1) {
                 for (int igrid = 0; igrid < Ngrid; igrid++) {
                     for (int i = 0; i < Nstate * Nstate; i++) {
-                        fi_den[igrid * Nstate * Nstate + i] /= (Ntraj - fi_N_nan_sum[igrid]);
+                        mpi_real_den[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
+                        mpi_imag_den[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
                     }
                 }
             } else {
                 for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-                    fi_den[i] /= Ntraj;
+                    mpi_real_den[i] /= Ntraj;
+                    mpi_imag_den[i] /= Ntraj;
                 }
             }
             
@@ -348,54 +351,54 @@ int main(int argc, char *argv[]) {
             // }
         }
 
-        if (fi_population != NULL) {
+        if (mpi_population != NULL) {
             if (if_st_nan == 1) {
                 for (int igrid = 0; igrid < Ngrid; igrid++) {
                     for (int i = 0; i < Nstate; i++) {
-                        fi_population[igrid * Nstate + i] /= (Ntraj - fi_N_nan_sum[igrid]);
+                        mpi_population[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
                     }
                 }
             } else {
                 for (int i = 0; i < Ngrid * Nstate; i++) {
-                    fi_population[i] /= Ntraj;
+                    mpi_population[i] /= Ntraj;
                 }
             }
             if (if_st_fb == 1) {
                 for (int i = 0; i < 2 * Ngrid * Nstate; i++) {
-                    fi_pop_fb[i] /= Ntraj;
+                    mpi_pop_fb[i] /= Ntraj;
                 }
             }     
         }
 
-    //     // if (cfall != NULL) {
-    //     //     for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-    //     //         cfall[i] = real_cfall[i] + I * imag_cfall[i];
-    //     //     }
-    //     //     for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-    //     //         cfall[i] /= Ntraj;
-    //     //     }
-    //     // }
+        // if (cfall != NULL) {
+        //     for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
+        //         cfall[i] = real_cfall[i] + I * imag_cfall[i];
+        //     }
+        //     for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
+        //         cfall[i] /= Ntraj;
+        //     }
+        // }
 
-    //     if (cfeff != NULL) {
-    //         for (int i = 0; i < Ngrid; i++) {
-    //             cfeff[i] = (real_cfeff[i] + I * imag_cfeff[i])/Ntraj;
-    //         }
-    //     }
+        if (cfeff != NULL) {
+            for (int i = 0; i < Ngrid; i++) {
+                cfeff[i] = (real_cfeff[i] + I * imag_cfeff[i])/Ntraj;
+            }
+        }
 
-    //     if (P_nuc_mean != NULL) {
-    //         for (int i = 0; i < Ngrid * Ndof1 * Ndof2; i++) {
-    //             P_nuc_mean[i] /= Ntraj;
-    //             R_nuc_mean[i] /= Ntraj;
-    //             P2_nuc_mean[i] /= Ntraj;
-    //             R2_nuc_mean[i] /= Ntraj;
-    //         }
-    //     }
+        if (P_nuc_mean != NULL) {
+            for (int i = 0; i < Ngrid * Ndof1 * Ndof2; i++) {
+                P_nuc_mean[i] /= Ntraj;
+                R_nuc_mean[i] /= Ntraj;
+                P2_nuc_mean[i] /= Ntraj;
+                R2_nuc_mean[i] /= Ntraj;
+            }
+        }
 
-    //     if (energy_est != NULL) {
-    //         for (int i = 0; i < Ngrid; i++) {
-    //             energy_est[i] /= Ntraj;
-    //         }
-    //     }
+        if (energy_est != NULL) {
+            for (int i = 0; i < Ngrid; i++) {
+                energy_est[i] /= Ntraj;
+            }
+        }
 
         fileout();
     }
