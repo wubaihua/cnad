@@ -120,9 +120,14 @@ void data_transport(int id){
 
 
 
-        if(id==0){
-            memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));
-        }
+        // if(id==0){
+        //     memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));
+        // }
+
+
+        // for (int i = 0; i < Ngrid; i++){
+        //     fi_time_grid[i] = timegrid[i];
+        // }
 
         
     }

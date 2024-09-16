@@ -160,6 +160,11 @@ int main(int argc, char *argv[]) {
         athread_join();
     }
 
+
+    for (int i = 0; i < Ngrid; i++){
+        fi_time_grid[i] = i*dt*Nbreak;
+    }
+
     // printf("1111\n");
     // athread_spawn(data_transport,1);
     // athread_join();
