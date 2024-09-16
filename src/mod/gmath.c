@@ -9,6 +9,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <time.h>
 
 // Generate two random numbers x1, x2 with Gaussian distribution N(miu, sigma)
 void box_muller(double *x1, double *x2, double sigma, double miu) {
@@ -121,40 +122,9 @@ double complex trace_comp(int n, double complex *A) {
 }
 
 // Initialize random seed
-// void init_seed(int my_prl) {
-//     int n, ival[8], v[3], i;
-//     int *seed;
-//     time_t t = time(NULL);
-//     struct tm *tm_info = localtime(&t);
-
-//     ival[0] = tm_info->tm_sec;
-//     ival[1] = tm_info->tm_min;
-//     ival[2] = tm_info->tm_hour;
-//     ival[3] = tm_info->tm_mday;
-//     ival[4] = tm_info->tm_mon + 1;
-//     ival[5] = tm_info->tm_year + 1900;
-//     ival[6] = tm_info->tm_wday;
-//     ival[7] = tm_info->tm_yday;
-
-//     v[0] = 101 * ival[7] + 256 * ival[6] + ival[7] % 103;
-//     v[1] = ival[5] + 64 * ival[4] + (1993 % (2 + ival[7]) + 3) * 97 * ival[7];
-//     v[2] = ival[2] + 4 * ival[1] + 16 * ival[0] + (997 % (1 + ival[7]) + 5) * 101 * ival[7];
-
-//     seed = (int *)malloc(n * sizeof(int));
-//     srand(time(NULL));
-
-//     for (i = 0; i < n; i++) {
-//         seed[i] = rand() + v[i % 3] + ival[7];
-//     }
-
-//     if (my_prl) {
-//         for (i = 0; i < n; i++) {
-//             seed[i] += 113 * my_prl;
-//         }
-//     }
-
-//     free(seed);
-// }
+void init_seed(int my_prl) {
+    srand(my_prl);
+}
 
 
 void dd_matmul(double *A, double *B, double *C, int nA, int nB, int nC){

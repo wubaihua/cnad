@@ -27,6 +27,9 @@ void dynamics_slave(int run_size){
    
     slavecore_id=athread_get_id(-1);
 
+
+    init_seed(mpi_rank*64+slavecore_id);
+
      
     for (int itraj = 1; itraj <= run_size; itraj++) {
         if (itraj % 64 == slavecore_id) {
@@ -88,6 +91,9 @@ void data_transport(int id){
     int slavecore_id;
    
     slavecore_id=athread_get_id(-1);
+
+
+   
 
     if(slavecore_id == id){
         for (int i = 0; i < Ngrid; i++){

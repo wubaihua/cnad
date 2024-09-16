@@ -35,7 +35,7 @@ double trace(int n, double *A) ;
 // Trace of a square matrix A (complex, n x n)
 double complex trace_comp(int n, double complex *A) ;
 
-// void init_seed(int my_prl) ;
+void init_seed(int my_prl);
 
 
 void dd_matmul(double *A, double *B, double *C, int nA, int nB, int nC);
