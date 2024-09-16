@@ -68,7 +68,7 @@ char *workpath;
 
 int Ndof1, Ndof2;
 int Nstate;
-int init_occ, init_occ_adia;
+int init_occ_4read;
 
 // double *xe, *pe; // 1D double arrays: [size1] Meyer-Miller mapping variables
 // double *ye, *pxe, *pye; // 1D double arrays: [size1] Li-Miller mapping variables
@@ -378,7 +378,7 @@ int ifzpecorr;
 int iflangevin;
 double eta_langevin;
 
-double scale_sqc2;
+// double scale_sqc2;
 
 int type_algorithm;
 
@@ -592,6 +592,13 @@ void readinp(){
             }
         }
 
+        if (NULL != cJSON_GetObjectItem(item, "temperature")) {
+            list = cJSON_GetObjectItem(item, "temperature");
+            if (list->type == cJSON_Number) {
+                temperature = list->valuedouble; 
+            }
+        }
+
         if (NULL != cJSON_GetObjectItem(item, "ntraj")) {
             list = cJSON_GetObjectItem(item, "ntraj");
             if (list->type == cJSON_Number) {
@@ -630,7 +637,7 @@ void readinp(){
         if (NULL != cJSON_GetObjectItem(item, "init_occ")) {
             list = cJSON_GetObjectItem(item, "init_occ");
             if (list->type == cJSON_Number) {
-                init_occ = list->valueint; 
+                init_occ_4read = list->valueint; 
             }
         }
 
@@ -668,6 +675,530 @@ void readinp(){
                 ifoutputmpi = list->valueint; 
             }
         }
+
+        if (NULL != cJSON_GetObjectItem(item, "unit_t")) {
+            list = cJSON_GetObjectItem(item, "unit_t");
+            if (list->type == cJSON_String) {
+                strcpy(unit_t, list->valuestring); 
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "gamma_zpe")) {
+            list = cJSON_GetObjectItem(item, "gamma_zpe");
+            if (list->type == cJSON_Number) {
+                gamma_zpe = list->valuedouble;
+            }
+        }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "ifcv")) {
+            list = cJSON_GetObjectItem(item, "ifcv");
+            if (list->type == cJSON_Number) {
+                ifcv = list->valueint;
+            }
+        }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "sigma2_lsc")) {
+            list = cJSON_GetObjectItem(item, "sigma2_lsc");
+            if (list->type == cJSON_Number) {
+                sigma2_lsc = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "gamma1_lsc")) {
+            list = cJSON_GetObjectItem(item, "gamma1_lsc");
+            if (list->type == cJSON_Number) {
+                gamma1_lsc = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "gamma2_lsc")) {
+            list = cJSON_GetObjectItem(item, "gamma2_lsc");
+            if (list->type == cJSON_Number) {
+                gamma2_lsc = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifid")) {
+            list = cJSON_GetObjectItem(item, "ifid");
+            if (list->type == cJSON_Number) {
+                ifid = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_st_nan")) {
+            list = cJSON_GetObjectItem(item, "if_st_nan");
+            if (list->type == cJSON_Number) {
+                if_st_nan = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "scheme_cvk")) {
+            list = cJSON_GetObjectItem(item, "scheme_cvk");
+            if (list->type == cJSON_Number) {
+                scheme_cvk = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "scheme_focus")) {
+            list = cJSON_GetObjectItem(item, "scheme_focus");
+            if (list->type == cJSON_Number) {
+                scheme_focus = list->valueint;
+            }
+        }
+
+       
+        if (NULL != cJSON_GetObjectItem(item, "if_st_fb")) {
+            list = cJSON_GetObjectItem(item, "if_st_fb");
+            if (list->type == cJSON_Number) {
+                if_st_fb = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_traj")) {
+            list = cJSON_GetObjectItem(item, "if_traj");
+            if (list->type == cJSON_Number) {
+                if_traj = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_evo")) {
+            list = cJSON_GetObjectItem(item, "type_evo");
+            if (list->type == cJSON_Number) {
+                type_evo = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_phase")) {
+            list = cJSON_GetObjectItem(item, "type_phase");
+            if (list->type == cJSON_Number) {
+                type_phase = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "alpha_gdtwa")) {
+            list = cJSON_GetObjectItem(item, "alpha_gdtwa");
+            if (list->type == cJSON_Number) {
+                alpha_gdtwa = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_alpha")) {
+            list = cJSON_GetObjectItem(item, "if_alpha");
+            if (list->type == cJSON_Number) {
+                if_alpha = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "beta_gdtwa")) {
+            list = cJSON_GetObjectItem(item, "beta_gdtwa");
+            if (list->type == cJSON_Number) {
+                beta_gdtwa = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "index_t0")) {
+            list = cJSON_GetObjectItem(item, "index_t0");
+            if (list->type == cJSON_Number) {
+                index_t0 = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "index_t0_1")) {
+            list = cJSON_GetObjectItem(item, "index_t0_1");
+            if (list->type == cJSON_Number) {
+                index_t0_1 = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "index_t0_2")) {
+            list = cJSON_GetObjectItem(item, "index_t0_2");
+            if (list->type == cJSON_Number) {
+                index_t0_2 = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_ad_fssh")) {
+            list = cJSON_GetObjectItem(item, "type_ad_fssh");
+            if (list->type == cJSON_Number) {
+                type_ad_fssh = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "if_ref")) {
+        //     list = cJSON_GetObjectItem(item, "if_ref");
+        //     if (list->type == cJSON_Number) {
+        //         if_ref = list->valueint;
+        //     }
+        // }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_Pdis")) {
+            list = cJSON_GetObjectItem(item, "if_Pdis");
+            if (list->type == cJSON_Number) { 
+                if_Pdis = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "s_start")) {
+            list = cJSON_GetObjectItem(item, "s_start");
+            if (list->type == cJSON_Number) {
+                s_start = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "s_end")) {
+            list = cJSON_GetObjectItem(item, "s_end");
+            if (list->type == cJSON_Number) {
+                s_end = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "s_N")) {
+            list = cJSON_GetObjectItem(item, "s_N");
+            if (list->type == cJSON_Number) {
+                s_N = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_allcf")) {
+            list = cJSON_GetObjectItem(item, "if_allcf");
+            if (list->type == cJSON_Number) {
+                if_allcf = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "mean_nuc")) {
+            list = cJSON_GetObjectItem(item, "mean_nuc");
+            if (list->type == cJSON_Number) {
+                mean_nuc = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_engconsv")) {
+            list = cJSON_GetObjectItem(item, "if_engconsv");
+            if (list->type == cJSON_Number) {
+                if_engconsv = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "w_dish")) {
+            list = cJSON_GetObjectItem(item, "w_dish");
+            if (list->type == cJSON_Number) {
+                w_dish = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "delta_gdtwa")) {
+            list = cJSON_GetObjectItem(item, "delta_gdtwa");
+            if (list->type == cJSON_Number) {
+                delta_gdtwa = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "eps_gdtwa")) {
+            list = cJSON_GetObjectItem(item, "eps_gdtwa");
+            if (list->type == cJSON_Number) {
+                eps_gdtwa = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_inv_focus")) {
+            list = cJSON_GetObjectItem(item, "if_inv_focus");
+            if (list->type == cJSON_Number) {
+                if_inv_focus = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_1st")) {
+            list = cJSON_GetObjectItem(item, "if_1st");
+            if (list->type == cJSON_Number) {
+                if_1st = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "Nref")) {
+            list = cJSON_GetObjectItem(item, "Nref");
+            if (list->type == cJSON_Number) {
+                Nref = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_RBC")) {
+            list = cJSON_GetObjectItem(item, "if_RBC");
+            if (list->type == cJSON_Number) {
+                if_RBC = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_mash")) {
+            list = cJSON_GetObjectItem(item, "type_mash");
+            if (list->type == cJSON_Number) {
+                type_mash = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifBA")) {
+            list = cJSON_GetObjectItem(item, "ifBA");
+            if (list->type == cJSON_Number) {
+                ifBA = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "iflbd")) {
+        //     list = cJSON_GetObjectItem(item, "iflbd");
+        //     if (list->type == cJSON_Number) {
+        //         iflbd = list->valueint;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "rate_para_lbd")) {
+        //     list = cJSON_GetObjectItem(item, "rate_para_lbd");
+        //     if (list->type == cJSON_Number) {
+        //         rate_para_lbd = list->valuedouble;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "ifmfsh")) {
+        //     list = cJSON_GetObjectItem(item, "ifmfsh");
+        //     if (list->type == cJSON_Number) {
+        //         ifmfsh = list->valueint;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "thres")) {
+        //     list = cJSON_GetObjectItem(item, "thres");
+        //     if (list->type == cJSON_Number) {
+        //         thres = list->valuedouble;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "ifrw")) {
+        //     list = cJSON_GetObjectItem(item, "ifrw");
+        //     if (list->type == cJSON_Number) {
+        //         ifrw = list->valueint;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "beta_rw")) {
+        //     list = cJSON_GetObjectItem(item, "beta_rw");
+        //     if (list->type == cJSON_Number) {
+        //         beta_rw = list->valuedouble;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "temperature_rw")) {
+        //     list = cJSON_GetObjectItem(item, "temperature_rw");
+        //     if (list->type == cJSON_Number) {
+        //         temperature_rw = list->valuedouble;
+        //     }
+        // }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifmodprop")) {
+            list = cJSON_GetObjectItem(item, "ifmodprop");
+            if (list->type == cJSON_Number) {
+                ifmodprop = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifcorreden")) {
+            list = cJSON_GetObjectItem(item, "ifcorreden");
+            if (list->type == cJSON_Number) {
+                ifcorreden = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "memorylength")) {
+        //     list = cJSON_GetObjectItem(item, "memorylength");
+        //     if (list->type == cJSON_Number) {
+        //         memorylength = list->valueint;
+        //     }
+        // }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_st_eng")) {
+            list = cJSON_GetObjectItem(item, "if_st_eng");
+            if (list->type == cJSON_Number) {
+                if_st_eng = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "typeevo_ele")) {
+            list = cJSON_GetObjectItem(item, "typeevo_ele");
+            if (list->type == cJSON_Number) {
+                typeevo_ele = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "type_jump")) {
+        //     list = cJSON_GetObjectItem(item, "type_jump");
+        //     if (list->type == cJSON_Number) {
+        //         type_jump = list->valueint;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "if_switchcv")) {
+        //     list = cJSON_GetObjectItem(item, "if_switchcv");
+        //     if (list->type == cJSON_Number) {
+        //         if_switchcv = list->valueint;
+        //     }
+        // }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_prop_adia")) {
+            list = cJSON_GetObjectItem(item, "type_prop_adia");
+            if (list->type == cJSON_Number) {
+                type_prop_adia = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "thres_ms2")) {
+        //     list = cJSON_GetObjectItem(item, "thres_ms2");
+        //     if (list->type == cJSON_Number) {
+        //         thres_ms2 = list->valuedouble;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "scheme_cvsh")) {
+        //     list = cJSON_GetObjectItem(item, "scheme_cvsh");
+        //     if (list->type == cJSON_Number) {
+        //         scheme_cvsh = list->valueint;
+        //     }
+        // }
+
+        // if (NULL != cJSON_GetObjectItem(item, "ifmsbranch")) {
+        //     list = cJSON_GetObjectItem(item, "ifmsbranch");
+        //     if (list->type == cJSON_Number) {
+        //         ifmsbranch = list->valueint;
+        //     }
+        // }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifswitchforce")) {
+            list = cJSON_GetObjectItem(item, "ifswitchforce");
+            if (list->type == cJSON_Number) {
+                ifswitchforce = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifscaleenergy")) {
+            list = cJSON_GetObjectItem(item, "ifscaleenergy");
+            if (list->type == cJSON_Number) {
+                ifscaleenergy = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifcount")) {
+            list = cJSON_GetObjectItem(item, "ifcount");
+            if (list->type == cJSON_Number) {
+                ifcount = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifreflp")) {
+            list = cJSON_GetObjectItem(item, "ifreflp");
+            if (list->type == cJSON_Number) {
+                ifreflp = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "gamma_rescale")) {
+            list = cJSON_GetObjectItem(item, "gamma_rescale");
+            if (list->type == cJSON_Number) {
+                gamma_rescale = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifscalegamma")) {
+            list = cJSON_GetObjectItem(item, "ifscalegamma");
+            if (list->type == cJSON_Number) {
+                ifscalegamma = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "direc_padj")) {
+            list = cJSON_GetObjectItem(item, "direc_padj");
+            if (list->type == cJSON_Number) {
+                direc_padj = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifreflp_mash")) {
+            list = cJSON_GetObjectItem(item, "ifreflp_mash");
+            if (list->type == cJSON_Number) {
+                ifreflp_mash = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifhardwall")) {
+            list = cJSON_GetObjectItem(item, "ifhardwall");
+            if (list->type == cJSON_Number) {
+                ifhardwall = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifmashforce")) {
+            list = cJSON_GetObjectItem(item, "ifmashforce");
+            if (list->type == cJSON_Number) {
+                ifmashforce = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "ifzpecorr")) {
+            list = cJSON_GetObjectItem(item, "ifzpecorr");
+            if (list->type == cJSON_Number) {
+                ifzpecorr = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "iflangevin")) {
+            list = cJSON_GetObjectItem(item, "iflangevin");
+            if (list->type == cJSON_Number) {
+                iflangevin = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "eta_langevin")) {
+            list = cJSON_GetObjectItem(item, "eta_langevin");
+            if (list->type == cJSON_Number) {
+                eta_langevin = list->valuedouble;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "type_algorithm")) {
+            list = cJSON_GetObjectItem(item, "type_algorithm");
+            if (list->type == cJSON_Number) {
+                type_algorithm = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "n_step_algo5")) {
+            list = cJSON_GetObjectItem(item, "n_step_algo5");
+            if (list->type == cJSON_Number) {
+                n_step_algo5 = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "allow_hop")) {
+            list = cJSON_GetObjectItem(item, "allow_hop");
+            if (list->type == cJSON_Number) {
+                allow_hop = list->valueint;
+            }
+        }
+
+        if (NULL != cJSON_GetObjectItem(item, "if_traceless_force")) {
+            list = cJSON_GetObjectItem(item, "if_traceless_force");
+            if (list->type == cJSON_Number) {
+                if_traceless_force = list->valueint;
+            }
+        }
+
+        // if (NULL != cJSON_GetObjectItem(item, "if_eld")) {
+        //     list = cJSON_GetObjectItem(item, "if_eld");
+        //     if (list->type == cJSON_Number) {
+        //         if_eld = list->valueint;
+        //     }
+        // }
+
+        
 
         // if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
         //     list = cJSON_GetObjectItem(item, "nproc_sw");
@@ -750,7 +1281,7 @@ void print_info(){
     }
 
     if (index_t0 == 0) {
-        printf("Initial occupied: %d\n", init_occ);
+        printf("Initial occupied: %d\n", init_occ_4read);
     } else if (index_t0 == 1) {
         printf("Detected index_t0=1\n");
         printf("Using off-diagonal term for initial condition\n");

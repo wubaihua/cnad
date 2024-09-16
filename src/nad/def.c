@@ -54,7 +54,7 @@ double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
 
 int Ndof1, Ndof2;
 int Nstate;
-int init_occ, init_occ_adia;
+int init_occ;
 
 double *xe, *pe; // 1D double arrays: [size1] Meyer-Miller mapping variables
 double *ye, *pxe, *pye; // 1D double arrays: [size1] Li-Miller mapping variables
@@ -365,7 +365,7 @@ double complex *commu_vari; // 2D complex array: [size1][size2]
 // int iflangevin;
 // double eta_langevin;
 
-// double scale_sqc2;
+double scale_sqc2;
 
 // int type_algorithm;
 
@@ -681,6 +681,9 @@ double complex *commu_vari; // 2D complex array: [size1][size2]
 void initial_vari() {
     int i;
 
+
+    
+
     // 分配内存
     
     R_nuc = (double *)malloc(Ndof1 * Ndof2 * sizeof(double));
@@ -883,6 +886,7 @@ void initial_vari() {
     //     memset(count_st, 0, 5 * Ngrid * sizeof(int));
     //     memset(count_pertraj, 0, 5 * sizeof(int));
     // }
+    init_occ = init_occ_4read;
     if (init_occ == 0) {
         if_occ_rand = 1;
     }

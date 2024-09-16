@@ -52,7 +52,7 @@ extern double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
  
 extern int Ndof1, Ndof2;
 extern int Nstate;
-extern int init_occ, init_occ_adia;
+extern int init_occ;
 
 extern double *xe, *pe; // 1D double arrays: [size1] Meyer-Miller mapping variables
 extern double *ye, *pxe, *pye; // 1D double arrays: [size1] Li-Miller mapping variables

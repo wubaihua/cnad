@@ -66,7 +66,7 @@ extern char *workpath;
 
 extern int Ndof1, Ndof2;
 extern int Nstate;
-extern int init_occ, init_occ_adia;
+extern int init_occ_4read;
 
 // double *xe, *pe; // 1D double arrays: [size1] Meyer-Miller mapping variables
 // double *ye, *pxe, *pye; // 1D double arrays: [size1] Li-Miller mapping variables
