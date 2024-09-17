@@ -28,6 +28,9 @@ int main(int argc, char *argv[]) {
     char date_now[20], time_now[20];
     double t1=0, t2=0, tt1=0, tt2=0;
     time_t now;
+    double dsum;
+    unsigned long long lsum;
+
 
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
@@ -163,15 +166,15 @@ int main(int argc, char *argv[]) {
         athread_spawn(data_transport,i);
         athread_join();
     }
-    printf("debug1111111111111\n");
 
-    athread_spawn(free_slave,0);
-    athread_join();
+    
+    // athread_spawn(free_slave,0);
+    // athread_join();
 
     for (int i = 0; i < Ngrid; i++){
         fi_time_grid[i] = i*dt*Nbreak;
     }
-    printf("debug222222\n");
+   
     // printf("1111\n");
     // athread_spawn(data_transport,1);
     // athread_join();
@@ -186,37 +189,76 @@ int main(int argc, char *argv[]) {
         if (mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
         fileout_mpi(mpi_rank);
     }
-    printf("debugr33333333\n");
-
+   
     // 继续MPI reduce和数据输出的代码转换
     // printf("1111\n");
     // fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     // printf("2222\n");
-    // MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
-    unsigned long long *result_N_nan_sum = NULL;
-    if (mpi_rank == 0) {
-        result_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    // MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+
+    for (int i = 0; i < Ngrid; i++){
+        MPI_Reduce(&mpi_N_nan_sum[i], &mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
-    unsignlong_reduce(mpi_N_nan_sum, result_N_nan_sum, Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
-    if (mpi_rank == 0) memcpy(mpi_N_nan_sum, result_N_nan_sum,Ngrid * sizeof(unsigned long long));
-    free(result_N_nan_sum);
-    if (mpi_rank == 0) printf("Number of failed trajectories: %d\n", mpi_N_nan_sum[Ngrid-1]);
+
+    // MPI_Status status;
+    // int ierr;
+    // ierr = MPI_Probe(MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+    // printf("%d\n",ierr);
+    // if (ierr != MPI_SUCCESS) {
+    //     printf("Error in MPI_Probe\n");
+    // }
+
+    // MPI_Request request;
+    // MPI_Ireduce(mpi_N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD,&request);
+    // printf("debugr44444%d\n",mpi_rank);
+    // MPI_Wait(&request, MPI_STATUS_IGNORE);
+    // // MPI_Barrier(MPI_COMM_WORLD);
+    // // fflush(stdout);  // 强制刷新输出缓冲区
+    // // int bufsize = 300000; // 缓冲区大小
+    // // void *buffer = malloc(bufsize);
+    // // MPI_Buffer_attach(buffer, bufsize);
+    // // unsigned long long *result_N_nan_sum = NULL;
+    // if (mpi_rank == 0) {
+    //     result_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    // }
+    // unsignlong_reduce(mpi_N_nan_sum, result_N_nan_sum, Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
+    // if (mpi_rank == 0) memcpy(mpi_N_nan_sum, result_N_nan_sum,Ngrid * sizeof(unsigned long long));
+    // free(result_N_nan_sum);
+    // MPI_Buffer_detach(&buffer, &bufsize);
+    // free(buffer);
+
     
 
     if (mpi_population != NULL) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
         // MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        double *result_population = NULL;
-        if (mpi_rank == 0) {
-            result_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
+        // for (int i = 0; i < Nstate * Ngrid; i++){
+        //     MPI_Reduce(&mpi_population[i], &dsum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        //     if(mpi_rank == 0) mpi_population[i] = dsum;
+        // }
+        // printf("111111111111111111\n");
+      
+        for (int i = 0; i < Nstate * Ngrid; i++) {
+            // printf("aaa: %d, %d, %f, %f \n", mpi_rank, i, mpi_population[i], dsum);
+            MPI_Reduce(&mpi_population[i], &mpi_population[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
-        double_reduce(mpi_population, result_population, Nstate * Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
-        if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
-        free(result_population);
+
+
+        // double *result_population = NULL;
+        // if (mpi_rank == 0) {
+        //     result_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
+        // }
+        // double_reduce(mpi_population, result_population, Nstate * Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
+        // if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
+        // free(result_population);
+
         if (if_st_fb == 1) {
             // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
             
-            MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            // MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            for (int i = 0; i < Nstate * Ngrid * 2; i++){
+                MPI_Reduce(&mpi_pop_fb[i], &mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            }
             // free(mpi_pop_fb);
         }
         // free(mpi_population);
@@ -249,9 +291,12 @@ int main(int argc, char *argv[]) {
 
         // printf("test7777771\n");
         // MPI_Barrier(MPI_COMM_WORLD);
-        MPI_Reduce(mpi_real_den, mpi_real_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        // // printf("test888888\n");
-        MPI_Reduce(mpi_imag_den, mpi_imag_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(mpi_real_den, mpi_real_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(mpi_imag_den, mpi_imag_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        for (int i = 0; i < Nstate * Nstate * Ngrid; i++){
+            MPI_Reduce(&mpi_real_den[i], &mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&mpi_imag_den[i], &mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        }
         // // printf("test9999999\n");
         // // free(mpi_den);
         // // printf("test10\n");
@@ -451,7 +496,12 @@ int main(int argc, char *argv[]) {
                time_now[0], time_now[1], time_now[2], time_now[3], time_now[4], time_now[5]);
     }
 
+
+    MPI_Barrier(MPI_COMM_WORLD);
+
     athread_halt();
+    exit(-1);
+    // MPI_Comm_free(MPI_COMM_WORLD);
     MPI_Finalize();
     return 0;
 }
@@ -485,7 +535,7 @@ void unsignlong_reduce(unsigned long long *sendbuf, unsigned long long *recvbuf,
         }
     } else {
         // Send data to root process
-        MPI_Send(sendbuf, count, MPI_UNSIGNED_LONG_LONG, root, 0, comm);
+        MPI_Bsend(sendbuf, count, MPI_UNSIGNED_LONG_LONG, root, 0, comm);
     }
 }
 

@@ -874,7 +874,7 @@ void sample_ele() {
 
             double x2 = (double)rand() / RAND_MAX;
             double ps1, ps2;
-            for (int i = 1; i <= Nstate; i++) {
+            for (int i = 0; i < Nstate; i++) {
                 id_state = i;
                 
                 if (i == 0) {
@@ -894,9 +894,9 @@ void sample_ele() {
         } else if (strcmp(method, "mash") == 0 || strcmp(method, "MASH") == 0) {
             
             if (0.5 * (xe[0] * xe[0] + pe[0] * pe[0]) >= 0.5) {
-                id_state = 1;
+                id_state = 0;
             } else {
-                id_state = 2;
+                id_state = 1;
             }
             measure_mash = fabs(xe[0] * xe[0] + pe[0] * pe[0] - xe[1] * xe[1] - pe[1] * pe[1]);
            
@@ -914,9 +914,9 @@ void sample_ele() {
         } else if (strcmp(method, "mash-mf") == 0 || strcmp(method, "MASH-MF") == 0) {
             
             if (0.5 * (xe[0] * xe[0] + pe[0] * pe[0]) >= 0.5) {
-                id_state = 1;
+                id_state = 0;
             } else {
-                id_state = 2;
+                id_state = 1;
             }
         } else if (strcmp(method, "ms-mash") == 0 || strcmp(method, "MS-MASH") == 0 || strcmp(method, "ms-mash-focus") == 0 || strcmp(method, "MS-MASH-focus") == 0 ||
                    strcmp(method, "mash-mf3") == 0 || strcmp(method, "MASH-MF3") == 0) {
@@ -1140,7 +1140,7 @@ void evo_traj_ele(double deltat) {
         case 0:
             
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
-            // if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
+            if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
             memcpy(x0, xe, Nstate * sizeof(double));
             memcpy(p0, pe, Nstate * sizeof(double));
             // matmul_real_imag(Nstate, propagator, x0, p0, xe, pe);
@@ -1158,7 +1158,7 @@ void evo_traj_ele(double deltat) {
         
         case 1:
             if (rep == 0) cal_propagator(Nstate, V, deltat, propagator);
-            // if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
+            if (rep == 1 && typeevo_ele == 0) cal_propagator_adia(Nstate, deltat, propagator);
             // matmul_complex(Nstate, propagator, den_e, den_e);
             
             diagger(propagator,tempcm1,Nstate);
@@ -1881,7 +1881,7 @@ void cal_force() {
     
     if (forcetype == 1) {
         nucforce_msmodel(R_nuc, force_nuc);
-        for(i=1;i<Ndof1*Ndof2;i++){
+        for(i=0 ; i<Ndof1*Ndof2; i++){
             force[i] -= force_nuc[i];
         }
         // if (if_ref == 1) {
