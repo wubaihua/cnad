@@ -56,8 +56,6 @@ void diagger(double complex *A, double complex *Ad, int n) ;
 
 int any_isnan(double complex *array, int size) ;
 
-char* trim(char *str) ;
-
-char* adjustl(char *str);
+int maxloc(double *array, int size);
 
 #endif // GMATH_H

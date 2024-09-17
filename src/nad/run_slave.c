@@ -135,3 +135,15 @@ void data_transport(int id){
     
 
 }
+
+
+
+void free_slave(){
+    free(population);
+    free(den);
+    free(R_nuc);
+    free(P_nuc);
+    free(dv_adia);
+    free(nac);
+    
+}

@@ -228,3 +228,16 @@ int any_isnan(double complex *array, int size) {
 
 
 
+int maxloc(double *array, int size) {
+    int max_index = 0;
+    for (int i = 1; i < size; i++) {
+        if (array[i] > array[max_index]) {
+            max_index = i;
+        }
+    }
+    return max_index;
+}
+
+
+
+

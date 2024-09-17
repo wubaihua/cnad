@@ -19,6 +19,10 @@
 #include "run_slave.h"
 #include <athread.h>
 
+
+void unsignlong_reduce(unsigned long long *sendbuf, unsigned long long *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
+void double_reduce(double *sendbuf, double *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
+
 int main(int argc, char *argv[]) {
     // int mpi_size, mpi_rank, mpi_ierr;
     char date_now[20], time_now[20];
@@ -139,7 +143,7 @@ int main(int argc, char *argv[]) {
     // }
     tt2 = MPI_Wtime();
     printf("MPI process %d using time: %f\n", mpi_rank, tt2 - tt1);
-    fflush(stdout);  // 强制刷新输出缓冲区
+    // fflush(stdout);  // 强制刷新输出缓冲区
 
 
     // // 以下代码将依次转化为C语言，省略了大部分详细实现
@@ -159,12 +163,15 @@ int main(int argc, char *argv[]) {
         athread_spawn(data_transport,i);
         athread_join();
     }
+    printf("debug1111111111111\n");
 
+    athread_spawn(free_slave,0);
+    athread_join();
 
     for (int i = 0; i < Ngrid; i++){
         fi_time_grid[i] = i*dt*Nbreak;
     }
-
+    printf("debug222222\n");
     // printf("1111\n");
     // athread_spawn(data_transport,1);
     // athread_join();
@@ -179,18 +186,33 @@ int main(int argc, char *argv[]) {
         if (mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
         fileout_mpi(mpi_rank);
     }
+    printf("debugr33333333\n");
 
     // 继续MPI reduce和数据输出的代码转换
     // printf("1111\n");
     // fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     // printf("2222\n");
-    MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    // MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    unsigned long long *result_N_nan_sum = NULL;
+    if (mpi_rank == 0) {
+        result_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
+    }
+    unsignlong_reduce(mpi_N_nan_sum, result_N_nan_sum, Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
+    if (mpi_rank == 0) memcpy(mpi_N_nan_sum, result_N_nan_sum,Ngrid * sizeof(unsigned long long));
+    free(result_N_nan_sum);
     if (mpi_rank == 0) printf("Number of failed trajectories: %d\n", mpi_N_nan_sum[Ngrid-1]);
     
 
     if (mpi_population != NULL) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
-        MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        double *result_population = NULL;
+        if (mpi_rank == 0) {
+            result_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
+        }
+        double_reduce(mpi_population, result_population, Nstate * Ngrid, MPI_SUM, 0, MPI_COMM_WORLD);
+        if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
+        free(result_population);
         if (if_st_fb == 1) {
             // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
             
@@ -432,6 +454,70 @@ int main(int argc, char *argv[]) {
     athread_halt();
     MPI_Finalize();
     return 0;
+}
+
+
+
+
+
+
+
+
+void unsignlong_reduce(unsigned long long *sendbuf, unsigned long long *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm) {
+    int rank, size;
+    MPI_Comm_rank(comm, &rank);
+    MPI_Comm_size(comm, &size);
+
+    if (rank == root) {
+        // Initialize recvbuf with sendbuf values
+        for (int i = 0; i < count; i++) {
+            recvbuf[i] = sendbuf[i];
+        }
+
+        // Receive data from other processes and perform reduction
+        for (int i = 1; i < size; i++) {
+            unsigned long long *tempbuf = (unsigned long long *)malloc(count * sizeof(unsigned long long));
+            MPI_Recv(tempbuf, count, MPI_UNSIGNED_LONG_LONG, i, 0, comm, MPI_STATUS_IGNORE);
+            for (int j = 0; j < count; j++) {
+                recvbuf[j] += tempbuf[j]; // Assuming MPI_SUM operation
+            }
+            free(tempbuf);
+        }
+    } else {
+        // Send data to root process
+        MPI_Send(sendbuf, count, MPI_UNSIGNED_LONG_LONG, root, 0, comm);
+    }
+}
+
+
+
+
+
+
+void double_reduce(double *sendbuf, double *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm) {
+    int rank, size;
+    MPI_Comm_rank(comm, &rank);
+    MPI_Comm_size(comm, &size);
+
+    if (rank == root) {
+        // Initialize recvbuf with sendbuf values
+        for (int i = 0; i < count; i++) {
+            recvbuf[i] = sendbuf[i];
+        }
+
+        // Receive data from other processes and perform reduction
+        for (int i = 1; i < size; i++) {
+            double *tempbuf = (double *)malloc(count * sizeof(double));
+            MPI_Recv(tempbuf, count, MPI_DOUBLE, i, 0, comm, MPI_STATUS_IGNORE);
+            for (int j = 0; j < count; j++) {
+                recvbuf[j] += tempbuf[j]; // Assuming MPI_SUM operation
+            }
+            free(tempbuf);
+        }
+    } else {
+        // Send data to root process
+        MPI_Send(sendbuf, count, MPI_DOUBLE, root, 0, comm);
+    }
 }
 
 

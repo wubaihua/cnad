@@ -317,10 +317,13 @@ void cal_correfun();
 void cal_propagator(int Nstate, double *H, double dt, double complex *U);
 void evo_traj_ele(double deltat);
 void evo_traj_nucP(double deltat);
+void evo_traj_nucR(double deltat);
+void evo_traj_calProp(int igrid_cal);
 
 void evo_traj_new(int itraj);
-
-
-
+void cal_force();
+void cal_force_mf();
+void cal_NACV();
+void cal_propagator_adia(int Nstate, double dt, double complex *U);
 
 // #endif // DEF_H

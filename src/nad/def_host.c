@@ -655,6 +655,13 @@ void readinp(){
             }
         }
 
+        if (NULL != cJSON_GetObjectItem(item, "sampletype")) {
+            list = cJSON_GetObjectItem(item, "sampletype");
+            if (list->type == cJSON_Number) {
+                sampletype = list->valueint; 
+            }
+        }
+
         if (NULL != cJSON_GetObjectItem(item, "forcetype")) {
             list = cJSON_GetObjectItem(item, "forcetype");
             if (list->type == cJSON_Number) {
@@ -1872,3 +1879,8 @@ void fileout_mpi(int id) {
 
 
 }
+
+
+
+
+

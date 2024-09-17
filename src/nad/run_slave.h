@@ -24,3 +24,7 @@ extern SLAVE_FUN(dynamics_slave)(int run_size);
 
 
 extern SLAVE_FUN(data_transport)(int id);
+
+
+
+extern SLAVE_FUN(free_slave)();
