@@ -13,7 +13,7 @@
 #include <stdbool.h>
 #include "def_host.h"
 #include "iofun_slave.h"
-
+#include <slave.h>
 
 
 // int mpi_size, mpi_rank, mpi_ierr;
@@ -839,6 +839,7 @@ void sample_ele() {
     if_ad_nac = 0;
     if (sampletype == 2){
         
+        dV_msmodel(R_nuc, dV);
         V_msmodel(R_nuc, V, 0.0);
         cal_NACV();
 
@@ -984,6 +985,8 @@ void cal_correfun() {
     double complex tempcm[Nstate*Nstate];
     double tempdm[Nstate*Nstate],tempdm2[Nstate*Nstate];
     double complex tempcm2[Nstate*Nstate];
+    int slavecore_id = athread_get_id(-1);
+    
     
     // tempmat1[Nstate*Nstate],tempmat2[Nstate*Nstate],tempmat3[Nstate*Nstate]
 
@@ -1020,6 +1023,7 @@ void cal_correfun() {
         // }
     }
 
+    
     if (strcmp(method, "MFT") == 0 || strcmp(method, "mft") == 0 ||
         strcmp(method, "BCMF") == 0 || strcmp(method, "bcmf") == 0) {
         
@@ -1078,6 +1082,7 @@ void cal_propagator(int Nstate, double *H, double dt, double complex *U) {
     double E[Nstate], C[Nstate * Nstate];
     double sineig[Nstate * Nstate], coseig[Nstate * Nstate];
     double real_pro[Nstate * Nstate], img_pro[Nstate * Nstate];
+    
     
     // 调用dia_symmat函数
     dia_symmat(Nstate, H, E, C);
@@ -1539,8 +1544,9 @@ void energy_conserve_naf_3(double deltat) {
 }
 
 void evo_traj_algorithm1(double deltat) {
-
-    
+    int slavecore_id=athread_get_id(-1);
+    double tempv[Nstate];
+    double tempdm[Nstate*Nstate];
     
     evo_traj_nucP(deltat / 2);
    
@@ -1551,11 +1557,46 @@ void evo_traj_algorithm1(double deltat) {
     // }
     evo_traj_nucR(deltat);
 
+    // if(slavecore_id==0){
+    //     if(rep==1){
+    //         memcpy(tempv,xe,Nstate*sizeof(double));
+    //         dd_matmul(U_d2a,tempv,xe,Nstate,Nstate,1);
+    //         memcpy(tempv,pe,Nstate*sizeof(double));
+    //         dd_matmul(U_d2a,tempv,pe,Nstate,Nstate,1);
+    //     }
+    //     printf("s11 %18.8E  %18.8E  %18.8E  %18.8E\n", R_nuc[0], P_nuc[0], xe[0], pe[0]);
+    //     if(rep==1){
+    //         transpose(U_d2a,tempdm,Nstate);
+    //         memcpy(tempv,xe,Nstate*sizeof(double));
+    //         dd_matmul(tempdm,tempv,xe,Nstate,Nstate,1);
+    //         memcpy(tempv,pe,Nstate*sizeof(double));
+    //         dd_matmul(tempdm,tempv,pe,Nstate,Nstate,1);
+    //     }
+    // }
+
+    
    
     dV_msmodel(R_nuc, dV);
     V_msmodel(R_nuc, V, t_now);
     if (rep == 1) cal_NACV();
     evo_traj_ele(deltat);
+    // exit(-1);
+    // if(slavecore_id==0){
+    //     if(rep==1){
+    //         memcpy(tempv,xe,Nstate*sizeof(double));
+    //         dd_matmul(U_d2a,tempv,xe,Nstate,Nstate,1);
+    //         memcpy(tempv,pe,Nstate*sizeof(double));
+    //         dd_matmul(U_d2a,tempv,pe,Nstate,Nstate,1);
+    //     }
+    //     printf("s22 %18.8E  %18.8E  %18.8E  %18.8E\n", R_nuc[0], P_nuc[0], xe[0], pe[0]);
+    //     if(rep==1){
+    //         transpose(U_d2a,tempdm,Nstate);
+    //         memcpy(tempv,xe,Nstate*sizeof(double));
+    //         dd_matmul(tempdm,tempv,xe,Nstate,Nstate,1);
+    //         memcpy(tempv,pe,Nstate*sizeof(double));
+    //         dd_matmul(tempdm,tempv,pe,Nstate,Nstate,1);
+    //     }
+    // }
     
     cal_force();
     
@@ -1645,6 +1686,8 @@ void evo_traj_new(int itraj) {
     // int nstep_small, istep_small;
     // double t_now_small;
     // bool alive;
+    int slavecore_id;
+    slavecore_id=athread_get_id(-1);
     
     if_bak = false;
     itime_save = 0;
@@ -1657,6 +1700,26 @@ void evo_traj_new(int itraj) {
     V_msmodel(R_nuc, V, 0.0);
     dV_msmodel(R_nuc, dV);
     if (rep == 1) cal_NACV();
+    //debug
+    // int slavecore_id;
+    // slavecore_id=athread_get_id(-1);
+    // if(slavecore_id == 0){
+        // for (i=0; i<Nstate; i++){
+            // printf("E_adia(%d)=%18.8E\n",i,E_adia[i]);
+            // for (j=0;j<Nstate;j++){
+                // printf("U(%d,%d)=%18.8E\n",i,j,U_d2a[i*Nstate+j]);
+    //             for (k=0;k<1;k++){
+    //                 for (int l=0;l<1;l++){
+    //                     printf("dv_adia(%d,%d,%d,%d)=%18.8E\n",i,j,k,l,dv_adia[i*Nstate*Ndof1*Ndof2+j*Ndof1*Ndof2+k*Ndof2+l]);
+    //                     printf("nac(%d,%d,%d,%d)=%18.8E\n",i,j,k,l,nac[i*Nstate*Ndof1*Ndof2+j*Ndof1*Ndof2+k*Ndof2+l]);
+    //                 }
+    //             }
+            
+    //         }
+    //     }
+    // }
+    
+   
 
     i_re = Nbreak;
     igrid = 0;
@@ -1687,16 +1750,47 @@ void evo_traj_new(int itraj) {
 
     cal_force();
 
+    // debug
+    // int slavecore_id;
+    // slavecore_id=athread_get_id(-1);
+    // if(slavecore_id == 0){
+    //     for (i=0; i<Ndof1; i++){
+            
+    //         for (j=0;j<Ndof2;j++){
+    //             printf("force(%d,%d)=%18.8E\n",i,j,force[i*Ndof1+j]);
+    //         }
+    //     }
+    // }
+    //  exit(1);
+
+
     itime = 0;
+
+
+    //debug
+    // int slavecore_id;
+    // slavecore_id=athread_get_id(-1);
+    // if(slavecore_id == 0) printf("itime=%d,force=%18.8E\n",itime,force[299]);
 
    
     
     while (itime <= nstep) {
         if (i_re >= Nbreak) {
             evo_traj_calProp(igrid);
+
+            // if(slavecore_id == 10) printf("%18.8E %18.8E %18.8E\n", t_now, R_nuc[0], P_nuc[0]);
+            
             timegrid[igrid] = t_now;
             igrid++;
             i_re = 0;
+
+            //debug
+            //  if(slavecore_id == 10) printf("%18.8E %18.8E %18.8E %18.8E %18.8E \n", R_nuc[0],P_nuc[0],xe[0],pe[0],force[0]);
+                
+            
+            // if(slavecore_id == 10) printf("%18.8E %18.8E\n", force[0],force[299]);
+            
+
         }
 
         evo_traj_savetraj();
@@ -1739,6 +1833,9 @@ void evo_traj_new(int itraj) {
             //     evo_traj_algorithm10(dt_evo);
             //     break;
         }
+
+        //debug
+        // if(slavecore_id == 0) printf("itime=%d,force=%18.8E\n",itime,force[299]);
 
         
 
@@ -1921,6 +2018,9 @@ void cal_force_mf() {
         // }
     }
 
+     
+   
+
     switch (type_evo) {
         case 0:
         case 2:
@@ -1946,10 +2046,12 @@ void cal_force_mf() {
                         if (i == j) {
                             for (k = 0; k < Ndof1 * Ndof2; k++) {
                                 force[k] -= (0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) - creal(gamma_cv[i * Nstate + i])) * dv_adia[i * Nstate * Ndof1 * Ndof2 + i * Ndof1 * Ndof2 + k];
+                                // printf("FORCE(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,dv_adia[i*Nstate*Ndof1*Ndof2+j*Ndof1*Ndof2+k*Ndof2+l]);
                             }
                         } else {
                             for (k = 0; k < Ndof1 * Ndof2; k++) {
                                 force[k] -= (0.5 * (xe[i] * xe[j] + pe[i] * pe[j]) - creal(gamma_cv[i * Nstate + j])) * (E_adia[j] - E_adia[i]) * nac[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k];
+                                // force[k] -= (0.5 * (xe[i] * xe[j] + pe[i] * pe[j]) - creal(gamma_cv[i * Nstate + j])) * dv_adia[i * Nstate * Ndof1 * Ndof2 + j * Ndof1 * Ndof2 + k];
                             }
                         }
                     }
@@ -2045,6 +2147,9 @@ void cal_NACV(){
 
     dia_symmat(Nstate, V, E_adia, U_d2a);
 
+    
+
+
     if (if_ad_nac) {
         transpose(U_d2a,tempdm1,Nstate);
         dd_matmul(tempdm1,U_ref,overlap,Nstate,Nstate,Nstate);
@@ -2081,8 +2186,8 @@ void cal_NACV(){
         dd_matmul(tempdm1, U_ref, overlap_adia, Nstate, Nstate, Nstate);
     }
 
-    memcpy(U_d2a_old, U_ref, Nstate * Nstate * sizeof(double complex));
-    memcpy(U_ref, U_d2a, Nstate * Nstate * sizeof(double complex));
+    memcpy(U_d2a_old, U_ref, Nstate * Nstate * sizeof(double));
+    memcpy(U_ref, U_d2a, Nstate * Nstate * sizeof(double));
     if_ad_nac = 1;
 
 
@@ -2110,6 +2215,39 @@ void cal_NACV(){
             } 
         }
     }
+
+
+
+    // int slavecore_id;
+    // slavecore_id = athread_get_id(-1);
+    // if(slavecore_id == 0){
+    //     for(i = 0; i< Nstate;i++){
+    //         printf("%d E=%18.8E\n",i,E_adia[i]);
+    //     }
+    //     for(i = 0; i< Nstate*Nstate;i++){
+    //         printf("%d U=%18.8E\n",i,U_d2a[i]);
+    //     }
+    //     for(i = 0; i< Ndof1*Ndof2;i++){
+    //         printf("%d dvd=%18.8E\n",i,dV[0*Nstate*Ndof1*Ndof2+0*Ndof1*Ndof2+i]);
+    //     }
+    //     printf("%18.8E\n",nac[0*Nstate*Ndof1*Ndof2+1*Ndof1*Ndof2+0]);
+    //     for(i = 0; i< Ndof1*Ndof2;i++){
+    //         printf("%d dv1=%18.8E\n",i,dv_adia[0*Nstate*Ndof1*Ndof2+0*Ndof1*Ndof2+i]);
+    //     }
+    //     for(i = 0; i< Ndof1*Ndof2;i++){
+    //         printf("%d dv2=%18.8E\n",i,dv_adia[1*Nstate*Ndof1*Ndof2+1*Ndof1*Ndof2+i]);
+    //     }
+    //     for(i = 0; i< Ndof1*Ndof2;i++){
+    //         printf("%d dv12=%18.8E\n",i,dv_adia[0*Nstate*Ndof1*Ndof2+1*Ndof1*Ndof2+i]);
+    //     }
+    //     for(i = 0; i< Ndof1*Ndof2;i++){
+    //         printf("%d dv21=%18.8E\n",i,dv_adia[1*Nstate*Ndof1*Ndof2+0*Ndof1*Ndof2+i]);
+    //     }
+    //     exit(-1);
+        // for(i = 0; i< Nstate*Nstate;i++){
+        //     printf("%d nac=%18.8E\n",i,nac[i*Ndof1*Ndof2+0]);
+        // }
+    // }
 
     // if (ifBA == 1) {
     //     memset(nac_BAeff, 0, Nstate * Nstate * Ndof1 * Ndof2 * sizeof(double complex));
@@ -2166,6 +2304,17 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U){
         }
     }
 
+
+
+    // int slavecore_id;
+    // slavecore_id = athread_get_id(-1);
+    // if(slavecore_id == 0){
+    //     // for(i = 0; i< Nstate*Nstate;i++){
+    //     //     printf("%d %18.8E %18.8E\n",i,creal(H_eff[i]),cimag(H_eff[i]));
+    //     // }
+    //     printf("%18.8E\n",nac[0*Nstate*Ndof1*Ndof2+1*Ndof1*Ndof2+0]);
+    // }
+
     // if (strcmp(trim(adjustl(method)), "PCSH") == 0 || strcmp(trim(adjustl(method)), "pcsh") == 0 ||
     //     strcmp(trim(adjustl(method)), "PCSH-NAF") == 0 || strcmp(trim(adjustl(method)), "pcsh-naf") == 0 ||
     //     strcmp(trim(adjustl(method)), "BCSH") == 0 || strcmp(trim(adjustl(method)), "bcsh") == 0 ||
@@ -2201,8 +2350,8 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U){
     //     sineig[i] = 0;
     //     coseig[i] = 0;
     // }
-    memset(sineig,0,Nstate*Nstate*sizeof(double));
-    memset(coseig,0,Nstate*Nstate*sizeof(double));
+    memset(sineig,0,Nstate * Nstate * sizeof(double));
+    memset(coseig,0,Nstate * Nstate * sizeof(double));
 
     for (i = 0; i < Nstate; i++) {
         // eig[i * Nstate + i] = E[i];
@@ -2218,51 +2367,59 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U){
     cc_matmul(eiet,tempcm1,tempcm2,Nstate,Nstate,Nstate);
     cc_matmul(C,tempcm2,U,Nstate,Nstate,Nstate);
 
+    // int slavecore_id = athread_get_id(-1);
+    // if(slavecore_id == 10){
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("temp=%18.8E %18.8E\n",creal(tempcm2[i]),cimag(tempcm2[i]));
+    //     }
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("H=%18.8E %18.8E\n",creal(H_eff[i]),cimag(H_eff[i]));
+    //     }
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("eiet=%18.8E %18.8E\n",creal(eiet[i]),cimag(eiet[i]));
+    //     }
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("C=%18.8E %18.8E\n",creal(C[i]),cimag(C[i]));
+    //     }
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("CD=%18.8E %18.8E\n",creal(tempcm1[i]),cimag(tempcm1[i]));
+    //     }
+    //     for(int i=0;i<Nstate*Nstate;i++){
+    //         printf("U=%18.8E %18.8E\n",creal(U[i]),cimag(U[i]));
+    //     }
+    // }       
 
-    // if (type_prop_adia == 1) {
-    //     for (i = 0; i < Nstate * Nstate; i++) {
-    //         eiet[i] = 0;
-    //     }
-    //     for (i = 0; i < Nstate; i++) {
-    //         eiet[i * Nstate + i] = cexp(-I * E_adia[i] * dt);
-    //     }
-    //     switch (type_algorithm) {
-    //         case 1:
-    //             matmul(eiet, overlap_adia, U);
-    //             break;
-    //         case 2:
-    //             matmul(U_d2a, eiet, U);
-    //             break;
-    //         case 3:
-    //             matmul(eiet, overlap_adia, U);
-    //             break;
-    //         case 4:
-    //             if (type_prop_4cont == 1) {
-    //                 matmul(U_d2a, eiet, U);
-    //             } else if (type_prop_4cont == 2) {
-    //                 matmul(eiet, transpose(U_d2a), U);
-    //             }
-    //             break;
-    //     }
-    // } else if (type_prop_adia == 2) {
-    //     for (i = 0; i < Nstate * Nstate; i++) {
-    //         eiet[i] = 0;
-    //     }
-    //     for (i = 0; i < Nstate; i++) {
-    //         eiet[i * Nstate + i] = cexp(-I * E_adia[i] * dt);
-    //     }
-    //     matmul(overlap_adia, eiet, U);
-    // } else if (type_prop_adia == 3) {
-    //     for (i = 0; i < Nstate * Nstate; i++) {
-    //         eiet[i] = 0;
-    //     }
-    //     for (i = 0; i < Nstate; i++) {
-    //         eiet[i * Nstate + i] = cexp(-I * E_adia[i] * dt);
-    //     }
-    //     matmul(transpose(U_d2a), eiet, U_d2a_old, U);
-    // }
+
+    if (type_prop_adia == 1) {
+        // for (i = 0; i < Nstate * Nstate; i++) {
+        //     eiet[i] = 0;
+        // }
+        // memset(eiet,0,Nstate * Nstate * sizeof(double complex));
+        // for (i = 0; i < Nstate; i++) {
+        //     eiet[i * Nstate + i] = cexp(-I * E_adia[i] * dt);
+        // }
+
+        switch (type_algorithm) {
+            case 1:
+                // matmul(eiet, overlap_adia, U);
+                cd_matmul(eiet,overlap_adia,U,Nstate,Nstate,Nstate);
+                break;
+            // case 2:
+            //     matmul(U_d2a, eiet, U);
+            //     break;
+            // case 3:
+            //     matmul(eiet, overlap_adia, U);
+            //     break;
+            // case 4:
+            //     if (type_prop_4cont == 1) {
+            //         matmul(U_d2a, eiet, U);
+            //     } else if (type_prop_4cont == 2) {
+            //         matmul(eiet, transpose(U_d2a), U);
+            //     }
+            //     break;
+        }
+    }
 }
-
 
 // void cal_propagator_adia_unsmash(){}
 // void cal_propagator_dia_unsmash(){}

@@ -58,4 +58,8 @@ int any_isnan(double complex *array, int size) ;
 
 int maxloc(double *array, int size);
 
+// double complex cc_multiply(double omplex a, double complex b);
+
+// double complex dc_multiply(double real, double complex c);
+
 #endif // GMATH_H

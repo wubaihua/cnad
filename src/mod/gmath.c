@@ -98,7 +98,7 @@ void dia_hermitemat(int n, double complex *A, double *E, double complex *C) {
     // double complex *work = (double complex *)malloc(3 * n * sizeof(double complex));
     int n2 = n*n;
     memcpy(C, A, n2*sizeof(double complex));
-    LAPACKE_zheev(LAPACK_COL_MAJOR, 'V', 'L', n, C, n, E);
+    LAPACKE_zheev(LAPACK_ROW_MAJOR, 'V', 'L', n, C, n, E);
     // free(rwork);
     // free(work);
 }
@@ -156,6 +156,7 @@ void cc_matmul(double complex *A, double complex *B, double complex *C, int nA, 
             sum=0;
             for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
+                // sum += cc_multiply(A[i*nB+j],B[j*nC+k])
             }
             C[i*nC+k]=sum;
 
@@ -172,6 +173,7 @@ void dc_matmul(double *A, double complex *B, double complex *C, int nA, int nB, 
             sum=0;
             for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
+                // sum += dc_multiply(A[i*nB+j],B[j*nC+k])
             }
             C[i*nC+k]=sum;
         }
@@ -185,6 +187,7 @@ void cd_matmul(double complex *A, double *B, double complex *C, int nA, int nB, 
             sum=0;
             for(int j=0; j<nB; j++){
                 sum+=A[i*nB+j]*B[j*nC+k];
+                // sum += dc_multiply(B[j*nC+k],A[i*nB+j])
             }
             C[i*nC+k]=sum;
         }
@@ -238,6 +241,24 @@ int maxloc(double *array, int size) {
     return max_index;
 }
 
+
+
+// double complex cc_multiply(double omplex a, double complex b) {
+//     double complex result;
+//     result.real = a.real * b.real - a.imag * b.imag;
+//     result.imag = a.real * b.imag + a.imag * b.real;
+//     return result;
+// }
+
+
+
+
+// double complex dc_multiply(double real, double complex c) {
+//     double complex result;
+//     result.real = real * c.real;
+//     result.imag = real * c.imag;
+//     return result;
+// }
 
 
 

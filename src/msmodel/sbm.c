@@ -138,7 +138,7 @@ void V_SBM(double *R, double *H, int forcetype) {
     double sum1=0, sum2=0;
     for(int i=0;i<N_bath_SBM;i++){
         sum1 += c_SBM[i] * R[i];
-        sum2 += omega_SBM[i] * omega_SBM[i] + R[i] * R[i];
+        sum2 += omega_SBM[i] * omega_SBM[i] * R[i] * R[i];
     }
     switch (forcetype) {
         case 0:
