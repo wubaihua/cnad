@@ -1348,7 +1348,7 @@ void print_info(){
     } else if (strcmp(method, "CC-FSSH") == 0 || strcmp(method, "cc-fssh") == 0) {
         printf("Method: Crossing Corrected Fewest Switches Surface Hopping (CC-FSSH)\n");
         printf("Related Publication: J. Phys. Chem. Lett. 2018, 9, 4319-4325\n");
-    } else if (strcmp(method, "eCMM") == 0 || strcmp(method, "ecmm") == 0) {
+    } else if (strcmp(method, "eCMM") == 0 || strcmp(method, "ecmm") == 0 || strcmp(method, "CMM") == 0 || strcmp(method, "cmm") == 0 ) {
         printf("Method: extended Classical Mapping Model (eCMM)\n");
         printf("Related Publication: J. Chem. Phys. 2019, 151, 024105\n");
         printf("                    J. Phys. Chem. Lett. 2021, 12, 2496-2501\n");

@@ -793,16 +793,14 @@ void sample_ele() {
             action[i] = 0;
         }
         action[init_occ-1] = 1;
-    //    printf("%f,%f\n",action[0],action[1],action[0],action[1]);
-    //    printf("%f,%f\n",sqrt(2 * action[i]),cos(theta[i]));
-    //    printf("%d\n",Nstate);
+    
         for (i = 0; i < Nstate; i++) {
             xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
-            // printf("%f,%d\n",xe[i],i);
+            
             pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
-            // printf("%f,%d\n",pe[i],i);
+            
         }
-        // printf("%f,%f,%f,%f\n",xe[0],xe[1],pe[0],pe[1]);
+        
         memset(gamma_cv,0,Nstate*Nstate*sizeof(double complex));
         correfun_0 = 0.5 * (xe[init_occ-1] * xe[init_occ-1] + pe[init_occ-1] * pe[init_occ-1]);
 
@@ -833,7 +831,94 @@ void sample_ele() {
         //         }
         //     }
         // }
+
+    } else if (strcmp(method, "eCMM") == 0 || strcmp(method, "ecmm") == 0 ||
+        strcmp(method, "CMM") == 0 || strcmp(method, "cmm") == 0) {
+        
+        // 调用 random_prob 函数
+        random_prob(Nstate, action);
+
+        // 计算 xe 和 pe
+        for (int i = 0; i < Nstate; i++) {
+            xe[i] = sqrt(2 * (1 + Nstate * gamma_zpe) * action[i]) * cos(theta[i]);
+            pe[i] = sqrt(2 * (1 + Nstate * gamma_zpe) * action[i]) * sin(theta[i]);
+        }
+
+        // 初始化 gamma_cv
+        for (int i = 0; i < Nstate; i++) {
+            for (int j = 0; j < Nstate; j++) {
+                gamma_cv[i * Nstate + j] = (i == j) ? gamma_zpe : 0.0;
+            }
+        }
+
+        // 计算 correfun_0
+        if (index_t0 == 0) {
+            correfun_0 = Nstate * (0.5 * (xe[init_occ-1] * xe[init_occ-1] + pe[init_occ-1] * pe[init_occ-1]) - gamma_zpe);
+        } else if (index_t0 == 1) {
+            correfun_0 = Nstate * 0.5 * (xe[index_t0_1-1] - I * pe[index_t0_1-1]) * (xe[index_t0_2-1] + I * pe[index_t0_2-1]);
+        }
+
+        // 计算 den_e
+        if (type_evo >= 1) {
+            for (int i = 0; i < Nstate; i++) {
+                for (int j = 0; j < Nstate; j++) {
+                    den_e[i * Nstate + j] = 0.5 * (xe[i] + I * pe[i]) * (xe[j] - I * pe[j]);
+                }
+            }
+        }
+
+        // 计算 cf0
+        if (if_allcf != 0) {
+            for (int i = 0; i < Nstate; i++) {
+                for (int j = 0; j < Nstate; j++) {
+                    cf0[i * Nstate + j] = Nstate * (den_e[i * Nstate + j] - gamma_cv[i * Nstate + j]);
+                }
+            }
+        }
+    } 
+
+     if (ifcv == -1 || ifcv == 1) {
+        for (int i = 0; i < Nstate; i++) {
+            if (i == init_occ - 1) {
+                gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) - 1;
+                if (ifscalegamma == 1) {
+                    gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) * (1 + Nstate * gamma_rescale) / (1 + Nstate * gamma_zpe) - 1;
+                }
+            } else {
+                gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]);
+                if (ifscalegamma == 1) {
+                    gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) * (1 + Nstate * gamma_rescale) / (1 + Nstate * gamma_zpe);
+                }
+            }
+        }
+        
     }
+
+    if (ifcv == -2 || ifcv == 2) {
+        for (int i = 0; i < Nstate; i++) {
+            if (i == init_occ - 1) {
+                gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) - 1;
+                if (ifscalegamma == 1) {
+                    gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) * (1 + Nstate * gamma_rescale) / (1 + Nstate * gamma_zpe) - 1;
+                }
+            } else {
+                gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]);
+                if (ifscalegamma == 1) {
+                    gamma_cv[i * Nstate + i] = 0.5 * (xe[i] * xe[i] + pe[i] * pe[i]) * (1 + Nstate * gamma_rescale) / (1 + Nstate * gamma_zpe);
+                }
+            }
+        }
+        for (int i = 0; i < Nstate; i++) {
+            for (int j = 0; j < Nstate; j++) {
+                if (i == j || i == init_occ || j == init_occ) continue;
+                gamma_cv[i * Nstate + j] = 0.5 * (xe[i] + I * pe[i]) * (xe[j] - I * pe[j]);
+                if (ifscalegamma == 1) {
+                    gamma_cv[i * Nstate + j] = 0.5 * (xe[i] + I * pe[i]) * (xe[j] - I * pe[j]) * (1 + Nstate * gamma_rescale) / (1 + Nstate * gamma_zpe);
+                }
+            }
+        }
+    }
+
 
 
     if_ad_nac = 0;
@@ -1038,6 +1123,25 @@ void cal_correfun() {
                 }
             }
         }
+
+    } else if (strcmp(method, "eCMM") == 0 || strcmp(method, "ecmm") == 0 ||
+        strcmp(method, "CMM") == 0 || strcmp(method, "cmm") == 0) {
+        
+        if (type_evo == 1 || type_evo == 3) {
+            for (int i = 0; i < Nstate * Nstate; i++) {
+                correfun_t[i] = den_e[i] * (1.0 + Nstate) / pow(1 + Nstate * gamma_zpe, 2);
+            }
+            for (int i = 0; i < Nstate; i++) {
+                correfun_t[i * Nstate + i] -= (1.0 - gamma_zpe) / (1 + Nstate * gamma_zpe);
+            }
+        } else {
+            for (int i = 0; i < Nstate; i++) {
+                for (int j = 0; j < Nstate; j++) {
+                    correfun_t[i * Nstate + j] = (1.0 + Nstate) / (2 * pow(1 + Nstate * gamma_zpe, 2)) * (xe[i] + I * pe[i]) * (xe[j] - I * pe[j]) - (1.0 - gamma_zpe) / (1 + Nstate * gamma_zpe) * (i == j ? 1 : 0);
+                }
+            }
+        }
+
     }
 
 
@@ -2304,52 +2408,9 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U){
         }
     }
 
-
-
-    // int slavecore_id;
-    // slavecore_id = athread_get_id(-1);
-    // if(slavecore_id == 0){
-    //     // for(i = 0; i< Nstate*Nstate;i++){
-    //     //     printf("%d %18.8E %18.8E\n",i,creal(H_eff[i]),cimag(H_eff[i]));
-    //     // }
-    //     printf("%18.8E\n",nac[0*Nstate*Ndof1*Ndof2+1*Ndof1*Ndof2+0]);
-    // }
-
-    // if (strcmp(trim(adjustl(method)), "PCSH") == 0 || strcmp(trim(adjustl(method)), "pcsh") == 0 ||
-    //     strcmp(trim(adjustl(method)), "PCSH-NAF") == 0 || strcmp(trim(adjustl(method)), "pcsh-naf") == 0 ||
-    //     strcmp(trim(adjustl(method)), "BCSH") == 0 || strcmp(trim(adjustl(method)), "bcsh") == 0 ||
-    //     strcmp(trim(adjustl(method)), "BCSH-NAF") == 0 || strcmp(trim(adjustl(method)), "bcsh-naf") == 0) {
-    //     for (i = 0; i < Nstate; i++) {
-    //         if (i == id_state) {
-    //             H_eff[i * Nstate + i] = -sum(P_nuc, mass);
-    //         } else {
-    //             if (sum(P_nuc, mass) * 0.5 + E_adia[id_state] < E_adia[i]) {
-    //                 H_eff[i * Nstate + i] = 0;
-    //             } else {
-    //                 P_eff = sqrt(2 * mass[0] * (sum(P_nuc, mass) * 0.5 + E_adia[id_state] - E_adia[i])) * P_nuc / sqrt(sum(P_nuc));
-    //                 H_eff[i * Nstate + i] = -sum(P_nuc, P_eff, mass);
-    //             }
-    //         }
-    //     }
-    // } else if (strcmp(trim(adjustl(method)), "BCMF") == 0 || strcmp(trim(adjustl(method)), "bcmf") == 0) {
-    //     E_avg = sum(xe, pe, E_adia);
-    //     for (i = 0; i < Nstate; i++) {
-    //         if (sum(P_nuc, mass) * 0.5 + E_avg < E_adia[i]) {
-    //             H_eff[i * Nstate + i] = 0;
-    //         } else {
-    //             P_eff = sqrt((sum(P_nuc, mass) * 0.5 + E_avg - E_adia[i]) / (sum(P_nuc, mass) * 0.5)) * P_nuc;
-    //             H_eff[i * Nstate + i] = -sum(P_nuc, P_eff, mass);
-    //         }
-    //     }
-    // }
-
     dia_hermitemat(Nstate, H_eff, E, C);
 
-    // for (i = 0; i < Nstate * Nstate; i++) {
-    //     // eig[i] = 0;
-    //     sineig[i] = 0;
-    //     coseig[i] = 0;
-    // }
+  
     memset(sineig,0,Nstate * Nstate * sizeof(double));
     memset(coseig,0,Nstate * Nstate * sizeof(double));
 
@@ -2394,10 +2455,10 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U){
         // for (i = 0; i < Nstate * Nstate; i++) {
         //     eiet[i] = 0;
         // }
-        // memset(eiet,0,Nstate * Nstate * sizeof(double complex));
-        // for (i = 0; i < Nstate; i++) {
-        //     eiet[i * Nstate + i] = cexp(-I * E_adia[i] * dt);
-        // }
+        memset(eiet,0,Nstate * Nstate * sizeof(double complex));
+        for (i = 0; i < Nstate; i++) {
+            eiet[i * Nstate + i] = cos(E_adia[i] * dt) - I * sin(E_adia[i] * dt);
+        }
 
         switch (type_algorithm) {
             case 1:
