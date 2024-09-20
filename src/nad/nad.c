@@ -31,15 +31,17 @@ int main(int argc, char *argv[]) {
     double dsum;
     unsigned long long lsum;
 
+    struct set_host seth;
+
 
     MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &mpi_size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &seth.mpi_size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &seth.mpi_rank);
     // mpi_rank=0,mpi_size;
     
     athread_init();
 
-    if (mpi_rank == 0) {
+    if (seth.mpi_rank == 0) {
         printf("====================================================================\n");
         printf("*         cNAD: Non-Adiabatic Dynamics simulator (C-version)       *\n");
         printf("*                        Module of Liouville                       *\n");
@@ -62,29 +64,29 @@ int main(int argc, char *argv[]) {
     t1 = MPI_Wtime();
 
     tt1 = MPI_Wtime();
-    initial_para();
+    initial_para(&seth);
     tt2 = MPI_Wtime();
-    if (mpi_rank == 0) 
+    if (seth.mpi_rank == 0) 
     printf("Initialization Finish, using time: %f\n", tt2 - tt1);
 
     // char filepath[256];
     if (argc > 1) {
-        filepath=argv[1];
+        seth.filepath=argv[1];
     } else {
-        if (mpi_rank == 0) {
+        if (seth.mpi_rank == 0) {
             printf("File path not provided.\n");
         }
         MPI_Finalize();
         return 1;
     }
-    if (mpi_rank == 0) {
-        printf("Reading files: %s\n", filepath);
+    if (seth.mpi_rank == 0) {
+        printf("Reading files: %s\n", seth.filepath);
     }
 
-    readinp();
+    readinp(&seth);
 
     tt2 = MPI_Wtime();
-    if (mpi_rank == 0) printf("Reading input file Finish, using time: %f\n", tt2 - tt1);
+    if (seth.mpi_rank == 0) printf("Reading input file Finish, using time: %f\n", tt2 - tt1);
 
 
 
@@ -95,12 +97,12 @@ int main(int argc, char *argv[]) {
 
     // initial_vari();
     // init_msmodel(mass);
-    athread_spawn(init_slave,0);
-    athread_join();
+    // athread_spawn(init_slave,0);
+    // athread_join();
 
-    init_host();
+    init_host(&seth);
 
-    if (mpi_rank == 0) print_info();
+    if (seth.mpi_rank == 0) print_info(&seth);
     
     // if (if_allcf == 2) {
     //     cfweight_msmodel(weight0, weightt, beta);
@@ -108,7 +110,7 @@ int main(int argc, char *argv[]) {
 
    
     tt2 = MPI_Wtime();
-    if (mpi_rank == 0) {
+    if (seth.mpi_rank == 0) {
         printf("Initializing model Finish, using time: %f\n", tt2 - tt1);
         printf("=====================================================================\n");
         printf("\n");
@@ -119,8 +121,8 @@ int main(int argc, char *argv[]) {
     tt1 = MPI_Wtime();
     // init_seed(mpi_rank);
 
-    int run_size = Ntraj/mpi_size;
-    athread_spawn(dynamics_slave,run_size);
+    
+    athread_spawn(dynamics_slave,&seth);
     athread_join();
 
      
@@ -145,7 +147,7 @@ int main(int argc, char *argv[]) {
     //     }
     // }
     tt2 = MPI_Wtime();
-    printf("MPI process %d using time: %f\n", mpi_rank, tt2 - tt1);
+    printf("MPI process %d using time: %f\n", seth.mpi_rank, tt2 - tt1);
     // fflush(stdout);  // 强制刷新输出缓冲区
 
 
@@ -154,25 +156,25 @@ int main(int argc, char *argv[]) {
     MPI_Barrier(MPI_COMM_WORLD);
     // printf("Process %d after barrier\n", mpi_rank);
 
-    if (mpi_rank == 0) printf("Simulation Finish\n");
+    if (seth.mpi_rank == 0) printf("Simulation Finish\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
-    if (mpi_rank == 0) printf("=====================================================================\n");
+    if (seth.mpi_rank == 0) printf("=====================================================================\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
-    if (mpi_rank == 0) printf("Outputting data ..\n");
+    if (seth.mpi_rank == 0) printf("Outputting data ..\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
     tt1 = MPI_Wtime();
 
-    for (int i = 0; i < 64; i++){
-        athread_spawn(data_transport,i);
-        athread_join();
-    }
+    // for (int i = 0; i < 64; i++){
+    //     athread_spawn(data_transport,i);
+    //     athread_join();
+    // }
 
     
     // athread_spawn(free_slave,0);
     // athread_join();
 
-    for (int i = 0; i < Ngrid; i++){
-        fi_time_grid[i] = i*dt*Nbreak;
+    for (int i = 0; i < seth.Ngrid; i++){
+        seth.fi_time_grid[i] = i*seth.dt*seth.Nbreak;
     }
    
     // printf("1111\n");
@@ -185,9 +187,9 @@ int main(int argc, char *argv[]) {
     // printf("den=%18.8E\n",mpi_real_den[0 * Ngrid*Nstate + 0* Ngrid + Ngrid -1 ]); // debug
 
 
-    if (ifoutputmpi == 1) {
-        if (mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
-        fileout_mpi(mpi_rank);
+    if (seth.ifoutputmpi == 1) {
+        if (seth.mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
+        fileout_mpi(seth.mpi_rank,&seth);
     }
    
     // 继续MPI reduce和数据输出的代码转换
@@ -196,8 +198,8 @@ int main(int argc, char *argv[]) {
     // printf("2222\n");
     // MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
-    for (int i = 0; i < Ngrid; i++){
-        MPI_Reduce(&mpi_N_nan_sum[i], &mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    for (int i = 0; i < seth.Ngrid; i++){
+        MPI_Reduce(&seth.mpi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
 
     // MPI_Status status;
@@ -229,7 +231,7 @@ int main(int argc, char *argv[]) {
 
     
 
-    if (mpi_population != NULL) {
+    if (seth.mpi_population != NULL) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
         // MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // for (int i = 0; i < Nstate * Ngrid; i++){
@@ -238,9 +240,9 @@ int main(int argc, char *argv[]) {
         // }
         // printf("111111111111111111\n");
       
-        for (int i = 0; i < Nstate * Ngrid; i++) {
+        for (int i = 0; i < seth.Nstate * seth.Ngrid; i++) {
             // printf("aaa: %d, %d, %f, %f \n", mpi_rank, i, mpi_population[i], dsum);
-            MPI_Reduce(&mpi_population[i], &mpi_population[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.mpi_population[i], &seth.mpi_population[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
 
 
@@ -252,12 +254,12 @@ int main(int argc, char *argv[]) {
         // if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
         // free(result_population);
 
-        if (if_st_fb == 1) {
+        if (seth.if_st_fb == 1) {
             // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
             
             // MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            for (int i = 0; i < Nstate * Ngrid * 2; i++){
-                MPI_Reduce(&mpi_pop_fb[i], &mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            for (int i = 0; i < seth.Nstate * seth.Ngrid * 2; i++){
+                MPI_Reduce(&seth.mpi_pop_fb[i], &seth.mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
             }
             // free(mpi_pop_fb);
         }
@@ -265,7 +267,7 @@ int main(int argc, char *argv[]) {
     }
 
     // if (mpi_den != NULL) {
-    if (mpi_real_den != NULL) {
+    if (seth.mpi_real_den != NULL) {
         // printf("test111111\n");
         // fi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
         // printf("test2222\n");
@@ -293,9 +295,9 @@ int main(int argc, char *argv[]) {
         // MPI_Barrier(MPI_COMM_WORLD);
         // MPI_Reduce(mpi_real_den, mpi_real_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // MPI_Reduce(mpi_imag_den, mpi_imag_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        for (int i = 0; i < Nstate * Nstate * Ngrid; i++){
-            MPI_Reduce(&mpi_real_den[i], &mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            MPI_Reduce(&mpi_imag_den[i], &mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        for (int i = 0; i < seth.Nstate * seth.Nstate * seth.Ngrid; i++){
+            MPI_Reduce(&seth.mpi_real_den[i], &seth.mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.mpi_imag_den[i], &seth.mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
         // // printf("test9999999\n");
         // // free(mpi_den);
@@ -399,22 +401,22 @@ int main(int argc, char *argv[]) {
     //     free(mpi_imag_expisP);
     // }
 
-    if (mpi_rank == 0) {
-        if (mpi_real_den != NULL) {
+    if (seth.mpi_rank == 0) {
+        if (seth.mpi_real_den != NULL) {
             // for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
             //     fi_den[i] = real_rho[i] + I * imag_rho[i];
             // }
-            if (if_st_nan == 1) {
-                for (int igrid = 0; igrid < Ngrid; igrid++) {
-                    for (int i = 0; i < Nstate * Nstate; i++) {
-                        mpi_real_den[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
-                        mpi_imag_den[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
+            if (seth.if_st_nan == 1) {
+                for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
+                    for (int i = 0; i < seth.Nstate * seth.Nstate; i++) {
+                        seth.mpi_real_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
+                        seth.mpi_imag_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
                     }
                 }
             } else {
-                for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
-                    mpi_real_den[i] /= Ntraj;
-                    mpi_imag_den[i] /= Ntraj;
+                for (int i = 0; i < seth.Ngrid * seth.Nstate * seth.Nstate; i++) {
+                    seth.mpi_real_den[i] /= seth.Ntraj;
+                    seth.mpi_imag_den[i] /= seth.Ntraj;
                 }
             }
             
@@ -423,21 +425,21 @@ int main(int argc, char *argv[]) {
             // }
         }
 
-        if (mpi_population != NULL) {
-            if (if_st_nan == 1) {
-                for (int igrid = 0; igrid < Ngrid; igrid++) {
-                    for (int i = 0; i < Nstate; i++) {
-                        mpi_population[i * Ngrid + igrid] /= (Ntraj - fi_N_nan_sum[igrid]);
+        if (seth.mpi_population != NULL) {
+            if (seth.if_st_nan == 1) {
+                for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
+                    for (int i = 0; i < seth.Nstate; i++) {
+                        seth.mpi_population[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
                     }
                 }
             } else {
-                for (int i = 0; i < Ngrid * Nstate; i++) {
-                    mpi_population[i] /= Ntraj;
+                for (int i = 0; i < seth.Ngrid * seth.Nstate; i++) {
+                    seth.mpi_population[i] /= seth.Ntraj;
                 }
             }
-            if (if_st_fb == 1) {
-                for (int i = 0; i < 2 * Ngrid * Nstate; i++) {
-                    mpi_pop_fb[i] /= Ntraj;
+            if (seth.if_st_fb == 1) {
+                for (int i = 0; i < 2 * seth.Ngrid * seth.Nstate; i++) {
+                    seth.mpi_pop_fb[i] /= seth.Ntraj;
                 }
             }     
         }
@@ -451,32 +453,32 @@ int main(int argc, char *argv[]) {
         //     }
         // }
 
-        if (cfeff != NULL) {
-            for (int i = 0; i < Ngrid; i++) {
-                cfeff[i] = (real_cfeff[i] + I * imag_cfeff[i])/Ntraj;
-            }
-        }
+        // if (cfeff != NULL) {
+        //     for (int i = 0; i < Ngrid; i++) {
+        //         cfeff[i] = (real_cfeff[i] + I * imag_cfeff[i])/Ntraj;
+        //     }
+        // }
 
-        if (P_nuc_mean != NULL) {
-            for (int i = 0; i < Ngrid * Ndof1 * Ndof2; i++) {
-                P_nuc_mean[i] /= Ntraj;
-                R_nuc_mean[i] /= Ntraj;
-                P2_nuc_mean[i] /= Ntraj;
-                R2_nuc_mean[i] /= Ntraj;
-            }
-        }
+        // if (P_nuc_mean != NULL) {
+        //     for (int i = 0; i < Ngrid * Ndof1 * Ndof2; i++) {
+        //         P_nuc_mean[i] /= Ntraj;
+        //         R_nuc_mean[i] /= Ntraj;
+        //         P2_nuc_mean[i] /= Ntraj;
+        //         R2_nuc_mean[i] /= Ntraj;
+        //     }
+        // }
 
-        if (energy_est != NULL) {
-            for (int i = 0; i < Ngrid; i++) {
-                energy_est[i] /= Ntraj;
-            }
-        }
+        // if (energy_est != NULL) {
+        //     for (int i = 0; i < Ngrid; i++) {
+        //         energy_est[i] /= Ntraj;
+        //     }
+        // }
 
-        fileout();
+        fileout(&seth);
     }
 
     tt2 = MPI_Wtime();
-    if (mpi_rank == 0) {
+    if (seth.mpi_rank == 0) {
         printf("Outputting data Finish, using time: %f\n", tt2 - tt1);
         printf("=====================================================================\n");
     }
@@ -484,7 +486,7 @@ int main(int argc, char *argv[]) {
     
 
     t2 = MPI_Wtime();
-    if (mpi_rank == 0) {
+    if (seth.mpi_rank == 0) {
         printf("Total Running time: %f\n", t2 - t1);
         now = time(NULL);
         time_t t = localtime(&now);

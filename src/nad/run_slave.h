@@ -15,16 +15,16 @@
 #include <athread.h>
 
 
-extern SLAVE_FUN(init_slave)();
+// extern SLAVE_FUN(init_slave)();
 
 
 
-extern SLAVE_FUN(dynamics_slave)(int run_size);
+extern SLAVE_FUN(dynamics_slave)(struct set_host *seth);
 
 
 
-extern SLAVE_FUN(data_transport)(int id);
+// extern SLAVE_FUN(data_transport)(int id);
 
 
 
-extern SLAVE_FUN(free_slave)();
+// extern SLAVE_FUN(free_slave)();
