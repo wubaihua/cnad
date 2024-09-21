@@ -1,3 +1,7 @@
+#ifndef MSMODELIO_H
+#define MSMODELIO_H
+
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -8,22 +12,39 @@
 #include <string.h>
 #include <stdio.h>
 #include "cJSON.h"
+#include "def_host.h"
 
-extern int forcetype;
-extern char msmodelname[200];
-
-
-// Spin-Boson Model parameters
-extern int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
-extern double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
-void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate);
+// extern int forcetype;
+// extern char msmodelname[200];
 
 
-
+// // Spin-Boson Model parameters
+// extern int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
+// extern double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
+// void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate);
 
 
 
+// struct set_host
+// {
+//     int forcetype;
+//     char msmodelname[200];
 
 
-void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate);
+//     // Spin-Boson Model parameters
+//     int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
+//     double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
+//     double *c_SBM, *omega_SBM;
 
+// };
+
+
+
+
+
+void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm);
+
+
+
+
+#endif 

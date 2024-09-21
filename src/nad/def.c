@@ -400,7 +400,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     sets->force = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
     // printf("22222\n");
 
-    if (forcetype == 1) {
+    if (seth->forcetype == 1) {
         sets->force_nuc = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
     }
 
@@ -936,8 +936,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     seth->if_ad_nac = 0;
     if (seth->sampletype == 2){
         
-        dV_msmodel(sets->R_nuc, sets->dV);
-        V_msmodel(sets->R_nuc, sets->V, 0.0);
+        dV_msmodel(sets->R_nuc, sets->dV,seth);
+        V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
         cal_NACV(sets,seth);
 
         // sets->xe = matmul(transpose(sets->U_d2a), sets->xe)
@@ -1705,8 +1705,8 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
 
     
    
-    dV_msmodel(sets->R_nuc, sets->dV);
-    V_msmodel(sets->R_nuc, sets->V, sets->t_now);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     // printf("x133333333\n");
     if (seth->rep == 1) cal_NACV(sets,seth);
     // printf("x454545454\n");
@@ -1832,8 +1832,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     sets->t_now = 0;
     nstep = (int)(seth->ttot / seth->dt);
 
-    V_msmodel(sets->R_nuc, sets->V, 0.0);
-    dV_msmodel(sets->R_nuc, sets->dV);
+    V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     //debug
     // int slavecore_id;
@@ -2115,8 +2115,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         // }
     }
     
-    if (forcetype == 1) {
-        nucforce_msmodel(sets->R_nuc, sets->force_nuc);
+    if (seth->forcetype == 1) {
+        nucforce_msmodel(sets->R_nuc, sets->force_nuc, seth);
         for(i=0 ; i<seth->Ndof1*seth->Ndof2; i++){
             sets->force[i] -= sets->force_nuc[i];
         }
@@ -2413,7 +2413,7 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
 
 // void cal_dvadia_state(){}
 
-void cal_propagator_adia(int Nstate, double dt, double complex *U,struct set_slave *sets,struct set_host *seth){
+void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_slave *sets, struct set_host *seth){
     int i, j;
     double complex H_eff[seth->Nstate * seth->Nstate], C[seth->Nstate * seth->Nstate];
     double E[seth->Nstate], eig[seth->Nstate * seth->Nstate];
@@ -2527,7 +2527,7 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
     free(sets->mass);
     free(sets->force);
 
-    if (forcetype == 1) {
+    if (seth->forcetype == 1) {
         free(sets->force_nuc);
     }
 

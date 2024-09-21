@@ -577,7 +577,7 @@ void readinp(struct set_host *seth){
 
     if (NULL !=  cJSON_GetObjectItem(item, "msmodelname")){
         list=cJSON_GetObjectItem(item,  "msmodelname");
-        strcpy(msmodelname, list->valuestring);
+        strcpy(seth->msmodelname, list->valuestring);
     }
 
         
@@ -585,7 +585,7 @@ void readinp(struct set_host *seth){
     while (item) {
         // printf("F1=%d\n",Nstate);
 
-        readinp_msmodel(item, &(seth->Ndof1), &(seth->Ndof2), &(seth->Nstate));
+        readinp_msmodel(item, &(seth->Ndof1), &(seth->Ndof2), &(seth->Nstate),seth);
         
         // printf("F2=%d\n",Nstate);
 
@@ -669,7 +669,7 @@ void readinp(struct set_host *seth){
         if (NULL != cJSON_GetObjectItem(item, "forcetype")) {
             list = cJSON_GetObjectItem(item, "forcetype");
             if (list->type == cJSON_Number) {
-                forcetype = list->valueint; 
+                seth->forcetype = list->valueint; 
             }
         }
 
@@ -1294,7 +1294,7 @@ void init_host(struct set_host *seth){
 void print_info(struct set_host *seth){
     
     printf("===========================Model details============================\n");
-    printf("Model: %s\n", msmodelname);
+    printf("Model: %s\n", seth->msmodelname);
 
     switch (seth->rep) {
         case 0:

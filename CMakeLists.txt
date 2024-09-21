@@ -10,6 +10,7 @@ include_directories(
     /home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/device/LAPACKE/include/
     src/mod/
     src/msmodel/
+    src/nad/
 )
 
 # 使用 swgcc 编译的文件
@@ -29,19 +30,19 @@ add_library(iofun_slave OBJECT src/mod/iofun_slave.c)
 set_target_properties(iofun_slave PROPERTIES COMPILE_FLAGS "-mslave")
 
 add_library(msmodelio OBJECT src/msmodel/msmodelio.c)
-set_target_properties(msmodelio PROPERTIES COMPILE_FLAGS "-mhost -I src/msmodel/ -I src/mod/")
+set_target_properties(msmodelio PROPERTIES COMPILE_FLAGS "-mhost -I src/nad/ -I src/msmodel/ -I src/mod/")
 
 add_library(sbm OBJECT src/msmodel/sbm.c)
-set_target_properties(sbm PROPERTIES COMPILE_FLAGS "-mslave -I src/msmodel/ -I src/mod/")
+set_target_properties(sbm PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
 add_library(msmodel OBJECT src/msmodel/msmodel.c)
-set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/msmodel/ -I src/mod/")
+set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
 add_library(def OBJECT src/nad/def.c)
-set_target_properties(def PROPERTIES COMPILE_FLAGS "-mslave -I src/msmodel/ -I src/mod/ -lm -lm_slave -lgfortran_slave")
+set_target_properties(def PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/ -lm -lm_slave -lgfortran_slave")
 
 add_library(run_slave OBJECT src/nad/run_slave.c)
-set_target_properties(run_slave PROPERTIES COMPILE_FLAGS "-mslave -I src/msmodel/ -I src/mod/")
+set_target_properties(run_slave PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
 add_library(def_host OBJECT src/nad/def_host.c)
 set_target_properties(def_host PROPERTIES COMPILE_FLAGS "-mhost -I src/msmodel/ -I src/mod/")

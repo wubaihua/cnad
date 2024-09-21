@@ -32,6 +32,7 @@ int main(int argc, char *argv[]) {
     unsigned long long lsum;
 
     struct set_host seth;
+    // struct set_msmodel setm;
 
 
     MPI_Init(&argc, &argv);

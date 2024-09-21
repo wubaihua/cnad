@@ -34,7 +34,7 @@ void dynamics_slave(struct set_host *seth){
 
     initial_vari(&sets,seth);
     
-    init_msmodel(sets.mass);
+    init_msmodel(sets.mass,seth);
 
     init_seed(seth->mpi_rank*64+slavecore_id);
 
@@ -43,7 +43,7 @@ void dynamics_slave(struct set_host *seth){
         if (itraj % 64 == slavecore_id) {
 
             
-            sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta);
+            sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
 
             
             

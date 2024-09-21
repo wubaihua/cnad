@@ -785,6 +785,20 @@ struct set_host
 
     int if_traceless_force;
 
+
+
+    // model parameters
+
+
+        int forcetype;
+        char msmodelname[200];
+
+
+        // Spin-Boson Model parameters
+        int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
+        double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
+        double *c_SBM, *omega_SBM;
+
 };
 
 
