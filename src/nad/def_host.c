@@ -1260,13 +1260,25 @@ void init_host(struct set_host *seth){
         seth->mpi_real_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));
         seth->mpi_imag_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));  
         memset(seth->mpi_real_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));
-        memset(seth->mpi_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));   
+        memset(seth->mpi_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));  
+
+        seth->save_real_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));
+        seth->save_imag_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));  
+        memset(seth->save_real_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));
+        memset(seth->save_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));  
+
         }
 
         if (seth->outputtype != 0){
             seth->mpi_population = (double *)malloc(seth->Nstate * seth->Ngrid * sizeof(double));
             memset(seth->mpi_population,0, seth->Nstate * seth->Ngrid * sizeof(double));
+            seth->save_population = (double *)malloc(seth->Nstate * seth->Ngrid * 64 * sizeof(double));
+            memset(seth->save_population,0, seth->Nstate * seth->Ngrid * 64 * sizeof(double));
         }
+
+        // for (int i=0;i<seth->Ngrid;i++){
+        //     printf("%d %18.8E %18.8E\n",i,seth->mpi_population[0*seth->Ngrid + i],seth->mpi_population[1*seth->Ngrid + i]);
+        // }
         
     }
 

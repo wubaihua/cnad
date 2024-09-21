@@ -10,6 +10,7 @@
 #include "cJSON.h"
 
 
+
 int forcetype;
 char msmodelname[200];
 
@@ -17,6 +18,8 @@ char msmodelname[200];
 // Spin-Boson Model parameters
 int N_bath_SBM, bathtype; // bathtype=1 for Ohmic; bathtype=2 for Debye
 double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
+
+
 void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate) {
     
 
@@ -102,8 +105,8 @@ void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate) {
 
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate) {
-    if (strcmp(trim(adjustl(msmodelname)), "SBM") == 0 ||
-       strcmp(trim(adjustl(msmodelname)), "sbm") == 0) {
+    if (strcmp(msmodelname, "SBM") == 0 ||
+       strcmp(msmodelname, "sbm") == 0) {
         readinp_SBM(json, Ndof1, Ndof2, Nstate);
     }
 }

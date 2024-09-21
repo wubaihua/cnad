@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(cnad)
 
+# add_compile_options(-Wall -Wextra)
 
 set(CMAKE_C_COMPILER "swgcc")
 

@@ -177,6 +177,12 @@ int main(int argc, char *argv[]) {
         seth.fi_time_grid[i] = i*seth.dt*seth.Nbreak;
     }
    
+
+    // if(seth.mpi_rank == 0){
+    //     for(int i=0; i<seth.Ngrid;i++){
+    //         printf("%18.8E %18.8E %18.8E \n",seth.fi_time_grid[i],seth.mpi_population[i]/seth.Ntraj*seth.mpi_size,seth.mpi_population[seth.Ngrid+i]/seth.Ntraj*seth.mpi_size); 
+    //     }
+    // }
     // printf("1111\n");
     // athread_spawn(data_transport,1);
     // athread_join();
@@ -233,12 +239,19 @@ int main(int argc, char *argv[]) {
 
     if (seth.mpi_population != NULL) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
-        // MPI_Reduce(mpi_population, mpi_population, Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // for (int i = 0; i < Nstate * Ngrid; i++){
         //     MPI_Reduce(&mpi_population[i], &dsum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         //     if(mpi_rank == 0) mpi_population[i] = dsum;
         // }
         // printf("111111111111111111\n");
+
+
+        for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
+            for(int j=0;j<64;j++){
+                seth.mpi_population[i] += seth.save_population[i*64+j];
+            }
+        }
       
         for (int i = 0; i < seth.Nstate * seth.Ngrid; i++) {
             // printf("aaa: %d, %d, %f, %f \n", mpi_rank, i, mpi_population[i], dsum);
@@ -290,6 +303,21 @@ int main(int argc, char *argv[]) {
         // printf("mpi_imag_den=%p\n",(void*)mpi_imag_den);
         // printf("real_rho=%p\n",(void*)real_rho);
         // printf("imag_rho=%p\n",(void*)imag_rho);
+// for (int j=0;j<64;j++){
+//     printf("%d %18.8E %18.8E\n",j,seth.save_real_den[0 * seth.Ngrid * seth.Nstate + 0 *seth.Ngrid  + 0 + j],seth.save_imag_den[1 * seth.Ngrid * seth.Nstate + 1 *seth.Ngrid + j]); // debug
+
+// }
+        
+
+        for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
+            for(int j=0;j<64;j++){
+                seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
+                seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
+            }
+        }
+
+        // printf("%d %18.8E %18.8E\n",seth.mpi_rank,seth.mpi_real_den[0 * seth.Ngrid * seth.Nstate + 0 *seth.Ngrid  + 0],seth.mpi_imag_den[1 * seth.Ngrid * seth.Nstate + 1 *seth.Ngrid + 0]); // debug
+
 
         // printf("test7777771\n");
         // MPI_Barrier(MPI_COMM_WORLD);

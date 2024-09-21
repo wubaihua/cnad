@@ -68,11 +68,13 @@ void dynamics_slave(struct set_host *seth){
     }
 
 
-    // printf("%f\n",population[0 * Ngrid  + Ngrid -1 ]); // debug
+    // printf("%d %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1],sets.population[1 * seth->Ngrid  + seth->Ngrid -1]); // debug
 
+// printf("%d %18.8E %18.8E\n",slavecore_id,creal(sets.den[0 * seth->Ngrid * seth->Nstate + 0 *seth->Ngrid  + 0]),creal(sets.den[1 * seth->Ngrid * seth->Nstate + 1 *seth->Ngrid + 0])); // debug
 
-
-
+    //  for (int i=0;i<seth->Ngrid;i++){
+    //         printf("%d %18.8E %18.8E\n",i,seth->mpi_population[0*seth->Ngrid + i],seth->mpi_population[1*seth->Ngrid + i]);
+    // }
     
 
     // for (int i = 0; i < Ngrid; i++){
@@ -99,23 +101,33 @@ void dynamics_slave(struct set_host *seth){
                 seth->mpi_N_nan_sum[i] += sets.N_nan_sum[i];
             }
 
-            if (sets.den != NULL) {
+            if (seth->outputtype >= 0) {
                 
                 for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
                     // mpi_den[i] += den[i];
-                    seth->mpi_real_den[i] += creal(sets.den[i]);
-                    seth->mpi_imag_den[i] += cimag(sets.den[i]);
-
+                    // seth->mpi_real_den[i] += creal(sets.den[i]);
+                    // seth->mpi_imag_den[i] += cimag(sets.den[i]);
+                    seth->save_real_den[i*64+idcore] = creal(sets.den[i]);
+                    seth->save_imag_den[i*64+idcore] = cimag(sets.den[i]);
                 }
             }
-
-            if (sets.population != NULL) {
-                for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
-                    seth->mpi_population[i] += sets.population[i];
+            if (seth->outputtype != 0) {
+                for (int i = 0; i < seth->Nstate * seth->Ngrid; i++){
+                    // seth->mpi_population[i] += sets.population[i];
+                    seth->save_population[i*64+idcore] = sets.population[i];
+                    // printf("%d %18.8E %18.8E\n",i,seth->mpi_population[i], sets.population[i]);
+                    // seth->mpi_population[i] += 1;
                 }
+                // for (int i = 0; i < seth->Nstate; i++){
+                //     for (int j=0; j< seth->Ngrid; j++){
+                //         seth->mpi_population[i* seth->Ngrid + j] += creal(sets.den[i* seth->Nstate * seth->Ngrid + i * seth->Ngrid + j]);
+                //     }
+                //     // seth->mpi_population[i] += 1;
+                // }
+
             }
 
-
+    
 
 
 
@@ -131,6 +143,29 @@ void dynamics_slave(struct set_host *seth){
         }
         athread_ssync_array();
     }
+
+
+
+   
+    // if (seth->outputtype >= 0) {
+                
+    //     for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
+            
+    //         seth->save_real_den[i*64+slavecore_id] = creal(sets.den[i]);
+    //         seth->save_imag_den[i*64+slavecore_id] = cimag(sets.den[i]);
+    //     }
+    // }
+
+    free_vari(&sets,seth);
+    athread_ssync_array();
+
+//     for (int j=0;j<64;j++){
+//     printf("%d %18.8E %18.8E\n",j,seth->save_real_den[0 * seth->Ngrid * seth->Nstate + 0 *seth->Ngrid  + 0 + j],seth->save_imag_den[1 * seth->Ngrid * seth->Nstate + 1 *seth->Ngrid + j]); // debug
+
+// }
+
+
+    
     
     
    

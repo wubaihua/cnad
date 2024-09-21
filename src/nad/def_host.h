@@ -413,6 +413,7 @@ struct set_host
     double *real_cfeff; // 1D double array: [size1]
     double *imag_cfeff; // 1D double array: [size1]
     double *mpi_population; // 2D double array: [size1][size2]
+    double *save_population;
     double *mpi_pop_fb; // 3D double array: [size1][size2][size3]
     double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
@@ -421,6 +422,8 @@ struct set_host
     unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
     double *mpi_real_den;
     double *mpi_imag_den;
+    double *save_real_den;
+    double *save_imag_den;
     double *mpi_real_cfeff;
     double *mpi_imag_cfeff;
 
