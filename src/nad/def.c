@@ -1424,7 +1424,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     // printf("ii=%d\n",igrid_cal);
 
     if (seth->outputtype >= 0) {
-        // if (strcmp(trim(adjustl(seth->method)), "gauss") == 0 || strcmp(trim(adjustl(seth->method)), "genLSC") == 0 || strcmp(trim(adjustl(seth->method)), "genlsc") == 0) {
+        // if (strcmp(seth->method, "gauss") == 0 || strcmp(seth->method, "genLSC") == 0 || strcmp(seth->method, "genlsc") == 0) {
         //     if (seth->ifid == 0) {
         //         for (i = 0; i < seth->Nstate; i++) {
         //             for (j = 0; j < seth->Nstate; j++) {
@@ -1454,7 +1454,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 
     if (seth->outputtype != 0) {
         for (i = 0; i < seth->Nstate; i++) {
-        //     if (strcmp(trim(adjustl(seth->method)), "gauss") == 0 || strcmp(trim(adjustl(seth->method)), "genLSC") == 0 || strcmp(trim(adjustl(seth->method)), "genlsc") == 0) {
+        //     if (strcmp(seth->method, "gauss") == 0 || strcmp(seth->method, "genLSC") == 0 || strcmp(seth->method, "genlsc") == 0) {
         //         if (seth->ifid == 0) {
         //             sets->population[i * seth->Ngrid  + igrid_cal] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
         //             if (seth->if_st_fb == 1) {
@@ -1520,14 +1520,14 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     // }
 
     // if (sets->R_nuc_mean!=NULL) {
-    //     if (strcmp(trim(adjustl(seth->method)), "sqc") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "SQC") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "mf3") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "MF3") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "sqc2") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "SQC2") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "sqc3") == 0 
-    //     ||  strcmp(trim(adjustl(seth->method)), "SQC3") == 0) {
+    //     if (strcmp(seth->method, "sqc") == 0 
+    //     ||  strcmp(seth->method, "SQC") == 0 
+    //     ||  strcmp(seth->method, "mf3") == 0 
+    //     ||  strcmp(seth->method, "MF3") == 0 
+    //     ||  strcmp(seth->method, "sqc2") == 0 
+    //     ||  strcmp(seth->method, "SQC2") == 0 
+    //     ||  strcmp(seth->method, "sqc3") == 0 
+    //     ||  strcmp(seth->method, "SQC3") == 0) {
     //         x2 = 0;
     //         for (i = 0; i < seth->Nstate; i++) {
     //             x2 += sets->correfun_t[i * seth->Nstate + i];
@@ -1538,22 +1538,22 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     //             sets->R2_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->R_nuc[i] * sets->R_nuc[i] * creal(sets->correfun_0) * x2;
     //             sets->P2_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->P_nuc[i] * sets->P_nuc[i] * creal(sets->correfun_0) * x2;
     //         }
-    //     } else if (strcmp(trim(adjustl(seth->method)), "mash") == 0 
-    //     || strcmp(trim(adjustl(seth->method)), "MASH") == 0) {
+    //     } else if (strcmp(seth->method, "mash") == 0 
+    //     || strcmp(seth->method, "MASH") == 0) {
     //         for (i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
     //             sets->R_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
     //             sets->P_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
     //             sets->R2_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->R_nuc[i] * sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
     //             sets->P2_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->P_nuc[i] * sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
     //         }
-    //     // } else if (strcmp(trim(adjustl(seth->method)), "unsmash") == 0 || strcmp(trim(adjustl(seth->method)), "UNSMASH") == 0 || strcmp(trim(adjustl(seth->method)), "unSMASH") == 0) {
+    //     // } else if (strcmp(seth->method, "unsmash") == 0 || strcmp(seth->method, "UNSMASH") == 0 || strcmp(seth->method, "unSMASH") == 0) {
     //     //     for (i = 0; i < Ndof; i++) {
     //     //         sets->R_nuc_mean[i + igrid_cal * Ndof] += sets->R_nuc[i] * real(sets->correfun_0) * seth->Nstate * sets->measure_mash * rho0_unsmash[sets->init_occ * seth->Nstate + sets->init_occ];
     //     //         sets->P_nuc_mean[i + igrid_cal * Ndof] += sets->P_nuc[i] * real(sets->correfun_0) * seth->Nstate * sets->measure_mash * rho0_unsmash[sets->init_occ * seth->Nstate + sets->init_occ];
     //     //         sets->R2_nuc_mean[i + igrid_cal * Ndof] += sets->R_nuc[i] * sets->R_nuc[i] * real(sets->correfun_0) * seth->Nstate * sets->measure_mash * rho0_unsmash[sets->init_occ * seth->Nstate + sets->init_occ];
     //     //         sets->P2_nuc_mean[i + igrid_cal * Ndof] += sets->P_nuc[i] * sets->P_nuc[i] * real(sets->correfun_0) * seth->Nstate * sets->measure_mash * rho0_unsmash[sets->init_occ * seth->Nstate + sets->init_occ];
     //     //     }
-    //     } else if (strcmp(trim(adjustl(seth->method)), "mash-mf") == 0 || strcmp(trim(adjustl(seth->method)), "MASH-MF") == 0) {
+    //     } else if (strcmp(seth->method, "mash-mf") == 0 || strcmp(seth->method, "MASH-MF") == 0) {
     //         for (i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
     //             sets->R_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash;
     //             sets->P_nuc_mean[i + igrid_cal * seth->Ndof1*seth->Ndof2] += sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash;
@@ -1611,11 +1611,11 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     //         // cal_NACV(); // Uncomment if needed
     //         sets->energy_est[igrid_cal] += Ekin + sets->E_adia[sets->id_state];
     //     } else {
-    //         if (strcmp(trim(adjustl(seth->method)), "FSSH") == 0 || strcmp(trim(adjustl(seth->method)), "fssh") == 0 ||
-    //             strcmp(trim(adjustl(seth->method)), "mash") == 0 || strcmp(trim(adjustl(seth->method)), "MASH") == 0 ||
-    //             strcmp(trim(adjustl(seth->method)), "ms-mash") == 0 || strcmp(trim(adjustl(seth->method)), "MS-MASH") == 0 ||
-    //             strcmp(trim(adjustl(seth->method)), "unsmash") == 0 || strcmp(trim(adjustl(seth->method)), "UNSMASH") == 0 ||
-    //             strcmp(trim(adjustl(seth->method)), "unSMASH") == 0) {
+    //         if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0 ||
+    //             strcmp(seth->method, "mash") == 0 || strcmp(seth->method, "MASH") == 0 ||
+    //             strcmp(seth->method, "ms-mash") == 0 || strcmp(seth->method, "MS-MASH") == 0 ||
+    //             strcmp(seth->method, "unsmash") == 0 || strcmp(seth->method, "UNSMASH") == 0 ||
+    //             strcmp(seth->method, "unSMASH") == 0) {
     //             sets->energy_est[igrid_cal] += Ekin + sets->E_adia[sets->id_state];
     //         } else {
     //             sets->energy_est[igrid_cal] += x2;
@@ -2082,7 +2082,7 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
     
     memset(sets->force,0,seth->Ndof1*seth->Ndof2*sizeof(double));
 
-    if (strcmp(trim(adjustl(seth->method)), "FSSH") == 0 || strcmp(trim(adjustl(seth->method)), "fssh") == 0) {
+    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
         // cal_force_fssh();
         // sets->force = -sets->dv_adia[sets->id_state][sets->id_state];
     } else {
