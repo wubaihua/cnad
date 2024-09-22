@@ -2445,6 +2445,12 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
 
     dia_hermitemat(seth->Nstate, H_eff, E, C);
 
+
+    // int slavecore_id = athread_get_id(-1);
+    // if(slavecore_id == 0) printf("V=%18.8E %18.8E %18.8E %18.8E\n",sets->V[0],sets->V[1],sets->V[2],sets->V[3]);
+    // if(slavecore_id == 0) printf("E=%18.8E %18.8E\n",sets->E_adia[0],sets->E_adia[1]);
+    // if(slavecore_id == 0) printf("H=%18.8E %18.8E %18.8E %18.8E\n",creal(H_eff[0]),creal(H_eff[1]),creal(H_eff[2]),creal(H_eff[3])) ;
+
   
     memset(sineig,0,seth->Nstate * seth->Nstate * sizeof(double));
     memset(coseig,0,seth->Nstate * seth->Nstate * sizeof(double));
@@ -2515,6 +2521,9 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
             //     break;
         }
     }
+
+    // int slavecore_id = athread_get_id(-1);
+    // if(slavecore_id == 0) printf("U=%18.8E %18.8E %18.8E %18.8E\n",creal(U[0]),creal(U[1]),creal(U[2]),creal(U[3]));
 }
 
 // void cal_propagator_adia_unsmash(){}
@@ -2595,4 +2604,5 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
     }
 
     free(sets->N_nan_sum);
+
 }

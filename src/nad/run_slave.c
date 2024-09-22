@@ -145,6 +145,7 @@ void dynamics_slave(struct set_host *seth){
     }
 
 
+    // printf("%d %18.8E %18.8E\n",slavecore_id,seth->save_population[0 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id],sets.population[1 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]); // debug
 
    
     // if (seth->outputtype >= 0) {

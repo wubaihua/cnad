@@ -12,6 +12,8 @@
 // #include "cJSON.h"
 #include "msmodelio.h"
 #include "def_host.h"
+#include <slave.h>
+#include <athread.h>
 
 
 
@@ -128,7 +130,7 @@ void sample_SBM(double *P, double *R, double beta, struct set_host *setm) {
         } else {
             box_muller(&P[j], &x2, sqrt(0.5 * hbar * setm->omega_SBM[j] / tanh(0.5 * beta * hbar * setm->omega_SBM[j])), 0.0);
             box_muller(&R[j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SBM[j]) * setm->omega_SBM[j])), 0.0);
-            // P[j]=0,R[j]=0;   //debug 
+            // P[j]=1,R[j]=1;   //debug 
         
         }
     }
@@ -158,6 +160,13 @@ void V_SBM(double *R, double *H, int forcetype, struct set_host *setm) {
             fprintf(stderr, "ERROR: unknown forcetype\n");
             exit(1);
     }
+
+    // int slavecore_id=athread_get_id(-1);
+//     if(slavecore_id == 0){
+//         printf("c=%18.8E %18.8E w=%18.8E %18.8E\n", setm->c_SBM[0],setm->c_SBM[1],setm->omega_SBM[0],setm->omega_SBM[1]);
+//         printf("R=%18.8E %18.8E V=%18.8E %18.8E %18.8E %18.8E\n", R[0],R[1],H[0],H[1],H[2],H[3]);
+       
+//     }
 }
 
 // Build the first-order derivative matrix of the model

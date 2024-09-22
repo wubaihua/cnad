@@ -88,7 +88,7 @@ void dia_symmat(int n, double *A, double *E, double *C) {
     //     C[i]=A[i];
     // }
     memcpy(C, A, n2*sizeof(double));
-    LAPACKE_dsyev(LAPACK_COL_MAJOR, 'V', 'L', n, C, n, E);
+    LAPACKE_dsyev(LAPACK_ROW_MAJOR, 'V', 'L', n, C, n, E);
     // free(work);
 }
 

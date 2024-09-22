@@ -203,11 +203,12 @@ int main(int argc, char *argv[]) {
     // printf("1111\n");
     // fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     // printf("2222\n");
-    // MPI_Reduce(mpi_N_nan_sum, mpi_N_nan_sum, 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+    // MPI_Reduce(&seth.mpi_N_nan_sum, &seth.mpi_N_nan_sum, seth.Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
     for (int i = 0; i < seth.Ngrid; i++){
         MPI_Reduce(&seth.mpi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
+    if (seth.mpi_rank == 0) printf("Number of failed trajectories: %d\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
 
     // MPI_Status status;
     // int ierr;
@@ -253,6 +254,8 @@ int main(int argc, char *argv[]) {
                 seth.mpi_population[i] += seth.save_population[i*64+j];
             }
         }
+
+        // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
       
         for (int i = 0; i < seth.Nstate * seth.Ngrid; i++) {
             // printf("aaa: %d, %d, %f, %f \n", mpi_rank, i, mpi_population[i], dsum);
@@ -322,13 +325,13 @@ int main(int argc, char *argv[]) {
 
         // printf("test7777771\n");
         // MPI_Barrier(MPI_COMM_WORLD);
-        // MPI_Reduce(mpi_real_den, mpi_real_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        // MPI_Reduce(mpi_imag_den, mpi_imag_den, Nstate * Nstate * Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(&seth.mpi_real_den, &seth.mpi_real_den, seth.Nstate * seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // MPI_Reduce(&seth.mpi_imag_den, &seth.mpi_imag_den, seth.Nstate * seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         for (int i = 0; i < seth.Nstate * seth.Nstate * seth.Ngrid; i++){
             MPI_Reduce(&seth.mpi_real_den[i], &seth.mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
             MPI_Reduce(&seth.mpi_imag_den[i], &seth.mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
-        // // printf("test9999999\n");
+        // printf("test9999999\n");
         // // free(mpi_den);
         // // printf("test10\n");
         // free(mpi_real_den);
@@ -531,7 +534,7 @@ int main(int argc, char *argv[]) {
     MPI_Barrier(MPI_COMM_WORLD);
 
     athread_halt();
-    exit(-1);
+    // exit(-1);
     // MPI_Comm_free(MPI_COMM_WORLD);
     MPI_Finalize();
     return 0;
