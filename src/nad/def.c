@@ -889,47 +889,46 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         // }
     } 
 
-    // if (seth->ifcv == -1 || seth->ifcv == 1) {
-    //     for (int i = 0; i < seth->Nstate; i++) {
-    //         if (i == sets->init_occ - 1) {
-    //             sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - 1;
-    //             if (seth->ifscalegamma == 1) {
-    //                 sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - 1;
-    //             }
-    //         } else {
-    //             sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
-    //             if (seth->ifscalegamma == 1) {
-    //                 sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
-    //             }
-    //         }
-    //     }
-        
-    // }
+    if (seth->ifcv == -1 || seth->ifcv == 1) {
+        for (int i = 0; i < seth->Nstate; i++) {
+            if (i == sets->init_occ - 1) {
+                sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - 1;
+                if (seth->ifscalegamma == 1) {
+                    sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - 1;
+                }
+            } else {
+                sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
+                if (seth->ifscalegamma == 1) {
+                    sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
+                }
+            }
+        }    
+    }
 
-    // if (seth->ifcv == -2 || seth->ifcv == 2) {
-    //     for (int i = 0; i < seth->Nstate; i++) {
-    //         if (i == sets->init_occ - 1) {
-    //             sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - 1;
-    //             if (seth->ifscalegamma == 1) {
-    //                 sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - 1;
-    //             }
-    //         } else {
-    //             sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
-    //             if (seth->ifscalegamma == 1) {
-    //                 sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
-    //             }
-    //         }
-    //     }
-    //     for (int i = 0; i < seth->Nstate; i++) {
-    //         for (int j = 0; j < seth->Nstate; j++) {
-    //             if (i == j || i == sets->init_occ || j == sets->init_occ) continue;
-    //             sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
-    //             if (seth->ifscalegamma == 1) {
-    //                 sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
-    //             }
-    //         }
-    //     }
-    // }
+    if (seth->ifcv == -2 || seth->ifcv == 2) {
+        for (int i = 0; i < seth->Nstate; i++) {
+            if (i == sets->init_occ - 1) {
+                sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - 1;
+                if (seth->ifscalegamma == 1) {
+                    sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - 1;
+                }
+            } else {
+                sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
+                if (seth->ifscalegamma == 1) {
+                    sets->gamma_cv[i * seth->Nstate + i] = 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
+                }
+            }
+        }
+        for (int i = 0; i < seth->Nstate; i++) {
+            for (int j = 0; j < seth->Nstate; j++) {
+                if (i == j || i == sets->init_occ || j == sets->init_occ) continue;
+                sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                if (seth->ifscalegamma == 1) {
+                    sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
+                }
+            }
+        }
+    }
 
 
 
@@ -1327,12 +1326,12 @@ void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth) {
         //     break;
     }
 
-    // if (seth->ifcv == 1 || seth->ifcv == 2) {
-    //     // matmul_complex(seth->Nstate, sets->propagator, sets->gamma_cv, sets->gamma_cv);
-    //     diagger(sets->propagator,tempcm1,seth->Nstate);
-    //     cc_matmul(sets->gamma_cv,tempcm1,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
-    //     cc_matmul(sets->propagator,tempcm2,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
-    // }
+    if (seth->ifcv == 1 || seth->ifcv == 2) {
+        // matmul_complex(seth->Nstate, sets->propagator, sets->gamma_cv, sets->gamma_cv);
+        diagger(sets->propagator,tempcm1,seth->Nstate);
+        cc_matmul(sets->gamma_cv,tempcm1,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+        cc_matmul(sets->propagator,tempcm2,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+    }
 }
 
 
