@@ -1602,21 +1602,21 @@ void print_info(struct set_host *seth){
         // if (ifmsbranch > 0) {
         //     printf("msbranch, ifmsbranch= %d\n", ifmsbranch);
         // }
-        // if (ifswitchforce > 0) {
-        //     printf("ifswitchforce= %d\n", ifswitchforce);
-        //     printf("ifreflp= %d\n", ifreflp);
-        //     if (ifscalegamma == 1) printf("scale gamma to %f\n", gamma_rescale);
-        //     printf("direction for adjustment P: %d\n", direc_padj);
-        // }
+        if (seth->ifswitchforce > 0) {
+            printf("ifswitchforce= %d\n", seth->ifswitchforce);
+            printf("ifreflp= %d\n", seth->ifreflp);
+            if (seth->ifscalegamma == 1) printf("scale gamma to %f\n", seth->gamma_rescale);
+            printf("direction for adjustment P: %d\n", seth->direc_padj);
+        }
         // if (ifmashforce > 0) {
         //     printf("ifmashforce= %d\n", ifmashforce);
         //     printf("ifreflp= %d\n", ifreflp);
         //     if (ifscalegamma == 1) printf("scale gamma to %f\n", gamma_rescale);
         //     printf("direction for adjustment P: %d\n", direc_padj);
         // }
-        // if (ifscaleenergy > 0) {
-        //     printf("ifscaleenergy= %d\n", ifscaleenergy);
-        // }
+        if (seth->ifscaleenergy > 0) {
+            printf("ifscaleenergy= %d\n", seth->ifscaleenergy);
+        }
         // if (ifcount == 1) {
         //     printf("ifcount= %d\n", ifcount);
         // }
