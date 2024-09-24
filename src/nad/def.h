@@ -666,7 +666,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth);
 
 void cal_correfun(struct set_slave *sets,struct set_host *seth);
 
-void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct set_slave *sets);
+void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct set_slave *sets,struct set_host *seth);
 void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth);
 void evo_traj_nucP(double deltat,struct set_slave *sets,struct set_host *seth);
 void evo_traj_nucR(double deltat,struct set_slave *sets,struct set_host *seth);
@@ -675,6 +675,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth);
 void cal_force(struct set_slave *sets,struct set_host *seth);
 void cal_force_mf(struct set_slave *sets,struct set_host *seth);
+void cal_force_switch(struct set_slave *sets,struct set_host *seth);
 void cal_NACV(struct set_slave *sets,struct set_host *seth);
 void cal_propagator_adia(int Nstate, double dt, double complex *U,struct set_slave *sets,struct set_host *seth);
 

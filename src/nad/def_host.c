@@ -505,7 +505,7 @@ void initial_para(struct set_host *seth) {
 
     seth->ifmashforce = 0;
 
-    seth->ifscaleenergy = 0;
+    seth->ifscaleenergy = 1;
 
     seth->ifcount = 0;
 
@@ -513,7 +513,7 @@ void initial_para(struct set_host *seth) {
 
     seth->ifscalegamma = 0;
 
-    seth->direc_padj = 0;
+    seth->direc_padj = 2;
 
     seth->ifreflp_mash = 0;
 
