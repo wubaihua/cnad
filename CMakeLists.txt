@@ -35,6 +35,9 @@ set_target_properties(msmodelio PROPERTIES COMPILE_FLAGS "-mhost -I src/nad/ -I 
 add_library(sbm OBJECT src/msmodel/sbm.c)
 set_target_properties(sbm PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
+add_library(morse3 OBJECT src/msmodel/morse3.c)
+set_target_properties(morse3 PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+
 add_library(msmodel OBJECT src/msmodel/msmodel.c)
 set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -53,7 +56,9 @@ add_library(nad OBJECT src/nad/nad.c)
 set_target_properties(nad PROPERTIES COMPILE_FLAGS "-mhost -I src/msmodel/ -I src/mod/")
 
 # 添加可执行文件
-add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:msmodel> $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
+add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> 
+                    $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:morse3> $<TARGET_OBJECTS:msmodel> 
+                    $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
 # 链接库
 target_link_libraries(cnad -mhybrid

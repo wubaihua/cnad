@@ -799,6 +799,14 @@ struct set_host
         double eps_SBM, delta_SBM, alpha_SBM, omega_c_SBM, lambda_SBM, s_SBM;
         double *c_SBM, *omega_SBM;
 
+
+        // 3-state Morse potential models parameters
+        int type_morse3;
+        double A_morse3[9], beta_morse3[3], D_morse3[3], C_morse3[3], R0_morse3[3];
+        double R00_morse3[9], alpha_morse3[9];
+        double Re_morse3;
+        double omega_morse3, mass_morse3;
+
 };
 
 

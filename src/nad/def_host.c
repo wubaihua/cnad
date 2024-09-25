@@ -505,7 +505,7 @@ void initial_para(struct set_host *seth) {
 
     seth->ifmashforce = 0;
 
-    seth->ifscaleenergy = 1;
+    seth->ifscaleenergy = 0;
 
     seth->ifcount = 0;
 
@@ -1247,6 +1247,14 @@ void init_host(struct set_host *seth){
 
     seth->Ngrid = (long long)(seth->ttot / seth->dt) / seth->Nbreak + 1;
 
+    if (strcmp(seth->unit_t, "au") == 0) {
+        seth->unittrans_t = 1.0;
+    } else if (strcmp(seth->unit_t, "fs") == 0) {
+        seth->unittrans_t = 1.0 / au_2_fs;
+    }
+    seth->ttot *= seth->unittrans_t;
+    seth->dt *= seth->unittrans_t;
+
     seth->fi_time_grid = (double *)malloc(seth->Ngrid * sizeof(double));
 
     seth->mpi_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * sizeof(unsigned long long));
@@ -1665,7 +1673,7 @@ void fileout(struct set_host *seth) {
     size_t len = strlen(seth->filepath);
     
 
-    if (seth->mpi_real_den != NULL) {
+    if (seth->outputtype >= 0) {
         strncpy(outname, seth->filepath, len - 5);
         strcpy(outname + len - 5, ".den");
         FILE *den_file = fopen(outname, "w");
@@ -1683,7 +1691,7 @@ void fileout(struct set_host *seth) {
         fclose(den_file);
     }
 
-    if (seth->mpi_population != NULL) {
+    if (seth->outputtype != 0) {
         strncpy(outname, seth->filepath, len - 5);
         strcpy(outname + len - 5, ".pop");
         FILE *pop_file = fopen(outname, "w");
@@ -1854,7 +1862,7 @@ void fileout_mpi(int id, struct set_host *seth) {
     size_t len = strlen(seth->filepath);
     
 
-    if (seth->mpi_real_den != NULL) {
+    if (seth->outputtype >= 0) {
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".den");
         outname[len - 5] = '\0'; // 确保字符串以null结尾
@@ -1876,7 +1884,7 @@ void fileout_mpi(int id, struct set_host *seth) {
         fclose(den_file);
     }
 
-    if (seth->mpi_population != NULL) {
+    if (seth->outputtype != 0) {
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".pop");
         outname[len - 5] = '\0'; // 确保字符串以null结尾

@@ -170,6 +170,11 @@ int main(int argc, char *argv[]) {
     //     athread_join();
     // }
 
+    // for (int i=0; i<64; i++){
+    //      printf("%18.8E\n",seth.save_population[0 * seth.Ngrid *64  + (seth.Ngrid -1)*64+i]); // debug
+    // }
+   
+
     
     // athread_spawn(free_slave,0);
     // athread_join();
@@ -178,6 +183,33 @@ int main(int argc, char *argv[]) {
         seth.fi_time_grid[i] = i*seth.dt*seth.Nbreak;
     }
    
+   //////////////
+    if (seth.outputtype != 0) {
+        for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
+            for(int j=0;j<64;j++){
+                seth.mpi_population[i] += seth.save_population[i*64+j];
+            }
+        }
+        // if (seth.if_st_fb == 1) {
+        // }
+    }
+
+
+    // for (int i=0; i<64; i++){
+        //  printf("%18.8E\n",seth.mpi_population[0 * seth.Ngrid   + (seth.Ngrid -1)]); // debug
+    // }
+    // MPI_Barrier(MPI_COMM_WORLD);
+
+    if (seth.outputtype >= 0) {
+        for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
+            for(int j=0;j<64;j++){
+                seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
+                seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
+            }
+        }
+    }
+
+   //////////
 
     // if(seth.mpi_rank == 0){
     //     for(int i=0; i<seth.Ngrid;i++){
@@ -205,10 +237,13 @@ int main(int argc, char *argv[]) {
     // printf("2222\n");
     // MPI_Reduce(&seth.mpi_N_nan_sum, &seth.mpi_N_nan_sum, seth.Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
 
+    unsigned long long tempn;
     for (int i = 0; i < seth.Ngrid; i++){
+        // tempn = seth.mpi_N_nan_sum[i];
         MPI_Reduce(&seth.mpi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
     if (seth.mpi_rank == 0) printf("Number of failed trajectories: %d\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
+    // exit(-1);
 
     // MPI_Status status;
     // int ierr;
@@ -239,7 +274,7 @@ int main(int argc, char *argv[]) {
 
     
 
-    if (seth.mpi_population != NULL) {
+    if (seth.outputtype != 0) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
         // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // for (int i = 0; i < Nstate * Ngrid; i++){
@@ -284,7 +319,7 @@ int main(int argc, char *argv[]) {
     }
 
     // if (mpi_den != NULL) {
-    if (seth.mpi_real_den != NULL) {
+    if (seth.outputtype >= 0) {
         // printf("test111111\n");
         // fi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
         // printf("test2222\n");
@@ -434,7 +469,7 @@ int main(int argc, char *argv[]) {
     // }
 
     if (seth.mpi_rank == 0) {
-        if (seth.mpi_real_den != NULL) {
+        if (seth.outputtype >= 0) {
             // for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
             //     fi_den[i] = real_rho[i] + I * imag_rho[i];
             // }
@@ -457,7 +492,7 @@ int main(int argc, char *argv[]) {
             // }
         }
 
-        if (seth.mpi_population != NULL) {
+        if (seth.outputtype != 0) {
             if (seth.if_st_nan == 1) {
                 for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
                     for (int i = 0; i < seth.Nstate; i++) {

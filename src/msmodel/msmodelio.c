@@ -101,6 +101,36 @@ void readinp_SBM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 
 
 
+void readinp_morse3(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_morse3")){
+        list=cJSON_GetObjectItem(item, "type_morse3");
+        setm->type_morse3 = list->valueint; 
+    }
+
+    
+
+
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+    *Nstate = 3;
+
+
+    // //debug
+    // printf("N_bath_SBM: %d\n", N_bath_SBM);
+    // printf("bathtype: %d\n", bathtype);
+    // printf("eps_SBM: %f\n", eps_SBM);
+    // printf("delta_SBM: %f\n", delta_SBM);
+    // printf("alpha_SBM: %f\n", alpha_SBM);
+    // printf("omega_c_SBM: %f\n", omega_c_SBM);
+    // printf("F: %d\n", Nstate);
+
+    // //debug
+}
+
 
 
 
@@ -110,6 +140,11 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
         readinp_SBM(json, Ndof1, Ndof2, Nstate, setm);
-    }
+    } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
+       strcmp(setm->msmodelname, "Morse3") == 0) {
+        readinp_morse3(json, Ndof1, Ndof2, Nstate, setm);
+    } 
+
+
 }
 

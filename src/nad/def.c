@@ -714,14 +714,14 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //         if (seth->temperature_rw < 1.0) seth->beta_rw = 10000000;
     //     }
     // }
-    if (strcmp(seth->unit_t, "au") == 0) {
-        seth->unittrans_t = 1.0;
-    } else if (strcmp(seth->unit_t, "fs") == 0) {
-        seth->unittrans_t = 1.0 / au_2_fs;
-    }
+    // if (strcmp(seth->unit_t, "au") == 0) {
+    //     seth->unittrans_t = 1.0;
+    // } else if (strcmp(seth->unit_t, "fs") == 0) {
+    //     seth->unittrans_t = 1.0 / au_2_fs;
+    // }
     
-    seth->ttot *= seth->unittrans_t;
-    seth->dt *= seth->unittrans_t;
+    // seth->ttot *= seth->unittrans_t;
+    // seth->dt *= seth->unittrans_t;
 
     // if (seth->mean_nuc == 1) {
     //     sets->R_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
@@ -1782,7 +1782,7 @@ void evo_traj_savetraj(struct set_slave *sets,struct set_host *seth) {
     memcpy(sets->xe_old, sets->xe, seth->Nstate * sizeof(double));
     memcpy(sets->pe_old, sets->pe, seth->Nstate * sizeof(double));
     // printf("x11111\n");
-    if (sets->den_e != NULL) memcpy(sets->den_e_old, sets->den_e, seth->Nstate * seth->Nstate * sizeof(double complex));
+    if (seth->type_evo == 1) memcpy(sets->den_e_old, sets->den_e, seth->Nstate * seth->Nstate * sizeof(double complex));
     // // printf("x122222\n");
     memcpy(sets->gamma_cv_old, sets->gamma_cv, seth->Nstate * seth->Nstate * sizeof(double complex));
     memcpy(sets->V_old, sets->V, seth->Nstate * seth->Nstate * sizeof(double));
@@ -1821,7 +1821,7 @@ void evo_traj_back(struct set_slave *sets,struct set_host *seth) {
     memcpy(sets->P_nuc, sets->P_nuc_old, seth->Ndof1 * seth->Ndof2 * sizeof(double));
     memcpy(sets->xe, sets->xe_old, seth->Nstate * sizeof(double));
     memcpy(sets->pe, sets->pe_old, seth->Nstate * sizeof(double));
-    if (sets->den_e_old != NULL) memcpy(sets->den_e, sets->den_e_old, seth->Nstate * seth->Nstate * sizeof(double complex));
+    if (seth->type_evo == 1) memcpy(sets->den_e, sets->den_e_old, seth->Nstate * seth->Nstate * sizeof(double complex));
     memcpy(sets->gamma_cv, sets->gamma_cv_old, seth->Nstate * seth->Nstate * sizeof(double complex));
     memcpy(sets->V, sets->V_old, seth->Nstate * seth->Nstate * sizeof(double));
     memcpy(sets->dV, sets->dV_old, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double));
