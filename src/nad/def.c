@@ -2071,14 +2071,12 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         itime++;
         // if (ifzsets->pecorr > 0) zsets->pecorr_msmodel(sets->P_nuc, sets->R_nuc, ifzsets->pecorr);
 
-        // if (strcmp(trim(adjustl(msmodelname)), "morse3") == 0 && ifhardwall == 1) {
-        //     if (sets->P_nuc[0] < 0 && sets->R_nuc[0] < 0) sets->P_nuc[0] = -sets->P_nuc[0];
-        //     if (if_ref == 1) {
-        //         for (iref = 0; iref < Nref; iref++) {
-        //             if (sets->P_nuc_ref[iref * seth->Ndof1 * seth->Ndof2] < 0 && sets->R_nuc_ref[iref * seth->Ndof1 * seth->Ndof2] < 0) sets->P_nuc_ref[iref * seth->Ndof1 * seth->Ndof2] = -sets->P_nuc_ref[iref * seth->Ndof1 * seth->Ndof2];
-        //         }
-        //     }
-        // }
+        if (strcmp(seth->msmodelname, "morse3") == 0 || strcmp(seth->msmodelname, "Morse3" == 0)) {
+            if (seth->ifhardwall == 1) {
+                if (sets->P_nuc[0] < 0 && sets->R_nuc[0] < 0) sets->P_nuc[0] = -sets->P_nuc[0];
+            }
+        }
+        
     }
 
     // if (seth->if_Pdis == 1) {

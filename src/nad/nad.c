@@ -239,8 +239,8 @@ int main(int argc, char *argv[]) {
 
     unsigned long long tempn;
     for (int i = 0; i < seth.Ngrid; i++){
-        // tempn = seth.mpi_N_nan_sum[i];
-        MPI_Reduce(&seth.mpi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+        tempn = seth.mpi_N_nan_sum[i];
+        MPI_Reduce(&tempn, &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
     if (seth.mpi_rank == 0) printf("Number of failed trajectories: %d\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
     // exit(-1);
@@ -284,11 +284,11 @@ int main(int argc, char *argv[]) {
         // printf("111111111111111111\n");
 
 
-        for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
-            for(int j=0;j<64;j++){
-                seth.mpi_population[i] += seth.save_population[i*64+j];
-            }
-        }
+        // for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
+        //     for(int j=0;j<64;j++){
+        //         seth.mpi_population[i] += seth.save_population[i*64+j];
+        //     }
+        // }
 
         // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
       
@@ -348,12 +348,12 @@ int main(int argc, char *argv[]) {
 // }
         
 
-        for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
-            for(int j=0;j<64;j++){
-                seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
-                seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
-            }
-        }
+        // for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
+        //     for(int j=0;j<64;j++){
+        //         seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
+        //         seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
+        //     }
+        // }
 
         // printf("%d %18.8E %18.8E\n",seth.mpi_rank,seth.mpi_real_den[0 * seth.Ngrid * seth.Nstate + 0 *seth.Ngrid  + 0],seth.mpi_imag_den[1 * seth.Ngrid * seth.Nstate + 1 *seth.Ngrid + 0]); // debug
 
