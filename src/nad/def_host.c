@@ -1374,28 +1374,30 @@ void print_info(struct set_host *seth){
     // } else if (strcmp(method, "CC-FSSH") == 0 || strcmp(method, "cc-fssh") == 0) {
     //     printf("Method: Crossing Corrected Fewest Switches Surface Hopping (CC-FSSH)\n");
     //     printf("Related Publication: J. Phys. Chem. Lett. 2018, 9, 4319-4325\n");
-    } else if (strcmp(seth->method, "eCMM") == 0 || strcmp(seth->method, "ecmm") == 0 || strcmp(seth->method, "CMM") == 0 || strcmp(seth->method, "cmm") == 0 ) {
+    } else if (strcmp(seth->method, "eCMM") == 0 || strcmp(seth->method, "ecmm") == 0 || 
+        strcmp(seth->method, "CMM") == 0 || strcmp(seth->method, "cmm") == 0 ) {
         printf("Method: extended Classical Mapping Model (eCMM)\n");
         printf("Related Publication: J. Chem. Phys. 2019, 151, 024105\n");
         printf("                    J. Phys. Chem. Lett. 2021, 12, 2496-2501\n");
         printf("ZPE gamma parameter: %f\n", seth->gamma_zpe);
-    // } else if (strcmp(method, "focus") == 0 || strcmp(method, "efocus") == 0 || strcmp(method, "langer") == 0 || strcmp(method, "deltaMFT") == 0 || strcmp(method, "dmft") == 0) {
-    //     printf("Method: Langer/spin-LSC focus/delta MFT\n");
-    //     printf("Related Publication: J. Chem. Phys. 1979, 70, 3214\n");
-    //     printf("                    J. Chem. Phys. 2020, 153, 194110\n");
-    //     printf("                    J. Phys. Chem. Lett. in preparation\n");
-    //     printf("ZPE gamma parameter: %f\n", gamma_zpe);
+    } else if (strcmp(seth->method, "focus") == 0 || strcmp(seth->method, "langer") == 0 ||
+        strcmp(seth->method, "deltamft") == 0 || strcmp(seth->method, "dmft") == 0) {
+        printf("Method: Langer/spin-LSC focus/delta MFT\n");
+        printf("Related Publication: J. Chem. Phys. 1979, 70, 3214\n");
+        printf("                    J. Chem. Phys. 2020, 153, 194110\n");
+        printf("                    J. Phys. Chem. Lett. in preparation\n");
+        printf("ZPE gamma parameter: %f\n", seth->gamma_zpe);
     // } else if (strcmp(method, "sed2") == 0 || strcmp(method, "SED2") == 0) {
     //     printf("Method: SED2\n");
     //     printf("ZPE gamma parameter: %f\n", gamma_zpe);
     // } else if (strcmp(method, "sed3") == 0 || strcmp(method, "SED3") == 0) {
     //     printf("Method: SED3\n");
     //     printf("ZPE gamma parameter: %f\n", gamma_zpe);
-    // } else if (strcmp(method, "sqc") == 0 || strcmp(method, "SQC") == 0) {
-    //     printf("Method: Symmetric Quasi-Classical (SQC) approaches\n");
-    //     printf("Related Publication: J. Chem. Phys. 2016, 145, 144108\n");
-    //     printf("                    J. Chem. Phys. 2019, 150, 104101\n");
-    //     printf("Using the default ZPE gamma parameter: 1/3\n");
+    } else if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
+        printf("Method: Symmetric Quasi-Classical (SQC) approaches\n");
+        printf("Related Publication: J. Chem. Phys. 2016, 145, 144108\n");
+        printf("                     J. Chem. Phys. 2019, 150, 104101\n");
+        printf("Using the default ZPE gamma parameter: 1/3\n");
     // } else if (strcmp(method, "sqc2") == 0 || strcmp(method, "SQC2") == 0) {
     //     printf("Method: Symmetric Quasi-Classical approaches 2 (SQC2)\n");
     //     printf("ZPE gamma parameter: %f\n", gamma_zpe);

@@ -888,7 +888,98 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         //         }
         //     }
         // }
-    } 
+    } else if (strcmp(seth->method, "focus") == 0 || strcmp(seth->method, "langer") == 0 ||
+        strcmp(seth->method, "deltamft") == 0 || strcmp(seth->method, "dmft") == 0) {
+        
+        // 调用 random_prob 函数
+        // random_prob(seth->Nstate, action);
+        for (i = 0; i < seth->Nstate; i++) {
+            action[i] = seth->gamma_zpe;
+        }
+        action[sets->init_occ - 1] += 1.0;
+
+        // 计算 sets->xe 和 sets->pe
+        for (i = 0; i < seth->Nstate; i++) {
+            sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
+            sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
+        }
+
+        // 初始化 sets->gamma_cv
+        for (i = 0; i < seth->Nstate; i++) {
+            for (int j = 0; j < seth->Nstate; j++) {
+                sets->gamma_cv[i * seth->Nstate + j] = (i == j) ? seth->gamma_zpe : 0.0;
+            }
+        }
+
+        // 计算 sets->correfun_0
+        if (seth->index_t0 == 0) {
+            sets->correfun_0 = 1;
+        } else if (seth->index_t0 == 1) {
+            sets->correfun_0 = seth->Nstate * 0.5 * (sets->xe[seth->index_t0_1-1] - I * sets->pe[seth->index_t0_1-1]) * (sets->xe[seth->index_t0_2-1] + I * sets->pe[seth->index_t0_2-1]);
+        }
+
+        // 计算 sets->den_e
+        if (seth->type_evo >= 1) {
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+        // // 计算 sets->cf0
+        // if (seth->if_allcf != 0) {
+        //     for (int i = 0; i < seth->Nstate; i++) {
+        //         for (int j = 0; j < seth->Nstate; j++) {
+        //             sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+        //         }
+        //     }
+        // }
+    } else if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
+        for (i = 0; i < seth->Nstate; i++) {
+            action[i] = ((double) rand() / RAND_MAX);
+        }
+        p1 = 100000;
+        while (1.0 - action[sets->init_occ - 1] < p1){
+            for (i = 0; i < seth->Nstate; i++) {
+                action[i] = ((double) rand() / RAND_MAX);
+            }
+            p1 = ((double) rand() / RAND_MAX);
+        }
+        for (i = 0; i < seth->Nstate; i++) {
+            if (i == sets->init_occ - 1) continue;
+            action[i] *= (1.0 - action[sets->init_occ - 1]);
+        }
+        action[sets->init_occ - 1] += 1;
+        for (i = 0; i < seth->Nstate; i++) {
+            sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
+            sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
+        }
+
+        seth->gamma_zpe = 1.0 / 3.0 ;
+        // 初始化 sets->gamma_cv
+        for (i = 0; i < seth->Nstate; i++) {
+            for (int j = 0; j < seth->Nstate; j++) {
+                sets->gamma_cv[i * seth->Nstate + j] = (i == j) ? seth->gamma_zpe : 0.0;
+            }
+        }
+
+        // 计算 sets->correfun_0
+        // if (seth->index_t0 == 0) {
+            sets->correfun_0 = 1.0;
+        // } else if (seth->index_t0 == 1) {
+        //     sets->correfun_0 = seth->Nstate * 0.5 * (sets->xe[seth->index_t0_1-1] - I * sets->pe[seth->index_t0_1-1]) * (sets->xe[seth->index_t0_2-1] + I * sets->pe[seth->index_t0_2-1]);
+        // }
+
+        // 计算 sets->den_e
+        if (seth->type_evo >= 1) {
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+    }
 
     if (seth->ifcv == -1 || seth->ifcv == 1) {
         for (int i = 0; i < seth->Nstate; i++) {
@@ -1240,6 +1331,48 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
             }
         }
 
+    } else if (strcmp(seth->method, "focus") == 0 || strcmp(seth->method, "langer") == 0 ||
+        strcmp(seth->method, "deltamft") == 0 || strcmp(seth->method, "dmft") == 0) {
+        
+        if (seth->type_evo == 1 || seth->type_evo == 3) {
+            for (i = 0; i < seth->Nstate * seth->Nstate; i++) {
+                sets->correfun_t[i] = sets->den_e[i] ;
+            }
+            for (i = 0; i < seth->Nstate; i++) {
+                sets->correfun_t[i * seth->Nstate + i] -= seth->gamma_zpe;
+            }
+        } else {
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    sets->correfun_t[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - seth->gamma_zpe * (i == j ? 1 : 0);
+                }
+            }
+        }
+
+    } else if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
+        if (seth->type_evo == 1 || seth->type_evo == 3) {
+            for (i = 0; i < seth->Nstate ; i++) {
+                sets->correfun_t[i * seth->Nstate + i] = 1 ;
+                for (j = 0; j < seth->Nstate; j++){
+                    if( (j == i && creal(sets->den_e[j * seth->Nstate + j]) < 1) || 
+                        (j != i && creal(sets->den_e[j * seth->Nstate + j]) >= 1)){
+                        sets->correfun_t[i * seth->Nstate + i] = 0 ;
+                    }
+                    if(i != j) sets->correfun_t[i*seth->Nstate+j] = sets->den_e[i*seth->Nstate+j];
+                }
+            }
+        } else {
+            for (i = 0; i < seth->Nstate ; i++) {
+                sets->correfun_t[i * seth->Nstate + i] = 1 ;
+                for (j = 0; j < seth->Nstate; j++){
+                    if( (j == i && 0.5 * (sets->xe[j] * sets->xe[j] + sets->pe[j] * sets->pe[j]) < 1) || 
+                        (j != i && 0.5 * (sets->xe[j] * sets->xe[j] + sets->pe[j] * sets->pe[j]) >= 1)){
+                        sets->correfun_t[i * seth->Nstate + i] = 0 ;
+                    }
+                    if(i != j) sets->correfun_t[i*seth->Nstate+j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
     }
 
 
@@ -1999,7 +2132,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
      
 
-        evo_traj_savetraj(sets,seth);
+        // evo_traj_savetraj(sets,seth);
 
         dt_evo = seth->dt;
 
