@@ -13,8 +13,9 @@
 #include <stdbool.h>
 #include "def_host.h"
 #include "iofun_slave.h"
+#ifndef x86
 #include <slave.h>
-
+#endif
 
 // int mpi_size, mpi_rank, mpi_ierr;
 
@@ -1083,8 +1084,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         if (seth->rep == 0) {
             
             V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
-
+            #ifndef x86
             int slavecore_id = athread_get_id(-1);
+            #endif
           
             // printf("%d %18.8E %18.8E %18.8E %18.8E\n",slavecore_id,sets->V[0],sets->V[1],sets->V[2],sets->V[3]);
                 
@@ -1164,7 +1166,9 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
     double complex tempcm[seth->Nstate*seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate],tempdm2[seth->Nstate*seth->Nstate];
     double complex tempcm2[seth->Nstate*seth->Nstate];
+    #ifndef x86
     int slavecore_id = athread_get_id(-1);
+    #endif
     
     
     // tempmat1[seth->Nstate*seth->Nstate],tempmat2[seth->Nstate*seth->Nstate],tempmat3[seth->Nstate*seth->Nstate]
@@ -1758,7 +1762,9 @@ void energy_conserve_naf_1(double E0, double *dE_naf,struct set_slave *sets,stru
 // }
 
 void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifndef x86
     int slavecore_id=athread_get_id(-1);
+    #endif
     double tempv[seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate];
     
@@ -1881,7 +1887,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // double sets->t_now_small;
     // bool alive;
     int slavecore_id;
+    #ifndef x86
     slavecore_id=athread_get_id(-1);
+    #endif
     
     // if_bak = false;
     // itime_save = 0;
@@ -2071,7 +2079,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         itime++;
         // if (ifzsets->pecorr > 0) zsets->pecorr_msmodel(sets->P_nuc, sets->R_nuc, ifzsets->pecorr);
 
-        if (strcmp(seth->msmodelname, "morse3") == 0 || strcmp(seth->msmodelname, "Morse3" == 0)) {
+        if (strcmp(seth->msmodelname, "morse3") == 0 || strcmp(seth->msmodelname, "Morse3") == 0) {
             if (seth->ifhardwall == 1) {
                 if (sets->P_nuc[0] < 0 && sets->R_nuc[0] < 0) sets->P_nuc[0] = -sets->P_nuc[0];
             }
