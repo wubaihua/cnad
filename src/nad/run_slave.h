@@ -10,16 +10,19 @@
 #include "msmodelio.h"
 #include <stdbool.h>
 #include "def_host.h"
-
-#include <slave.h>
-#include <athread.h>
-
+#ifdef sunway
+    #include <slave.h>
+    #include <athread.h>
+#endif
 
 // extern SLAVE_FUN(init_slave)();
 
 
-
+#ifdef sunway
 extern SLAVE_FUN(dynamics_slave)(struct set_host *seth);
+#elif defined(x86)
+void dynamics_slave(struct set_host *seth);
+#endif
 
 
 

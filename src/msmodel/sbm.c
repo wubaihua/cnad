@@ -12,9 +12,10 @@
 // #include "cJSON.h"
 #include "msmodelio.h"
 #include "def_host.h"
-#include <slave.h>
-#include <athread.h>
-
+#ifdef sunway
+    #include <slave.h>
+    #include <athread.h>
+#endif
 
 
 // Spin-Boson Model parameters

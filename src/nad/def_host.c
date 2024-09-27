@@ -1259,6 +1259,8 @@ void init_host(struct set_host *seth){
 
     seth->mpi_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * sizeof(unsigned long long));
     memset(seth->mpi_N_nan_sum, 0, seth->Ngrid * sizeof(unsigned long long));
+    seth->save_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * 64 * sizeof(unsigned long long));
+    memset(seth->save_N_nan_sum, 0, seth->Ngrid * 64 * sizeof(unsigned long long));
     
     if (seth->if_allcf == 0) {
         if (seth->outputtype >= 0) {
@@ -1654,7 +1656,7 @@ void print_info(struct set_host *seth){
 
 void fileout(struct set_host *seth) {
     int i, totn;
-    char outname[256];
+    char outname[350];
 
 
     if (seth->if_allcf == 0) {
@@ -1841,7 +1843,7 @@ void fileout(struct set_host *seth) {
 
 void fileout_mpi(int id, struct set_host *seth) {
     int i, totn;
-    char outname[256];
+    char outname[350];
     char cid[20];
 
     snprintf(cid, sizeof(cid), "%d", id);
@@ -1876,10 +1878,10 @@ void fileout_mpi(int id, struct set_host *seth) {
         for (i = 0; i < seth->Ngrid; i++) {
             fprintf(den_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
             for (int j = 0; j < seth->Nstate * seth->Nstate; j++) {
-                fprintf(den_file, "%18.8E", seth->mpi_real_den[j * seth->Ngrid + i]/seth->Ntraj*seth->mpi_size);
+                fprintf(den_file, "%18.8E", seth->fi_real_den[j * seth->Ngrid + i]/seth->Ntraj*seth->mpi_size);
             }
             for (int j = 0; j < seth->Nstate * seth->Nstate; j++) {
-                fprintf(den_file, "%18.8E", seth->mpi_imag_den[j * seth->Ngrid + i]/seth->Ntraj*seth->mpi_size);
+                fprintf(den_file, "%18.8E", seth->fi_imag_den[j * seth->Ngrid + i]/seth->Ntraj*seth->mpi_size);
             }
             fprintf(den_file, "\n");
         }
@@ -1898,7 +1900,7 @@ void fileout_mpi(int id, struct set_host *seth) {
         for (i = 0; i < seth->Ngrid; i++) {
             fprintf(pop_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
             for (int j = 0; j < seth->Nstate; j++) {
-                fprintf(pop_file, "%18.8E", seth->mpi_population[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
+                fprintf(pop_file, "%18.8E", seth->fi_population[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
             }
             fprintf(pop_file, "\n");
         }

@@ -1,3 +1,3 @@
-char* trim(char *str);
+// char* trim(char *str);
 
-char* adjustl(char *str);
+// char* adjustl(char *str);

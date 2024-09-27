@@ -420,6 +420,7 @@ struct set_host
     double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
     unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
+    unsigned long long *save_N_nan_sum; 
     double *mpi_real_den;
     double *mpi_imag_den;
     double *save_real_den;
@@ -456,7 +457,8 @@ struct set_host
     // double *R2_nuc_mean; // 3D double array: [size1][size2][size3]
     // double *P2_nuc_mean; // 3D double array: [size1][size2][size3]
 
-    char *filepath; // Path of Model input file
+    // char *filepath; // Path of Model input file
+    char filepath[300];
     char *workpath;
 
     int Ndof1, Ndof2;

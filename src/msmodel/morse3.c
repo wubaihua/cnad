@@ -3,8 +3,10 @@
 #include "gmath.h"
 #include "msmodelio.h"
 #include "def_host.h"
-#include <slave.h>
-#include <athread.h>
+#ifdef sunway
+    #include <slave.h>
+    #include <athread.h>
+#endif
 
 // #define setm->omega_morse3 5.0E-3
 // #define setm->mass_morse3 20000.0

@@ -17,17 +17,21 @@
 #include "msmodel.h"
 #include "msmodelio.h"
 #include "run_slave.h"
-#include <athread.h>
+#ifdef sunway
+    #include <athread.h>
+#endif
 
-
-void unsignlong_reduce(unsigned long long *sendbuf, unsigned long long *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
-void double_reduce(double *sendbuf, double *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
+// void unsignlong_reduce(unsigned long long *sendbuf, unsigned long long *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
+// void double_reduce(double *sendbuf, double *recvbuf, int count, MPI_Op op, int root, MPI_Comm comm);
 
 int main(int argc, char *argv[]) {
     // int mpi_size, mpi_rank, mpi_ierr;
     char date_now[20], time_now[20];
     double t1=0, t2=0, tt1=0, tt2=0;
     time_t now;
+    struct tm *t;
+    time(&now);
+    t = localtime(&now);
     double dsum;
     unsigned long long lsum;
 
@@ -40,7 +44,9 @@ int main(int argc, char *argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &seth.mpi_rank);
     // mpi_rank=0,mpi_size;
     
+    #ifdef sunway
     athread_init();
+    #endif
 
     if (seth.mpi_rank == 0) {
         printf("====================================================================\n");
@@ -52,8 +58,6 @@ int main(int argc, char *argv[]) {
         printf("*                           Sept. 5, 2024                          *\n");
         printf("====================================================================\n");
 
-        now = time(NULL);
-        struct tm *t = localtime(&now);
         strftime(date_now, sizeof(date_now), "%Y%m%d", t);
         strftime(time_now, sizeof(time_now), "%H%M%S", t);
         printf(" NAD start at %c%c%c%c-%c%c-%c%c %c%c:%c%c:%c%c\n",
@@ -72,7 +76,8 @@ int main(int argc, char *argv[]) {
 
     // char filepath[256];
     if (argc > 1) {
-        seth.filepath=argv[1];
+        // seth.filepath=argv[1];
+        strcpy(seth.filepath, argv[1]);
     } else {
         if (seth.mpi_rank == 0) {
             printf("File path not provided.\n");
@@ -122,9 +127,12 @@ int main(int argc, char *argv[]) {
     tt1 = MPI_Wtime();
     // init_seed(mpi_rank);
 
-    
+    #ifdef sunway
     athread_spawn(dynamics_slave,&seth);
     athread_join();
+    #elif defined(x86)
+    dynamics_slave(&seth);
+    #endif
 
      
     // for (int itraj = 1; itraj <= Ntraj; itraj++) {
@@ -165,6 +173,11 @@ int main(int argc, char *argv[]) {
     // fflush(stdout);  // 强制刷新输出缓冲区
     tt1 = MPI_Wtime();
 
+// for (int i=0; i<64; i++){
+//     printf("%d %18.8E %18.8E %18.8E\n",i,seth.save_population[0 * seth.Ngrid *64  + (seth.Ngrid -1)*64+i]/seth.Ntraj*seth.mpi_size*64,
+//                                         seth.save_population[1 * seth.Ngrid *64  + (seth.Ngrid -1)*64+i]/seth.Ntraj*seth.mpi_size*64,
+//                                         seth.save_population[2 * seth.Ngrid *64  + (seth.Ngrid -1)*64+i]/seth.Ntraj*seth.mpi_size*64); // debug
+// }
     // for (int i = 0; i < 64; i++){
     //     athread_spawn(data_transport,i);
     //     athread_join();
@@ -184,30 +197,62 @@ int main(int argc, char *argv[]) {
     }
    
    //////////////
+
+    seth.fi_N_nan_sum = (unsigned long long *)malloc(seth.Ngrid * sizeof(unsigned long long));
+    memset(seth.fi_N_nan_sum,0,seth.Ngrid * sizeof(unsigned long long));
+    #ifdef sunway
+    for (int i = 0; i< seth.Ngrid; i++){
+        for(int j=0;j<64;j++){
+            seth.fi_N_nan_sum[i] += seth.save_N_nan_sum[i*64+j];
+        }
+    }
+    free(seth.save_N_nan_sum);
+    #elif defined(x86)
+    memcpy(seth.fi_N_nan_sum,seth.mpi_N_nan_sum,seth.Ngrid * sizeof(unsigned long long));
+    #endif
+
     if (seth.outputtype != 0) {
+        seth.fi_population = (double *)malloc(seth.Nstate * seth.Ngrid * sizeof(double));
+        memset(seth.fi_population,0, seth.Nstate * seth.Ngrid * sizeof(double)); 
+        #ifdef sunway
+        
         for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
             for(int j=0;j<64;j++){
-                seth.mpi_population[i] += seth.save_population[i*64+j];
+                seth.fi_population[i] += seth.save_population[i*64+j];
             }
         }
         // if (seth.if_st_fb == 1) {
         // }
+        
+        free(seth.save_population);
+        #elif defined(x86)
+        memcpy(seth.fi_population,seth.mpi_population, seth.Nstate * seth.Ngrid * sizeof(double)); 
+        #endif
     }
-
-
     // for (int i=0; i<64; i++){
         //  printf("%18.8E\n",seth.mpi_population[0 * seth.Ngrid   + (seth.Ngrid -1)]); // debug
     // }
     // MPI_Barrier(MPI_COMM_WORLD);
-
     if (seth.outputtype >= 0) {
+        seth.fi_real_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
+        seth.fi_imag_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
+        memset(seth.fi_real_den, 0, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
+        memset(seth.fi_imag_den, 0, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double)); 
+        #ifdef sunway
         for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
             for(int j=0;j<64;j++){
                 seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
                 seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
             }
         }
+        free(seth.save_real_den);
+        free(seth.save_imag_den);
+        #elif defined(x86)
+        memcpy(seth.fi_real_den, seth.mpi_real_den, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
+        memcpy(seth.fi_imag_den, seth.mpi_imag_den, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
+        #endif
     }
+    
 
    //////////
 
@@ -235,14 +280,13 @@ int main(int argc, char *argv[]) {
     // printf("1111\n");
     // fi_N_nan_sum = (unsigned long long *)malloc(Ngrid * sizeof(unsigned long long));
     // printf("2222\n");
-    // MPI_Reduce(&seth.mpi_N_nan_sum, &seth.mpi_N_nan_sum, seth.Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
-
-    unsigned long long tempn;
+    // MPI_Reduce(&seth.fi_N_nan_sum, &seth.mpi_N_nan_sum, seth.Ngrid, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     for (int i = 0; i < seth.Ngrid; i++){
-        tempn = seth.mpi_N_nan_sum[i];
-        MPI_Reduce(&tempn, &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
+        // tempn = seth.mpi_N_nan_sum[i];
+        MPI_Reduce(&seth.fi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
-    if (seth.mpi_rank == 0) printf("Number of failed trajectories: %d\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
+    if (seth.mpi_rank == 0) printf("Number of failed trajectories: %llu\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
+    free(seth.fi_N_nan_sum);
     // exit(-1);
 
     // MPI_Status status;
@@ -291,13 +335,14 @@ int main(int argc, char *argv[]) {
         // }
 
         // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-      
+        // seth.fi_population = (double *)malloc(seth.Nstate * seth.Ngrid * sizeof(double));
+        // memcpy(seth.fi_population,seth.mpi_population, seth.Nstate * seth.Ngrid * sizeof(double));   
         for (int i = 0; i < seth.Nstate * seth.Ngrid; i++) {
             // printf("aaa: %d, %d, %f, %f \n", mpi_rank, i, mpi_population[i], dsum);
-            MPI_Reduce(&seth.mpi_population[i], &seth.mpi_population[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_population[i], &seth.mpi_population[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
 
-
+        free(seth.fi_population);
         // double *result_population = NULL;
         // if (mpi_rank == 0) {
         //     result_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
@@ -306,15 +351,15 @@ int main(int argc, char *argv[]) {
         // if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
         // free(result_population);
 
-        if (seth.if_st_fb == 1) {
-            // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
+        // if (seth.if_st_fb == 1) {
+        //     // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
             
-            // MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            for (int i = 0; i < seth.Nstate * seth.Ngrid * 2; i++){
-                MPI_Reduce(&seth.mpi_pop_fb[i], &seth.mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            }
-            // free(mpi_pop_fb);
-        }
+        //     // MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        //     for (int i = 0; i < seth.Nstate * seth.Ngrid * 2; i++){
+        //         MPI_Reduce(&seth.mpi_pop_fb[i], &seth.mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        //     }
+        //     // free(mpi_pop_fb);
+        // }
         // free(mpi_population);
     }
 
@@ -362,10 +407,18 @@ int main(int argc, char *argv[]) {
         // MPI_Barrier(MPI_COMM_WORLD);
         // MPI_Reduce(&seth.mpi_real_den, &seth.mpi_real_den, seth.Nstate * seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // MPI_Reduce(&seth.mpi_imag_den, &seth.mpi_imag_den, seth.Nstate * seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        // seth.fi_real_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
+        // seth.fi_imag_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
+        // memcpy(seth.fi_real_den, seth.mpi_real_den, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
+        // memcpy(seth.fi_imag_den, seth.mpi_imag_den, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
+
         for (int i = 0; i < seth.Nstate * seth.Nstate * seth.Ngrid; i++){
-            MPI_Reduce(&seth.mpi_real_den[i], &seth.mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-            MPI_Reduce(&seth.mpi_imag_den[i], &seth.mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_real_den[i], &seth.mpi_real_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_imag_den[i], &seth.mpi_imag_den[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         }
+
+        free(seth.fi_real_den);
+        free(seth.fi_imag_den);
         // printf("test9999999\n");
         // // free(mpi_den);
         // // printf("test10\n");
@@ -556,9 +609,9 @@ int main(int argc, char *argv[]) {
     if (seth.mpi_rank == 0) {
         printf("Total Running time: %f\n", t2 - t1);
         now = time(NULL);
-        time_t t = localtime(&now);
-        strftime(date_now, sizeof(date_now), "%Y%m%d", t);
-        strftime(time_now, sizeof(time_now), "%H%M%S", t);
+        struct tm *tend = localtime(&now);
+        strftime(date_now, sizeof(date_now), "%Y%m%d", tend);
+        strftime(time_now, sizeof(time_now), "%H%M%S", tend);
         printf(" NAD end at %c%c%c%c-%c%c-%c%c %c%c:%c%c:%c%c\n",
                date_now[0], date_now[1], date_now[2], date_now[3],
                date_now[4], date_now[5], date_now[6], date_now[7],
@@ -568,7 +621,9 @@ int main(int argc, char *argv[]) {
 
     MPI_Barrier(MPI_COMM_WORLD);
 
+    #ifdef sunway
     athread_halt();
+    #endif
     // exit(-1);
     // MPI_Comm_free(MPI_COMM_WORLD);
     MPI_Finalize();

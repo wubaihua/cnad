@@ -10,7 +10,9 @@
 #include "msmodelio.h"
 #include <stdbool.h>
 #include "def_host.h"
-#include <slave.h>
+#ifdef sunway
+    #include <slave.h>
+#endif
 
 
 
@@ -29,8 +31,9 @@ void dynamics_slave(struct set_host *seth){
     int run_size = seth->Ntraj/seth->mpi_size;
 
   
-   
+    #ifdef sunway
     slavecore_id=athread_get_id(-1);
+    #endif
 
     initial_vari(&sets,seth);
     
@@ -38,37 +41,27 @@ void dynamics_slave(struct set_host *seth){
 
     init_seed(seth->mpi_rank*64+slavecore_id);
 
-   
+    
+    #ifdef sunway
     for (int itraj = 1; itraj <= run_size; itraj++) {
-        if (itraj % 64 == slavecore_id) {
-
-            
+        if (itraj % 64 == slavecore_id) { 
             sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
-
-            
-            
-            
-            // if (if_ref == 1) {
-            //     for (iref = 1; iref <= Nref; iref++) {
-            //         sample_msmodel(&P_nuc_ref[iref * Ndof1 * Ndof2], &R_nuc_ref[iref * Ndof1 * Ndof2], beta);
-            //     }
-            // }
-            sample_ele(&sets,seth);
-
-            
-            
-           
+            sample_ele(&sets,seth);       
             evo_traj_new(itraj,&sets,seth);
-
-            
-            
-            
-            
         }
     }
+    #elif defined(x86)
+    for (int itraj = 1; itraj <= run_size; itraj++) {
+        sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
+        sample_ele(&sets,seth);       
+        evo_traj_new(itraj,&sets,seth);
+    }
+    #endif
 
 
-    // printf("%d %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1],sets.population[1 * seth->Ngrid  + seth->Ngrid -1]); // debug
+    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
+    //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
+    //                                                 sets.population[2 * seth->Ngrid  + seth->Ngrid -1]/run_size*64); // debug
 
 // printf("%d %18.8E %18.8E\n",slavecore_id,creal(sets.den[0 * seth->Ngrid * seth->Nstate + 0 *seth->Ngrid  + 0]),creal(sets.den[1 * seth->Ngrid * seth->Nstate + 1 *seth->Ngrid + 0])); // debug
 
@@ -94,11 +87,12 @@ void dynamics_slave(struct set_host *seth){
     //     }
     // }
 
-
+#ifdef sunway
+    athread_ssync_array();
     for(int idcore = 0; idcore < 64; idcore++){
         if(slavecore_id == idcore){
             for (int i = 0; i < seth->Ngrid; i++){
-                seth->mpi_N_nan_sum[i] += sets.N_nan_sum[i];
+                seth->save_N_nan_sum[i*64+idcore] += sets.N_nan_sum[i];
             }
 
             if (seth->outputtype >= 0) {
@@ -126,11 +120,6 @@ void dynamics_slave(struct set_host *seth){
                 // }
 
             }
-
-    
-
-
-
             // if(id==0){
             //     memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));
             // }
@@ -143,9 +132,56 @@ void dynamics_slave(struct set_host *seth){
         }
         athread_ssync_array();
     }
+    free_vari(&sets,seth);
+    athread_ssync_array();
 
+#elif defined(x86)
+    
+    for (int i = 0; i < seth->Ngrid; i++){
+        seth->mpi_N_nan_sum[i] = sets.N_nan_sum[i];
+    }
+    if (seth->outputtype >= 0) {
+        
+        for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
+            // mpi_den[i] += den[i];
+            seth->mpi_real_den[i] = creal(sets.den[i]);
+            seth->mpi_imag_den[i] = cimag(sets.den[i]);
+            // seth->save_real_den[i*64+idcore] = creal(sets.den[i]);
+            // seth->save_imag_den[i*64+idcore] = cimag(sets.den[i]);
+        }
+    }
+    if (seth->outputtype != 0) {
+        for (int i = 0; i < seth->Nstate * seth->Ngrid; i++){
+            seth->mpi_population[i] = sets.population[i];
+            // seth->save_population[i*64+idcore] = sets.population[i];
+            // printf("%d %18.8E %18.8E\n",i,seth->mpi_population[i], sets.population[i]);
+            // seth->mpi_population[i] += 1;
+        }
+        // for (int i = 0; i < seth->Nstate; i++){
+        //     for (int j=0; j< seth->Ngrid; j++){
+        //         seth->mpi_population[i* seth->Ngrid + j] += creal(sets.den[i* seth->Nstate * seth->Ngrid + i * seth->Ngrid + j]);
+        //     }
+        //     // seth->mpi_population[i] += 1;
+        // }
+    }
+    // if(id==0){
+    //     memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));
+    // }
+    
+    // for (int i = 0; i < Ngrid; i++){
+    //     fi_time_grid[i] = timegrid[i];
+    // }
 
-    // printf("%d %18.8E %18.8E\n",slavecore_id,seth->save_population[0 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id],sets.population[1 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]); // debug
+    free_vari(&sets,seth);
+
+#endif
+
+    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,seth->save_population[0 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]/run_size*64,
+    //                                          seth->save_population[1 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]/run_size*64,
+    //                                          seth->save_population[2 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]/run_size*64); // debug
+    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,seth->mpi_population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size,
+    //                                                 seth->mpi_population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size,
+    //                                                 seth->mpi_population[2 * seth->Ngrid  + seth->Ngrid -1]/run_size); // debug
 
    
     // if (seth->outputtype >= 0) {
@@ -157,9 +193,7 @@ void dynamics_slave(struct set_host *seth){
     //     }
     // }
 
-    free_vari(&sets,seth);
-    athread_ssync_array();
-
+    
 //     for (int j=0;j<64;j++){
 //     printf("%d %18.8E %18.8E\n",j,seth->save_real_den[0 * seth->Ngrid * seth->Nstate + 0 *seth->Ngrid  + 0 + j],seth->save_imag_den[1 * seth->Ngrid * seth->Nstate + 1 *seth->Ngrid + j]); // debug
 
