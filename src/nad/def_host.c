@@ -1255,6 +1255,13 @@ void init_host(struct set_host *seth){
     seth->ttot *= seth->unittrans_t;
     seth->dt *= seth->unittrans_t;
 
+
+    if (seth->temperature != 0.0 && seth->beta == 0.0) {
+        seth->beta = 1 / (kb * seth->temperature);
+        if (seth->temperature < 1.0) seth->beta = 10000000;
+    }
+    
+
     seth->fi_time_grid = (double *)malloc(seth->Ngrid * sizeof(double));
 
     seth->mpi_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * sizeof(unsigned long long));

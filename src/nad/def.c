@@ -704,10 +704,10 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //     }
     // }
    
-    if (seth->temperature != 0.0 && seth->beta == 0.0) {
-        seth->beta = 1 / (kb * seth->temperature);
-        if (seth->temperature < 1.0) seth->beta = 10000000;
-    }
+    // if (seth->temperature != 0.0 && seth->beta == 0.0) {
+    //     seth->beta = 1 / (kb * seth->temperature);
+    //     if (seth->temperature < 1.0) seth->beta = 10000000;
+    // }
     
     // if (ifrw > 0) {
     //     if (seth->beta_rw < 0) {

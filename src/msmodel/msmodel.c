@@ -12,7 +12,7 @@
 #include "sbm.h"
 #include "morse3.h"
 #include "sem.h"
-
+#include "fmo.h"
 
 // int forcetype;
 // char setm->msmodelname[200];
@@ -40,6 +40,9 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         parameter_SEM(mass,setm);
+    } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
+       strcmp(setm->msmodelname, "fmo") == 0) {
+        parameter_FMO(mass,setm);
     }
 }
 
@@ -54,6 +57,9 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         sample_SEM(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
+       strcmp(setm->msmodelname, "fmo") == 0) {
+        sample_FMO(P, R, beta,setm);
     }
 }
 
@@ -68,6 +74,9 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         V_SEM(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
+       strcmp(setm->msmodelname, "fmo") == 0) {
+        V_FMO(R, H, setm->forcetype,setm);
     }
 }
 
@@ -82,6 +91,9 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         dV_SEM(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
+       strcmp(setm->msmodelname, "fmo") == 0) {
+        dV_FMO(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -93,6 +105,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         nucforce_SEM(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
+       strcmp(setm->msmodelname, "fmo") == 0) {
+        nucforce_FMO(R, nf,setm);
     }
 }
 
