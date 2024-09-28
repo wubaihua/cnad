@@ -809,6 +809,12 @@ struct set_host
         double Re_morse3;
         double omega_morse3, mass_morse3;
 
+
+        // site-exciton model parameters
+        int N_bath_SEM, Nstate_SEM;
+        double bias_SEM, delta_SEM, k_eff_SEM, omega_c_SEM, lambda_SEM;
+        double *c_SEM, *omega_SEM, *H_ele_SEM;
+
 };
 
 

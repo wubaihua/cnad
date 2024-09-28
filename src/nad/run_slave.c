@@ -39,10 +39,11 @@ void dynamics_slave(struct set_host *seth){
     
     init_msmodel(sets.mass,seth);
 
-    init_seed(seth->mpi_rank*64+slavecore_id);
+    
 
     
     #ifdef sunway
+    init_seed(seth->mpi_rank*64+slavecore_id);
     for (int itraj = 1; itraj <= run_size; itraj++) {
         if (itraj % 64 == slavecore_id) { 
             sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
@@ -51,6 +52,7 @@ void dynamics_slave(struct set_host *seth){
         }
     }
     #elif defined(x86)
+    init_seed(seth->mpi_rank);
     for (int itraj = 1; itraj <= run_size; itraj++) {
         sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
         sample_ele(&sets,seth);       
@@ -58,6 +60,7 @@ void dynamics_slave(struct set_host *seth){
     }
     #endif
 
+    
 
     // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
     //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
@@ -173,7 +176,7 @@ void dynamics_slave(struct set_host *seth){
     // }
 
     free_vari(&sets,seth);
-
+// exit(-1);
 #endif
 
     // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,seth->save_population[0 * seth->Ngrid *64  + (seth->Ngrid -1)*64+slavecore_id]/run_size*64,

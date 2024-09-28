@@ -394,7 +394,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     // printf("N=%d %d %d\n",seth->Ndof1,seth->Ndof2,seth->Nstate);
 
     // 分配内存
-    
+   
     sets->R_nuc = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
     sets->P_nuc = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
     sets->mass = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));

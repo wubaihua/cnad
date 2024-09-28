@@ -132,7 +132,75 @@ void readinp_morse3(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set
 }
 
 
+void readinp_SEM(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
 
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "k_eff_SEM")){
+        list=cJSON_GetObjectItem(item, "k_eff_SEM");
+        if (list->type == cJSON_Number) {
+            setm->k_eff_SEM = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "bias_SEM")) {
+        list = cJSON_GetObjectItem(item, "bias_SEM");
+        if (list->type == cJSON_Number) {
+            setm->bias_SEM = list->valuedouble;
+            setm->bias_SEM /= au_2_eV;
+        }
+    }
+
+    
+    if (NULL != cJSON_GetObjectItem(item, "delta_SEM")) {
+        list = cJSON_GetObjectItem(item, "delta_SEM");
+        if (list->type == cJSON_Number) {
+            setm->delta_SEM = list->valuedouble; 
+            setm->delta_SEM /= au_2_eV;
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "omega_c_SEM")) {
+        list = cJSON_GetObjectItem(item, "omega_c_SEM");
+        if (list->type == cJSON_Number) {
+            setm->omega_c_SEM = list->valuedouble; 
+            setm->omega_c_SEM *= au_2_ps*10.0/53.09;
+        }
+    }
+
+    if (NULL !=  cJSON_GetObjectItem(item, "N_bath_SEM")){
+        list=cJSON_GetObjectItem(item, "N_bath_SEM");
+        setm->N_bath_SEM = list->valueint; 
+    }
+
+    setm->lambda_SEM = setm->k_eff_SEM * setm->k_eff_SEM * setm->omega_c_SEM * 0.5 ;
+    setm->Nstate_SEM = 2;
+
+    *Ndof1 = setm->Nstate_SEM;
+    *Ndof2 = setm->N_bath_SEM;
+    *Nstate = setm->Nstate_SEM;
+
+
+
+    setm->H_ele_SEM = (double *)malloc(setm->Nstate_SEM * setm->Nstate_SEM * sizeof(double));
+
+    setm->H_ele_SEM[0]=setm->bias_SEM * 0.5;
+    setm->H_ele_SEM[1]=setm->delta_SEM;
+    setm->H_ele_SEM[2]=setm->delta_SEM;
+    setm->H_ele_SEM[3]=setm->bias_SEM * (-0.5);
+
+    //debug
+    // printf("N_bath_SEM =  %d\n",  setm->N_bath_SEM );
+    // printf("k_eff_SEM  =  %f\n",  setm->k_eff_SEM  );
+    // printf("bias_SEM   =  %f\n",  setm->bias_SEM   );
+    // printf("delta_SEM  =  %f\n",  setm->delta_SEM  );
+    // printf("lambda_SEM =  %f\n",  setm->lambda_SEM );
+    // printf("omega_c_SEM=  %f\n",  setm->omega_c_SEM);
+    // printf("F: %d\n", setm->Nstate_SEM);
+
+    //debug
+}
 
 
 
@@ -143,7 +211,11 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
         readinp_morse3(json, Ndof1, Ndof2, Nstate, setm);
-    } 
+    } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
+       strcmp(setm->msmodelname, "sem") == 0) {
+        readinp_SEM(json, Ndof1, Ndof2, Nstate, setm);
+         
+    }
 
 
 }
