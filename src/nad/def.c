@@ -2030,7 +2030,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // count_sets->pertraj = 0;
 
     sets->t_now = 0;
-    nstep = (int)(seth->ttot / seth->dt);
+    nstep = (int)(seth->ttot / seth->dt) + 1;
 
     V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);

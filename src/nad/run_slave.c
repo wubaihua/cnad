@@ -53,6 +53,7 @@ void dynamics_slave(struct set_host *seth){
             evo_traj_new(itraj,&sets,seth);
         }
     }
+    athread_ssync_array();
     #elif defined(x86)
     init_seed(seth->mpi_rank);
     for (int itraj = 1; itraj <= run_size; itraj++) {
@@ -63,10 +64,13 @@ void dynamics_slave(struct set_host *seth){
     #endif
 
     
-    
-    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
-    //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
-    //                                                 sets.population[2 * seth->Ngrid  + seth->Ngrid -1]/run_size*64); // debug
+    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -2]/run_size*seth->nproc_sw,
+    //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -2]/run_size*seth->nproc_sw,
+    //                                                 sets.population[2 * seth->Ngrid  + seth->Ngrid -2]/run_size*seth->nproc_sw); // debug
+
+    // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size*seth->nproc_sw,
+    //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size*seth->nproc_sw,
+    //                                                 sets.population[2 * seth->Ngrid  + seth->Ngrid -1]/run_size*seth->nproc_sw); // debug
 
 // printf("%d %18.8E %18.8E\n",slavecore_id,creal(sets.den[0 * seth->Ngrid * seth->Nstate + 0 *seth->Ngrid  + 0]),creal(sets.den[1 * seth->Ngrid * seth->Nstate + 1 *seth->Ngrid + 0])); // debug
 
