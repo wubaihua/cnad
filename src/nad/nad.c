@@ -202,8 +202,8 @@ int main(int argc, char *argv[]) {
     memset(seth.fi_N_nan_sum,0,seth.Ngrid * sizeof(unsigned long long));
     #ifdef sunway
     for (int i = 0; i< seth.Ngrid; i++){
-        for(int j=0;j<64;j++){
-            seth.fi_N_nan_sum[i] += seth.save_N_nan_sum[i*64+j];
+        for(int j=0;j<seth.nproc_sw;j++){
+            seth.fi_N_nan_sum[i] += seth.save_N_nan_sum[i*seth.nproc_sw+j];
         }
     }
     free(seth.save_N_nan_sum);
@@ -217,8 +217,8 @@ int main(int argc, char *argv[]) {
         #ifdef sunway
         
         for (int i = 0; i< seth.Nstate * seth.Ngrid; i++){
-            for(int j=0;j<64;j++){
-                seth.fi_population[i] += seth.save_population[i*64+j];
+            for(int j=0;j<seth.nproc_sw;j++){
+                seth.fi_population[i] += seth.save_population[i*seth.nproc_sw+j];
             }
         }
         // if (seth.if_st_fb == 1) {
@@ -240,9 +240,9 @@ int main(int argc, char *argv[]) {
         memset(seth.fi_imag_den, 0, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double)); 
         #ifdef sunway
         for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
-            for(int j=0;j<64;j++){
-                seth.mpi_real_den[i] += seth.save_real_den[i*64+j];
-                seth.mpi_imag_den[i] += seth.save_imag_den[i*64+j];
+            for(int j=0;j<seth.nproc_sw;j++){
+                seth.mpi_real_den[i] += seth.save_real_den[i*seth.nproc_sw+j];
+                seth.mpi_imag_den[i] += seth.save_imag_den[i*seth.nproc_sw+j];
             }
         }
         free(seth.save_real_den);

@@ -788,6 +788,9 @@ struct set_host
     int if_traceless_force;
 
 
+    int nproc_sw;
+
+
 
     // model parameters
 

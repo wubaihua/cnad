@@ -532,6 +532,9 @@ void initial_para(struct set_host *seth) {
     seth->allow_hop = 0;
 
     seth->if_traceless_force = 0;
+
+
+    seth->nproc_sw = 64;
 }
 
 
@@ -1211,12 +1214,12 @@ void readinp(struct set_host *seth){
 
         
 
-        // if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
-        //     list = cJSON_GetObjectItem(item, "nproc_sw");
-        //     if (list->type == cJSON_Number) {
-        //         nproc_sw = list->valueint; 
-        //     }
-        // }
+        if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
+            list = cJSON_GetObjectItem(item, "nproc_sw");
+            if (list->type == cJSON_Number) {
+                seth->nproc_sw = list->valueint; 
+            }
+        }
 
         item = item->next;
     }
@@ -1258,16 +1261,17 @@ void init_host(struct set_host *seth){
 
     if (seth->temperature != 0.0 && seth->beta == 0.0) {
         seth->beta = 1 / (kb * seth->temperature);
-        if (seth->temperature < 1.0) seth->beta = 10000000;
+        if (seth->temperature < 1.0 && seth->temperature > 0) seth->beta = 10000000;
+        if (seth->temperature > -1.0 && seth->temperature < 0) seth->beta = -10000000;
     }
-    
+
 
     seth->fi_time_grid = (double *)malloc(seth->Ngrid * sizeof(double));
 
     seth->mpi_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * sizeof(unsigned long long));
     memset(seth->mpi_N_nan_sum, 0, seth->Ngrid * sizeof(unsigned long long));
-    seth->save_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * 64 * sizeof(unsigned long long));
-    memset(seth->save_N_nan_sum, 0, seth->Ngrid * 64 * sizeof(unsigned long long));
+    seth->save_N_nan_sum = (unsigned long long *)malloc(seth->Ngrid * seth->nproc_sw * sizeof(unsigned long long));
+    memset(seth->save_N_nan_sum, 0, seth->Ngrid * seth->nproc_sw * sizeof(unsigned long long));
     
     if (seth->if_allcf == 0) {
         if (seth->outputtype >= 0) {
@@ -1279,18 +1283,18 @@ void init_host(struct set_host *seth){
         memset(seth->mpi_real_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));
         memset(seth->mpi_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));  
 
-        seth->save_real_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));
-        seth->save_imag_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));  
-        memset(seth->save_real_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));
-        memset(seth->save_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * 64 * sizeof(double));  
+        seth->save_real_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
+        seth->save_imag_den = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));  
+        memset(seth->save_real_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
+        memset(seth->save_imag_den, 0, seth->Nstate * seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));  
 
         }
 
         if (seth->outputtype != 0){
             seth->mpi_population = (double *)malloc(seth->Nstate * seth->Ngrid * sizeof(double));
             memset(seth->mpi_population,0, seth->Nstate * seth->Ngrid * sizeof(double));
-            seth->save_population = (double *)malloc(seth->Nstate * seth->Ngrid * 64 * sizeof(double));
-            memset(seth->save_population,0, seth->Nstate * seth->Ngrid * 64 * sizeof(double));
+            seth->save_population = (double *)malloc(seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
+            memset(seth->save_population,0, seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
         }
 
         // for (int i=0;i<seth->Ngrid;i++){
@@ -1653,6 +1657,14 @@ void print_info(struct set_host *seth){
         // if (if_traceless_force != 0) {
         //     printf("if_traceless_force= %d\n", if_traceless_force);
         // }
+
+        #ifdef sunway
+        printf("---------------------------------------------------------------------\n");
+        printf("                 Program running on Sunway Platform                  \n");
+        printf("               Using athread for parallel computation                \n");
+        printf("                 Number of athread slave cores: %d                   \n",seth->nproc_sw);
+        printf("---------------------------------------------------------------------\n");
+        #endif
 
 }
 

@@ -33,19 +33,21 @@ void dynamics_slave(struct set_host *seth){
   
     #ifdef sunway
     slavecore_id=athread_get_id(-1);
-    #endif
-
+    if (slavecore_id < seth->nproc_sw){
+        initial_vari(&sets,seth);
+        init_msmodel(sets.mass,seth);
+    }
+    #elif defined(x86)
     initial_vari(&sets,seth);
-    
     init_msmodel(sets.mass,seth);
-
+    #endif
     
 
     
     #ifdef sunway
-    init_seed(seth->mpi_rank*64+slavecore_id);
+    init_seed(seth->mpi_rank*seth->nproc_sw+slavecore_id);
     for (int itraj = 1; itraj <= run_size; itraj++) {
-        if (itraj % 64 == slavecore_id) { 
+        if (itraj % seth->nproc_sw == slavecore_id) { 
             sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
             sample_ele(&sets,seth);       
             evo_traj_new(itraj,&sets,seth);
@@ -61,7 +63,7 @@ void dynamics_slave(struct set_host *seth){
     #endif
 
     
-
+    
     // printf("%d %18.8E %18.8E %18.8E\n",slavecore_id,sets.population[0 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
     //                                                 sets.population[1 * seth->Ngrid  + seth->Ngrid -1]/run_size*64,
     //                                                 sets.population[2 * seth->Ngrid  + seth->Ngrid -1]/run_size*64); // debug
@@ -93,9 +95,9 @@ void dynamics_slave(struct set_host *seth){
 #ifdef sunway
     athread_ssync_array();
     for(int idcore = 0; idcore < 64; idcore++){
-        if(slavecore_id == idcore){
+        if(slavecore_id == idcore && slavecore_id < seth->nproc_sw){
             for (int i = 0; i < seth->Ngrid; i++){
-                seth->save_N_nan_sum[i*64+idcore] += sets.N_nan_sum[i];
+                seth->save_N_nan_sum[i*seth->nproc_sw+idcore] += sets.N_nan_sum[i];
             }
 
             if (seth->outputtype >= 0) {
@@ -104,14 +106,14 @@ void dynamics_slave(struct set_host *seth){
                     // mpi_den[i] += den[i];
                     // seth->mpi_real_den[i] += creal(sets.den[i]);
                     // seth->mpi_imag_den[i] += cimag(sets.den[i]);
-                    seth->save_real_den[i*64+idcore] = creal(sets.den[i]);
-                    seth->save_imag_den[i*64+idcore] = cimag(sets.den[i]);
+                    seth->save_real_den[i*seth->nproc_sw+idcore] = creal(sets.den[i]);
+                    seth->save_imag_den[i*seth->nproc_sw+idcore] = cimag(sets.den[i]);
                 }
             }
             if (seth->outputtype != 0) {
                 for (int i = 0; i < seth->Nstate * seth->Ngrid; i++){
                     // seth->mpi_population[i] += sets.population[i];
-                    seth->save_population[i*64+idcore] = sets.population[i];
+                    seth->save_population[i*seth->nproc_sw+idcore] = sets.population[i];
                     // printf("%d %18.8E %18.8E\n",i,seth->mpi_population[i], sets.population[i]);
                     // seth->mpi_population[i] += 1;
                 }
@@ -135,9 +137,11 @@ void dynamics_slave(struct set_host *seth){
         }
         athread_ssync_array();
     }
-    free_vari(&sets,seth);
+    if(slavecore_id < seth->nproc_sw){
+        free_vari(&sets,seth);
+    }
     athread_ssync_array();
-
+   
 #elif defined(x86)
     
     for (int i = 0; i < seth->Ngrid; i++){
