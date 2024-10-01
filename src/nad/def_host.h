@@ -818,6 +818,12 @@ struct set_host
         double bias_SEM, delta_SEM, k_eff_SEM, omega_c_SEM, lambda_SEM;
         double *c_SEM, *omega_SEM, *H_ele_SEM;
 
+
+        // atom-in-cavity model parameters
+        int N_mode_aic, Nstate_aic;
+        double L_aic;
+        double *eps_aic, *miu_aic, *omega_aic, *lambda_aic;
+
 };
 
 

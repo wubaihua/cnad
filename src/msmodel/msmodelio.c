@@ -281,6 +281,29 @@ void readinp_SF(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_hos
     
 }
 
+void readinp_AIC(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "Nstate_AIC")){
+        list=cJSON_GetObjectItem(item, "Nstate_AIC");
+        setm->Nstate_aic = list->valueint; 
+        
+    }
+
+    if (NULL !=  cJSON_GetObjectItem(item, "N_mode_AIC")){
+        list=cJSON_GetObjectItem(item, "N_mode_AIC");
+        setm->N_mode_aic = list->valueint; 
+    }
+   
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_aic;
+    *Nstate = setm->Nstate_aic;
+    
+}
+
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
@@ -300,6 +323,10 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "SF") == 0 ||
        strcmp(setm->msmodelname, "sf") == 0) {
         readinp_SF(json, Ndof1, Ndof2, Nstate, setm);
+         
+    } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
+       strcmp(setm->msmodelname, "aic") == 0) {
+        readinp_AIC(json, Ndof1, Ndof2, Nstate, setm);
          
     }
 
