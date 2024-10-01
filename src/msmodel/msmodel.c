@@ -13,6 +13,7 @@
 #include "morse3.h"
 #include "sem.h"
 #include "fmo.h"
+#include "sf.h"
 
 // int forcetype;
 // char setm->msmodelname[200];
@@ -43,6 +44,9 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         parameter_FMO(mass,setm);
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        parameter_SF(mass,setm);
     }
 }
 
@@ -60,6 +64,9 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         sample_FMO(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        sample_SF(P, R, beta,setm);
     }
 }
 
@@ -77,6 +84,9 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         V_FMO(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        V_SF(R, H, setm->forcetype,setm);
     }
 }
 
@@ -94,6 +104,9 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         dV_FMO(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        dV_SF(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -108,6 +121,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         nucforce_FMO(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        nucforce_SF(R, nf,setm);
     }
 }
 

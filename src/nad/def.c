@@ -1901,6 +1901,7 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
     double tempv[seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate];
     
+    
     evo_traj_nucP(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
@@ -1909,7 +1910,7 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
     evo_traj_ele(deltat,sets,seth);
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-
+    
 }
 
 
@@ -2110,7 +2111,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
    
     
     while (itime <= nstep) {
-        if (i_re >= seth->Nbreak) {
+        if (i_re >= seth->Nbreak && igrid < seth->Ngrid) {
 
             
             evo_traj_calProp(igrid,sets,seth);
@@ -2129,6 +2130,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             
 
         }
+
+        // printf("%d %d %f %f %f %f\n",slavecore_id, itime, sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0]);
 
      
 
@@ -2217,6 +2220,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                 if (sets->P_nuc[0] < 0 && sets->R_nuc[0] < 0) sets->P_nuc[0] = -sets->P_nuc[0];
             }
         }
+
+        
         
     }
 
@@ -2269,6 +2274,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     //             // break;
     //     }
     // }
+    
 }
 
 

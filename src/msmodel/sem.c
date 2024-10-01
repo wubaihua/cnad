@@ -136,12 +136,14 @@ void dV_SEM(double *R, double *dH, int forcetype, struct set_host *setm) {
         }
 
         for (int i = 0; i < setm->Nstate_SEM; i++) {
-            for (int j = 0; j < setm->N_bath_SEM; j++) {
-                dH[  i * setm->Nstate_SEM * setm->Nstate_SEM * setm->N_bath_SEM 
-                   + i * setm->Nstate_SEM * setm->N_bath_SEM + i * setm->N_bath_SEM + j] += force[i * setm->N_bath_SEM + j];
+            for (int j = 0; j < setm->Nstate_SEM; j++) {
+                for (int k = 0; k < setm->N_bath_SEM; k++) {
+                    dH[  i * setm->Nstate_SEM * setm->Nstate_SEM * setm->N_bath_SEM 
+                    + i * setm->Nstate_SEM * setm->N_bath_SEM + j * setm->N_bath_SEM + k] += force[j * setm->N_bath_SEM + k];
+                }
             }
         }
-        // free(force); 
+        free(force); 
     }
     
 }

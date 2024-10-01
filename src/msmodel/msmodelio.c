@@ -242,6 +242,46 @@ void readinp_FMO(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
     
 }
 
+
+void readinp_SF(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "lambda_SEM")){
+        list=cJSON_GetObjectItem(item, "lambda_SEM");
+        if (list->type == cJSON_Number) {
+            setm->lambda_SEM = list->valuedouble; 
+            setm->lambda_SEM /= au_2_eV;
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "omega_c_SEM")) {
+        list = cJSON_GetObjectItem(item, "omega_c_SEM");
+        if (list->type == cJSON_Number) {
+            setm->omega_c_SEM = list->valuedouble; 
+            setm->omega_c_SEM /= au_2_eV;
+        }
+    }
+
+    if (NULL !=  cJSON_GetObjectItem(item, "N_bath_SEM")){
+        list=cJSON_GetObjectItem(item, "N_bath_SEM");
+        setm->N_bath_SEM = list->valueint; 
+    }
+    setm->Nstate_SEM = 3;
+
+    *Ndof1 = setm->Nstate_SEM;
+    *Ndof2 = setm->N_bath_SEM;
+    *Nstate = setm->Nstate_SEM;
+
+
+
+    setm->H_ele_SEM = (double *)malloc(setm->Nstate_SEM * setm->Nstate_SEM * sizeof(double));
+
+    
+}
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -256,6 +296,10 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
         readinp_FMO(json, Ndof1, Ndof2, Nstate, setm);
+         
+    } else if (strcmp(setm->msmodelname, "SF") == 0 ||
+       strcmp(setm->msmodelname, "sf") == 0) {
+        readinp_SF(json, Ndof1, Ndof2, Nstate, setm);
          
     }
 
