@@ -30,7 +30,7 @@ void dynamics_slave(struct set_host *seth){
 
     int run_size = seth->Ntraj/seth->mpi_size;
 
-  
+    
     #ifdef sunway
     slavecore_id=athread_get_id(-1);
     if (slavecore_id < seth->nproc_sw){
@@ -42,7 +42,7 @@ void dynamics_slave(struct set_host *seth){
     init_msmodel(sets.mass,seth);
     #endif
     
-
+   
     
     #ifdef sunway
     init_seed(seth->mpi_rank*seth->nproc_sw+slavecore_id);

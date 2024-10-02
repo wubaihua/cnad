@@ -34,6 +34,8 @@ void parameter_crco5(double *mass, struct set_host *setm) {
     
     parameter_LVCM(mass, setm);
 
+
+
     switch (setm->type_crco5) {
         case 1:
 
@@ -92,7 +94,7 @@ void parameter_crco5(double *mass, struct set_host *setm) {
             //     setm->alpha_lvcm[i] = alpha[i] * sqrt(2.0);
             // }
 
-            // break;
+            break;
             
      }
 

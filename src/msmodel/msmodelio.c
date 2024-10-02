@@ -358,7 +358,7 @@ void readinp_crco5(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
     *Ndof1 = 1;
     *Ndof2 = setm->N_mode_lvcm;
     *Nstate = setm->Nstate_lvcm;
-    
+
 }
 
 void readinp_tully(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
@@ -419,7 +419,7 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
          
     } else if (strcmp(setm->msmodelname, "tully") == 0) {
         readinp_tully(json, Ndof1, Ndof2, Nstate, setm);
-        
+
     }
 
 
