@@ -1295,6 +1295,14 @@ void init_host(struct set_host *seth){
             memset(seth->mpi_population,0, seth->Nstate * seth->Ngrid * sizeof(double));
             seth->save_population = (double *)malloc(seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
             memset(seth->save_population,0, seth->Nstate * seth->Ngrid * seth->nproc_sw * sizeof(double));
+
+            if(seth->if_st_fb == 1){
+                seth->mpi_pop_fb = (double *)malloc(seth->Nstate * seth->Ngrid * 2 * sizeof(double));
+                memset(seth->mpi_pop_fb,0, seth->Nstate * seth->Ngrid * 2 * sizeof(double));
+                seth->save_pop_fb = (double *)malloc(seth->Nstate * seth->Ngrid * 2 * seth->nproc_sw * sizeof(double));
+                memset(seth->save_pop_fb,0, seth->Nstate * seth->Ngrid * 2 * seth->nproc_sw * sizeof(double));
+
+            }
         }
 
         // for (int i=0;i<seth->Ngrid;i++){
@@ -1727,6 +1735,27 @@ void fileout(struct set_host *seth) {
             fprintf(pop_file, "\n");
         }
         fclose(pop_file);
+
+        
+    }
+
+    if(seth->if_st_fb == 1){
+        strncpy(outname, seth->filepath, len - 5);
+        strcpy(outname + len - 5, ".fbpop");
+        FILE *fbpop_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(fbpop_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Nstate; j++) {
+                fprintf(fbpop_file, "%18.8E", seth->mpi_pop_fb[j * seth->Ngrid * 2 + i * 2 + 0]);
+            }
+            for (int j = 0; j < seth->Nstate; j++) {
+                fprintf(fbpop_file, "%18.8E", seth->mpi_pop_fb[j * seth->Ngrid * 2 + i * 2 + 1]);
+            }
+            fprintf(fbpop_file, "\n");
+        }
+        fclose(fbpop_file);
+
     }
 
 //     if (if_st_nan == 1) {
@@ -1924,6 +1953,29 @@ void fileout_mpi(int id, struct set_host *seth) {
             fprintf(pop_file, "\n");
         }
         fclose(pop_file);
+    }
+
+
+    if (seth->if_st_fb == 1){
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".fbpop");
+        FILE *fbpop_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(fbpop_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Nstate; j++) {
+                fprintf(fbpop_file, "%18.8E", seth->fi_pop_fb[j*seth->Ngrid*2+i*2+0]/seth->Ntraj*seth->mpi_size);
+            }
+            for (int j = 0; j < seth->Nstate; j++) {
+                fprintf(fbpop_file, "%18.8E", seth->fi_pop_fb[j*seth->Ngrid*2+i*2+1]/seth->Ntraj*seth->mpi_size);
+            }
+            fprintf(fbpop_file, "\n");
+        }
+        fclose(fbpop_file);
     }
 
 

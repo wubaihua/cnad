@@ -691,10 +691,10 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
         // }
     }
     
-    // if (seth->if_st_fb == 1) {
-    //     sets->pop_fb = (double *)malloc(seth->Nstate * seth->Ngrid * 2 * sizeof(double));
-    //     memset(sets->pop_fb, 0, seth->Nstate * seth->Ngrid * 2 * sizeof(double));
-    // }
+    if (seth->if_st_fb == 1) {
+        sets->pop_fb = (double *)malloc(seth->Nstate * seth->Ngrid * 2 * sizeof(double));
+        memset(sets->pop_fb, 0, seth->Nstate * seth->Ngrid * 2 * sizeof(double));
+    }
     // if (seth->if_Pdis == 1) {
     //     sets->s = (double *)malloc(seth->s_N * sizeof(double));
     //     sets->expisP = (double  complex *)malloc(seth->s_N * sizeof(double complex ));
@@ -1698,13 +1698,13 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
         //         }
         //     } else {
                 sets->population[i * seth->Ngrid  + igrid_cal] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
-                // if (seth->if_st_fb == 1) {
-                //     if (sets->P_nuc[0] > 0) {
-                //         sets->pop_fb[i * seth->Ngrid *2  + igrid_cal*2] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
-                //     } else {
-                //         sets->pop_fb[i * seth->Ngrid *2  + igrid_cal*2 + 1] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
-                //     }
-                // }
+                if (seth->if_st_fb == 1) {
+                    if (sets->P_nuc[0] > 0) {
+                        sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 0] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                    } else {
+                        sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 1] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                    }
+                }
         //     }
         }
     }
@@ -3055,6 +3055,9 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
         }
         if (seth->outputtype != 0) {
             free(sets->population);
+            if(seth->if_st_fb == 1){
+                free(sets->pop_fb);
+            }
         }
     }
 

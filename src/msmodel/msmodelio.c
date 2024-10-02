@@ -361,6 +361,30 @@ void readinp_crco5(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
     
 }
 
+void readinp_tully(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_tully")){
+        list=cJSON_GetObjectItem(item, "type_tully");
+        setm->type_tully = list->valueint;         
+    }
+
+    if (NULL !=  cJSON_GetObjectItem(item, "P0_tully")){
+        list=cJSON_GetObjectItem(item, "P0_tully");
+        if (list->type == cJSON_Number) {
+            setm->P0_tully = list->valuedouble; 
+        }        
+    }
+
+    
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+    *Nstate = 2;
+    
+}
+
 
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
@@ -393,6 +417,9 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         readinp_crco5(json, Ndof1, Ndof2, Nstate, setm);
          
+    } else if (strcmp(setm->msmodelname, "tully") == 0) {
+        readinp_tully(json, Ndof1, Ndof2, Nstate, setm);
+        
     }
 
 

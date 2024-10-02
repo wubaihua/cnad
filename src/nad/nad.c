@@ -221,13 +221,32 @@ int main(int argc, char *argv[]) {
                 seth.fi_population[i] += seth.save_population[i*seth.nproc_sw+j];
             }
         }
-        // if (seth.if_st_fb == 1) {
-        // }
-        
+
         free(seth.save_population);
         #elif defined(x86)
         memcpy(seth.fi_population,seth.mpi_population, seth.Nstate * seth.Ngrid * sizeof(double)); 
         #endif
+
+
+        
+        if (seth.if_st_fb == 1) {
+            seth.fi_pop_fb = (double *)malloc(seth.Nstate * seth.Ngrid * 2 * sizeof(double));
+            memset(seth.fi_pop_fb,0, seth.Nstate * seth.Ngrid * 2 * sizeof(double));
+            #ifdef sunway
+        
+            for (int i = 0; i< seth.Nstate * seth.Ngrid * 2; i++){
+                for(int j=0;j<seth.nproc_sw;j++){
+                    seth.fi_pop_fb[i] += seth.save_pop_fb[i*seth.nproc_sw+j];
+                }
+            }
+
+            free(seth.save_population);
+            #elif defined(x86)
+            memcpy(seth.fi_pop_fb,seth.mpi_pop_fb, seth.Nstate * seth.Ngrid * 2 * sizeof(double)); 
+            #endif
+
+        }
+        
     }
     // for (int i=0; i<64; i++){
         //  printf("%18.8E\n",seth.mpi_population[0 * seth.Ngrid   + (seth.Ngrid -1)]); // debug
@@ -351,15 +370,12 @@ int main(int argc, char *argv[]) {
         // if (mpi_rank == 0) memcpy(mpi_population, result_population,Nstate * Ngrid * sizeof(double));
         // free(result_population);
 
-        // if (seth.if_st_fb == 1) {
-        //     // fi_pop_fb = (double *)malloc(Nstate * Ngrid * 2 * sizeof(double));
-            
-        //     // MPI_Reduce(mpi_pop_fb, mpi_pop_fb, Nstate * Ngrid * 2, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        //     for (int i = 0; i < seth.Nstate * seth.Ngrid * 2; i++){
-        //         MPI_Reduce(&seth.mpi_pop_fb[i], &seth.mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-        //     }
-        //     // free(mpi_pop_fb);
-        // }
+        if (seth.if_st_fb == 1) {
+            for (int i = 0; i < seth.Nstate * seth.Ngrid * 2; i++) {
+                MPI_Reduce(&seth.fi_pop_fb[i], &seth.mpi_pop_fb[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            }
+            free(seth.fi_pop_fb);
+        }
         // free(mpi_population);
     }
 

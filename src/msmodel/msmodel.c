@@ -17,6 +17,7 @@
 #include "aic.h"
 #include "pyrazine.h"
 #include "crco5.h"
+#include "tully.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -57,6 +58,8 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         parameter_crco5(mass,setm);
+    } else if (strcmp(setm->msmodelname, "tully") == 0) {
+        parameter_tully(mass,setm);
     }
 
 }
@@ -86,6 +89,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         sample_crco5(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "tully") == 0) {
+        sample_tully(P, R, setm);
     }
 }
 
@@ -114,6 +119,8 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         V_crco5(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "tully") == 0) {
+        V_tully(R, H, setm);
     }
 }
 
@@ -142,6 +149,8 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         dV_crco5(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "tully") == 0) {
+        dV_tully(R, dH, setm);
     }
 }
 
@@ -167,7 +176,7 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         nucforce_crco5(R, nf,setm);
-    }   
+    }  
 }
 
 

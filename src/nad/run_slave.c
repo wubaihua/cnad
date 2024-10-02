@@ -127,6 +127,11 @@ void dynamics_slave(struct set_host *seth){
                 //     }
                 //     // seth->mpi_population[i] += 1;
                 // }
+                if(seth->if_st_fb == 1){
+                    for (int i = 0; i < seth->Nstate * seth->Ngrid * 2; i++){                 
+                        seth->save_pop_fb[i*seth->nproc_sw+idcore] = sets.pop_fb[i];
+                    }
+                }
 
             }
             // if(id==0){
@@ -174,6 +179,11 @@ void dynamics_slave(struct set_host *seth){
         //     }
         //     // seth->mpi_population[i] += 1;
         // }
+        if (seth->if_st_fb == 1){
+            for (int i = 0; i < seth->Nstate * seth->Ngrid * 2; i++){
+                seth->mpi_pop_fb[i] = sets.pop_fb[i];
+            }
+        }
     }
     // if(id==0){
     //     memcpy(fi_time_grid,timegrid,Ngrid*sizeof(double));

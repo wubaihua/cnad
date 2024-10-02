@@ -415,6 +415,7 @@ struct set_host
     double *mpi_population; // 2D double array: [size1][size2]
     double *save_population;
     double *mpi_pop_fb; // 3D double array: [size1][size2][size3]
+    double *save_pop_fb;
     double *mpi_R_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
@@ -837,6 +838,12 @@ struct set_host
 
         // pyrazine crco5
         int type_crco5;
+
+        // Tully model parameters
+        int type_tully;
+        double A_tully, B_tully, C_tully, D_tully, E_tully, A2_tully, f_tully, Z_tully;
+        double R0_tully, P0_tully, gamma_tully;
+
 
 
 };
