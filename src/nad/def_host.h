@@ -824,6 +824,16 @@ struct set_host
         double L_aic;
         double *eps_aic, *miu_aic, *omega_aic, *lambda_aic;
 
+
+        // Linear vibronic coupling model parameters
+        int N_mode_lvcm, Nstate_lvcm;
+        double *H_ele_lvcm, *c_lvcm, *omega_lvcm ;
+        double *R0_lvcm, *P0_lvcm, *alpha_lvcm;
+
+
+        // pyrazine LVCM
+        int type_pyrazine;
+
 };
 
 

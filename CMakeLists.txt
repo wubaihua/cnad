@@ -53,6 +53,12 @@ if(x86)
     add_library(aic OBJECT src/msmodel/aic.c)
     set_target_properties(aic PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(lvcm OBJECT src/msmodel/lvcm.c)
+    set_target_properties(lvcm PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
+
+    add_library(pyrazine OBJECT src/msmodel/pyrazine.c)
+    set_target_properties(pyrazine PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -73,7 +79,7 @@ if(x86)
     # 添加可执行文件
     add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> 
                         $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:morse3> $<TARGET_OBJECTS:sem> $<TARGET_OBJECTS:fmo> 
-                        $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:msmodel> 
+                        $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
     # 链接库
@@ -135,6 +141,12 @@ elseif(sunway)
     add_library(aic OBJECT src/msmodel/aic.c)
     set_target_properties(aic PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(lvcm OBJECT src/msmodel/lvcm.c)
+    set_target_properties(lvcm PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+
+    add_library(pyrazine OBJECT src/msmodel/pyrazine.c)
+    set_target_properties(pyrazine PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -155,7 +167,7 @@ elseif(sunway)
     # 添加可执行文件
     add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> 
                         $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:morse3> $<TARGET_OBJECTS:sem> $<TARGET_OBJECTS:fmo> 
-                        $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:msmodel> 
+                        $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
     # 链接库

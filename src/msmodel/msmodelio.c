@@ -305,6 +305,35 @@ void readinp_AIC(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 }
 
 
+
+void readinp_pyrazine(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_pyrazine")){
+        list=cJSON_GetObjectItem(item, "type_pyrazine");
+        setm->type_pyrazine = list->valueint;         
+    }
+
+    switch (setm->type_pyrazine) {
+        case 1:
+            setm->Nstate_lvcm = 2;
+            setm->N_mode_lvcm = 3;
+            break;
+        case 2:
+            setm->Nstate_lvcm = 2;
+            setm->N_mode_lvcm = 24;
+            break;
+    }
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+    
+}
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -327,6 +356,9 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         readinp_AIC(json, Ndof1, Ndof2, Nstate, setm);
+         
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        readinp_pyrazine(json, Ndof1, Ndof2, Nstate, setm);
          
     }
 

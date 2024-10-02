@@ -15,6 +15,7 @@
 #include "fmo.h"
 #include "sf.h"
 #include "aic.h"
+#include "pyrazine.h"
 
 // int forcetype;
 // char setm->msmodelname[200];
@@ -51,6 +52,8 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         parameter_AIC(mass,setm);
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        parameter_pyrazine(mass,setm);
     }
 }
 
@@ -74,6 +77,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         sample_AIC(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        sample_pyrazine(P, R, setm);
     }
 }
 
@@ -97,6 +102,8 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         V_AIC(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        V_pyrazine(R, H, setm->forcetype,setm);
     }
 }
 
@@ -120,6 +127,8 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         dV_AIC(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        dV_pyrazine(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -140,7 +149,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
         nucforce_AIC(R, nf,setm);
-    }
+    } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
+        nucforce_pyrazine(R, nf,setm);
+    }   
 }
 
 
