@@ -16,7 +16,7 @@
 #include "sf.h"
 #include "aic.h"
 #include "pyrazine.h"
-
+#include "crco5.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -54,7 +54,11 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_AIC(mass,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         parameter_pyrazine(mass,setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        parameter_crco5(mass,setm);
     }
+
 }
 
 // Sample the initial conditionals for trajectories of the model
@@ -79,6 +83,9 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_AIC(P, R, setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         sample_pyrazine(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        sample_crco5(P, R, setm);
     }
 }
 
@@ -104,6 +111,9 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
         V_AIC(R, H, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         V_pyrazine(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        V_crco5(R, H, setm->forcetype,setm);
     }
 }
 
@@ -129,6 +139,9 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
         dV_AIC(R, dH, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         dV_pyrazine(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        dV_crco5(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -151,6 +164,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_AIC(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         nucforce_pyrazine(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        nucforce_crco5(R, nf,setm);
     }   
 }
 

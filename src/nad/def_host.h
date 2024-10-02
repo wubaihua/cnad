@@ -834,6 +834,11 @@ struct set_host
         // pyrazine LVCM
         int type_pyrazine;
 
+
+        // pyrazine crco5
+        int type_crco5;
+
+
 };
 
 

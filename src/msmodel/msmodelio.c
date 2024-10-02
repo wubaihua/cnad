@@ -334,6 +334,35 @@ void readinp_pyrazine(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct s
 }
 
 
+void readinp_crco5(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_crco5")){
+        list=cJSON_GetObjectItem(item, "type_crco5");
+        setm->type_crco5 = list->valueint;         
+    }
+
+    switch (setm->type_crco5) {
+        case 1:
+            setm->Nstate_lvcm = 3;
+            setm->N_mode_lvcm = 2;
+            break;
+        case 2:
+            setm->Nstate_lvcm = 3;
+            setm->N_mode_lvcm = 5;
+            break;
+    }
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+    
+}
+
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -359,6 +388,10 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
          
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
         readinp_pyrazine(json, Ndof1, Ndof2, Nstate, setm);
+         
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        readinp_crco5(json, Ndof1, Ndof2, Nstate, setm);
          
     }
 
