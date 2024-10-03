@@ -1364,9 +1364,9 @@ void print_info(struct set_host *seth){
     } else if (strcmp(seth->method, "BCMF") == 0 || strcmp(seth->method, "bcmf") == 0) {
         printf("Method: branching corrected mean field (BCMF)\n");
         printf("Related Publication: J. Phys. Chem. Lett. 2020, 11, 8283-8291\n");
-    // } else if (strcmp(method, "FSSH") == 0 || strcmp(method, "fssh") == 0) {
-    //     printf("Method: Fewest Switches Surface Hopping (FSSH)\n");
-    //     printf("Related Publication: J. Chem. Phys. 1990, 93, 1061\n");
+    } else if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
+        printf("Method: Fewest Switches Surface Hopping (FSSH)\n");
+        printf("Related Publication: J. Chem. Phys. 1990, 93, 1061\n");
     // } else if (strcmp(method, "fsshswitch") == 0) {
     //     printf("Method: Fewest Switches Surface Hopping (FSSH) with switch direction for adjustment P: %d\n", direc_padj);
     // } else if (strcmp(method, "PCSH-NAF") == 0 || strcmp(method, "pcsh-naf") == 0) {
@@ -1570,7 +1570,7 @@ void print_info(struct set_host *seth){
                 break;
         }
         printf("--------------------------------------------------------------------\n");
-        printf("Number of trajectories: %d\n", seth->Ntraj);
+        printf("Number of trajectories: %lld\n", seth->Ntraj);
         if (strcmp(seth->unit_t, "au") == 0) {
             printf("total time: %f au\n",seth->ttot);
             printf("time step: %f au\n", seth->dt);
@@ -1578,7 +1578,7 @@ void print_info(struct set_host *seth){
             printf("total time: %f %s = %f au\n", seth->ttot / seth->unittrans_t, seth->unit_t, seth->ttot);
             printf("time step: %f %s = %f au\n", seth->dt / seth->unittrans_t, seth->unit_t, seth->dt);
         }
-        printf("Nbreak: %d; number of grids: %d\n", seth->Nbreak, seth->Ngrid);
+        printf("Nbreak: %lld; number of grids: %lld\n", seth->Nbreak, seth->Ngrid);
         printf("beta= %f  (%f K)\n", seth->beta, 1.0 / (kb * seth->beta));
         printf("=====================================================================\n");
 

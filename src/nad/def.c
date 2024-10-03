@@ -483,12 +483,18 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //     eig_cv_mat = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
     // }
 
-    // if (strcmp(seth->method, "GDTWA") == 0 || strcmp(seth->method, "eGDTWA") == 0) {
+    
+    //     }
+
+    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
+        seth->type_hop = 0;
+        seth->direc_padj = 1;
+        seth->ifreflp = 0;
+
+    // } else if (strcmp(seth->method, "GDTWA") == 0 || strcmp(seth->method, "eGDTWA") == 0) {
     //     if (seth->type_evo != 3) seth->type_evo = 1;
     //     if (seth->if_inv_focus == 1) {
     //         sets->inverse_kernel = (double  complex *)malloc(seth->Nstate * seth->Nstate * sizeof(double  complex ));
-    //     }
-   
     // } else if (strcmp(seth->method, "test") == 0) {
     //     // seth->type_evo = 1;
     // } else if (strcmp(seth->method, "DISH") == 0 || strcmp(seth->method, "dish") == 0) {
@@ -582,7 +588,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //     gp_unsmash = (double *)malloc(seth->Nstate * sizeof(double));
     //     gc_unsmash = (double *)malloc(seth->Nstate * sizeof(double));
     //     mea_mat_unsmash = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
-    // }
+    }
 
 
     // if (ifmsbranch > 0) {
@@ -980,7 +986,26 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 }
             }
         }
+    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
+        for (i = 0; i < seth->Nstate; i++) {
+            action[i] = 0;
+        }
+        action[sets->init_occ-1] = 1;
+    
+        for (i = 0; i < seth->Nstate; i++) {
+            sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
+            
+            sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
+            
+        }
+        
+        memset(sets->gamma_cv,0,seth->Nstate*seth->Nstate*sizeof(double complex));
+        sets->correfun_0 = 1.0;
+        
+        sets->id_state = sets->init_occ-1;
     }
+
+
 
     if (seth->ifcv == -1 || seth->ifcv == 1) {
         for (int i = 0; i < seth->Nstate; i++) {
@@ -1014,7 +1039,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
         for (int i = 0; i < seth->Nstate; i++) {
             for (int j = 0; j < seth->Nstate; j++) {
-                if (i == j || i == sets->init_occ || j == sets->init_occ) continue;
+                if (i == j || i == (sets->init_occ - 1) || j == (sets->init_occ -1)) continue;
                 sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
                 if (seth->ifscalegamma == 1) {
                     sets->gamma_cv[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe);
@@ -1057,30 +1082,30 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         //     // G_xpconfg = matmul(transpose(sets->U_d2a), G_xpconfg)
         // }
 
-    //     if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "SC-FSSH") == 0 || strcmp(seth->method, "sc-fssh") == 0 ||
-    //         strcmp(seth->method, "CC-FSSH") == 0 || strcmp(seth->method, "cc-fssh") == 0 || strcmp(seth->method, "fsshswitch") == 0 || strcmp(seth->method, "pcsh") == 0 ||
-    //         strcmp(seth->method, "PCSH") == 0 || strcmp(seth->method, "PCSH-NAF") == 0 || strcmp(seth->method, "pcsh-naf") == 0 || strcmp(seth->method, "BCSH") == 0 ||
-    //         strcmp(seth->method, "bcsh") == 0 || strcmp(seth->method, "BCSH-NAF") == 0 || strcmp(seth->method, "bcsh-naf") == 0) {
+        if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "SC-FSSH") == 0 || strcmp(seth->method, "sc-fssh") == 0 ||
+            strcmp(seth->method, "CC-FSSH") == 0 || strcmp(seth->method, "cc-fssh") == 0 || strcmp(seth->method, "fsshswitch") == 0 || strcmp(seth->method, "pcsh") == 0 ||
+            strcmp(seth->method, "PCSH") == 0 || strcmp(seth->method, "PCSH-NAF") == 0 || strcmp(seth->method, "pcsh-naf") == 0 || strcmp(seth->method, "BCSH") == 0 ||
+            strcmp(seth->method, "bcsh") == 0 || strcmp(seth->method, "BCSH-NAF") == 0 || strcmp(seth->method, "bcsh-naf") == 0) {
 
-    //         double x2 = (double)rand() / RAND_MAX;
-    //         double ps1, ps2;
-    //         for (int i = 0; i < seth->Nstate; i++) {
-    //             sets->id_state = i;
+            double x2 = (double)rand() / RAND_MAX;
+            double ps1, ps2;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sets->id_state = i;
                 
-    //             if (i == 0) {
-    //                 ps1 = 0;
-    //                 ps2 = sets->U_d2a[sets->init_occ * seth->Nstate + 0] * sets->U_d2a[sets->init_occ * seth->Nstate + 0];
-    //             } else {
-    //                 ps1 = 0;
-    //                 for (int k = 0; k < i - 1; k++) {
-    //                     ps1 += sets->U_d2a[sets->init_occ * seth->Nstate + k] * sets->U_d2a[sets->init_occ * seth->Nstate + k];
-    //                 }
-    //                 ps2 = ps1 + sets->U_d2a[sets->init_occ * seth->Nstate + i] * sets->U_d2a[sets->init_occ * seth->Nstate + i];
-    //             }
-    //             if (x2 >= ps1 && x2 < ps2) {
-    //                 break;
-    //             }
-    //         }
+                if (i == 0) {
+                    ps1 = 0;
+                    ps2 = sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0];
+                } else {
+                    ps1 = 0;
+                    for (int k = 0; k < i - 1; k++) {
+                        ps1 += sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k];
+                    }
+                    ps2 = ps1 + sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + i] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + i];
+                }
+                if (x2 >= ps1 && x2 < ps2) {
+                    break;
+                }
+            }
     //     } else if (strcmp(seth->method, "mash") == 0 || strcmp(seth->method, "MASH") == 0) {
             
     //         if (0.5 * (sets->xe[0] * sets->xe[0] + sets->pe[0] * sets->pe[0]) >= 0.5) {
@@ -1151,7 +1176,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     //     //             sets->id_state = i;
     //     //         }
     //     //     }
-    //     }
+        }
     }
 
     // if(seth->ifswitchforce>0 && seth->ifswitchforce<4){
@@ -1373,6 +1398,38 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                     if(i != j) sets->correfun_t[i*seth->Nstate+j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
                 }
             }
+        }
+    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
+        if(seth->sampletype == 2){
+            transpose(sets->U_d2a,tempdm,seth->Nstate);
+            memcpy(tempv,sets->xe,seth->Nstate*sizeof(double));
+            dd_matmul(tempdm,tempv,sets->xe,seth->Nstate,seth->Nstate,1);
+            memcpy(tempv,sets->pe,seth->Nstate*sizeof(double));
+            dd_matmul(tempdm,tempv,sets->pe,seth->Nstate,seth->Nstate,1);
+        }
+        for (i = 0; i < seth->Nstate; i++) {
+            for (j = 0; j < seth->Nstate; j++) {
+                if( i == j && i == sets->id_state){
+                    sets->correfun_t[i * seth->Nstate + i] = 1.0;
+                }
+                else if ( i == j && i != sets->id_state){
+                    sets->correfun_t[i * seth->Nstate + i] = 0.0;
+                }
+                else {
+                    sets->correfun_t[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+
+        if(seth->sampletype == 2){
+            transpose(sets->U_d2a,tempdm,seth->Nstate);
+            cd_matmul(sets->correfun_t,tempdm,tempcm,seth->Nstate,seth->Nstate,seth->Nstate);
+            dc_matmul(sets->U_d2a,tempcm,sets->correfun_t,seth->Nstate,seth->Nstate,seth->Nstate);
+            memcpy(tempv,sets->xe,seth->Nstate * sizeof(double));
+            dd_matmul(sets->U_d2a,tempv,sets->xe,seth->Nstate,seth->Nstate,1);
+            memcpy(tempv,sets->pe,seth->Nstate*sizeof(double));
+            dd_matmul(sets->U_d2a,tempv,sets->pe,seth->Nstate,seth->Nstate,1);
         }
     }
 
@@ -2288,7 +2345,7 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
     memset(sets->force,0,seth->Ndof1*seth->Ndof2*sizeof(double));
 
     if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
-        // cal_force_fssh();
+        cal_force_sh(sets,seth);
         // sets->force = -sets->dv_adia[sets->id_state][sets->id_state];
     } else {
         // if (if_ref == 1) {
@@ -2816,6 +2873,248 @@ void cal_force_switch(struct set_slave *sets, struct set_host *seth) {
 
 
 }
+
+
+
+
+void cal_force_sh(struct set_slave *sets, struct set_host *seth) {
+    double c_main[seth->Nstate], sumc_main[seth->Nstate];
+    double xe_save[seth->Nstate], pe_save[seth->Nstate];
+    double complex gamma_cv_save[seth->Nstate * seth->Nstate], den_e_save[seth->Nstate * seth->Nstate];
+    double tempdm1[seth->Nstate * seth->Nstate], tempdm2[seth->Nstate * seth->Nstate], tempdv1[seth->Nstate], tempdv2[seth->Nstate];
+    double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
+    double deltavector[seth->Ndof1 * seth->Ndof2],P_para[seth->Ndof1 * seth->Ndof2],P_ver[seth->Ndof1 * seth->Ndof2];
+    double sum;
+    double Q_dia[seth->Nstate * seth->Nstate];
+    double deltaE_mash;
+    double prob_hop[seth->Nstate], r_hop;
+    int id_switch;
+    
+    switch (seth->type_hop){
+        case 0: // FSSH
+            for (int i = 0; i < seth->Nstate; i++){
+                sum = 0;
+                for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    sum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
+                }
+                prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                if (prob_hop[i] < 0) prob_hop[i] = 0;
+                if (prob_hop[i] > 1) prob_hop[i] = 1;
+            }
+            
+            sum = 0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum += prob_hop[i];
+            }
+            r_hop = ((double) rand() / RAND_MAX);
+            id_switch = sets->id_state;
+            for (int i = 0; i < seth->Nstate; i++) {
+                r_hop -= prob_hop[i];
+                if(r_hop < 0){
+                    // double a=0, b=0, c=0;
+                    // for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    //     a += 0.5 * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j]
+                    //                  / sets->mass[j];
+                    //     b += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->P_nuc[j] / sets->mass[j];
+                    // }
+                    // c = sets->E_adia[i] - sets->E[sets->id_state];
+                    id_switch = i;
+                    break;
+                }
+            }
+
+            break;
+        
+        case 1: // MASH
+            for (int i = 0; i < seth->Nstate; i++) {
+                if (seth->type_evo == 0) {
+                    c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                } else if (seth->type_evo == 1) {
+                    c_main[i] = creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                }
+            }
+            id_switch = maxloc(c_main, seth->Nstate);
+            break;
+    }
+    
+
+    if (sets->id_state != id_switch) {
+        switch (seth->direc_padj) {
+            case 0:
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sets->P_nuc[i] /= sqrt(sets->mass[i]);
+                    deltavector[i] = 0;
+                }
+                for (int i = 0; i < seth->Nstate; i++) {
+                    for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                        deltavector[j] += 1.0 / sqrt(sets->mass[j]) 
+                        * creal(0.5 * (sets->xe[i] - I * sets->pe[i]) * (sets->xe[sets->id_state] + I * sets->pe[sets->id_state]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + j] 
+                        - 0.5 * (sets->xe[i] - I * sets->pe[i]) * (sets->xe[id_switch] + I * sets->pe[id_switch]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + j]);
+                    }
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * deltavector[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltavector[i] /= sqrt(sum);
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * sets->P_nuc[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    P_para[i] = deltavector[i] * sum;
+                    P_ver[i] = sets->P_nuc[i] - P_para[i];
+                }
+                deltaE_mash = 0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltaE_mash += P_para[i] * P_para[i];
+                }
+                deltaE_mash += 2 * (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
+                if (deltaE_mash >= 0) {
+                    sum=0;
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sum += P_para[i] * P_para[i];
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        P_para[i] *= sqrt(deltaE_mash / sum);
+                        sets->P_nuc[i] = P_para[i] + P_ver[i];
+                        sets->P_nuc[i] *= sqrt(sets->mass[i]);
+                    }
+                    sets->id_state = id_switch;
+                    // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
+                } else {
+                    if (seth->ifreflp == 0) {
+                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                            P_para[i] = -P_para[i];
+                        }
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sets->P_nuc[i] =P_para[i] + P_ver[i];
+                        sets->P_nuc[i] *= sqrt(sets->mass[i]);
+                    }
+                    // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
+                    // seth->type_traj_sed = 1;
+                }
+                break;
+            case 1:
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltavector[i] = sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + i];
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * deltavector[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltavector[i] /= sqrt(sum);
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * sets->P_nuc[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    P_para[i] = deltavector[i] * sum;
+                    P_ver[i] = sets->P_nuc[i] - P_para[i];
+                }
+                deltaE_mash = 0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltaE_mash += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                }
+                deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
+                if (deltaE_mash >= 0) {
+                    sum=0;
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        P_para[i] *= sqrt(deltaE_mash / sum);
+                        sets->P_nuc[i] = P_para[i] + P_ver[i];
+                    }
+                    sets->id_state = id_switch;
+                    // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
+                } else {
+                    if (seth->ifreflp == 0) {
+                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                            P_para[i] = -P_para[i];
+                        }
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sets->P_nuc[i] =P_para[i] + P_ver[i];
+                    }
+                    // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
+                    // seth->type_traj_sed = 1;
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltavector[i] = sets->P_nuc[i];
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * deltavector[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltavector[i] /= sqrt(sum);
+                }
+                sum = 0.0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    sum += deltavector[i] * sets->P_nuc[i];
+                }
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    P_para[i] = deltavector[i] * sum;
+                    P_ver[i] = sets->P_nuc[i] - P_para[i];
+                }
+                deltaE_mash = 0;
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                    deltaE_mash += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                }
+                deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
+                if (deltaE_mash >= 0) {
+                    sum=0;
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        P_para[i] *= sqrt(deltaE_mash / sum);
+                        sets->P_nuc[i] = P_para[i] + P_ver[i];
+                    }
+                    sets->id_state = id_switch;
+                    // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
+                } else {
+                    if (seth->ifreflp == 0) {
+                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                            P_para[i] = -P_para[i];
+                        }
+                    }
+                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        sets->P_nuc[i] =P_para[i] + P_ver[i];
+                    }
+                    // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
+                    // seth->type_traj_sed = 1;
+                }
+                break;
+        }
+    }
+
+    
+
+    
+    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+        sets->force[i] = -sets->dv_adia[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + i];
+    }
+        
+    
+
+   
+
+
+}
+
+
 
 // void cal_force_fssh(){}
 

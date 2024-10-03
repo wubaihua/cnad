@@ -793,6 +793,10 @@ struct set_host
 
 
 
+    int type_hop;
+
+
+
     // model parameters
 
 
