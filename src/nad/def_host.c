@@ -1448,14 +1448,17 @@ void print_info(struct set_host *seth){
     //         printf("inverse: epsilon=%f\n", eps_gdtwa);
     //         printf("2*alpha*delta+(F-2)*beta*epsilon=%f\n", 2 * alpha_gdtwa * delta_gdtwa + (Nstate - 2) * beta_gdtwa * eps_gdtwa);
     //     }
-    // } else if (strcmp(method, "mash") == 0 || strcmp(method, "MASH") == 0) {
-    //     printf("Method: Mapping Approach to Surface Hopping (MASH)\n");
-    //     printf("Related Pulication: J. Chem. Phys. 2023, in press\n");
-    //     if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
-    // } else if (strcmp(method, "ms-mash") == 0 || strcmp(method, "MS-MASH") == 0) {
-    //     printf("Method: Multi-State Mapping Approach to Surface Hopping (MS-MASH)\n");
-    //     printf("Related Pulication: arXiv:2305.08835\n");
-    //     if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
+    } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
+               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") ==0 ) {
+        printf("Method: Mapping Approach to Surface Hopping (MASH)\n");
+        printf("Related Pulication: J. Chem. Phys. 2023, in press\n");
+        // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
+    } else if (strcmp(seth->method, "MS-MASH") == 0 || strcmp(seth->method, "ms-mash") == 0 ||
+               strcmp(seth->method, "msmash") == 0 || strcmp(seth->method, "MSMASH") == 0 ||
+               strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ) {
+        printf("Method: Multi-State Mapping Approach to Surface Hopping (MS-MASH)\n");
+        printf("Related Pulication: arXiv:2305.08835\n");
+        // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
     // } else if (strcmp(method, "unsmash") == 0 || strcmp(method, "UNSMASH") == 0 || strcmp(method, "unSMASH") == 0) {
     //     printf("Method: uncoupled spheres Mapping Approach to Surface Hopping (unSMASH)\n");
     //     printf("Related Pulication: arXiv:2403.10627\n");
