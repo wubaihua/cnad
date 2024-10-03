@@ -1459,6 +1459,9 @@ void print_info(struct set_host *seth){
         printf("Method: Multi-State Mapping Approach to Surface Hopping (MS-MASH)\n");
         printf("Related Pulication: arXiv:2305.08835\n");
         // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
+
+    } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0) {
+        printf("Method: New Window Function Approach (NW)\n");
     // } else if (strcmp(method, "unsmash") == 0 || strcmp(method, "UNSMASH") == 0 || strcmp(method, "unSMASH") == 0) {
     //     printf("Method: uncoupled spheres Mapping Approach to Surface Hopping (unSMASH)\n");
     //     printf("Related Pulication: arXiv:2403.10627\n");

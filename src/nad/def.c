@@ -1061,8 +1061,36 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
         sets->correfun_0 = 1.0;
 
-    }
+    }  else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
+        
+        sets->id_state=-10;
 
+        while (sets->id_state != sets->init_occ - 1) {
+            random_prob(seth->Nstate, action);
+            sets->id_state = maxloc(action, seth->Nstate);
+        }
+        for (int i = 0; i < seth->Nstate; i++) {
+            sets->xe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * cos(theta[i]);
+            sets->pe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * sin(theta[i]);
+        }
+
+        
+        for (int i = 0; i < seth->Nstate; i++) {
+            for (int j = 0; j < seth->Nstate; j++) {
+                sets->gamma_cv[i * seth->Nstate + j] = (i == j) ? seth->gamma_zpe : 0.0;
+            }
+        }
+
+        if (seth->type_evo >= 1) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+        sets->correfun_0 = 1.0;
+    }
 
     if (seth->ifcv == -1 || seth->ifcv == 1) {
         for (int i = 0; i < seth->Nstate; i++) {
@@ -1366,6 +1394,7 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
     double complex tempcm[seth->Nstate*seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate],tempdm2[seth->Nstate*seth->Nstate];
     double complex tempcm2[seth->Nstate*seth->Nstate];
+    double c_main[seth->Nstate];
     #ifdef sunway
     int slavecore_id = athread_get_id(-1);
     #endif
@@ -1624,6 +1653,44 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
         }
 
         // printf("%f %f %f\n",creal(sets->correfun_t[0]),creal(sets->correfun_t[1]),creal(sets->correfun_t[3]));
+
+    } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
+        
+        for (int i = 0; i < seth->Nstate; i++) {
+            if (seth->type_evo == 0) {
+                c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
+            } else if (seth->type_evo == 1) {
+                c_main[i] = creal(sets->den_e[i * seth->Nstate + i]);
+            }
+        }
+        i_st = maxloc(c_main, seth->Nstate);
+        alpha_mash = 0;
+        for (i = 1; i < seth->Nstate + 1; i++){
+            alpha_mash += 1.0 / ((double) i); 
+        }
+        alpha_mash = (double) (seth->Nstate - 1.0) / (alpha_mash - 1.0);
+
+        for (i = 0; i < seth->Nstate; i++) {
+            for (j = 0; j < seth->Nstate; j++) {
+                if (i == j) {
+                    if (i == i_st) {
+                        x2 = 1.0;
+                        for (k = 0; k < seth->Nstate; k++){
+                            if(k == i) continue;
+                            if(seth->type_evo == 0)x2 *= 0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i] - sets->xe[k] * sets->xe[k] - sets->pe[k] * sets->pe[k]) / (1.0 + seth->Nstate * seth->gamma_zpe);
+                            if(seth->type_evo == 1)x2 *= creal(sets->den_e[i * seth->Nstate + i] - sets->den_e[k * seth->Nstate + k]) / (1.0 + seth->Nstate * seth->gamma_zpe);
+                        }
+                        sets->correfun_t[i * seth->Nstate + i] = pow(x2, (double) 3.0/(7*(seth->Nstate - 1)) + (double) 60.0/(7*(seth->Nstate + 13)));
+                    } else {
+                        sets->correfun_t[i * seth->Nstate + i] = 0.0; 
+                    }
+                } else {          
+                    if(seth->type_evo == 0)sets->correfun_t[i * seth->Nstate + j] = alpha_mash * 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) / (1.0 + seth->Nstate * seth->gamma_zpe);
+                    if(seth->type_evo == 1)sets->correfun_t[i * seth->Nstate + j] = alpha_mash * sets->den_e[i * seth->Nstate + j] / (1.0 + seth->Nstate * seth->gamma_zpe);
+                }
+          
+            }
+        }
 
     }
 
