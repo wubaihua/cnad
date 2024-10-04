@@ -260,8 +260,8 @@ int main(int argc, char *argv[]) {
         #ifdef sunway
         for (int i = 0; i< seth.Nstate * seth.Nstate * seth.Ngrid; i++){
             for(int j=0;j<seth.nproc_sw;j++){
-                seth.mpi_real_den[i] += seth.save_real_den[i*seth.nproc_sw+j];
-                seth.mpi_imag_den[i] += seth.save_imag_den[i*seth.nproc_sw+j];
+                seth.fi_real_den[i] += seth.save_real_den[i*seth.nproc_sw+j];
+                seth.fi_imag_den[i] += seth.save_imag_den[i*seth.nproc_sw+j];
             }
         }
         free(seth.save_real_den);
