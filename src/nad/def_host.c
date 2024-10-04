@@ -1460,6 +1460,34 @@ void print_info(struct set_host *seth){
         printf("Related Pulication: arXiv:2305.08835\n");
         // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
 
+
+    } else if (strcmp(seth->method, "MASH-MF") == 0 || strcmp(seth->method, "mash-mf") == 0 ||
+               strcmp(seth->method, "mashmf") == 0 || strcmp(seth->method, "MASHMF") == 0 ||
+               strcmp(seth->method, "mr") == 0 || strcmp(seth->method, "MR") == 0) {
+
+        printf("Method: Mannouch-Richardson correlation function (MR)\n");
+        printf("used by MASH or MASH-MF\n");
+
+    } else if (strcmp(seth->method, "MS-MASH-MF") == 0 || strcmp(seth->method, "ms-mash-mf") == 0 ||
+               strcmp(seth->method, "msmashmf") == 0 || strcmp(seth->method, "MSMASHMF") == 0 ||
+               strcmp(seth->method, "RM") == 0 || strcmp(seth->method, "rm") == 0) {
+
+        printf("Method: Runeson-Manolopoulos correlation function (RM)\n");
+        printf("used by MS-MASH or MS-MASH-MF\n");
+
+    } else if (strcmp(seth->method, "ms-mash-mf2") == 0 || strcmp(seth->method, "MS-MASH-MF2") == 0 ||
+               strcmp(seth->method, "mf2") == 0 || strcmp(seth->method, "MF2") == 0 ||
+               strcmp(seth->method, "CW1") == 0 || strcmp(seth->method, "cw1") == 0 ) {
+        
+        printf("Method: covariant-window 1 correlation function (CW1)\n");
+        printf("used by MF2\n");
+
+    } else if (strcmp(seth->method, "mf3") == 0 || strcmp(seth->method, "MF3") == 0 ||
+               strcmp(seth->method, "CW2") == 0 || strcmp(seth->method, "cw2") == 0 ) {
+        
+        printf("Method: covariant-window 2 correlation function (CW2)\n");
+        printf("used by MF3\n");
+
     } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0) {
         printf("Method: New Window Function Approach (NW)\n");
     // } else if (strcmp(method, "unsmash") == 0 || strcmp(method, "UNSMASH") == 0 || strcmp(method, "unSMASH") == 0) {
