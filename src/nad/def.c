@@ -1076,6 +1076,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
 
+        seth->gamma_zpe = 0.0;
+
         memset(sets->gamma_cv,0,seth->Nstate*seth->Nstate*sizeof(double complex));
         // for (int i = 0; i < seth->Nstate; i++) {
         //     for (int j = 0; j < seth->Nstate; j++) {
@@ -2484,8 +2486,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // double *depack;
     // int *index_pack;
     double dt_evo;
-    // int nstep_small, istep_small;
-    // double sets->t_now_small;
+    int nstep_small, istep_small;
+    double t_now_small;
     // bool alive;
     int slavecore_id;
     #ifdef sunway
@@ -2650,31 +2652,42 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
        
         if (seth->ifscaleenergy > 0) {
             if (seth->scaleenergy_type == 1) energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
-        //     if (seth->ifscaleenergy == 4 && seth->scaleenergy_type == 1 && deltaE < 0) {
-        //         nstep_small = 2;
-        //         dt_evo /= 2;
-        //         sets->t_now_small = 0;
-        //         evo_traj_back();
-        //         for (istep_small = 1; istep_small <= nstep_small; istep_small++) {
-        //             switch (seth->type_algorithm) {
-        //                 case 1:
-        //                     evo_traj_algorithm1(dt_evo);
-        //                     break;
-        //                 case 2:
-        //                     evo_traj_algorithm2(dt_evo);
-        //                     break;
-        //             }
-        //             if (seth->scaleenergy_type == 1) energy_conserve_naf_1(E_conserve, deltaE);
-        //             if (seth->scaleenergy_type == 1 && deltaE < 0) {
-        //                 if (dt_evo > dt / 1024) {
-        //                     nstep_small *= 2;
-        //                     dt_evo /= 2;
-        //                     evo_traj_back();
-        //                 }
-        //             }
-        //         }
-        //         if (seth->scaleenergy_type == 3) seth->scaleenergy_type = 1;
-        //     }
+
+            switch (seth->ifscaleenergy) {
+                case 4:
+                    if (seth->scaleenergy_type == 1 && deltaE < 0) {
+                        nstep_small = 2;
+                        dt_evo /= 2;
+                        t_now_small = 0;
+
+                    REDO:
+                        evo_traj_back(sets,seth);
+                        for (istep_small = 1; istep_small <= nstep_small; ++istep_small) {
+                            switch (seth->type_algorithm) {
+                                case 1:
+                                    evo_traj_algorithm1(dt_evo,sets,seth);
+                                    break;
+                            }
+
+                            if (seth->scaleenergy_type == 1) {
+                                energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
+                            }
+
+                            if (seth->scaleenergy_type == 1 && deltaE < 0) {
+                                if (dt_evo > seth->dt / 1024) {
+                                    nstep_small *= 2;
+                                    dt_evo /= 2;
+                                    goto REDO;
+                                }
+                            }
+                        }
+                    }
+
+                    if (seth->scaleenergy_type == 3) {
+                        seth->scaleenergy_type = 1;
+                    }
+                    break;
+            }
         }
 
         sets->t_now = (itime + 1) * seth->dt;
