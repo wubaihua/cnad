@@ -1209,7 +1209,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
 
 
-    seth->if_ad_nac = 0;
+    sets->if_ad_nac = 0;
     if (seth->sampletype == 2){
         
         dV_msmodel(sets->R_nuc, sets->dV,seth);
@@ -3567,7 +3567,7 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
     
 
 
-    if (seth->if_ad_nac) {
+    if (sets->if_ad_nac) {
         transpose(sets->U_d2a,tempdm1,seth->Nstate);
         dd_matmul(tempdm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
         // matmul(transpose(sets->U_d2a), sets->U_ref, overlap);
@@ -3605,7 +3605,7 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
 
     memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double));
     memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double));
-    seth->if_ad_nac = 1;
+    sets->if_ad_nac = 1;
 
 
     transpose(sets->U_d2a,tempdm1,seth->Nstate);

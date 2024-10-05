@@ -495,7 +495,7 @@ struct set_slave
 
     double *pop0; // 1D double array: [size1]
 
-    // bool if_ad_nac;
+    bool if_ad_nac;
 
     // int mean_nuc;
 

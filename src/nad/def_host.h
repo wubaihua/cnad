@@ -634,7 +634,7 @@ struct set_host
 
     // double *pop0; // 1D double array: [size1]
 
-    bool if_ad_nac;
+    // bool if_ad_nac;
 
     int mean_nuc;
 
