@@ -737,6 +737,8 @@ struct set_host
     double gamma_rescale;
     int ifscalegamma;
 
+
+    int if_scale_sqc;
     // double E_conserve;
 
     // int ifmsbranch, type_traj_msbranch;

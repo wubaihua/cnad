@@ -533,6 +533,8 @@ void initial_para(struct set_host *seth) {
 
     seth->if_traceless_force = 0;
 
+    seth->if_scale_sqc = 0;
+
 
     seth->nproc_sw = 64;
 }
@@ -1205,6 +1207,14 @@ void readinp(struct set_host *seth){
             }
         }
 
+        if (NULL != cJSON_GetObjectItem(item, "if_scale_sqc")) {
+            list = cJSON_GetObjectItem(item, "if_scale_sqc");
+            if (list->type == cJSON_Number) {
+                seth->if_scale_sqc = list->valueint;
+            }
+        }
+
+
         // if (NULL != cJSON_GetObjectItem(item, "if_eld")) {
         //     list = cJSON_GetObjectItem(item, "if_eld");
         //     if (list->type == cJSON_Number) {
@@ -1418,7 +1428,11 @@ void print_info(struct set_host *seth){
         printf("Method: Symmetric Quasi-Classical (SQC) approaches\n");
         printf("Related Publication: J. Chem. Phys. 2016, 145, 144108\n");
         printf("                     J. Chem. Phys. 2019, 150, 104101\n");
-        printf("Using the default ZPE gamma parameter: 1/3\n");
+        if (seth->if_scale_sqc == 1){
+            printf("scaling the SQC window to the sphere with gamma=%f\n",seth->gamma_zpe);
+        }else {
+            printf("Using the default ZPE gamma parameter: 1/3\n");
+        }
     // } else if (strcmp(method, "sqc2") == 0 || strcmp(method, "SQC2") == 0) {
     //     printf("Method: Symmetric Quasi-Classical approaches 2 (SQC2)\n");
     //     printf("ZPE gamma parameter: %f\n", gamma_zpe);

@@ -974,7 +974,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
 
-        seth->gamma_zpe = 1.0 / 3.0 ;
+        
+        if(seth->if_scale_sqc == 0)seth->gamma_zpe = 1.0 / 3.0 ;
+
         // 初始化 sets->gamma_cv
         for (i = 0; i < seth->Nstate; i++) {
             for (int j = 0; j < seth->Nstate; j++) {
@@ -997,6 +999,24 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 }
             }
         }
+
+        if (seth->if_scale_sqc == 1){
+            sets->scale_sqc2 = 0;
+            for (i = 0; i < seth->Nstate; i++){
+                sets->scale_sqc2 += (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * 0.5;
+            }
+            sets->scale_sqc2 = (1.0 + seth->Nstate * seth->gamma_zpe) / sets->scale_sqc2;
+            for (i = 0; i < seth->Nstate; i++){
+                sets->xe[i] *= sqrt(sets->scale_sqc2);
+                sets->pe[i] *= sqrt(sets->scale_sqc2);
+            }
+            if (seth->type_evo >= 1){
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    sets->den_e[i] *= sqrt(sets->scale_sqc2);
+                }
+            }
+        }
+
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
         for (i = 0; i < seth->Nstate; i++) {
             action[i] = 0;
@@ -1562,6 +1582,19 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
         }
 
     } else if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
+
+        if (seth->if_scale_sqc == 1){
+            for (i = 0; i < seth->Nstate; i++){
+                sets->xe[i] /= sqrt(sets->scale_sqc2);
+                sets->pe[i] /= sqrt(sets->scale_sqc2);
+            }
+            if (seth->type_evo >= 1){
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    sets->den_e[i] /= sqrt(sets->scale_sqc2);
+                }
+            }
+        }
+
         if (seth->type_evo == 1 || seth->type_evo == 3) {
             for (i = 0; i < seth->Nstate ; i++) {
                 sets->correfun_t[i * seth->Nstate + i] = 1 ;
@@ -1585,6 +1618,19 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                 }
             }
         }
+
+        if (seth->if_scale_sqc == 1){
+            for (i = 0; i < seth->Nstate; i++){
+                sets->xe[i] *= sqrt(sets->scale_sqc2);
+                sets->pe[i] *= sqrt(sets->scale_sqc2);
+            }
+            if (seth->type_evo >= 1){
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    sets->den_e[i] *= sqrt(sets->scale_sqc2);
+                }
+            }
+        }
+
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
         if(seth->sampletype == 2){
             transpose(sets->U_d2a,tempdm,seth->Nstate);
