@@ -32,8 +32,11 @@
 // }
 
 void parameter_FMO(double *mass, struct set_host *setm) {
+    
+   
+
     // 请根据实际情况实现parameter_SEM函数
-    parameter_SEM(mass,setm);
+    
 
     double H_ele[49] = {
         12410.0,     -87.7,      5.5,       -5.9,     6.7,       -13.7,        -9.9,
@@ -51,6 +54,21 @@ void parameter_FMO(double *mass, struct set_host *setm) {
     for (int i = 0; i < setm->Nstate_SEM * setm->Nstate_SEM; i++) {
         setm->H_ele_SEM[i] = H_ele[i] / au_2_wn;
     }
+
+
+    for (int i = 0; i < setm->Nstate_SEM * setm->N_bath_SEM; i++) {
+        mass[i] = 1.0;
+    }
+
+    setm->c_SEM = (double *)malloc(setm->N_bath_SEM * sizeof(double));
+    setm->omega_SEM = (double *)malloc(setm->N_bath_SEM * sizeof(double));
+
+    for (int j = 0; j < setm->N_bath_SEM; j++) {
+        setm->omega_SEM[j] = setm->omega_c_SEM * tan(0.5 * M_PI * (1.0 - (double)(j + 1) / (setm->N_bath_SEM + 1)));
+        setm->c_SEM[j] = setm->omega_SEM[j] * sqrt(setm->lambda_SEM * 2 / (setm->N_bath_SEM + 1));
+    }
+
+
 
 }
 

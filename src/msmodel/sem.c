@@ -49,6 +49,14 @@
 // }
 
 void parameter_SEM(double *mass, struct set_host *setm) {
+
+    setm->H_ele_SEM = (double *)malloc(setm->Nstate_SEM * setm->Nstate_SEM * sizeof(double));
+
+    setm->H_ele_SEM[0]=setm->bias_SEM * 0.5;
+    setm->H_ele_SEM[1]=setm->delta_SEM;
+    setm->H_ele_SEM[2]=setm->delta_SEM;
+    setm->H_ele_SEM[3]=setm->bias_SEM * (-0.5);
+    
     for (int i = 0; i < setm->Nstate_SEM * setm->N_bath_SEM; i++) {
         mass[i] = 1.0;
     }

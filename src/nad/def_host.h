@@ -851,6 +851,14 @@ struct set_host
         double R0_tully, P0_tully, gamma_tully;
 
 
+        // SEM with dipole moment parameters:
+        int type_cal_SEMdp; // 1 for PT, 2 for NP
+        int N_bath_SEMdp, Nstate_SEMdp;
+        double bias_SEMdp, delta_SEMdp, k_eff_SEMdp, omega_c_SEMdp, lambda_SEMdp;
+        double *c_SEMdp, *omega_SEMdp, *H_ele_SEMdp;
+        double *dipole_SEMdp;
+
+
 
 };
 

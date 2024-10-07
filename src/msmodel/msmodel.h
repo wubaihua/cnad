@@ -34,6 +34,6 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm);
 
 void nucforce_msmodel(double *R, double *nf, struct set_host *setm);
 
-
+void cfweight_msmodel(double *rho0, double *rhot, double beta, int icfall, struct set_host *setm);
 
 #endif 
