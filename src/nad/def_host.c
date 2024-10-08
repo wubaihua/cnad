@@ -1319,6 +1319,17 @@ void init_host(struct set_host *seth){
         //     printf("%d %18.8E %18.8E\n",i,seth->mpi_population[0*seth->Ngrid + i],seth->mpi_population[1*seth->Ngrid + i]);
         // }
         
+    } else if (seth->if_allcf >= 2) {
+        seth->mpi_real_cfeff = (double *)malloc(seth->Ngrid * sizeof(double));
+        seth->mpi_imag_cfeff = (double *)malloc(seth->Ngrid * sizeof(double));  
+        memset(seth->mpi_real_cfeff, 0, seth->Ngrid * sizeof(double));
+        memset(seth->mpi_imag_cfeff, 0, seth->Ngrid * sizeof(double));  
+
+        seth->save_real_cfeff = (double *)malloc(seth->Ngrid * seth->nproc_sw * sizeof(double));
+        seth->save_imag_cfeff = (double *)malloc(seth->Ngrid * seth->nproc_sw * sizeof(double));  
+        memset(seth->save_real_cfeff, 0, seth->Ngrid * seth->nproc_sw * sizeof(double));
+        memset(seth->save_imag_cfeff, 0, seth->Ngrid * seth->nproc_sw * sizeof(double));  
+
     }
 
 
@@ -1645,12 +1656,12 @@ void print_info(struct set_host *seth){
             printf("unfinished  \n");
             printf("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
         }
-        // if (if_allcf == 1) {
-        //     printf("if_allcf = 1: All time correlation functions will be calculated.\n");
-        // } else if (if_allcf == 2) {
-        //     printf("if_allcf = %d: All time correlation functions will be calculated,\n", if_allcf);
-        //     printf("But only a weighted effective time correlation function will be saved.\n");
-        // }
+        if (seth->if_allcf == 1) {
+            printf("if_allcf = 1: All time correlation functions will be calculated.\n");
+        } else if (seth->if_allcf == 2 || seth->if_allcf == 3) {
+            printf("if_allcf = %d: All time correlation functions will be calculated,\n", seth->if_allcf);
+            printf("But only a weighted effective time correlation function will be saved.\n");
+        }
         // if (mean_nuc == 1) {
         //     printf("mean_nuc = 1: Output mean nuclear DOFs.\n");
         // }
@@ -1752,7 +1763,7 @@ void fileout(struct set_host *seth) {
     size_t len = strlen(seth->filepath);
     
 
-    if (seth->outputtype >= 0) {
+    if (seth->if_allcf == 0 && seth->outputtype >= 0) {
         strncpy(outname, seth->filepath, len - 5);
         strcpy(outname + len - 5, ".den");
         FILE *den_file = fopen(outname, "w");
@@ -1770,7 +1781,7 @@ void fileout(struct set_host *seth) {
         fclose(den_file);
     }
 
-    if (seth->outputtype != 0) {
+    if (seth->if_allcf == 0 && seth->outputtype != 0) {
         strncpy(outname, seth->filepath, len - 5);
         strcpy(outname + len - 5, ".pop");
         FILE *pop_file = fopen(outname, "w");
@@ -1787,7 +1798,7 @@ void fileout(struct set_host *seth) {
         
     }
 
-    if(seth->if_st_fb == 1){
+    if(seth->if_allcf == 0 && seth->if_st_fb == 1){
         strncpy(outname, seth->filepath, len - 5);
         strcpy(outname + len - 5, ".fbpop");
         FILE *fbpop_file = fopen(outname, "w");
@@ -1846,15 +1857,15 @@ void fileout(struct set_host *seth) {
 //     //     fclose(cf_file);
 //     // }
 
-//     if (cfeff != NULL) {
-//         strncpy(outname, filepath, len - 5);
-//         strcpy(outname + len - 5,".cfeff");
-//         FILE *cfeff_file = fopen(outname, "w");
-//         for (i = 0; i < Ngrid; i++) {
-//             fprintf(cfeff_file, "%18.8E%18.8E%18.8E\n", timegrid[i] / unittrans_t, creal(cfeff[i]), cimag(cfeff[i]));
-//         }
-//         fclose(cfeff_file);
-//     }
+        if (seth->if_allcf >= 2) {
+            strncpy(outname, seth->filepath, len - 5);
+            strcpy(outname + len - 5,".cfeff");
+            FILE *cfeff_file = fopen(outname, "w");
+            for (i = 0; i < seth->Ngrid; i++) {
+                fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->mpi_real_cfeff[i], seth->mpi_imag_cfeff[i]);
+            }
+            fclose(cfeff_file);
+        }
 
 //     if (P_nuc_mean != NULL) {
 //         strncpy(outname, filepath, len - 5);
@@ -1962,7 +1973,7 @@ void fileout_mpi(int id, struct set_host *seth) {
     size_t len = strlen(seth->filepath);
     
 
-    if (seth->outputtype >= 0) {
+    if (seth->if_allcf == 0 && seth->outputtype >= 0) {
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".den");
         outname[len - 5] = '\0'; // 确保字符串以null结尾
@@ -1984,7 +1995,7 @@ void fileout_mpi(int id, struct set_host *seth) {
         fclose(den_file);
     }
 
-    if (seth->outputtype != 0) {
+    if (seth->if_allcf == 0 && seth->outputtype != 0) {
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".pop");
         outname[len - 5] = '\0'; // 确保字符串以null结尾
@@ -2004,7 +2015,7 @@ void fileout_mpi(int id, struct set_host *seth) {
     }
 
 
-    if (seth->if_st_fb == 1){
+    if (seth->if_allcf == 0 && seth->if_st_fb == 1){
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".pop");
         outname[len - 5] = '\0'; // 确保字符串以null结尾
@@ -2024,6 +2035,22 @@ void fileout_mpi(int id, struct set_host *seth) {
             fprintf(fbpop_file, "\n");
         }
         fclose(fbpop_file);
+    }
+
+
+
+    if (seth->if_allcf >= 2) {
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".cfeff");
+        FILE *cfeff_file = fopen(outname, "w");
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_real_cfeff[i], seth->fi_imag_cfeff[i]);
+        }
+        fclose(cfeff_file);
     }
 
 

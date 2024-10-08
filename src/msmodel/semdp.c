@@ -70,14 +70,15 @@ void parameter_SEMdp(double *mass, struct set_host *setm) {
 
     setm->c_SEMdp = (double *)malloc(setm->N_bath_SEMdp * sizeof(double));
     setm->omega_SEMdp = (double *)malloc(setm->N_bath_SEMdp * sizeof(double));
-    setm->H_ele_SEMdp = (double *)malloc(setm->Nstate_SEMdp * setm->Nstate_SEMdp * sizeof(double));
-    setm->dipole_SEMdp = (double *)malloc((setm->Nstate_SEMdp - 1) * sizeof(double));
+    
+   
 
     for (j = 1; j <= setm->N_bath_SEMdp; j++) {
         setm->omega_SEMdp[j-1] = setm->omega_c_SEMdp * tan(0.5 * M_PI * (1.0 - (double)j / (setm->N_bath_SEMdp + 1)));
         setm->c_SEMdp[j-1] = setm->omega_SEMdp[j-1] * sqrt(setm->lambda_SEMdp * 2.0 / (setm->N_bath_SEMdp + 1));
     }
 
+     
 
     setm->H_ele_SEMdp = (double *)malloc(setm->Nstate_SEMdp * setm->Nstate_SEMdp * sizeof(double));
 
@@ -113,6 +114,7 @@ void sample_SEMdp(double *P, double *R, double beta, struct set_host *setm) {
             } else {
                 box_muller(&P[k * setm->N_bath_SEMdp + j], &x2, sqrt(0.5 * hbar * setm->omega_SEMdp[j] / tanh(0.5 * beta * hbar * setm->omega_SEMdp[j])), 0.0);
                 box_muller(&R[k * setm->N_bath_SEMdp + j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SEMdp[j]) * setm->omega_SEMdp[j])), 0.0);
+                
             }
         }
     }
@@ -138,11 +140,17 @@ void V_SEMdp(double *R, double *H, int forcetype, struct set_host *setm) {
         }
     }
 
+    // for (i=0;i<setm->N_bath_SEMdp; i++) printf("c=%18.8E\n",setm->c_SEMdp[i]);
+    // for (i=0;i<setm->N_bath_SEMdp; i++) printf("w=%18.8E\n",setm->omega_SEMdp[i]);
+    // printf("x=%18.8E\n",sum);
+    // printf("l=%18.8E\n",setm->lambda_SEMdp);
+    // exit(-1);
+
     if (forcetype == 0) {
         Vnuc = 0.0;
         for (i = 0; i < setm->Nstate_SEMdp - 1; i++) {
             for (j = 0; j < setm->N_bath_SEMdp; j++) {
-                Vnuc += 0.5 * setm->omega_SEMdp[i] * setm->omega_SEMdp[i] * R[i *  setm->N_bath_SEMdp + j] * R[i *  setm->N_bath_SEMdp + j];
+                Vnuc += 0.5 * setm->omega_SEMdp[j] * setm->omega_SEMdp[j] * R[i *  setm->N_bath_SEMdp + j] * R[i *  setm->N_bath_SEMdp + j];
             }
         }
 
@@ -150,6 +158,12 @@ void V_SEMdp(double *R, double *H, int forcetype, struct set_host *setm) {
             H[i * setm->Nstate_SEMdp + i] += Vnuc;
         }
     }
+
+
+    // for (i = 0; i < setm->Nstate_SEMdp * setm->Nstate_SEMdp; i++) printf("%f ",setm->H_ele_SEMdp[i]);
+    
+   
+    
 }
 
 void dV_SEMdp(double *R, double *dH, int forcetype, struct set_host *setm) {
@@ -176,11 +190,16 @@ void dV_SEMdp(double *R, double *dH, int forcetype, struct set_host *setm) {
         }
 
         for (i = 0; i < setm->Nstate_SEMdp; i++) {
-            for (j = 0; j < (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp; j++) {
+            for (j = 0; j < setm->N_bath_SEMdp; j++) {
                 dH[i * setm->Nstate_SEMdp * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp 
                 + i * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp + j] += force[j];
             }
         }
+        // for (i = 0; i < setm->Nstate_SEMdp; i++) {
+        //     for (j = 0; j < (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp; j++) {
+        //         dH[i * setm->Nstate_SEMdp * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp + j] += force[j];
+        //     }
+        // }
     } else if (forcetype == 1) {
         for (i = 0; i < setm->Nstate_SEMdp - 1; i++) {
             for (j = 0; j < setm->N_bath_SEMdp; j++) {
@@ -191,6 +210,14 @@ void dV_SEMdp(double *R, double *dH, int forcetype, struct set_host *setm) {
     }
 
     free(force);
+
+    // for (i = 0; i < setm->Nstate_SEMdp - 1; i++) {
+    //     for (j = 0; j < setm->N_bath_SEMdp; j++) {
+    //         printf("%d %d %f\n",i,j,dH[i * setm->Nstate_SEMdp * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp 
+    //         + i * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp  + i * setm->N_bath_SEMdp + j]);
+    //     }
+    // }
+    // exit(-1);
 }
 
 void nucforce_SEMdp(double *R, double *nf, struct set_host *setm) {

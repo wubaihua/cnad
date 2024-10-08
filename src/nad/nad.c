@@ -211,7 +211,7 @@ int main(int argc, char *argv[]) {
     memcpy(seth.fi_N_nan_sum,seth.mpi_N_nan_sum,seth.Ngrid * sizeof(unsigned long long));
     #endif
 
-    if (seth.outputtype != 0) {
+    if (seth.if_allcf == 0 && seth.outputtype != 0) {
         seth.fi_population = (double *)malloc(seth.Nstate * seth.Ngrid * sizeof(double));
         memset(seth.fi_population,0, seth.Nstate * seth.Ngrid * sizeof(double)); 
         #ifdef sunway
@@ -252,7 +252,7 @@ int main(int argc, char *argv[]) {
         //  printf("%18.8E\n",seth.mpi_population[0 * seth.Ngrid   + (seth.Ngrid -1)]); // debug
     // }
     // MPI_Barrier(MPI_COMM_WORLD);
-    if (seth.outputtype >= 0) {
+    if (seth.if_allcf == 0 && seth.outputtype >= 0) {
         seth.fi_real_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
         seth.fi_imag_den = (double *)malloc(seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
         memset(seth.fi_real_den, 0, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));
@@ -271,6 +271,29 @@ int main(int argc, char *argv[]) {
         memcpy(seth.fi_imag_den, seth.mpi_imag_den, seth.Nstate * seth.Nstate * seth.Ngrid * sizeof(double));  
         #endif
     }
+
+
+
+    if (seth.if_allcf >= 2) {
+        seth.fi_real_cfeff = (double *)malloc(seth.Ngrid * sizeof(double));
+        seth.fi_imag_cfeff = (double *)malloc(seth.Ngrid * sizeof(double));  
+        memset(seth.fi_real_cfeff, 0, seth.Ngrid * sizeof(double));
+        memset(seth.fi_imag_cfeff, 0, seth.Ngrid * sizeof(double)); 
+        #ifdef sunway
+        for (int i = 0; i < seth.Ngrid; i++){
+            for(int j = 0; j < seth.nproc_sw; j++){
+                seth.fi_real_cfeff[i] += seth.save_real_cfeff[i * seth.nproc_sw + j];
+                seth.fi_imag_cfeff[i] += seth.save_imag_cfeff[i * seth.nproc_sw + j];
+            }
+        }
+        free(seth.save_real_cfeff);
+        free(seth.save_imag_cfeff);
+        #elif defined(x86)
+        memcpy(seth.fi_real_cfeff, seth.mpi_real_cfeff, seth.Ngrid * sizeof(double));
+        memcpy(seth.fi_imag_cfeff, seth.mpi_imag_cfeff, seth.Ngrid * sizeof(double));  
+        #endif
+    }
+    
     
 
    //////////
@@ -337,7 +360,7 @@ int main(int argc, char *argv[]) {
 
     
 
-    if (seth.outputtype != 0) {
+    if (seth.if_allcf == 0 && seth.outputtype != 0) {
         // fi_population = (double *)malloc(Nstate * Ngrid * sizeof(double));
         // MPI_Reduce(&seth.mpi_population, &seth.mpi_population, seth.Nstate * seth.Ngrid, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
         // for (int i = 0; i < Nstate * Ngrid; i++){
@@ -380,7 +403,7 @@ int main(int argc, char *argv[]) {
     }
 
     // if (mpi_den != NULL) {
-    if (seth.outputtype >= 0) {
+    if (seth.if_allcf == 0 && seth.outputtype >= 0) {
         // printf("test111111\n");
         // fi_den = (double complex *)malloc(Nstate * Nstate * Ngrid * sizeof(double complex));
         // printf("test2222\n");
@@ -447,7 +470,17 @@ int main(int argc, char *argv[]) {
     // if(mpi_rank==0)printf("den=%18.8E\n",mpi_real_den[0 * Ngrid*Nstate + 0* Ngrid + Ngrid -1 ]); // debug
     
 
-    
+    if (seth.if_allcf >= 2) {
+        
+        for (int i = 0; i < seth.Ngrid; i++){
+            MPI_Reduce(&seth.fi_real_cfeff[i], &seth.mpi_real_cfeff[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_imag_cfeff[i], &seth.mpi_imag_cfeff[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        }
+
+        free(seth.fi_real_cfeff);
+        free(seth.fi_imag_cfeff);
+        
+    }
 
     // // if (cfall != NULL) {
     // //     double *mpi_cfall = (double *)malloc(Nstate * Nstate * Nstate * Nstate * Ngrid * sizeof(double));
@@ -538,7 +571,7 @@ int main(int argc, char *argv[]) {
     // }
 
     if (seth.mpi_rank == 0) {
-        if (seth.outputtype >= 0) {
+        if (seth.if_allcf == 0 && seth.outputtype >= 0) {
             // for (int i = 0; i < Ngrid * Nstate * Nstate; i++) {
             //     fi_den[i] = real_rho[i] + I * imag_rho[i];
             // }
@@ -561,7 +594,7 @@ int main(int argc, char *argv[]) {
             // }
         }
 
-        if (seth.outputtype != 0) {
+        if (seth.if_allcf == 0 && seth.outputtype != 0) {
             if (seth.if_st_nan == 1) {
                 for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
                     for (int i = 0; i < seth.Nstate; i++) {
@@ -589,11 +622,12 @@ int main(int argc, char *argv[]) {
         //     }
         // }
 
-        // if (cfeff != NULL) {
-        //     for (int i = 0; i < Ngrid; i++) {
-        //         cfeff[i] = (real_cfeff[i] + I * imag_cfeff[i])/Ntraj;
-        //     }
-        // }
+        if (seth.if_allcf >= 2) {
+            for (int i = 0; i < seth.Ngrid; i++) {
+                seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/seth.Ntraj;
+                seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/seth.Ntraj;
+            }
+        }
 
         // if (P_nuc_mean != NULL) {
         //     for (int i = 0; i < Ngrid * Ndof1 * Ndof2; i++) {

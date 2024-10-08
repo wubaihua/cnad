@@ -104,7 +104,7 @@ void dynamics_slave(struct set_host *seth){
                 seth->save_N_nan_sum[i*seth->nproc_sw+idcore] += sets.N_nan_sum[i];
             }
 
-            if (seth->outputtype >= 0) {
+            if (seth->if_allcf == 0 && seth->outputtype >= 0) {
                 
                 for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
                     // mpi_den[i] += den[i];
@@ -115,7 +115,7 @@ void dynamics_slave(struct set_host *seth){
                     // printf("%f %f\n",creal(sets.den[i]),cimag(sets.den[i]));
                 }
             }
-            if (seth->outputtype != 0) {
+            if (seth->if_allcf == 0 && seth->outputtype != 0) {
                 for (int i = 0; i < seth->Nstate * seth->Ngrid; i++){
                     // seth->mpi_population[i] += sets.population[i];
                     seth->save_population[i*seth->nproc_sw+idcore] = sets.population[i];
@@ -146,6 +146,17 @@ void dynamics_slave(struct set_host *seth){
             //     fi_time_grid[i] = timegrid[i];
             // }
 
+            if (seth->if_allcf >= 2) {
+        
+                for (int i = 0; i < seth->Ngrid; i++){
+                    
+                    seth->save_real_cfeff[i*seth->nproc_sw+idcore] = creal(sets.cfeff[i]);
+                    seth->save_imag_cfeff[i*seth->nproc_sw+idcore] = cimag(sets.cfeff[i]);
+                    
+                }
+            }
+
+
         }
         athread_ssync_array();
     }
@@ -159,7 +170,7 @@ void dynamics_slave(struct set_host *seth){
     for (int i = 0; i < seth->Ngrid; i++){
         seth->mpi_N_nan_sum[i] = sets.N_nan_sum[i];
     }
-    if (seth->outputtype >= 0) {
+    if (seth->if_allcf == 0 && seth->outputtype >= 0) {
         
         for (int i = 0; i < seth->Nstate * seth->Nstate * seth->Ngrid; i++){
             // mpi_den[i] += den[i];
@@ -169,7 +180,7 @@ void dynamics_slave(struct set_host *seth){
             // seth->save_imag_den[i*64+idcore] = cimag(sets.den[i]);
         }
     }
-    if (seth->outputtype != 0) {
+    if (seth->if_allcf == 0 && seth->outputtype != 0) {
         for (int i = 0; i < seth->Nstate * seth->Ngrid; i++){
             seth->mpi_population[i] = sets.population[i];
             // seth->save_population[i*64+idcore] = sets.population[i];
@@ -195,6 +206,16 @@ void dynamics_slave(struct set_host *seth){
     // for (int i = 0; i < Ngrid; i++){
     //     fi_time_grid[i] = timegrid[i];
     // }
+
+    if (seth->if_allcf >= 2) {
+        
+        for (int i = 0; i < seth->Ngrid; i++){
+            
+            seth->mpi_real_cfeff[i] = creal(sets.cfeff[i]);
+            seth->mpi_imag_cfeff[i] = cimag(sets.cfeff[i]);
+           
+        }
+    }
 
     free_vari(&sets,seth);
 // exit(-1);

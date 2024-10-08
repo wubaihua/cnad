@@ -411,7 +411,7 @@ void readinp_SEMdp(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
         list = cJSON_GetObjectItem(item, "lambda_SEMdp");
         if (list->type == cJSON_Number) {
             setm->lambda_SEMdp = list->valuedouble; 
-            setm->delta_SEMdp /= au_2_wn;
+            setm->lambda_SEMdp /= au_2_wn;
         }
     }
 
@@ -493,7 +493,7 @@ void readinp_FMOdp(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
         list = cJSON_GetObjectItem(item, "lambda_SEMdp");
         if (list->type == cJSON_Number) {
             setm->lambda_SEMdp = list->valuedouble; 
-            setm->delta_SEMdp /= au_2_wn;
+            setm->lambda_SEMdp /= au_2_wn;
         }
     }
 

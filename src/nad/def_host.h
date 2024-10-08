@@ -428,6 +428,8 @@ struct set_host
     double *save_imag_den;
     double *mpi_real_cfeff;
     double *mpi_imag_cfeff;
+    double *save_real_cfeff;
+    double *save_imag_cfeff;
 
 
 

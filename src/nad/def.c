@@ -439,21 +439,21 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
             memset(sets->population, 0, seth->Nstate * seth->Ngrid * sizeof(double));
             
         }
-    // } else if (seth->if_allcf == 1) {
-    //     sets->cf0 = (double complex *)malloc(seth->Nstate * seth->Nstate * sizeof(double complex ));
-    //     memset(sets->cf0, 0, seth->Nstate * seth->Nstate * sizeof(double complex ));
-    //     // cfall = (double *)malloc(seth->Nstate * seth->Nstate * seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double ));
-    //     // memset(cfall, 0, seth->Nstate * seth->Nstate * seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));
-    //     seth->type_evo = 1;
-    // } else if (seth->if_allcf >= 2) {
-    //     sets->cf0 = (double complex *)malloc(seth->Nstate * seth->Nstate * sizeof(double complex ));
-    //     memset(sets->cf0, 0, seth->Nstate * seth->Nstate * sizeof(double complex ));
-    //     sets->cfeff = (double  complex *)malloc(seth->Ngrid * sizeof(double complex ));
-    //     memset(sets->cfeff, 0, seth->Ngrid * sizeof(double complex ));
-    //     seth->type_evo = 1;
-    //     sets->weight0 = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
-    //     sets->weightt = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
-    // }
+    } else if (seth->if_allcf == 1) {
+        // sets->cf0 = (double complex *)malloc(seth->Nstate * seth->Nstate * sizeof(double complex ));
+        // memset(sets->cf0, 0, seth->Nstate * seth->Nstate * sizeof(double complex ));
+        // // cfall = (double *)malloc(seth->Nstate * seth->Nstate * seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double ));
+        // // memset(cfall, 0, seth->Nstate * seth->Nstate * seth->Nstate * seth->Nstate * seth->Ngrid * sizeof(double));
+        // seth->type_evo = 1;
+    } else if (seth->if_allcf >= 2) {
+        sets->cf0 = (double complex *)malloc(seth->Nstate * seth->Nstate * sizeof(double complex ));
+        memset(sets->cf0, 0, seth->Nstate * seth->Nstate * sizeof(double complex ));
+        sets->cfeff = (double  complex *)malloc(seth->Ngrid * sizeof(double complex ));
+        memset(sets->cfeff, 0, seth->Ngrid * sizeof(double complex ));
+        seth->type_evo = 1;
+        sets->weight0 = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
+        sets->weightt = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
+    }
     
     // if (seth->if_st_eng == 1) {
     //     sets->energy_est = (double *)malloc(seth->Ngrid * sizeof(double));
@@ -465,7 +465,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //     memset(rate_lbd, 0, seth->Nstate * sizeof(double));
     //     if (seth->type_evo != 3) seth->type_evo = 1;
     //     occ_lbd = sets->init_occ;
-    }
+    
 
     // if (ifmfsh > 0) {
     //     if (seth->type_evo != 3) seth->type_evo = 1;
@@ -899,13 +899,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
 
         // // 计算 sets->cf0
-        // if (seth->if_allcf != 0) {
-        //     for (int i = 0; i < seth->Nstate; i++) {
-        //         for (int j = 0; j < seth->Nstate; j++) {
-        //             sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
-        //         }
-        //     }
-        // }
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+                }
+            }
+        }
     } else if (strcmp(seth->method, "focus") == 0 || strcmp(seth->method, "langer") == 0 ||
         strcmp(seth->method, "deltamft") == 0 || strcmp(seth->method, "dmft") == 0) {
         
@@ -945,14 +945,14 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             }
         }
 
-        // // 计算 sets->cf0
-        // if (seth->if_allcf != 0) {
-        //     for (int i = 0; i < seth->Nstate; i++) {
-        //         for (int j = 0; j < seth->Nstate; j++) {
-        //             sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
-        //         }
-        //     }
-        // }
+        // 计算 sets->cf0
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+                }
+            }
+        }
     } else if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
         for (i = 0; i < seth->Nstate; i++) {
             action[i] = ((double) rand() / RAND_MAX);
@@ -1016,6 +1016,25 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 }
             }
         }
+
+
+        // 计算 sets->cf0
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    if (i == j) {
+                        if (i == sets->init_occ){
+                            sets->cf0[i * seth->Nstate + i] = 1.0; 
+                        } else {
+                            sets->cf0[i * seth->Nstate + i] = 0.0; 
+                        }
+                    } else {
+                         sets->cf0[i * seth->Nstate + j] = sets->den_e[i * seth->Nstate + j];
+                    }
+                }
+            }
+        }
+        
 
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
         for (i = 0; i < seth->Nstate; i++) {
@@ -2133,6 +2152,7 @@ void evo_traj_nucR(double deltat,struct set_slave *sets,struct set_host *seth) {
 void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth) {
     int i, j, icfall;
     double x2;
+    double complex csum1,csum2;
    
     cal_correfun(sets,seth);
 
@@ -2160,7 +2180,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 
     // printf("ii=%d\n",igrid_cal);
 
-    if (seth->outputtype >= 0) {
+    if (seth->if_allcf == 0 && seth->outputtype >= 0) {
         // if (strcmp(seth->method, "gauss") == 0 || strcmp(seth->method, "genLSC") == 0 || strcmp(seth->method, "genlsc") == 0) {
         //     if (seth->ifid == 0) {
         //         for (i = 0; i < seth->Nstate; i++) {
@@ -2189,7 +2209,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 
    
 
-    if (seth->outputtype != 0) {
+    if (seth->if_allcf == 0 && seth->outputtype != 0) {
         for (i = 0; i < seth->Nstate; i++) {
         //     if (strcmp(seth->method, "gauss") == 0 || strcmp(seth->method, "genLSC") == 0 || strcmp(seth->method, "genlsc") == 0) {
         //         if (seth->ifid == 0) {
@@ -2240,21 +2260,32 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     //     }
     // }
 
-    // if (sets->cfeff!=NULL) {
-    //     if (seth->if_allcf == 2) {
-    //         sets->cfeff[igrid_cal] += sum(weight0, seth->Nstate) * sum(weightt, seth->Nstate) * sum(sets->correfun_t, seth->Nstate * seth->Nstate);
-    //     } else if (seth->if_allcf == 3) {
-    //         for (icfall = 0; icfall < allcf_times; icfall++) {
-    //             cfweight_msmodel(weight0, weightt, seth->beta, icfall);
-    //             sets->cfeff[igrid_cal] += sum(weight0, seth->Nstate) * sum(weightt, seth->Nstate) * sum(sets->correfun_t, seth->Nstate * seth->Nstate);
-    //         }
-    //     } else if (seth->if_allcf == 4) {
-    //         for (icfall = 0; icfall < allcf_times; icfall++) {
-    //             cfweight_msmodel(weight0, weightt, seth->beta, icfall);
-    //             sets->cfeff[igrid_cal] += sum(weight0, seth->Nstate) * sum(weightt, seth->Nstate) * sum(sets->correfun_t, seth->Nstate * seth->Nstate);
-    //         }
-    //     }
-    // }
+    if (seth->if_allcf >= 2) {
+        if (seth->if_allcf == 2) {
+            cfweight_msmodel(sets->weight0,sets->weightt, seth->beta, 0, seth);
+            csum1 = 0, csum2 = 0;
+            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                csum1 += sets->weight0[i] * sets->cf0[i];
+                csum2 += sets->weightt[i] * sets->correfun_t[i];
+            }
+            sets->cfeff[igrid_cal] += csum1 * csum2;
+        } else if (seth->if_allcf == 3) {
+            for (icfall = 1; icfall < seth->allcf_times + 1; icfall++) {
+                cfweight_msmodel(sets->weight0, sets->weightt, seth->beta, icfall, seth);        
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * sets->cf0[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+            }
+        // } else if (seth->if_allcf == 4) {
+        //     for (icfall = 0; icfall < seth->allcf_times; icfall++) {
+        //         cfweight_msmodel(weight0, weightt, seth->beta, icfall);
+        //         sets->cfeff[igrid_cal] += sum(weight0, seth->Nstate) * sum(weightt, seth->Nstate) * sum(sets->correfun_t, seth->Nstate * seth->Nstate);
+        //     }
+        }
+    }
 
     // if (sets->R_nuc_mean!=NULL) {
     //     if (strcmp(seth->method, "sqc") == 0 
@@ -3835,6 +3866,11 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
                 free(sets->pop_fb);
             }
         }
+    } else if (seth->if_allcf >= 2) {
+        free(sets->cf0);
+        free(sets->cfeff);
+        free(sets->weight0);
+        free(sets->weightt);
     }
 
     free(sets->correfun_t);

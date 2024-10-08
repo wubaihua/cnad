@@ -82,8 +82,7 @@ void parameter_FMOdp(double *mass, struct set_host *setm) {
 
     setm->c_SEMdp = (double *)malloc(setm->N_bath_SEMdp * sizeof(double));
     setm->omega_SEMdp = (double *)malloc(setm->N_bath_SEMdp * sizeof(double));
-    setm->H_ele_SEMdp = (double *)malloc(setm->Nstate_SEMdp * setm->Nstate_SEMdp * sizeof(double));
-    setm->dipole_SEMdp = (double *)malloc((setm->Nstate_SEMdp - 1) * sizeof(double));
+   
 
     for (int j = 1; j <= setm->N_bath_SEMdp; j++) {
         setm->omega_SEMdp[j-1] = setm->omega_c_SEMdp * tan(0.5 * M_PI * (1.0 - (double)j / (setm->N_bath_SEMdp + 1)));
@@ -135,5 +134,5 @@ void cfweight_FMOdp(double *w0, double *wt, int idire, struct set_host *setm) {
 
     cfweight_SEMdp(w0,wt,setm);
 
-    
+
 }
