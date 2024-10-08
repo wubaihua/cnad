@@ -190,9 +190,11 @@ void dV_SEMdp(double *R, double *dH, int forcetype, struct set_host *setm) {
         }
 
         for (i = 0; i < setm->Nstate_SEMdp; i++) {
-            for (j = 0; j < setm->N_bath_SEMdp; j++) {
+            for (j = 0; j < setm->Nstate_SEMdp - 1; j++) {
+                for (k = 0; k < setm->N_bath_SEMdp; k++) {
                 dH[i * setm->Nstate_SEMdp * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp 
-                + i * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp + j] += force[j];
+                + i * (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp + j *  setm->N_bath_SEMdp + k] += force[j *  setm->N_bath_SEMdp + k];
+                }
             }
         }
         // for (i = 0; i < setm->Nstate_SEMdp; i++) {

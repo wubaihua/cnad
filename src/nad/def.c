@@ -2750,13 +2750,16 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                                 energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
                             }
 
-                            if (seth->scaleenergy_type == 1 && deltaE < 0) {
-                                if (dt_evo > seth->dt / 1024) {
-                                    nstep_small *= 2;
-                                    dt_evo /= 2;
-                                    goto REDO;
-                                }
+                            if (seth->scaleenergy_type == 1 && deltaE < 0 && dt_evo > seth->dt / 1024) {
+                                printf("%18.8E %18.8E %18.8E\n",sets->E_conserve,sets->E_adia[sets->id_state],dt_evo);
+                                nstep_small *= 2;
+                                dt_evo /= 2;
+                                goto REDO;
+
+                            } else {
+                                continue;
                             }
+                            
                         }
                     }
 
