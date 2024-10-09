@@ -74,6 +74,8 @@ void parameter_FMOdp(double *mass, struct set_host *setm) {
         }
     }
 
+    setm->H_ele_SEMdp[63] += setm->lambda_SEMdp;
+
     for (int i = 0; i < (setm->Nstate_SEMdp - 1) * setm->N_bath_SEMdp; i++) {
         mass[i] = 1.0;
     }
