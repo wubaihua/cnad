@@ -71,6 +71,9 @@ if(x86)
     add_library(fmodp OBJECT src/msmodel/fmodp.c)
     set_target_properties(fmodp PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(rubrene OBJECT src/msmodel/rubrene.c)
+    set_target_properties(rubrene PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -92,7 +95,7 @@ if(x86)
     add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> 
                         $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:morse3> $<TARGET_OBJECTS:sem> $<TARGET_OBJECTS:fmo> 
                         $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:crco5>
-                        $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:msmodel> 
+                        $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:rubrene> $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
     # 链接库
@@ -172,6 +175,9 @@ elseif(sunway)
     add_library(fmodp OBJECT src/msmodel/fmodp.c)
     set_target_properties(fmodp PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(rubrene OBJECT src/msmodel/rubrene.c)
+    set_target_properties(fmodp PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -193,7 +199,7 @@ elseif(sunway)
     add_executable(cnad $<TARGET_OBJECTS:cJSON> $<TARGET_OBJECTS:constant> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:iofun> $<TARGET_OBJECTS:iofun_slave> 
                         $<TARGET_OBJECTS:msmodelio> $<TARGET_OBJECTS:sbm> $<TARGET_OBJECTS:morse3> $<TARGET_OBJECTS:sem> $<TARGET_OBJECTS:fmo> 
                         $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:crco5> 
-                        $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:msmodel> 
+                        $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:rubrene> $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
     # 链接库

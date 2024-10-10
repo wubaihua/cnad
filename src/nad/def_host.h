@@ -862,6 +862,14 @@ struct set_host
 
 
 
+        // rubrene parameters:
+        int Nstate_rubrene, N_mode_rubrene, Nmole_rubrene;
+        double Vc_rubrene, factor_freq_rubrene;
+        double *omega_rubrene, *lambda_rubrene, *g_rubrene, *mass_rubrene;
+
+
+
+
 };
 
 

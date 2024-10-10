@@ -539,6 +539,48 @@ void readinp_FMOdp(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
    
 }
 
+
+void readinp_rubrene(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "Nmole_rubrene")){
+        list=cJSON_GetObjectItem(item, "Nmole_rubrene");
+        
+        setm->Nmole_rubrene = list->valueint; 
+        
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "Vc_rubrene")) {
+        list = cJSON_GetObjectItem(item, "Vc_rubrene");
+        if (list->type == cJSON_Number) {
+            setm->Vc_rubrene = list->valuedouble; 
+        }
+    }
+
+  
+
+    if (NULL != cJSON_GetObjectItem(item, "factor_freq_rubrene")) {
+        list = cJSON_GetObjectItem(item, "factor_freq_rubrene");
+        if (list->type == cJSON_Number) {
+            setm->factor_freq_rubrene = list->valuedouble; 
+        }
+    }
+
+   
+    
+
+    setm->Vc_rubrene /= au_2_eV;
+
+    setm->Nstate_rubrene = setm->Nmole_rubrene;
+    setm->N_mode_rubrene = 9;
+
+    *Ndof1 = setm->Nmole_rubrene;
+    *Ndof2 = setm->N_mode_rubrene;
+    *Nstate = setm->Nstate_rubrene;
+}
+
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -579,6 +621,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         readinp_FMOdp(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        readinp_rubrene(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

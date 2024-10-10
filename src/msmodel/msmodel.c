@@ -20,6 +20,7 @@
 #include "tully.h"
 #include "semdp.h"
 #include "fmodp.h"
+#include "rubrene.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -68,6 +69,8 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         parameter_FMOdp(mass,setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        parameter_rubrene(mass,setm);
     }
 
 }
@@ -105,6 +108,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         sample_FMOdp(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        sample_rubrene(P, R, beta,setm);
     }
 }
 
@@ -141,6 +146,8 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         V_FMOdp(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        V_rubrene(R, H, setm->forcetype,setm);
     }
 }
 
@@ -177,6 +184,8 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         dV_FMOdp(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        dV_rubrene(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -208,7 +217,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         nucforce_FMOdp(R, nf,setm);
-    } 
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        nucforce_rubrene(R, nf,setm);
+    }
 }
 
 
@@ -219,6 +230,8 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, int icfall, struc
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
         cfweight_FMOdp(rho0,rhot, icfall, setm);
+    } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
+        cfweight_rubrene(rho0,rhot, beta, setm);
     }
 }
 
