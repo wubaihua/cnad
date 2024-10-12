@@ -176,7 +176,7 @@ elseif(sunway)
     set_target_properties(fmodp PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
     add_library(rubrene OBJECT src/msmodel/rubrene.c)
-    set_target_properties(fmodp PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+    set_target_properties(rubrene PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
