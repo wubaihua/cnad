@@ -7,6 +7,8 @@ if(x86)
     add_compile_definitions(x86)
     set(CMAKE_C_COMPILER "mpicc")
 
+    add_compile_options(-O3)
+
     # add_compile_options(-g -O0)
     # 设置包含目录
     include_directories(
@@ -111,7 +113,7 @@ elseif(sunway)
     add_compile_definitions(sunway)
     set(CMAKE_C_COMPILER "swgcc")
 
-
+    # add_compile_options(-O3)
     # 设置包含目录
     include_directories(
         /home/export/online1/mdt00/shisuan/swustcfd/liugroup/bqli/generalTests/05-LAPACK/build/device/LAPACKE/include/
