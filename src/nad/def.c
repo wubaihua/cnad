@@ -486,21 +486,29 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     
     //     }
 
-    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
-        seth->type_hop = 0;
-        seth->direc_padj = 1;
-        seth->ifreflp = 1;
+    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0 || 
+        strcmp(seth->method, "FS-NAF") == 0 || strcmp(seth->method, "fs-naf") == 0 ) {
+
+        if(seth->if_default == 0) {
+            seth->type_hop = 0;
+            seth->direc_padj = 1;
+            seth->ifreflp = 1;
+        }
+        
 
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
                strcmp(seth->method, "MS-MASH") == 0 || strcmp(seth->method, "ms-mash") == 0 ||
                strcmp(seth->method, "msmash") == 0 || strcmp(seth->method, "MSMASH") == 0 ||
-               strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ) {
+               strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ||
+               strcmp(seth->method, "MA-NAF-MR") == 0 || strcmp(seth->method, "ma-naf-mr") == 0 ||
+               strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ) {
 
-        seth->type_hop = 1;
-        seth->direc_padj = 0;
-        seth->ifreflp = 0;
-
+        if(seth->if_default == 0) {       
+            seth->type_hop = 1;
+            seth->direc_padj = 0;
+            seth->ifreflp = 0;
+        }
     
     // } else if (strcmp(seth->method, "GDTWA") == 0 || strcmp(seth->method, "eGDTWA") == 0) {
     //     if (seth->type_evo != 3) seth->type_evo = 1;
@@ -1036,7 +1044,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
         
 
-    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
+    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 ||
+               strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ) {
         for (i = 0; i < seth->Nstate; i++) {
             action[i] = 0;
         }
@@ -1054,7 +1063,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         
         sets->id_state = sets->init_occ-1;
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
-               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0) {
+               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
+               strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0 ) {
         random_prob(seth->Nstate, action);
         for (int i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
@@ -1103,7 +1113,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ||
                strcmp(seth->method, "MS-MASH-MF") == 0 || strcmp(seth->method, "ms-mash-mf") == 0 ||
                strcmp(seth->method, "msmashmf") == 0 || strcmp(seth->method, "MSMASHMF") == 0 ||
-               strcmp(seth->method, "RM") == 0 || strcmp(seth->method, "rm") == 0) {
+               strcmp(seth->method, "RM") == 0 || strcmp(seth->method, "rm") == 0 ||
+               strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ) {
         
         sets->id_state=-10;
         while (sets->id_state != sets->init_occ - 1) {
@@ -1283,7 +1294,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "SC-FSSH") == 0 || strcmp(seth->method, "sc-fssh") == 0 ||
             strcmp(seth->method, "CC-FSSH") == 0 || strcmp(seth->method, "cc-fssh") == 0 || strcmp(seth->method, "fsshswitch") == 0 || strcmp(seth->method, "pcsh") == 0 ||
             strcmp(seth->method, "PCSH") == 0 || strcmp(seth->method, "PCSH-NAF") == 0 || strcmp(seth->method, "pcsh-naf") == 0 || strcmp(seth->method, "BCSH") == 0 ||
-            strcmp(seth->method, "bcsh") == 0 || strcmp(seth->method, "BCSH-NAF") == 0 || strcmp(seth->method, "bcsh-naf") == 0) {
+            strcmp(seth->method, "bcsh") == 0 || strcmp(seth->method, "BCSH-NAF") == 0 || strcmp(seth->method, "bcsh-naf") == 0 ||
+            strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0) {
 
             double x2 = (double)rand() / RAND_MAX;
             double ps1, ps2;
@@ -1306,7 +1318,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             }
         
         } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
-               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0) {
+               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
+               strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0) {
             
             memset(sets->rho0_mash,0,seth->Nstate*seth->Nstate*sizeof(double complex));
             if(sets->xe[0] * sets->xe[0] + sets->pe[0] * sets->pe[0] >= 1){
@@ -1326,7 +1339,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             
         } else if (strcmp(seth->method, "MS-MASH") == 0 || strcmp(seth->method, "ms-mash") == 0 ||
                strcmp(seth->method, "msmash") == 0 || strcmp(seth->method, "MSMASH") == 0 ||
-               strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ) {
+               strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ||
+               strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ) {
             
             for (int i = 0; i < seth->Nstate; i++) {
                 c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
@@ -1421,7 +1435,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             
     //     }
     // }
-    if (seth->ifswitchforce > 0) {
+    if (seth->ifswitchforce > 0 && seth->type_hop == 1) {
         if (seth->rep == 0) {
             
             V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
@@ -1650,7 +1664,8 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
             }
         }
 
-    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0) {
+    } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 ||
+                strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0) {
         if(seth->sampletype == 2){
             transpose(sets->U_d2a,tempdm,seth->Nstate);
             memcpy(tempv,sets->xe,seth->Nstate*sizeof(double));
@@ -1683,7 +1698,8 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
             dd_matmul(sets->U_d2a,tempv,sets->pe,seth->Nstate,seth->Nstate,1);
         }
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
-               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0) {
+               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
+               strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0) {
         
         if(seth->sampletype == 2){
             transpose(sets->U_d2a,tempdm,seth->Nstate);
@@ -1801,7 +1817,8 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ||
                strcmp(seth->method, "MS-MASH-MF") == 0 || strcmp(seth->method, "ms-mash-mf") == 0 ||
                strcmp(seth->method, "msmashmf") == 0 || strcmp(seth->method, "MSMASHMF") == 0 ||
-               strcmp(seth->method, "RM") == 0 || strcmp(seth->method, "rm") == 0) {
+               strcmp(seth->method, "RM") == 0 || strcmp(seth->method, "rm") == 0 ||
+                strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0) {
         
         alpha_mash = 0;
         for (i = 1; i < seth->Nstate + 1; i++){
@@ -3045,46 +3062,88 @@ void cal_force_switch(struct set_slave *sets, struct set_host *seth) {
     double deltavector[seth->Ndof1 * seth->Ndof2],P_para[seth->Ndof1 * seth->Ndof2],P_ver[seth->Ndof1 * seth->Ndof2];
     double sum;
     double Q_dia[seth->Nstate * seth->Nstate];
+    double prob_hop[seth->Nstate], r_hop;
     double deltaE_mash;
+    int id_switch;
 
-    if (seth->rep == 0) {
-        if (seth->type_evo == 0) {
-            memcpy(xe_save,sets->xe,seth->Nstate*sizeof(double));
-            memcpy(pe_save,sets->pe,seth->Nstate*sizeof(double));
-            transpose(sets->U_d2a,tempdm1,seth->Nstate);
-            dd_matmul(tempdm1,xe_save,sets->xe,seth->Nstate,seth->Nstate,1);
-            dd_matmul(tempdm1,pe_save,sets->pe,seth->Nstate,seth->Nstate,1);
-        } else if (seth->type_evo == 1) {
-            memcpy(den_e_save,sets->den_e,seth->Nstate * seth->Nstate * sizeof(double complex));
-            transpose(sets->U_d2a,tempdm1,seth->Nstate);
-            dc_matmul(tempdm1,den_e_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
-            cd_matmul(tempcm1,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
-        }
-        memcpy(gamma_cv_save,sets->gamma_cv ,seth->Nstate * seth->Nstate * sizeof(double complex));
-        dc_matmul(tempdm1,gamma_cv_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
-        cd_matmul(tempcm1,sets->U_d2a,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
-        
-    }
 
-    for (int i = 0; i < seth->Nstate; i++) {
-        if (seth->type_evo == 0) {
-            c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 - creal(sets->gamma_cv[i * seth->Nstate + i]);
-        } else if (seth->type_evo == 1) {
-            c_main[i] = creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->gamma_cv[i * seth->Nstate + i]);
-        }
-    }
-
-    if (seth->ifscalegamma == 1) {
-        for (int i = 0; i < seth->Nstate; i++) {
-            if (seth->type_evo == 0) {
-                c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + i]);
-            } else if (seth->type_evo == 1) {
-                c_main[i] = creal(sets->den_e[i * seth->Nstate + i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + i]);
+    switch (seth->type_hop){
+        case 0: // FS-NAF
+            for (int i = 0; i < seth->Nstate; i++){
+                sum = 0;
+                for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    sum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
+                }
+                prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                if (prob_hop[i] < 0) prob_hop[i] = 0;
+                if (prob_hop[i] > 1) prob_hop[i] = 1;
             }
-        }
-    }
+            
+            sum = 0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum += prob_hop[i];
+            }
+            r_hop = ((double) rand() / RAND_MAX);
+            id_switch = sets->id_state;
+            for (int i = 0; i < seth->Nstate; i++) {
+                r_hop -= prob_hop[i];
+                if(r_hop < 0){
+                    // double a=0, b=0, c=0;
+                    // for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    //     a += 0.5 * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j]
+                    //                  / sets->mass[j];
+                    //     b += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->P_nuc[j] / sets->mass[j];
+                    // }
+                    // c = sets->E_adia[i] - sets->E[sets->id_state];
+                    id_switch = i;
+                    break;
+                }
+            }
 
-    int id_switch = maxloc(c_main, seth->Nstate);
+            break;
+        
+        case 1: // NAF
+            if (seth->rep == 0) {
+                if (seth->type_evo == 0) {
+                    memcpy(xe_save,sets->xe,seth->Nstate*sizeof(double));
+                    memcpy(pe_save,sets->pe,seth->Nstate*sizeof(double));
+                    transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    dd_matmul(tempdm1,xe_save,sets->xe,seth->Nstate,seth->Nstate,1);
+                    dd_matmul(tempdm1,pe_save,sets->pe,seth->Nstate,seth->Nstate,1);
+                } else if (seth->type_evo == 1) {
+                    memcpy(den_e_save,sets->den_e,seth->Nstate * seth->Nstate * sizeof(double complex));
+                    transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    dc_matmul(tempdm1,den_e_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
+                    cd_matmul(tempcm1,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+                }
+                memcpy(gamma_cv_save,sets->gamma_cv ,seth->Nstate * seth->Nstate * sizeof(double complex));
+                dc_matmul(tempdm1,gamma_cv_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
+                cd_matmul(tempcm1,sets->U_d2a,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+                
+            }
+
+            for (int i = 0; i < seth->Nstate; i++) {
+                if (seth->type_evo == 0) {
+                    c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                } else if (seth->type_evo == 1) {
+                    c_main[i] = creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                }
+            }
+
+            if (seth->ifscalegamma == 1) {
+                for (int i = 0; i < seth->Nstate; i++) {
+                    if (seth->type_evo == 0) {
+                        c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                    } else if (seth->type_evo == 1) {
+                        c_main[i] = creal(sets->den_e[i * seth->Nstate + i]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + i]);
+                    }
+                }
+            }
+
+            id_switch = maxloc(c_main, seth->Nstate);
+    }
 
     if (sets->id_state != id_switch) {
         switch (seth->direc_padj) {

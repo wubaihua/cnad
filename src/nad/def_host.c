@@ -535,6 +535,10 @@ void initial_para(struct set_host *seth) {
 
     seth->if_scale_sqc = 0;
 
+    seth->if_default = 0;
+
+    seth->type_hop = 1;
+
 
     seth->nproc_sw = 64;
 }
@@ -543,7 +547,7 @@ void initial_para(struct set_host *seth) {
 
 
 void readinp(struct set_host *seth){
-
+    size_t bytesRead;
     
 
     FILE *file = fopen(seth->filepath, "rb");
@@ -556,7 +560,7 @@ void readinp(struct set_host *seth){
     fseek(file, 0, SEEK_SET);
     char *data = (char *)malloc(length + 1);
     if (data) {
-        fread(data, 1, length, file);
+        bytesRead = fread(data, 1, length, file);
         data[length] = '\0';
     }
     fclose(file);
@@ -1222,6 +1226,15 @@ void readinp(struct set_host *seth){
         //     }
         // }
 
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_default")) {
+            list = cJSON_GetObjectItem(item, "if_default");
+            if (list->type == cJSON_Number) {
+                seth->if_default = list->valueint;
+            }
+        }
+
         
 
         if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
@@ -1388,6 +1401,8 @@ void print_info(struct set_host *seth){
     } else if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
         printf("Method: Fewest Switches Surface Hopping (FSSH)\n");
         printf("Related Publication: J. Chem. Phys. 1990, 93, 1061\n");
+    } else if (strcmp(seth->method, "FS-NAF") == 0 || strcmp(seth->method, "fs-naf") == 0) {
+        printf("Method: Fewest Switches Nonadiabatic Field (FS-NAF)\n");
     // } else if (strcmp(method, "fsshswitch") == 0) {
     //     printf("Method: Fewest Switches Surface Hopping (FSSH) with switch direction for adjustment P: %d\n", direc_padj);
     // } else if (strcmp(method, "PCSH-NAF") == 0 || strcmp(method, "pcsh-naf") == 0) {
@@ -1485,6 +1500,15 @@ void print_info(struct set_host *seth){
         printf("Related Pulication: arXiv:2305.08835\n");
         // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
 
+    } else if (strcmp(seth->method, "MA-NAF-MR") == 0 || strcmp(seth->method, "ma-naf-mr") == 0) {
+
+        printf("Method: Mapping Approach to Nonadibatic Field\n");
+        printf("with Mannouch-Richardson correlation function (MA-NAF-MR)\n");
+
+    } else if (strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0) {
+
+        printf("Method: Mapping Approach to Nonadibatic Field\n");
+        printf("with Runeson-Manolopoulos correlation function (MA-NAF-RM)\n");
 
     } else if (strcmp(seth->method, "MASH-MF") == 0 || strcmp(seth->method, "mash-mf") == 0 ||
                strcmp(seth->method, "mashmf") == 0 || strcmp(seth->method, "MASHMF") == 0 ||
