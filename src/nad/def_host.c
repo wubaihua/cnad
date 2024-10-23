@@ -1235,6 +1235,13 @@ void readinp(struct set_host *seth){
             }
         }
 
+
+        if (NULL != cJSON_GetObjectItem(item, "type_hop")) {
+            list = cJSON_GetObjectItem(item, "type_hop");
+            if (list->type == cJSON_Number) {
+                seth->type_hop = list->valueint;
+            }
+        }
         
 
         if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
