@@ -77,17 +77,21 @@ void sample_SEM(double *P, double *R, double beta, struct set_host *setm) {
     for (int k = 0; k < setm->Nstate_SEM; k++) {
         for (int j = 0; j < setm->N_bath_SEM; j++) {
             if (beta > 99999) {
-                box_muller(&P[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar * setm->omega_SEM[j]), 0.0);
-                box_muller(&R[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar / setm->omega_SEM[j]), 0.0);
-            } else if (beta > 0 && beta <= 99999) {
-                box_muller(&P[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar * setm->omega_SEM[j] / tanh(0.5 * beta * hbar * setm->omega_SEM[j])), 0.0);
-                box_muller(&R[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SEM[j]) * setm->omega_SEM[j])), 0.0);
-            } else if (beta < 0 && beta >= -99999) {
-                box_muller(&P[k * setm->N_bath_SEM + j], &x2, 1.0 / sqrt(fabs(beta)), 0.0);
-                box_muller(&R[k * setm->N_bath_SEM + j], &x2, 1.0 / (sqrt(fabs(beta)) * setm->omega_SEM[j]), 0.0);
-            } else if (beta < -99999) {
-                P[k * setm->N_bath_SEM + j] = 0;
-                R[k * setm->N_bath_SEM + j] = 0;
+                if(setm->if_classical == 0){
+                    box_muller(&P[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar * setm->omega_SEM[j]), 0.0);
+                    box_muller(&R[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar / setm->omega_SEM[j]), 0.0);
+                } else {
+                    P[k * setm->N_bath_SEM + j] = 0;
+                    R[k * setm->N_bath_SEM + j] = 0;
+                }
+            } else {
+                if(setm->if_classical == 0){
+                    box_muller(&P[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar * setm->omega_SEM[j] / tanh(0.5 * beta * hbar * setm->omega_SEM[j])), 0.0);
+                    box_muller(&R[k * setm->N_bath_SEM + j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SEM[j]) * setm->omega_SEM[j])), 0.0);
+                } else {
+                    box_muller(&P[k * setm->N_bath_SEM + j], &x2, 1.0 / sqrt(beta), 0.0);
+                    box_muller(&R[k * setm->N_bath_SEM + j], &x2, 1.0 / (sqrt(beta) * setm->omega_SEM[j]), 0.0);
+                }
             }
         }
     }

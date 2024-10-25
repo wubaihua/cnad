@@ -126,12 +126,23 @@ void sample_SBM(double *P, double *R, double beta, struct set_host *setm) {
     double x2;
     for (int j = 0; j < setm->N_bath_SBM; j++) {
         if (beta > 99999) {
-            box_muller(&P[j], &x2, sqrt(0.5 * hbar * setm->omega_SBM[j]), 0.0);
-            box_muller(&R[j], &x2, sqrt(0.5 * hbar / setm->omega_SBM[j]), 0.0);
+            if(setm->if_classical == 0){
+                box_muller(&P[j], &x2, sqrt(0.5 * hbar * setm->omega_SBM[j]), 0.0);
+                box_muller(&R[j], &x2, sqrt(0.5 * hbar / setm->omega_SBM[j]), 0.0);
+            } else {
+                P[j] = 0;
+                R[j] = 0;
+            }
+            
         } else {
-            box_muller(&P[j], &x2, sqrt(0.5 * hbar * setm->omega_SBM[j] / tanh(0.5 * beta * hbar * setm->omega_SBM[j])), 0.0);
-            box_muller(&R[j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SBM[j]) * setm->omega_SBM[j])), 0.0);
+            if(setm->if_classical == 0){
+                box_muller(&P[j], &x2, sqrt(0.5 * hbar * setm->omega_SBM[j] / tanh(0.5 * beta * hbar * setm->omega_SBM[j])), 0.0);
+                box_muller(&R[j], &x2, sqrt(0.5 * hbar / (tanh(0.5 * beta * hbar * setm->omega_SBM[j]) * setm->omega_SBM[j])), 0.0);
             // P[j]=1,R[j]=1;   //debug 
+            } else {
+                box_muller(&P[j], &x2, sqrt(1.0 / beta), 0.0);
+                box_muller(&R[j], &x2, sqrt(1.0 / (beta * setm->omega_SBM[j] * setm->omega_SBM[j])), 0.0);
+            }
         
         }
     }

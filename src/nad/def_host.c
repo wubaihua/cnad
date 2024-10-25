@@ -539,6 +539,8 @@ void initial_para(struct set_host *seth) {
 
     seth->type_hop = 1;
 
+    seth->if_classical = 0;
+
 
     seth->nproc_sw = 64;
 }
@@ -1242,6 +1244,14 @@ void readinp(struct set_host *seth){
                 seth->type_hop = list->valueint;
             }
         }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_classical")) {
+            list = cJSON_GetObjectItem(item, "if_classical");
+            if (list->type == cJSON_Number) {
+                seth->if_classical = list->valueint;
+            }
+        }
         
 
         if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
@@ -1738,6 +1748,10 @@ void print_info(struct set_host *seth){
         if (seth->ifscaleenergy > 0) {
             printf("ifscaleenergy= %d\n", seth->ifscaleenergy);
         }
+
+        if (seth->if_classical > 0) {
+            printf("classical bath, if_classical= %d\n", seth->if_classical);
+        }
         // if (ifcount == 1) {
         //     printf("ifcount= %d\n", ifcount);
         // }
@@ -1747,7 +1761,7 @@ void print_info(struct set_host *seth){
         // if (iflangevin == 1) {
         //     printf("Using Langevin dynamics, eta= %f\n", eta_langevin);
         // }
-        // printf("index of algorithm: %d\n", type_algorithm);
+        printf("index of algorithm: %d\n", seth->type_algorithm);
         // if (type_algorithm == 5) printf("n_step_algo5= %d\n", n_step_algo5);
         // if (allow_hop != 0) {
         //     printf("allow_hop= %d\n", allow_hop);

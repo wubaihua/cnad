@@ -804,6 +804,9 @@ struct set_host
     int if_default;
 
 
+    int if_classical;
+
+
 
     // model parameters
 

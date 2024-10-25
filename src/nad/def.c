@@ -2457,6 +2457,7 @@ void energy_conserve_naf_1(double E0, double *dE_naf,struct set_slave *sets,stru
 //     }
 // }
 
+// P-E-R-P
 void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *seth) {
     #ifdef sunway
     int slavecore_id=athread_get_id(-1);
@@ -2473,6 +2474,188 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
     evo_traj_ele(deltat,sets,seth);
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+
+
+// P-R-P-E
+void evo_traj_algorithm2(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    evo_traj_ele(deltat,sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+
+
+// E-P-R-P
+
+
+void evo_traj_algorithm3(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat,sets,seth);
+    
+}
+
+
+// P-R-E-P
+
+void evo_traj_algorithm4(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+// P-R-E-R-P
+
+void evo_traj_algorithm5(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat / 2,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    evo_traj_ele(deltat,sets,seth);
+    evo_traj_nucR(deltat / 2,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+// E-P-R-P-E
+
+void evo_traj_algorithm6(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+
+    evo_traj_ele(deltat / 2,sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);
+}
+
+
+// P-E-R-E-P
+
+void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+
+    
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+// P-E-R-P-E
+void evo_traj_algorithm8(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+
+    evo_traj_ele(deltat / 2,sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    
+}
+
+// E-P-R-E-P
+void evo_traj_algorithm9(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);   
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+    cal_force(sets,seth);
+    evo_traj_nucP(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth);
+    
     
 }
 
@@ -2710,30 +2893,30 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             
                 evo_traj_algorithm1(dt_evo,sets,seth);
                 break;
-            // case 2:
-            //     evo_traj_algorithm2(dt_evo);
-            //     break;
-            // case 3:
-            //     evo_traj_algorithm3(dt_evo);
-            //     break;
-            // case 4:
-            //     evo_traj_algorithm4(dt_evo);
-            //     break;
-            // case 5:
-            //     evo_traj_algorithm5(dt_evo, n_step_algo5);
-            //     break;
-            // case 6:
-            //     evo_traj_algorithm6(dt_evo);
-            //     break;
-            // case 7:
-            //     evo_traj_algorithm7(dt_evo);
-            //     break;
-            // case 8:
-            //     evo_traj_algorithm8(dt_evo);
-            //     break;
-            // case 9:
-            //     evo_traj_algorithm9(dt_evo);
-            //     break;
+            case 2:
+                evo_traj_algorithm2(dt_evo,sets,seth);
+                break;
+            case 3:
+                evo_traj_algorithm3(dt_evo,sets,seth);
+                break;
+            case 4:
+                evo_traj_algorithm4(dt_evo,sets,seth);
+                break;
+            case 5:
+                evo_traj_algorithm5(dt_evo,sets,seth);
+                break;
+            case 6:
+                evo_traj_algorithm6(dt_evo,sets,seth);
+                break;
+            case 7:
+                evo_traj_algorithm7(dt_evo,sets,seth);
+                break;
+            case 8:
+                evo_traj_algorithm8(dt_evo,sets,seth);
+                break;
+            case 9:
+                evo_traj_algorithm9(dt_evo,sets,seth);
+                break;
             // case 10:
             //     evo_traj_algorithm10(dt_evo);
             //     break;
@@ -2760,6 +2943,30 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                             switch (seth->type_algorithm) {
                                 case 1:
                                     evo_traj_algorithm1(dt_evo,sets,seth);
+                                    break;
+                                case 2:
+                                    evo_traj_algorithm2(dt_evo,sets,seth);
+                                    break;
+                                case 3:
+                                    evo_traj_algorithm3(dt_evo,sets,seth);
+                                    break;
+                                case 4:
+                                    evo_traj_algorithm4(dt_evo,sets,seth);
+                                    break;
+                                case 5:
+                                    evo_traj_algorithm5(dt_evo,sets,seth);
+                                    break;
+                                case 6:
+                                    evo_traj_algorithm6(dt_evo,sets,seth);
+                                    break;
+                                case 7:
+                                    evo_traj_algorithm7(dt_evo,sets,seth);
+                                    break;
+                                case 8:
+                                    evo_traj_algorithm8(dt_evo,sets,seth);
+                                    break;
+                                case 9:
+                                    evo_traj_algorithm9(dt_evo,sets,seth);
                                     break;
                             }
 
