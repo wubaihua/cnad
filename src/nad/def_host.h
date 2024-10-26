@@ -799,6 +799,8 @@ struct set_host
 
     int type_hop;
 
+    int if_eld;
+
 
 
     int if_default;

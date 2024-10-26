@@ -541,6 +541,7 @@ void initial_para(struct set_host *seth) {
 
     seth->if_classical = 0;
 
+    seth->if_eld = 0;
 
     seth->nproc_sw = 64;
 }
@@ -1221,12 +1222,12 @@ void readinp(struct set_host *seth){
         }
 
 
-        // if (NULL != cJSON_GetObjectItem(item, "if_eld")) {
-        //     list = cJSON_GetObjectItem(item, "if_eld");
-        //     if (list->type == cJSON_Number) {
-        //         if_eld = list->valueint;
-        //     }
-        // }
+        if (NULL != cJSON_GetObjectItem(item, "if_eld")) {
+            list = cJSON_GetObjectItem(item, "if_eld");
+            if (list->type == cJSON_Number) {
+                seth->if_eld = list->valueint;
+            }
+        }
 
 
 
@@ -1769,6 +1770,9 @@ void print_info(struct set_host *seth){
         // if (if_traceless_force != 0) {
         //     printf("if_traceless_force= %d\n", if_traceless_force);
         // }
+        if (seth->if_eld == 1) {
+            printf("Using equilibrium Liouville dynamics (ELD), if_eld= %d\n", seth->if_eld);
+        }
 
         #ifdef sunway
         printf("---------------------------------------------------------------------\n");

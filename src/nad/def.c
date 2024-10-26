@@ -3104,6 +3104,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         //     cal_force_switch8();
         // } else if (ifmashsets->force > 0) {
         //     cal_force_mashsets->force();
+        } else if (seth->if_eld == 1) {
+            cal_force_eld(sets,seth);
         } else {
             cal_force_mf(sets,seth);
         }
@@ -3890,10 +3892,123 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth) {
 
 
 
-// void cal_force_fssh(){}
+
+void cal_force_eld(struct set_slave *sets,struct set_host *seth) {
+    int i, j, k;
+    double force_trace[seth->Ndof1 * seth->Ndof2];
+    double normforce;
+
+    // if (seth->if_traceless_force == 1) {
+    //     // for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+    //     //     sets->force_trace[i] = 0;
+    //     // }
+    //     memset(force_trace,0,seth->Ndof1*seth->Ndof2*sizeof(double));
+    //     for (i = 0; i < seth->Nstate; i++) {
+    //         for (j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+    //             force_trace[j] += sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] / seth->Nstate;
+    //         }
+    //     }
+    //     for (j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+    //         for (i = 0; i < seth->Nstate; i++) {
+    //             sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] -= force_trace[j];
+    //         }
+    //         sets->force[j] = -force_trace[j];
+    //     }
+    //     // for (j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+    //     //     sets->force[j] = -sets->force_trace[j];
+    //     // }
+    // }
+
+    normforce = 0;
+    for (i = 0; i < seth->Nstate; i++){
+        if(seth->type_evo == 0) normforce += seth->beta * cexp(-seth->beta * sets->E_adia[i]) * (0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - creal(sets->gamma_cv[i * seth->Nstate + i]));
+        if(seth->type_evo == 1) normforce += seth->beta * cexp(-seth->beta * sets->E_adia[i]) * creal(sets->den_e[i * seth->Nstate + i] - sets->gamma_cv[i * seth->Nstate + i]);
+    }
+
+     
+   
+
+    switch (seth->type_evo) {
+        case 0:
+        case 2:
+            if (seth->rep == 0) {
+                // if (seth->calforcetype == 1) {
+                //     for (i = 0; i < seth->Nstate; i++) {
+                //         for (j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                //             sets->force[j] -= sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * ((sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * 0.5 - creal(sets->gamma_cv[i * seth->Nstate + i]));
+                //         }
+                //     }
+                // } else {
+                //     for (i = 0; i < seth->Nstate; i++) {
+                //         for (j = 0; j < seth->Nstate; j++) {
+                //             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                //                 sets->force[k] -= sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] * ((sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) * 0.5 - creal(sets->gamma_cv[i * seth->Nstate + j]));
+                //             }
+                //         }
+                //     }
+                // }
+            } else if (seth->rep == 1) {
+                for (i = 0; i < seth->Nstate; i++) {
+                    for (j = 0; j < seth->Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - creal(sets->gamma_cv[i * seth->Nstate + i])) 
+                                                  * seth->beta * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * cexp(-1 * seth->beta * sets->E_adia[i]) / normforce;
+                                // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
+                            }
+                        } else {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] += (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) 
+                                                  * (cexp( -seth->beta * sets->E_adia[j]) - cexp(-seth->beta * sets->E_adia[i])) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] / normforce;
+                                // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+        case 1:
+            if (seth->rep == 0) {
+                // if (seth->calforcetype == 1) {
+                //     for (i = 0; i < seth->Nstate; i++) {
+                //         for (j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                //             sets->force[j] -= sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * creal(sets->den_e[i * seth->Nstate + i] - sets->gamma_cv[i * seth->Nstate + i]);
+                //         }
+                //     }
+                // } else {
+                //     for (i = 0; i < seth->Nstate; i++) {
+                //         for (j = 0; j < seth->Nstate; j++) {
+                //             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                //                 sets->force[k] -= sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] * creal(sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+                //             }
+                //         }
+                //     }
+                // }
+            } else if (seth->rep == 1) {
+                for (i = 0; i < seth->Nstate; i++) {
+                    for (j = 0; j < seth->Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= creal(sets->den_e[i * seth->Nstate + i] - sets->gamma_cv[i * seth->Nstate + i]) 
+                                                * seth->beta * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * cexp(-1 * seth->beta * sets->E_adia[i]) / normforce;
+                            }
+                        } else {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] += creal(sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]) 
+                                                * (cexp( -seth->beta * sets->E_adia[j]) - cexp(-seth->beta * sets->E_adia[i])) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] / normforce;
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+    }
+}
 
 
-// void cal_force_eld(){}
+
+
+
 
 
 void cal_NACV(struct set_slave *sets,struct set_host *seth){
