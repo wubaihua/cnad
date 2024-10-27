@@ -623,9 +623,16 @@ int main(int argc, char *argv[]) {
         // }
 
         if (seth.if_allcf >= 2) {
-            for (int i = 0; i < seth.Ngrid; i++) {
-                seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/seth.Ntraj;
-                seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/seth.Ntraj;
+            if (seth.if_st_nan == 1) {
+                for (int i = 0; i < seth.Ngrid; i++) {
+                    seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/(seth.Ntraj - seth.mpi_N_nan_sum[i]);
+                    seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/(seth.Ntraj - seth.mpi_N_nan_sum[i]);
+                }
+            } else {
+                for (int i = 0; i < seth.Ngrid; i++) {
+                    seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/seth.Ntraj;
+                    seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/seth.Ntraj;
+                }
             }
         }
 
