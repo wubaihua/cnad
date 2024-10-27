@@ -361,6 +361,8 @@ struct set_slave
     double complex *gamma_cv_old, *den_e_old; // 2D complex arrays: [size1][size2]
     double *nacv_old, *V_old, *dV_old, *E_adia_old, *dv_adia_old; // Various dimensional arrays
 
+    double *R_nuc_init;
+
 
     // 动态分配的数组声明
     double *nac_check_old; // 4D double array: [size1][size2][size3][size4]

@@ -223,7 +223,7 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
 }
 
 
-void cfweight_msmodel(double *rho0, double *rhot, double beta, int icfall, struct set_host *setm){
+void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double *P, int icfall, struct set_host *setm){
     if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
         strcmp(setm->msmodelname, "semdp") == 0) {
         cfweight_SEMdp(rho0,rhot,setm);
@@ -231,7 +231,7 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, int icfall, struc
         strcmp(setm->msmodelname, "fmodp") == 0) {
         cfweight_FMOdp(rho0,rhot, icfall, setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
-        cfweight_rubrene(rho0,rhot, beta, setm);
+        cfweight_rubrene(rho0,rhot, beta, R, P, setm);
     }
 }
 

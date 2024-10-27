@@ -55,6 +55,6 @@ void nucforce_rubrene(double *R, double *nf, struct set_host *setm);
 
 
 
-void cfweight_rubrene(double *w0, double *wt, double beta, struct set_host *setm);
+void cfweight_rubrene(double *w0, double *wt, double beta, double *R, double *P, struct set_host *setm);
 
 
