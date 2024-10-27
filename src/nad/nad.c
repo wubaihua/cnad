@@ -578,8 +578,8 @@ int main(int argc, char *argv[]) {
             if (seth.if_st_nan == 1) {
                 for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
                     for (int i = 0; i < seth.Nstate * seth.Nstate; i++) {
-                        seth.mpi_real_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
-                        seth.mpi_imag_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
+                        seth.mpi_real_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                        seth.mpi_imag_den[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
                     }
                 }
             } else {
@@ -598,7 +598,7 @@ int main(int argc, char *argv[]) {
             if (seth.if_st_nan == 1) {
                 for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
                     for (int i = 0; i < seth.Nstate; i++) {
-                        seth.mpi_population[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.fi_N_nan_sum[igrid]);
+                        seth.mpi_population[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
                     }
                 }
             } else {
