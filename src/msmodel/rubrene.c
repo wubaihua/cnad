@@ -312,6 +312,9 @@ void cfweight_rubrene(double *w0, double *wt, double beta, double *R, double *P,
         dd_matmul(C,expe,tempdm2,setm->Nstate_rubrene,setm->Nstate_rubrene,setm->Nstate_rubrene);
         dd_matmul(tempdm2,tempdm1,rho,setm->Nstate_rubrene,setm->Nstate_rubrene,setm->Nstate_rubrene);
  
+        memset(w0, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        memset(wt, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        
         for (i = 0; i < setm->Nstate_rubrene; i++) {
             if (i == 0) {
                 wt[(i + 1) * setm->Nstate_rubrene + i] = 1;
