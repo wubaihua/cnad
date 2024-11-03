@@ -21,6 +21,7 @@
 #include "semdp.h"
 #include "fmodp.h"
 #include "rubrene.h"
+#include "dnalvcm.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -71,6 +72,8 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_FMOdp(mass,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         parameter_rubrene(mass,setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
+        parameter_dnalvcm(mass,setm);
     }
 
 }
@@ -110,6 +113,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_FMOdp(P, R, beta,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         sample_rubrene(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
+        sample_dnalvcm(P, R, setm);
     }
 }
 
@@ -148,6 +153,8 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
         V_FMOdp(R, H, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         V_rubrene(R, H, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
+        V_dnalvcm(R, H, setm->forcetype,setm);
     }
 }
 
@@ -186,6 +193,8 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
         dV_FMOdp(R, dH, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         dV_rubrene(R, dH, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
+        dV_dnalvcm(R, dH, setm->forcetype,setm);
     }
 }
 
@@ -219,6 +228,8 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_FMOdp(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         nucforce_rubrene(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
+        nucforce_dnalvcm(R, nf,setm);
     }
 }
 

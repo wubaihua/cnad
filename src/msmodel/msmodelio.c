@@ -579,7 +579,36 @@ void readinp_rubrene(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
     *Nstate = setm->Nstate_rubrene;
 }
 
+void readinp_dnalvcm(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
 
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_dnalvcm")){
+        list=cJSON_GetObjectItem(item, "type_dnalvcm");
+        setm->type_dnalvcm = list->valueint;         
+    }
+
+    switch (setm->type_dnalvcm) {
+        case 1:
+            setm->Nstate_lvcm = 6;
+            setm->N_mode_lvcm = 42;
+            break;
+        case 2:
+            setm->Nstate_lvcm = 7;
+            setm->N_mode_lvcm = 33;
+            break;
+        case 3:
+            setm->Nstate_lvcm = 7;
+            setm->N_mode_lvcm = 39;
+            break;
+    }
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+
+}
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
@@ -623,6 +652,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_FMOdp(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         readinp_rubrene(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
+        readinp_dnalvcm(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

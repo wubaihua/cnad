@@ -853,8 +853,12 @@ struct set_host
         int type_pyrazine;
 
 
-        // pyrazine crco5
+        // crco5 LVCM
         int type_crco5;
+
+        // DNA LVCM
+        int type_dnalvcm;
+
 
         // Tully model parameters
         int type_tully;
