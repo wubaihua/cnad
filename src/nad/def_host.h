@@ -420,6 +420,10 @@ struct set_host
     double *mpi_P_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_R2_nuc_mean; // 3D double array: [size1][size2][size3]
     double *mpi_P2_nuc_mean; // 3D double array: [size1][size2][size3]
+    double *save_R_nuc_mean; // 3D double array: [size1][size2][size3]
+    double *save_P_nuc_mean; // 3D double array: [size1][size2][size3]
+    double *save_R2_nuc_mean; // 3D double array: [size1][size2][size3]
+    double *save_P2_nuc_mean; // 3D double array: [size1][size2][size3]
     unsigned long long *mpi_N_nan_sum; // 1D int array: [size1]
     unsigned long long *save_N_nan_sum; 
     double *mpi_real_den;

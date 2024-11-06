@@ -157,6 +157,16 @@ void dynamics_slave(struct set_host *seth){
             }
 
 
+            if (seth->mean_nuc == 1) {
+                for (int i = 0; i < seth->Ndof1 * seth->Ndof2 * seth->Ngrid; i++){
+                    seth->save_R_nuc_mean[i*seth->nproc_sw+idcore] = sets.R_nuc_mean[i];
+                    seth->save_P_nuc_mean[i*seth->nproc_sw+idcore] = sets.P_nuc_mean[i];
+                    seth->save_R2_nuc_mean[i*seth->nproc_sw+idcore] = sets.R2_nuc_mean[i];
+                    seth->save_P2_nuc_mean[i*seth->nproc_sw+idcore] = sets.P2_nuc_mean[i];
+                }
+            }
+
+
         }
         athread_ssync_array();
     }
@@ -214,6 +224,16 @@ void dynamics_slave(struct set_host *seth){
             seth->mpi_real_cfeff[i] = creal(sets.cfeff[i]);
             seth->mpi_imag_cfeff[i] = cimag(sets.cfeff[i]);
            
+        }
+    }
+
+
+    if (seth->mean_nuc == 1) {
+        for (int i = 0; i < seth->Ndof1 * seth->Ndof2 * seth->Ngrid; i++){
+            seth->mpi_R_nuc_mean[i] = sets.R_nuc_mean[i];
+            seth->mpi_P_nuc_mean[i] = sets.P_nuc_mean[i];
+            seth->mpi_R2_nuc_mean[i] = sets.R2_nuc_mean[i];
+            seth->mpi_P2_nuc_mean[i] = sets.P2_nuc_mean[i];
         }
     }
 

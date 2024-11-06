@@ -1365,6 +1365,30 @@ void init_host(struct set_host *seth){
 
 
 
+    if (seth->mean_nuc == 1) {
+        seth->mpi_R_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        seth->mpi_P_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        seth->mpi_R2_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        seth->mpi_P2_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        memset(seth->mpi_R_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        memset(seth->mpi_P_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        memset(seth->mpi_R2_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+        memset(seth->mpi_P2_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * sizeof(double));
+
+
+        seth->save_R_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid  * seth->nproc_sw * sizeof(double));
+        seth->save_P_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid  * seth->nproc_sw * sizeof(double));
+        seth->save_R2_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * seth->nproc_sw  * sizeof(double));
+        seth->save_P2_nuc_mean = (double *)malloc(seth->Ndof1 * seth->Ndof2 * seth->Ngrid * seth->nproc_sw  * sizeof(double));
+
+        memset(seth->save_R_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid  * seth->nproc_sw  * sizeof(double));
+        memset(seth->save_P_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid  * seth->nproc_sw  * sizeof(double));
+        memset(seth->save_R2_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * seth->nproc_sw   * sizeof(double));
+        memset(seth->save_P2_nuc_mean, 0, seth->Ndof1 * seth->Ndof2 * seth->Ngrid * seth->nproc_sw   * sizeof(double));
+    }
+
+
+
 
 
    
@@ -1704,9 +1728,9 @@ void print_info(struct set_host *seth){
             printf("if_allcf = %d: All time correlation functions will be calculated,\n", seth->if_allcf);
             printf("But only a weighted effective time correlation function will be saved.\n");
         }
-        // if (mean_nuc == 1) {
-        //     printf("mean_nuc = 1: Output mean nuclear DOFs.\n");
-        // }
+        if (seth->mean_nuc == 1) {
+            printf("mean_nuc = 1: Output mean nuclear DOFs.\n");
+        }
         // if (if_st_eng == 1) {
         //     printf("if_st_eng = 1: estimate total energy \n");
         // }
@@ -1876,6 +1900,64 @@ void fileout(struct set_host *seth) {
 //         }
 //         fclose(nfailtraj_file);
 //     }
+
+    if(seth->mean_nuc == 1){
+        strncpy(outname, seth->filepath, len - 5);
+        strcpy(outname + len - 5, ".Rmean");
+        FILE *Rnuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(Rnuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(Rnuc_file, "%18.8E", seth->mpi_R_nuc_mean[j*seth->Ngrid+i]);
+            }
+            fprintf(Rnuc_file, "\n");
+        }
+        fclose(Rnuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        strcpy(outname + len - 5, ".Pmean");
+        FILE *Pnuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(Pnuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(Pnuc_file, "%18.8E", seth->mpi_P_nuc_mean[j*seth->Ngrid+i]);
+            }
+            fprintf(Pnuc_file, "\n");
+        }
+        fclose(Pnuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        strcpy(outname + len - 5, ".R2mean");
+        FILE *R2nuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(R2nuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(R2nuc_file, "%18.8E", seth->mpi_R2_nuc_mean[j*seth->Ngrid+i]);
+            }
+            fprintf(R2nuc_file, "\n");
+        }
+        fclose(R2nuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        strcpy(outname + len - 5, ".P2mean");
+        FILE *P2nuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(P2nuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(P2nuc_file, "%18.8E", seth->mpi_P2_nuc_mean[j*seth->Ngrid+i]);
+            }
+            fprintf(P2nuc_file, "\n");
+        }
+        fclose(P2nuc_file);
+
+    }
 
 //     if (if_st_fb == 1) {
 //         strncpy(outname, filepath, len - 5);
@@ -2100,6 +2182,82 @@ void fileout_mpi(int id, struct set_host *seth) {
             fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_real_cfeff[i], seth->fi_imag_cfeff[i]);
         }
         fclose(cfeff_file);
+    }
+
+
+
+    if(seth->mean_nuc == 1){
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".Rmean");
+        FILE *Rnuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(Rnuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(Rnuc_file, "%18.8E", seth->fi_R_nuc_mean[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
+            }
+            fprintf(Rnuc_file, "\n");
+        }
+        fclose(Rnuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".Pmean");
+        FILE *Pnuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(Pnuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(Pnuc_file, "%18.8E", seth->fi_P_nuc_mean[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
+            }
+            fprintf(Pnuc_file, "\n");
+        }
+        fclose(Pnuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".R2mean");
+        FILE *R2nuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(R2nuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(R2nuc_file, "%18.8E", seth->fi_R2_nuc_mean[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
+            }
+            fprintf(R2nuc_file, "\n");
+        }
+        fclose(R2nuc_file);
+
+
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".P2mean");
+        FILE *P2nuc_file = fopen(outname, "w");
+        totn = seth->Nstate + 1;
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(P2nuc_file, "%18.8E", seth->fi_time_grid[i] / seth->unittrans_t);
+            for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
+                fprintf(P2nuc_file, "%18.8E", seth->fi_P2_nuc_mean[j*seth->Ngrid+i]/seth->Ntraj*seth->mpi_size);
+            }
+            fprintf(P2nuc_file, "\n");
+        }
+        fclose(P2nuc_file);
+
     }
 
 

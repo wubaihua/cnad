@@ -293,6 +293,40 @@ int main(int argc, char *argv[]) {
         memcpy(seth.fi_imag_cfeff, seth.mpi_imag_cfeff, seth.Ngrid * sizeof(double));  
         #endif
     }
+
+
+
+
+
+    if (seth.mean_nuc == 1) {
+        seth.fi_R_nuc_mean = (double *)malloc(seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        seth.fi_P_nuc_mean = (double *)malloc(seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        seth.fi_R2_nuc_mean = (double *)malloc(seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        seth.fi_P2_nuc_mean = (double *)malloc(seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));  
+        memset(seth.fi_R_nuc_mean, 0, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        memset(seth.fi_P_nuc_mean, 0, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double)); 
+        memset(seth.fi_R2_nuc_mean, 0, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        memset(seth.fi_P2_nuc_mean, 0, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double)); 
+        #ifdef sunway
+        for (int i = 0; i < seth.Ndof1 * seth.Ndof2 * seth.Ngrid; i++){
+            for(int j = 0; j < seth.nproc_sw; j++){
+                seth.fi_R_nuc_mean[i] += seth.save_R_nuc_mean[i * seth.nproc_sw + j];
+                seth.fi_P_nuc_mean[i] += seth.save_P_nuc_mean[i * seth.nproc_sw + j];
+                seth.fi_R2_nuc_mean[i] += seth.save_R2_nuc_mean[i * seth.nproc_sw + j];
+                seth.fi_P2_nuc_mean[i] += seth.save_P2_nuc_mean[i * seth.nproc_sw + j];
+            }
+        }
+        free(seth.save_R_nuc_mean);
+        free(seth.save_P_nuc_mean);
+        free(seth.save_R2_nuc_mean);
+        free(seth.save_P2_nuc_mean);
+        #elif defined(x86)
+        memcpy(seth.fi_R_nuc_mean, seth.mpi_R_nuc_mean, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        memcpy(seth.fi_P_nuc_mean, seth.mpi_P_nuc_mean, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        memcpy(seth.fi_R2_nuc_mean, seth.mpi_R2_nuc_mean, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));
+        memcpy(seth.fi_P2_nuc_mean, seth.mpi_P2_nuc_mean, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));  
+        #endif
+    }
     
     
 
@@ -482,6 +516,24 @@ int main(int argc, char *argv[]) {
         
     }
 
+
+
+    if (seth.mean_nuc == 1) {
+        
+        for (int i = 0; i < seth.Ndof1 * seth.Ndof2 * seth.Ngrid; i++){
+            MPI_Reduce(&seth.fi_R_nuc_mean[i], &seth.mpi_R_nuc_mean[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_P_nuc_mean[i], &seth.mpi_P_nuc_mean[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_R2_nuc_mean[i], &seth.mpi_R2_nuc_mean[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_P2_nuc_mean[i], &seth.mpi_P2_nuc_mean[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        }
+
+        free(seth.fi_R_nuc_mean);
+        free(seth.fi_P_nuc_mean);
+        free(seth.fi_R2_nuc_mean);
+        free(seth.fi_P2_nuc_mean);
+        
+    }
+
     // // if (cfall != NULL) {
     // //     double *mpi_cfall = (double *)malloc(Nstate * Nstate * Nstate * Nstate * Ngrid * sizeof(double));
     // //     double *real_cfall = (double *)malloc(Nstate * Nstate * Nstate * Nstate * Ngrid * sizeof(double));
@@ -632,6 +684,28 @@ int main(int argc, char *argv[]) {
                 for (int i = 0; i < seth.Ngrid; i++) {
                     seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/seth.Ntraj;
                     seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/seth.Ntraj;
+                }
+            }
+        }
+
+
+
+        if (seth.mean_nuc == 1) {
+            if (seth.if_st_nan == 1) {
+                for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
+                    for (int i = 0; i < seth.Ndof1 * seth.Ndof2; i++) {
+                        seth.mpi_R_nuc_mean[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                        seth.mpi_P_nuc_mean[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                        seth.mpi_R2_nuc_mean[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                        seth.mpi_P2_nuc_mean[i * seth.Ngrid + igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                    }
+                }
+            } else {
+                for (int i = 0; i < seth.Ndof1 * seth.Ndof2 * seth.Ngrid; i++) {
+                    seth.mpi_R_nuc_mean[i] = seth.mpi_R_nuc_mean[i]/seth.Ntraj;
+                    seth.mpi_P_nuc_mean[i] = seth.mpi_P_nuc_mean[i]/seth.Ntraj;
+                    seth.mpi_R2_nuc_mean[i] = seth.mpi_R2_nuc_mean[i]/seth.Ntraj;
+                    seth.mpi_P2_nuc_mean[i] = seth.mpi_P2_nuc_mean[i]/seth.Ntraj;
                 }
             }
         }
