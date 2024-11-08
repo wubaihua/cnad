@@ -610,6 +610,39 @@ void readinp_dnalvcm(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
 
 }
 
+
+
+void readinp_frozen(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    cJSON *number;
+    // if (NULL !=  cJSON_GetObjectItem(item, "Nstate_frozen")){
+    //     list=cJSON_GetObjectItem(item, "Nstate_frozen");
+    //     setm->Nstate_frozen = list->valueint;  
+    //     // setm->Hele_frozen = (double *)malloc(setm->Nstate_frozen * setm->Nstate_frozen * sizeof(double));       
+    // }
+
+
+    if (NULL !=  cJSON_GetObjectItem(item, "Hele_frozen")){
+        cJSON *numbers = cJSON_GetObjectItem(item, "Hele_frozen"); 
+        setm->Nstate_frozen = (int)sqrt(cJSON_GetArraySize(numbers)); 
+        setm->Hele_frozen = (double *)malloc(setm->Nstate_frozen * setm->Nstate_frozen * sizeof(double));   
+        for (int i = 0; i < setm->Nstate_frozen * setm->Nstate_frozen; i++) {
+            number = cJSON_GetArrayItem(numbers, i); 
+            setm->Hele_frozen[i] = number->valuedouble; 
+        }   
+    }
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+    *Nstate = setm->Nstate_frozen;
+
+
+     
+
+
+}
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -654,6 +687,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_rubrene(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         readinp_dnalvcm(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "frozen") == 0) {
+        readinp_frozen(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

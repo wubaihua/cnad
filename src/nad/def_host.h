@@ -885,7 +885,9 @@ struct set_host
         double *omega_rubrene, *lambda_rubrene, *g_rubrene, *mass_rubrene;
 
 
-
+        // frozen nuclei limit
+        int Nstate_frozen;
+        double *Hele_frozen;
 
 };
 

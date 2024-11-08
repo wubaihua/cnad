@@ -592,7 +592,7 @@ void readinp(struct set_host *seth){
         strcpy(seth->msmodelname, list->valuestring);
     }
 
-        
+    // seth->Hele_frozen = NULL;   
         
     while (item) {
         // printf("F1=%d\n",Nstate);
