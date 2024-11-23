@@ -2179,7 +2179,7 @@ void fileout_mpi(int id, struct set_host *seth) {
         strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".cfeff");
         FILE *cfeff_file = fopen(outname, "w");
         for (i = 0; i < seth->Ngrid; i++) {
-            fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_real_cfeff[i], seth->fi_imag_cfeff[i]);
+            fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_real_cfeff[i]/seth->Ntraj*seth->mpi_size, seth->fi_imag_cfeff[i]/seth->Ntraj*seth->mpi_size);
         }
         fclose(cfeff_file);
     }
