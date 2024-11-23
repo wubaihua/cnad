@@ -1140,6 +1140,38 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
         sets->correfun_0 = 1.0;
 
+
+        if (seth->type_evo >= 1) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+
+        if (seth->if_allcf != 0) {
+            alpha_mash = 0;
+            for (i = 1; i < seth->Nstate + 1; i++){
+                alpha_mash += 1.0 / ((double) i); 
+            }
+            alpha_mash = (double) (seth->Nstate - 1.0) / (alpha_mash - 1.0);
+            beta_mash = (1.0 - alpha_mash) / seth->Nstate;
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    if (i == j) {
+                        if( i == sets->init_occ ){
+                           sets->cf0[i * seth->Nstate + j] = 1;
+                        } else {
+                           sets->cf0[i * seth->Nstate + j] = 0;
+                        }
+                    } else {
+                        sets->cf0[i * seth->Nstate + j] = (1.0 + seth->Nstate)/((1 - seth->Nstate * beta_mash)) * sets->den_e[i * seth->Nstate + j];
+                    }
+                }
+            }
+        }
+
     } else if (strcmp(seth->method, "ms-mash-mf2") == 0 || strcmp(seth->method, "MS-MASH-MF2") == 0 ||
                strcmp(seth->method, "mf2") == 0 || strcmp(seth->method, "MF2") == 0 ||
                strcmp(seth->method, "CW1") == 0 || strcmp(seth->method, "cw1") == 0 ) {
@@ -1831,11 +1863,18 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
         alpha_mash = (double) (seth->Nstate - 1.0) / (alpha_mash - 1.0);
         beta_mash = (1.0 - alpha_mash) / seth->Nstate;
 
-        for (i = 0; i < seth->Nstate; i++) {
-            for (j = 0; j < seth->Nstate; j++) {
-                
-                sets->correfun_t[i * seth->Nstate + j] = alpha_mash * 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) + beta_mash * (i == j ? 1 : 0);
-                
+
+        if (seth->type_evo == 1 || seth->type_evo == 3) {
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    sets->correfun_t[i * seth->Nstate + j] = alpha_mash * sets->den_e[i * seth->Nstate + j] + beta_mash * (i == j ? 1 : 0);
+                }
+            }
+        } else {      
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    sets->correfun_t[i * seth->Nstate + j] = alpha_mash * 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) + beta_mash * (i == j ? 1 : 0);
+                }
             }
         }
 
