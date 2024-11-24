@@ -1378,7 +1378,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ) {
             
             for (int i = 0; i < seth->Nstate; i++) {
-                c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
+                if(seth->type_evo == 0) c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
+                if(seth->type_evo == 1) c_main[i] = creal(sets->den_e[i * seth->Nstate + i]);
             }
             sets->id_state = maxloc(c_main, seth->Nstate);
     //         if (0.5 * (sets->xe[0] * sets->xe[0] + sets->pe[0] * sets->pe[0]) >= 0.5) {
@@ -3768,9 +3769,14 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth) {
                 }
                 for (int i = 0; i < seth->Nstate; i++) {
                     for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++) {
-                        deltavector[j] += 1.0 / sqrt(sets->mass[j]) 
+                        if (seth->type_evo == 0) deltavector[j] += 1.0 / sqrt(sets->mass[j]) 
                         * creal(0.5 * (sets->xe[i] - I * sets->pe[i]) * (sets->xe[sets->id_state] + I * sets->pe[sets->id_state]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + j] 
                         - 0.5 * (sets->xe[i] - I * sets->pe[i]) * (sets->xe[id_switch] + I * sets->pe[id_switch]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + j]);
+
+                        if (seth->type_evo == 1) deltavector[j] += 1.0 / sqrt(sets->mass[j]) 
+                        * creal(sets->den_e[i * seth->Nstate + sets->id_state] * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + j] 
+                        - sets->den_e[i * seth->Nstate + id_switch] * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + j]);
+                    
                     }
                 }
                 sum = 0.0;
