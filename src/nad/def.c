@@ -1161,12 +1161,12 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 for (int j = 0; j < seth->Nstate; j++) {
                     if (i == j) {
                         if( i == sets->init_occ ){
-                           sets->cf0[i * seth->Nstate + j] = 1;
+                           sets->cf0[i * seth->Nstate + j] = seth->Nstate;
                         } else {
                            sets->cf0[i * seth->Nstate + j] = 0;
                         }
                     } else {
-                        sets->cf0[i * seth->Nstate + j] = (1.0 + seth->Nstate)/((1 - seth->Nstate * beta_mash)) * sets->den_e[i * seth->Nstate + j];
+                        sets->cf0[i * seth->Nstate + j] = seth->Nstate * (1.0 + seth->Nstate)/((1 - seth->Nstate * beta_mash)) * sets->den_e[i * seth->Nstate + j];
                     }
                 }
             }
