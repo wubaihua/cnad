@@ -23,6 +23,7 @@
 #include "rubrene.h"
 #include "dnalvcm.h"
 #include "frozen.h"
+#include "dualho.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -77,8 +78,9 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_dnalvcm(mass,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         parameter_frozen(mass,setm);
+    }else if (strcmp(setm->msmodelname, "dualho") == 0) {
+        parameter_dualho(mass,setm);
     }
-
 }
 
 // Sample the initial conditionals for trajectories of the model
@@ -120,6 +122,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_dnalvcm(P, R, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         sample_frozen(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "dualho") == 0) {
+        sample_dualho(P, R, setm);
     }
 }
 
@@ -162,6 +166,8 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
         V_dnalvcm(R, H, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
         V_frozen(R, H, setm);
+    } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
+        V_dualho(R, H, setm);
     }
 }
 
@@ -204,6 +210,8 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
         dV_dnalvcm(R, dH, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
         dV_frozen(R, dH, setm);
+    } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
+        dV_dualho(R, dH, setm);
     }
 }
 

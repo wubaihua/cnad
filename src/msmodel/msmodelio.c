@@ -643,6 +643,28 @@ void readinp_frozen(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set
 
 }
 
+
+void readinp_dualho(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_dualho")){
+        list=cJSON_GetObjectItem(item, "type_dualho");
+        setm->type_dualho = list->valueint;         
+    }
+
+    
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+    *Nstate = 2;
+
+}
+
+
+
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -689,6 +711,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_dnalvcm(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         readinp_frozen(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "dualho") == 0) {
+        readinp_dualho(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

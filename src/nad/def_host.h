@@ -888,6 +888,12 @@ struct set_host
         // frozen nuclei limit
         int Nstate_frozen;
         double *Hele_frozen;
+        
+
+
+        // dual harmonic oscilators:
+        int type_dualho;
+        // double A1_dualho, A2_dualho, R01_dualho, R02_dualho, 
 
 };
 
