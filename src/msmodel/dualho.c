@@ -67,6 +67,9 @@ void sample_dualho(double *P, double *R, struct set_host *setm) {
         case 1:
             box_muller(&P[0], &x2, 1.0/(2*0.2236), 0.0);
             box_muller(&R[0], &x2, 0.2236, 2.0);
+        case 2:
+            box_muller(&P[0], &x2, 1.0/(2*0.2236), 0.0);
+            box_muller(&R[0], &x2, 0.2236, 0.5);
     }
 
     
@@ -81,12 +84,12 @@ void V_dualho(double *R, double *H, struct set_host *setm) {
             H[1] = 0.01 * exp(-3 * (R[0] - 3.875) * (R[0] - 3.875));
             H[2] = H[1];
             break;
-        // case 2:
-        //     H[0] = 0;
-        //     H[3] = -setm->A_dualho * exp(-setm->B_dualho * R[0] * R[0]) + setm->E_dualho;
-        //     H[1] = setm->C_dualho * exp(-setm->D_dualho * R[0] * R[0]);
-        //     H[2] = H[1];
-        //     break;
+        case 2:
+            H[0] = 0.01 * (R[0] - 6.0) * (R[0] - 6.0);
+            H[3] = 0.01 * (R[0] - 2.0) * (R[0] - 2.0) + 0.01;
+            H[1] = 0.01 * exp(-0.3 * (R[0] - 3.875) * (R[0] - 3.875));
+            H[2] = H[1];
+            break;
         // case 3:
         //     H[0] = -setm->A_dualho;
         //     H[3] = setm->A_dualho;
@@ -127,12 +130,12 @@ void dV_dualho(double *R, double *dH, struct set_host *setm) {
             dH[1] = -0.01 * exp(-3 * (R[0] - 3.875) * (R[0] - 3.875)) * 6 * (R[0] - 3.875);
             dH[2] = dH[1];
             break;
-        // case 2:
-        //     dH[0] = 0;
-        //     dH[3] = 2 * setm->A_dualho * setm->B_dualho * R[0] * exp(-setm->B_dualho * R[0] * R[0]);
-        //     dH[1] = -setm->C_dualho * 2 * setm->D_dualho * R[0] * exp(-setm->D_dualho * R[0] * R[0]);
-        //     dH[2] = dH[1];
-        //     break;
+        case 2:
+            dH[0] = 0.01 * 2 * (R[0] - 6.0);
+            dH[3] = 0.01 * 2 * (R[0] - 2.0);
+            dH[1] = -0.01 * exp(-0.3 * (R[0] - 3.875) * (R[0] - 3.875)) * 0.6 * (R[0] - 3.875);
+            dH[2] = dH[1];
+            break;
         // case 3:
         //     dH[0] = 0;
         //     dH[3] = 0;
