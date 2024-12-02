@@ -2927,15 +2927,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         // printf("%d %d %f %f %f %f\n",slavecore_id, itime, sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0]);
         if(seth->if_flighttime_tully == 1){
             if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
-               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {
-
-                printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
-                        sets->t_now,
-                        R00,P00,
-                        sets->R_nuc[0],sets->P_nuc[0],
-                        creal(sets->correfun_0 * sets->correfun_t[0]),
-                        creal(sets->correfun_0 * sets->correfun_t[3]),
-                        sets->id_state + 1);
+               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {          
                 break;
             }
         }
@@ -3066,6 +3058,46 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         
         
     }
+
+
+    if(seth->if_flighttime_tully == 1){
+        // if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
+        //    (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {
+        #ifdef sunway
+            for (int i = 0; i < 64; i++){
+                if(i == slavecore_id){
+                    printf(
+                "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+                // "%18.8E %18.8E %18.8E %d\n",
+                    sets->t_now,
+                    R00,P00,
+                    sets->R_nuc[0],sets->P_nuc[0],
+                    creal(sets->correfun_0 * sets->correfun_t[0]),
+                    creal(sets->correfun_0 * sets->correfun_t[3]),
+                    sets->id_state + 1);
+                    } 
+                athread_ssync_array();
+            }
+            
+
+        // }
+        #elif defined(x86)
+
+            printf(
+            "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+            // "%18.8E %18.8E %18.8E %d\n",
+                sets->t_now,
+                R00,P00,
+                sets->R_nuc[0],sets->P_nuc[0],
+                creal(sets->correfun_0 * sets->correfun_t[0]),
+                creal(sets->correfun_0 * sets->correfun_t[3]),
+                sets->id_state + 1);
+
+        #endif
+    }
+     
+
+    
 
     // if (seth->if_Pdis == 1) {
     //     if (strcmp(seth->method, "mash") == 0 || strcmp(seth->method, "MASH") == 0) {
