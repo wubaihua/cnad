@@ -212,6 +212,9 @@ int main(int argc, char *argv[]) {
     //      printf("%18.8E\n",seth.save_population[0 * seth.Ngrid *64  + (seth.Ngrid -1)*64+i]); // debug
     // }
    
+    if(seth.if_flighttime_tully == 1){
+        fileout_flighttime(seth.mpi_rank,&seth);
+    }
 
     
     // athread_spawn(free_slave,0);

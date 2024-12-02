@@ -437,6 +437,10 @@ struct set_host
 
 
 
+    double *save_flighttime;
+
+
+
 
     double complex *fi_den; // 3D complex array: [size1][size2][size3]
     double complex *fi_cfall; // 5D complex array: [size1][size2][size3][size4][size5]
@@ -913,5 +917,7 @@ void print_info(struct set_host *seth);
 void fileout(struct set_host *seth) ;
 
 void fileout_mpi(int id, struct set_host *seth);
+
+void fileout_flighttime(int id, struct set_host *seth);
 
 #endif // DEF_HOST_H

@@ -1410,6 +1410,12 @@ void init_host(struct set_host *seth){
 
 
 
+    if(seth->if_flighttime_tully == 1) {
+        seth->save_flighttime = (double *)malloc(8 * seth->Ntraj/seth->mpi_size * sizeof(double));
+    }
+
+
+
 
 
    
@@ -2288,3 +2294,33 @@ void fileout_mpi(int id, struct set_host *seth) {
 
 
 
+void fileout_flighttime(int id, struct set_host *seth) {
+    int i, totn;
+    char outname[350];
+    char cid[20];
+
+    snprintf(cid, sizeof(cid), "%d", id);
+
+    size_t len = strlen(seth->filepath);
+    
+
+    
+    strncpy(outname, seth->filepath, len - 5);
+    // strcpy(outname + len - 5, ".den");
+    outname[len - 5] = '\0'; // 确保字符串以null结尾
+    strcpy(outname + len - 5, "_mpi");
+    strcpy(outname + len - 5 + strlen("_mpi"), cid);
+    strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".flighttime");
+    FILE *flighttime_file = fopen(outname, "w");
+  
+    for (i = 0; i < seth->Ntraj/seth->mpi_size; i++) {
+        
+        for (int j = 0; j < 8; j++) {
+            fprintf(flighttime_file, "%18.8E", seth->save_flighttime[j*seth->Ntraj/seth->mpi_size + i]);
+        }
+       
+        fprintf(flighttime_file, "\n");
+    }
+    fclose(flighttime_file);
+
+}
