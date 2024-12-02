@@ -2926,8 +2926,17 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
         // printf("%d %d %f %f %f %f\n",slavecore_id, itime, sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0]);
         if(seth->if_flighttime_tully == 1){
-            if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
-               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {          
+            if(sets->R_nuc[0] < -1.0 * seth->Xb_tully  || 
+               sets->R_nuc[0] > seth->Xb_tully  ) { 
+                evo_traj_calProp(igrid,sets,seth);   
+                seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
+                seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
+                seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
+                seth->save_flighttime[3*seth->Ntraj/seth->mpi_size+itraj-1]=sets->R_nuc[0];
+                seth->save_flighttime[4*seth->Ntraj/seth->mpi_size+itraj-1]=sets->P_nuc[0];
+                seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
+                seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
+                seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);      
                 break;
             }
         }
@@ -3060,68 +3069,68 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     }
 
 
-    if(seth->if_flighttime_tully == 1){
-        // if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
-        //    (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {
-        #ifdef sunway
-            // for (int i = 0; i < 64; i++){
-            //     if(i == slavecore_id){
-            //         printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
-            //         sets->t_now,
-            //         R00,P00,
-            //         sets->R_nuc[0],sets->P_nuc[0],
-            //         creal(sets->correfun_0 * sets->correfun_t[0]),
-            //         creal(sets->correfun_0 * sets->correfun_t[3]),
-            //         sets->id_state + 1);
-            //         } 
+    // if(seth->if_flighttime_tully == 1){
+    //     // if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
+    //     //    (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {
+    //     #ifdef sunway
+    //         // for (int i = 0; i < 64; i++){
+    //         //     if(i == slavecore_id){
+    //         //         printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+    //         //         sets->t_now,
+    //         //         R00,P00,
+    //         //         sets->R_nuc[0],sets->P_nuc[0],
+    //         //         creal(sets->correfun_0 * sets->correfun_t[0]),
+    //         //         creal(sets->correfun_0 * sets->correfun_t[3]),
+    //         //         sets->id_state + 1);
+    //         //         } 
                 
-            // }
-            // athread_ssync_array();
-            // printf(
-            // "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
-            // // "%18.8E %18.8E %18.8E %d\n",
-            //     sets->t_now,
-            //     R00,P00,
-            //     sets->R_nuc[0],sets->P_nuc[0],
-            //     creal(sets->correfun_0 * sets->correfun_t[0]),
-            //     creal(sets->correfun_0 * sets->correfun_t[3]),
-            //     sets->id_state + 1);
-            for (int i = 0; i < 64; i++){
-                if(i == slavecore_id){
-                    seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
-                    seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
-                    seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
-                    seth->save_flighttime[3*seth->Ntraj/seth->mpi_size+itraj-1]=sets->R_nuc[0];
-                    seth->save_flighttime[4*seth->Ntraj/seth->mpi_size+itraj-1]=sets->P_nuc[0];
-                    seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
-                    seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
-                    seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);
-                }
-                athread_ssync_array(); 
-            }
-        // }
-        #elif defined(x86)
+    //         // }
+    //         // athread_ssync_array();
+    //         // printf(
+    //         // "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+    //         // // "%18.8E %18.8E %18.8E %d\n",
+    //         //     sets->t_now,
+    //         //     R00,P00,
+    //         //     sets->R_nuc[0],sets->P_nuc[0],
+    //         //     creal(sets->correfun_0 * sets->correfun_t[0]),
+    //         //     creal(sets->correfun_0 * sets->correfun_t[3]),
+    //         //     sets->id_state + 1);
+    //         // for (i = 0; i < 64; i++){
+    //         //     if(i == slavecore_id){
+    //                 seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
+    //                 seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
+    //                 seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
+    //                 seth->save_flighttime[3*seth->Ntraj/seth->mpi_size+itraj-1]=sets->R_nuc[0];
+    //                 seth->save_flighttime[4*seth->Ntraj/seth->mpi_size+itraj-1]=sets->P_nuc[0];
+    //                 seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
+    //                 seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
+    //                 seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);
+    //             // }
+    //         //     athread_ssync_array(); 
+    //         // }
+    //     // }
+    //     #elif defined(x86)
 
-            // printf(
-            // "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
-            // // "%18.8E %18.8E %18.8E %d\n",
-            //     sets->t_now,
-            //     R00,P00,
-            //     sets->R_nuc[0],sets->P_nuc[0],
-            //     creal(sets->correfun_0 * sets->correfun_t[0]),
-            //     creal(sets->correfun_0 * sets->correfun_t[3]),
-            //     sets->id_state + 1);
-            seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
-            seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
-            seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
-            seth->save_flighttime[3*seth->Ntraj/seth->mpi_size+itraj-1]=sets->R_nuc[0];
-            seth->save_flighttime[4*seth->Ntraj/seth->mpi_size+itraj-1]=sets->P_nuc[0];
-            seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
-            seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
-            seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);
+    //         // printf(
+    //         // "%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+    //         // // "%18.8E %18.8E %18.8E %d\n",
+    //         //     sets->t_now,
+    //         //     R00,P00,
+    //         //     sets->R_nuc[0],sets->P_nuc[0],
+    //         //     creal(sets->correfun_0 * sets->correfun_t[0]),
+    //         //     creal(sets->correfun_0 * sets->correfun_t[3]),
+    //         //     sets->id_state + 1);
+    //         seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
+    //         seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
+    //         seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
+    //         seth->save_flighttime[3*seth->Ntraj/seth->mpi_size+itraj-1]=sets->R_nuc[0];
+    //         seth->save_flighttime[4*seth->Ntraj/seth->mpi_size+itraj-1]=sets->P_nuc[0];
+    //         seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
+    //         seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
+    //         seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);
 
-        #endif
-    }
+    //     #endif
+    // }
      
 
     

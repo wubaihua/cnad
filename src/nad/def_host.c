@@ -1412,6 +1412,7 @@ void init_host(struct set_host *seth){
 
     if(seth->if_flighttime_tully == 1) {
         seth->save_flighttime = (double *)malloc(8 * seth->Ntraj/seth->mpi_size * sizeof(double));
+        memset(seth->save_flighttime, 0, 8 * seth->Ntraj/seth->mpi_size * sizeof(double));
     }
 
 
