@@ -543,6 +543,8 @@ void initial_para(struct set_host *seth) {
 
     seth->if_eld = 0;
 
+    seth->if_print = 0;
+
     seth->nproc_sw = 64;
 }
 
@@ -1253,6 +1255,14 @@ void readinp(struct set_host *seth){
                 seth->if_classical = list->valueint;
             }
         }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_print")) {
+            list = cJSON_GetObjectItem(item, "if_print");
+            if (list->type == cJSON_Number) {
+                seth->if_print = list->valueint;
+            }
+        }
         
 
         if (NULL != cJSON_GetObjectItem(item, "nproc_sw")) {
@@ -1818,7 +1828,7 @@ void fileout(struct set_host *seth) {
     char outname[350];
 
 
-    if (seth->if_allcf == 0) {
+    if (seth->if_allcf == 0 && seth->if_print == 0) {
         printf("output type= %d\n", seth->outputtype);
         if (seth->outputtype == 0) {
             printf("Density matrix will be given in *.den.\n");
@@ -1827,9 +1837,9 @@ void fileout(struct set_host *seth) {
         } else if (seth->outputtype < 0) {
             printf("Only population data will be given in *.pop.\n");
         }
-    } else if (seth->if_allcf == 1) {
+    } else if (seth->if_allcf == 1 && seth->if_print == 0) {
         printf("if_allcf = 1: All time correlation functions will be given in *.cf\n");
-    } else if (seth->if_allcf == 2 || seth->if_allcf == 3) {
+    } else if ((seth->if_allcf == 2 || seth->if_allcf == 3) && seth->if_print == 0) {
         printf("if_allcf = %d: Effective weighted correlation function will be given in *.cfeff\n", seth->if_allcf);
     }
 

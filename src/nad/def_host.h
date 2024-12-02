@@ -813,6 +813,9 @@ struct set_host
     int if_classical;
 
 
+    int if_print;
+
+
 
     // model parameters
 
@@ -868,6 +871,8 @@ struct set_host
         int type_tully;
         double A_tully, B_tully, C_tully, D_tully, E_tully, A2_tully, f_tully, Z_tully;
         double R0_tully, P0_tully, gamma_tully;
+        int if_flighttime_tully;
+        double Xb_tully;
 
 
         // SEM with dipole moment parameters:

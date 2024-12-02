@@ -27,7 +27,7 @@
 int main(int argc, char *argv[]) {
     // int mpi_size, mpi_rank, mpi_ierr;
     char date_now[20], time_now[20];
-    double t1=0, t2=0, tt1=0, tt2=0;
+    double t1=0, t2=0, tt1=0, tt2=0, ttt1=0, ttt2=0;
     time_t now;
     struct tm *t;
     time(&now);
@@ -48,7 +48,55 @@ int main(int argc, char *argv[]) {
     athread_init();
     #endif
 
-    if (seth.mpi_rank == 0) {
+    // if (seth.mpi_rank == 0) {
+    //     printf("====================================================================\n");
+    //     printf("*         cNAD: Non-Adiabatic Dynamics simulator (C-version)       *\n");
+    //     printf("*                        Module of Liouville                       *\n");
+    //     printf("*                                                                  *\n");
+    //     printf("*               Author: Baihua Wu (wubaihua@pku.edu.cn)            *\n");
+    //     printf("*                           version: 1.0                           *\n");
+    //     printf("*                           Sept. 5, 2024                          *\n");
+    //     printf("====================================================================\n");
+
+    //     strftime(date_now, sizeof(date_now), "%Y%m%d", t);
+    //     strftime(time_now, sizeof(time_now), "%H%M%S", t);
+    //     printf(" NAD start at %c%c%c%c-%c%c-%c%c %c%c:%c%c:%c%c\n",
+    //            date_now[0], date_now[1], date_now[2], date_now[3],
+    //            date_now[4], date_now[5], date_now[6], date_now[7],
+    //            time_now[0], time_now[1], time_now[2], time_now[3], time_now[4], time_now[5]);
+    // }
+
+    t1 = MPI_Wtime();
+
+    tt1 = MPI_Wtime();
+    initial_para(&seth);
+    tt2 = MPI_Wtime();
+    if (seth.mpi_rank == 0) 
+    // printf("Initialization Finish, using time: %f\n", tt2 - tt1);
+
+    // char filepath[256];
+    ttt1 = MPI_Wtime();
+    if (argc > 1) {
+        // seth.filepath=argv[1];
+        strcpy(seth.filepath, argv[1]);
+    } else {
+        if (seth.mpi_rank == 0) {
+            printf("File path not provided.\n");
+        }
+        MPI_Finalize();
+        return 1;
+    }
+
+    
+    // if (seth.mpi_rank == 0) {
+    //     printf("Reading files: %s\n", seth.filepath);
+    // }
+
+    readinp(&seth);
+
+    ttt2 = MPI_Wtime();
+
+    if (seth.mpi_rank == 0 && seth.if_print == 0) {
         printf("====================================================================\n");
         printf("*         cNAD: Non-Adiabatic Dynamics simulator (C-version)       *\n");
         printf("*                        Module of Liouville                       *\n");
@@ -64,37 +112,14 @@ int main(int argc, char *argv[]) {
                date_now[0], date_now[1], date_now[2], date_now[3],
                date_now[4], date_now[5], date_now[6], date_now[7],
                time_now[0], time_now[1], time_now[2], time_now[3], time_now[4], time_now[5]);
-    }
 
-    t1 = MPI_Wtime();
+        printf("Initialization Finish, using time: %f\n", tt2 - tt1);
 
-    tt1 = MPI_Wtime();
-    initial_para(&seth);
-    tt2 = MPI_Wtime();
-    if (seth.mpi_rank == 0) 
-    printf("Initialization Finish, using time: %f\n", tt2 - tt1);
-
-    // char filepath[256];
-    if (argc > 1) {
-        // seth.filepath=argv[1];
-        strcpy(seth.filepath, argv[1]);
-    } else {
-        if (seth.mpi_rank == 0) {
-            printf("File path not provided.\n");
-        }
-        MPI_Finalize();
-        return 1;
-    }
-    if (seth.mpi_rank == 0) {
         printf("Reading files: %s\n", seth.filepath);
+    
+        printf("Reading input file Finish, using time: %f\n", ttt2 - ttt1);
+
     }
-
-    readinp(&seth);
-
-    tt2 = MPI_Wtime();
-    if (seth.mpi_rank == 0) printf("Reading input file Finish, using time: %f\n", tt2 - tt1);
-
-
 
 
    
@@ -108,7 +133,7 @@ int main(int argc, char *argv[]) {
 
     init_host(&seth);
 
-    if (seth.mpi_rank == 0) print_info(&seth);
+    if (seth.mpi_rank == 0 && seth.if_print == 0) print_info(&seth);
     
     // if (if_allcf == 2) {
     //     cfweight_msmodel(weight0, weightt, beta);
@@ -116,7 +141,7 @@ int main(int argc, char *argv[]) {
 
    
     tt2 = MPI_Wtime();
-    if (seth.mpi_rank == 0) {
+    if (seth.mpi_rank == 0 && seth.if_print == 0) {
         printf("Initializing model Finish, using time: %f\n", tt2 - tt1);
         printf("=====================================================================\n");
         printf("\n");
@@ -156,7 +181,7 @@ int main(int argc, char *argv[]) {
     //     }
     // }
     tt2 = MPI_Wtime();
-    printf("MPI process %d using time: %f\n", seth.mpi_rank, tt2 - tt1);
+    if(seth.if_print == 0)printf("MPI process %d using time: %f\n", seth.mpi_rank, tt2 - tt1);
     // fflush(stdout);  // 强制刷新输出缓冲区
 
 
@@ -165,11 +190,11 @@ int main(int argc, char *argv[]) {
     MPI_Barrier(MPI_COMM_WORLD);
     // printf("Process %d after barrier\n", mpi_rank);
 
-    if (seth.mpi_rank == 0) printf("Simulation Finish\n");
+    if (seth.mpi_rank == 0 && seth.if_print == 0) printf("Simulation Finish\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
-    if (seth.mpi_rank == 0) printf("=====================================================================\n");
+    if (seth.mpi_rank == 0 && seth.if_print == 0) printf("=====================================================================\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
-    if (seth.mpi_rank == 0) printf("Outputting data ..\n");
+    if (seth.mpi_rank == 0 && seth.if_print == 0) printf("Outputting data ..\n");
     // fflush(stdout);  // 强制刷新输出缓冲区
     tt1 = MPI_Wtime();
 
@@ -348,7 +373,7 @@ int main(int argc, char *argv[]) {
 
 
     if (seth.ifoutputmpi == 1) {
-        if (seth.mpi_rank == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
+        if (seth.mpi_rank == 0 && seth.if_print == 0) printf("ifoutputmpi=1: output data from each mpi process\n");
         fileout_mpi(seth.mpi_rank,&seth);
     }
    
@@ -361,7 +386,7 @@ int main(int argc, char *argv[]) {
         // tempn = seth.mpi_N_nan_sum[i];
         MPI_Reduce(&seth.fi_N_nan_sum[i], &seth.mpi_N_nan_sum[i], 1, MPI_UNSIGNED_LONG_LONG, MPI_SUM, 0, MPI_COMM_WORLD);
     }
-    if (seth.mpi_rank == 0) printf("Number of failed trajectories: %llu\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
+    if (seth.mpi_rank == 0 && seth.if_print == 0) printf("Number of failed trajectories: %llu\n", seth.mpi_N_nan_sum[seth.Ngrid-1]);
     free(seth.fi_N_nan_sum);
     // exit(-1);
 
@@ -729,7 +754,7 @@ int main(int argc, char *argv[]) {
     }
 
     tt2 = MPI_Wtime();
-    if (seth.mpi_rank == 0) {
+    if (seth.mpi_rank == 0 && seth.if_print == 0) {
         printf("Outputting data Finish, using time: %f\n", tt2 - tt1);
         printf("=====================================================================\n");
     }
@@ -737,7 +762,7 @@ int main(int argc, char *argv[]) {
     
 
     t2 = MPI_Wtime();
-    if (seth.mpi_rank == 0) {
+    if (seth.mpi_rank == 0 && seth.if_print == 0) {
         printf("Total Running time: %f\n", t2 - t1);
         now = time(NULL);
         struct tm *tend = localtime(&now);
