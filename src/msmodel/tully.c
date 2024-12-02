@@ -63,7 +63,8 @@ void parameter_tully(double *mass, struct set_host *setm) {
 void sample_tully(double *P, double *R, struct set_host *setm) {
     double x2;
 
-    switch (setm->type_tully) {
+    if(setm->if_flighttime_tully == 0){
+        switch (setm->type_tully) {
         case 1:
         case 2:
         case 3:
@@ -75,10 +76,17 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
         case 5:
             setm->gamma_tully = 1.0 / 8;
             break;
+        }
     }
+    
 
     box_muller(&P[0], &x2, sqrt(setm->gamma_tully / 2.0), setm->P0_tully);
     box_muller(&R[0], &x2, sqrt(1.0 / (setm->gamma_tully * 2.0)), setm->R0_tully);
+
+
+    if(setm->if_flighttime_tully == 1){
+        R[0] = -1.0 * setm->Xb_tully;
+    }
 }
 
 void V_tully(double *R, double *H, struct set_host *setm) {

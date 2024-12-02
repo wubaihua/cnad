@@ -545,6 +545,8 @@ void initial_para(struct set_host *seth) {
 
     seth->if_print = 0;
 
+    seth->if_flighttime_tully = 0;
+
     seth->nproc_sw = 64;
 }
 
@@ -1261,6 +1263,15 @@ void readinp(struct set_host *seth){
             list = cJSON_GetObjectItem(item, "if_print");
             if (list->type == cJSON_Number) {
                 seth->if_print = list->valueint;
+            }
+        }
+
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_flighttime_tully")) {
+            list = cJSON_GetObjectItem(item, "if_flighttime_tully");
+            if (list->type == cJSON_Number) {
+                seth->if_flighttime_tully = list->valueint;
             }
         }
         

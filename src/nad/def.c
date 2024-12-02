@@ -2788,6 +2788,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     int i, j, k;//, i_lbd, hop_lbd;
     double x0[seth->Nstate], p0[seth->Nstate], bound, deltaE, deltaE_all[seth->Nstate];
     double tt1, tt2, x1, x2, sumpop, diagden[seth->Nstate];
+    double R00,P00;
     // double E_diag[seth->Nstate * seth->Nstate];
     // double P_s[seth->Ndof1 * seth->Ndof2], P_s_all[seth->Nstate * seth->Ndof1 * seth->Ndof2], P_s_main[seth->Ndof1 * seth->Ndof2], R_s[seth->Ndof1 * seth->Ndof2], f_s[seth->Ndof1 * seth->Ndof2], sets->pex, pt, proj[seth->Nstate];
     // double Etot, Ekin, Epot, dE;
@@ -2899,7 +2900,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
     memcpy(sets->R_nuc_init,sets->R_nuc,seth->Ndof1 * seth->Ndof2 * sizeof(double));
    
-    
+    R00 = sets->R_nuc[0];
+    P00 = sets->P_nuc[0];
+
     while (itime <= nstep) {
         if (i_re >= seth->Nbreak && igrid < seth->Ngrid) {
 
@@ -2922,7 +2925,20 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         }
 
         // printf("%d %d %f %f %f %f\n",slavecore_id, itime, sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0]);
+        if(seth->if_flighttime_tully == 1){
+            if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
+               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {
 
+                printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d\n",
+                        sets->t_now,
+                        R00,P00,
+                        sets->R_nuc[0],sets->P_nuc[0],
+                        creal(sets->correfun_0 * sets->correfun_t[0]),
+                        creal(sets->correfun_0 * sets->correfun_t[3]),
+                        sets->id_state + 1);
+                break;
+            }
+        }
      
 
         evo_traj_savetraj(sets,seth);
