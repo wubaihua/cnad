@@ -79,7 +79,7 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
         }
     }
     
-    printf("%f %f\n",setm->gamma_tully, setm->P0_tully);
+
     box_muller(&P[0], &x2, sqrt(setm->gamma_tully / 2.0), setm->P0_tully);
     box_muller(&R[0], &x2, sqrt(1.0 / (setm->gamma_tully * 2.0)), setm->R0_tully);
 
