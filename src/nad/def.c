@@ -980,11 +980,18 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             action[i] *= (1.0 - action[sets->init_occ - 1]);
         }
         action[sets->init_occ - 1] += 1;
+
+        //debug
+        // action[0]=1.5,action[1]=0.3;
+        // theta[0]=2.3,theta[1]=5.9;
+        // sets->P_nuc[0] = 8.7;
+      
         for (i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
 
+     
         
         if(seth->if_scale_sqc == 0)seth->gamma_zpe = 1.0 / 3.0 ;
 
@@ -2937,7 +2944,11 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
         dt_evo = seth->dt;
 
-
+        // if(seth->if_flighttime_tully == 1){
+        //     if(fabs(sets->R_nuc[0]+sets->P_nuc[0]/sets->mass[0])>2){
+        //         // dt_evo=10;
+        //     }
+        // }
         
 
         switch (seth->type_algorithm) {
@@ -3035,8 +3046,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                             }
                             
                         }
+                        // dt_evo = seth->dt;
                     }
-
+                   
                     if (seth->scaleenergy_type == 3) {
                         seth->scaleenergy_type = 1;
                     }
@@ -3044,7 +3056,11 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             }
         }
 
-        sets->t_now = (itime + 1) * seth->dt;
+        // if(seth->if_flighttime_tully == 1){
+        //     sets->t_now += dt_evo;
+        // }else{
+            sets->t_now = (itime + 1) * seth->dt;
+        // }
         i_re++;
         itime++;
         // if (ifzsets->pecorr > 0) zsets->pecorr_msmodel(sets->P_nuc, sets->R_nuc, ifzsets->pecorr);
@@ -3086,8 +3102,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             //     creal(sets->correfun_0 * sets->correfun_t[0]),
             //     creal(sets->correfun_0 * sets->correfun_t[3]),
             //     sets->id_state + 1);
-            for (int i = 0; i < 64; i++){
-                if(i == slavecore_id){
+            // for (int i = 0; i < 64; i++){
+            //     if(i == slavecore_id){
                     seth->save_flighttime[0*seth->Ntraj/seth->mpi_size+itraj-1]=sets->t_now;
                     seth->save_flighttime[1*seth->Ntraj/seth->mpi_size+itraj-1]=R00;
                     seth->save_flighttime[2*seth->Ntraj/seth->mpi_size+itraj-1]=P00;
@@ -3096,9 +3112,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                     seth->save_flighttime[5*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[0]);
                     seth->save_flighttime[6*seth->Ntraj/seth->mpi_size+itraj-1]=creal(sets->correfun_0 * sets->correfun_t[3]);
                     seth->save_flighttime[7*seth->Ntraj/seth->mpi_size+itraj-1]=(float)(sets->id_state + 1);
-                }
-                athread_ssync_array(); 
-            }
+            //     }
+            //     athread_ssync_array(); 
+            // }
         // }
         #elif defined(x86)
 
@@ -3197,7 +3213,7 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
                strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ) {
 
         cal_force_sh(sets,seth);
-    
+
     } else {
         // if (if_ref == 1) {
         //     cal_force_mf_ref();
@@ -3206,7 +3222,11 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         // } else if (ifmsbranch > 0) {
         //     cal_force_msbranch();
         if (seth->ifswitchforce == 1) {
-            cal_force_switch(sets,seth);
+            if(seth->if_flighttime_tully == 1){
+                cal_force_sh(sets,seth);
+            } else {
+                cal_force_switch(sets,seth);
+            }
         // } else if (seth->ifswitchforce == 2) {
         //     cal_force_switch2();
         // } else if (seth->ifswitchforce == 3) {
