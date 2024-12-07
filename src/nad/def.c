@@ -981,11 +981,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
         action[sets->init_occ - 1] += 1;
 
-        //debug
-        // action[0]=1.5,action[1]=0.3;
-        // theta[0]=2.3,theta[1]=5.9;
+        // debug
+        // action[0]=1.35829767e+00,action[1]=5.28229802e-01;
+        // theta[0]=5.78670266e+00,theta[1]=5.23895044e-02 ;
         // sets->P_nuc[0] = 8.7;
+        // printf("%d %18.8e  %18.8e  %18.8e  %18.8e \n",seth->mpi_rank,action[0],action[1],theta[0],theta[1]);
       
+
         for (i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
@@ -2173,7 +2175,7 @@ void evo_traj_nucP(double deltat,struct set_slave *sets,struct set_host *seth) {
         sets->P_nuc[i] += sets->force[i] * deltat;
     }
 
-    // if (seth->ifscaleenergy == 3) energy_conserve_naf_3(deltat);
+    if (seth->ifscaleenergy == 3) energy_conserve_naf_3(deltat,sets,seth);
 }
 
 void evo_traj_nucR(double deltat,struct set_slave *sets,struct set_host *seth) {
@@ -2484,27 +2486,27 @@ void energy_conserve_naf_1(double E0, double *dE_naf,struct set_slave *sets,stru
 }
 
 
-// void energy_conserve_naf_3(double deltat,struct set_slave *sets,struct set_host *seth) {
-//     double dE_naf, x2 = 0.0;
-//     for (int i = 0; i < seth->Nstate; i++) {
-//         for (int j = 0; j < seth->Nstate; j++) {
-//             if (i == j) continue;
-//             double sum_nac = 0.0;
-//             for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
-//                 sum_nac += sets->nac[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k] * sets->P_nuc[k] / sets->mass[k];
-//             }
-//             x2 += (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i*seth->Nstate+j])) * (sets->E_adia[j] - sets->E_adia[i]) * sum_nac;
-//         }
-//     }
-//     double P_nuc_sum = 0.0;
-//     for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
-//         P_nuc_sum += sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
-//     }
-//     double factor = x2 / P_nuc_sum * deltat;
-//     for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
-//         sets->P_nuc[i] += sets->P_nuc[i] * factor;
-//     }
-// }
+void energy_conserve_naf_3(double deltat,struct set_slave *sets,struct set_host *seth) {
+    double dE_naf, x2 = 0.0;
+    for (int i = 0; i < seth->Nstate; i++) {
+        for (int j = 0; j < seth->Nstate; j++) {
+            if (i == j) continue;
+            double sum_nac = 0.0;
+            for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+                sum_nac += sets->nac[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k] * sets->P_nuc[k] / sets->mass[k];
+            }
+            x2 += (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i*seth->Nstate+j])) * (sets->E_adia[j] - sets->E_adia[i]) * sum_nac;
+        }
+    }
+    double P_nuc_sum = 0.0;
+    for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
+        P_nuc_sum += sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
+    }
+    double factor = x2 / P_nuc_sum * deltat;
+    for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
+        sets->P_nuc[i] += sets->P_nuc[i] * factor;
+    }
+}
 
 // P-E-R-P
 void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *seth) {
@@ -3001,6 +3003,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                         t_now_small = 0;
 
                     REDO:
+                        //debug
+                        // printf("before %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n",sets->R_nuc[0],sets->P_nuc[0],dt_evo, deltaE, sets->E_conserve, sets->E_adia[sets->id_state],sets->E_conserve-sets->E_adia[sets->id_state]);
+
                         evo_traj_back(sets,seth);
                         for (istep_small = 1; istep_small <= nstep_small; ++istep_small) {
                             switch (seth->type_algorithm) {
@@ -3036,6 +3041,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                             if (seth->scaleenergy_type == 1) {
                                 energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
                             }
+                            // printf("after %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n",sets->R_nuc[0],sets->P_nuc[0],dt_evo, deltaE, sets->E_conserve, sets->E_adia[sets->id_state],sets->E_conserve-sets->E_adia[sets->id_state]);
+
 
                             if (seth->scaleenergy_type == 1 && deltaE < 0) {
                                 if (dt_evo > seth->dt / 1024) {
