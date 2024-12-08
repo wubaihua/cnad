@@ -2872,6 +2872,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             case 1:
             case 4:
             case 5:
+            case 6:
                 seth->scaleenergy_type = 1;
                 break;
             case 3:
@@ -3060,6 +3061,90 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                         seth->scaleenergy_type = 1;
                     }
                     break;
+
+                case 5:
+
+                    if (seth->scaleenergy_type == 1 && deltaE < 0) {
+                        evo_traj_back(sets,seth);
+                        for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++){
+                            sets->P_nuc[i] = -1.0 * sets->P_nuc[i];
+                        }
+                        switch (seth->type_algorithm) {
+                            case 1:
+                                evo_traj_algorithm1(dt_evo,sets,seth);
+                                break;
+                            case 2:
+                                evo_traj_algorithm2(dt_evo,sets,seth);
+                                break;
+                            case 3:
+                                evo_traj_algorithm3(dt_evo,sets,seth);
+                                break;
+                            case 4:
+                                evo_traj_algorithm4(dt_evo,sets,seth);
+                                break;
+                            case 5:
+                                evo_traj_algorithm5(dt_evo,sets,seth);
+                                break;
+                            case 6:
+                                evo_traj_algorithm6(dt_evo,sets,seth);
+                                break;
+                            case 7:
+                                evo_traj_algorithm7(dt_evo,sets,seth);
+                                break;
+                            case 8:
+                                evo_traj_algorithm8(dt_evo,sets,seth);
+                                break;
+                            case 9:
+                                evo_traj_algorithm9(dt_evo,sets,seth);
+                            break;
+                        }
+
+                        if (seth->scaleenergy_type == 1) {
+                            energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
+                        }
+                    }
+                
+                case 6:
+
+                    if (seth->scaleenergy_type == 1 && deltaE < 0) {
+                        evo_traj_back(sets,seth);
+                        for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++){
+                            sets->P_nuc[i] = 0.0;
+                        }
+                        switch (seth->type_algorithm) {
+                            case 1:
+                                evo_traj_algorithm1(dt_evo,sets,seth);
+                                break;
+                            case 2:
+                                evo_traj_algorithm2(dt_evo,sets,seth);
+                                break;
+                            case 3:
+                                evo_traj_algorithm3(dt_evo,sets,seth);
+                                break;
+                            case 4:
+                                evo_traj_algorithm4(dt_evo,sets,seth);
+                                break;
+                            case 5:
+                                evo_traj_algorithm5(dt_evo,sets,seth);
+                                break;
+                            case 6:
+                                evo_traj_algorithm6(dt_evo,sets,seth);
+                                break;
+                            case 7:
+                                evo_traj_algorithm7(dt_evo,sets,seth);
+                                break;
+                            case 8:
+                                evo_traj_algorithm8(dt_evo,sets,seth);
+                                break;
+                            case 9:
+                                evo_traj_algorithm9(dt_evo,sets,seth);
+                            break;
+                        }
+
+                        if (seth->scaleenergy_type == 1) {
+                            energy_conserve_naf_1(sets->E_conserve, &deltaE, sets, seth);
+                        }
+                    }
             }
         }
 
@@ -3229,11 +3314,11 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         // } else if (ifmsbranch > 0) {
         //     cal_force_msbranch();
         if (seth->ifswitchforce == 1) {
-            if(seth->if_flighttime_tully == 1){
-                cal_force_sh(sets,seth);
-            } else {
+            // if(seth->if_flighttime_tully == 1){
+            //     cal_force_sh(sets,seth);
+            // } else {
                 cal_force_switch(sets,seth);
-            }
+            // }
         // } else if (seth->ifswitchforce == 2) {
         //     cal_force_switch2();
         // } else if (seth->ifswitchforce == 3) {
