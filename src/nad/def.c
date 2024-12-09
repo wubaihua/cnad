@@ -1077,7 +1077,18 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
                strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0 ) {
+        
         random_prob(seth->Nstate, action);
+        
+        if(seth->if_flighttime_tully == 1) {
+            sets->id_state = maxloc(action, seth->Nstate);
+                while (sets->id_state != sets->init_occ - 1) {
+                random_prob(seth->Nstate, action);
+                sets->id_state = maxloc(action, seth->Nstate);
+            }
+        }
+
+
         for (int i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
@@ -1090,9 +1101,11 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         if(sets->xe[0] * sets->xe[0] + sets->pe[0] * sets->pe[0] >= 1){
             sets->rho0_mash[0] = 1;
             sets->id_state = 0;
+            if(seth->if_flighttime_tully == 1) sets->rho0_mash[0] = 0.5;
         } else {
             sets->rho0_mash[3] = 1;
             sets->id_state = 1;
+            if(seth->if_flighttime_tully == 1) sets->rho0_mash[3] = 0.5;
         }
         sets->rho0_mash[1] = 0.5 * (sets->xe[0] + I * sets->pe[0]) * (sets->xe[1] - I * sets->pe[1]);
         sets->rho0_mash[2] = 0.5 * (sets->xe[0] - I * sets->pe[0]) * (sets->xe[1] + I * sets->pe[1]);
