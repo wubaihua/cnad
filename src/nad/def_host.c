@@ -1507,6 +1507,11 @@ void print_info(struct set_host *seth){
         printf("Related Publication: J. Chem. Phys. 2019, 151, 024105\n");
         printf("                    J. Phys. Chem. Lett. 2021, 12, 2496-2501\n");
         printf("ZPE gamma parameter: %f\n", seth->gamma_zpe);
+    } else if (strcmp(seth->method, "scmm") == 0 || strcmp(seth->method, "SCMM") == 0 || 
+        strcmp(seth->method, "wMM") == 0 || strcmp(seth->method, "wmm") == 0 ) {
+        printf("Method: weighted Mapping Model (wMM)\n");
+        printf("Related Publication: WIREs. Comput. Mol. Sci. 2022, 12, e1619\n");
+        printf("ZPE gamma parameter: %f\n", seth->gamma_zpe);
     } else if (strcmp(seth->method, "focus") == 0 || strcmp(seth->method, "langer") == 0 ||
         strcmp(seth->method, "deltamft") == 0 || strcmp(seth->method, "dmft") == 0) {
         printf("Method: Langer/spin-LSC focus/delta MFT\n");

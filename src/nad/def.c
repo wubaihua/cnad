@@ -875,7 +875,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         // }
 
     } else if (strcmp(seth->method, "eCMM") == 0 || strcmp(seth->method, "ecmm") == 0 ||
-        strcmp(seth->method, "CMM") == 0 || strcmp(seth->method, "cmm") == 0) {
+               strcmp(seth->method, "CMM") == 0 || strcmp(seth->method, "cmm") == 0 ||
+               strcmp(seth->method, "scmm") == 0 || strcmp(seth->method, "SCMM") == 0 ||
+               strcmp(seth->method, "wMM") == 0 || strcmp(seth->method, "wmm") == 0 ) {
         
         // 调用 random_prob 函数
         random_prob(seth->Nstate, action);
@@ -1650,6 +1652,24 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
             for (int i = 0; i < seth->Nstate; i++) {
                 for (int j = 0; j < seth->Nstate; j++) {
                     sets->correfun_t[i * seth->Nstate + j] = (1.0 + seth->Nstate) / (2 * pow(1 + seth->Nstate * seth->gamma_zpe, 2)) * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - (1.0 - seth->gamma_zpe) / (1 + seth->Nstate * seth->gamma_zpe) * (i == j ? 1 : 0);
+                }
+            }
+        }
+
+    } else if (strcmp(seth->method, "SCMM") == 0 || strcmp(seth->method, "scmm") == 0 ||
+        strcmp(seth->method, "wMM") == 0 || strcmp(seth->method, "wmm") == 0) {
+        
+        if (seth->type_evo == 1 || seth->type_evo == 3) {
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++) {
+                sets->correfun_t[i] = sets->den_e[i];
+            }
+            for (int i = 0; i < seth->Nstate; i++) {
+                sets->correfun_t[i * seth->Nstate + i] -= seth->gamma_zpe;
+            }
+        } else {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->correfun_t[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - seth->gamma_zpe* (i == j ? 1 : 0);
                 }
             }
         }
