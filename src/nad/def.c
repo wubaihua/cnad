@@ -2686,7 +2686,7 @@ void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *s
     
 
     
-    cal_force(sets,seth);
+    // cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     evo_traj_ele(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
