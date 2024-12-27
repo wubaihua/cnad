@@ -2408,10 +2408,16 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
                strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0) {
             for (i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
-                sets->R_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
-                sets->P_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
-                sets->R2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
-                sets->P2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
+                // sets->R_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
+                // sets->P_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
+                // sets->R2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * sets->R_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
+                // sets->P2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * sets->P_nuc[i] * creal(sets->correfun_0) * 2 * sets->measure_mash * creal(sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)]);
+
+                sets->R_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * (creal(sets->correfun_0 * sets->correfun_t[0]) + creal(sets->correfun_0 * sets->correfun_t[3]));
+                sets->P_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * (creal(sets->correfun_0 * sets->correfun_t[0]) + creal(sets->correfun_0 * sets->correfun_t[3]));
+                sets->R2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * sets->R_nuc[i] * (creal(sets->correfun_0 * sets->correfun_t[0]) + creal(sets->correfun_0 * sets->correfun_t[3]));
+                sets->P2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * sets->P_nuc[i] * (creal(sets->correfun_0 * sets->correfun_t[0]) + creal(sets->correfun_0 * sets->correfun_t[3]));
+            
             }
         // } else if (strcmp(seth->method, "unsmash") == 0 || strcmp(seth->method, "UNSMASH") == 0 || strcmp(seth->method, "unSMASH") == 0) {
         //     for (i = 0; i < Ndof; i++) {
