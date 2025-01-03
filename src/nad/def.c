@@ -2547,6 +2547,103 @@ void energy_conserve_naf_3(double deltat,struct set_slave *sets,struct set_host 
     }
 }
 
+
+// exact propagator of nonadiabatic force proposed by Cheng 
+void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_host *seth) {
+    double eps = 1e-10;
+  
+
+    double K = 0.0;
+    for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
+        K += 0.5 * sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
+    }
+    double vpi[seth->Ndof1*seth->Ndof2], vb[seth->Ndof1*seth->Ndof2]; // vector \pi and vector \tilde B
+    memset(vpi, 0, seth->Ndof1*seth->Ndof2 * sizeof(double));
+    memset(vb, 0, seth->Ndof1*seth->Ndof2 * sizeof(double));
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        vpi[k] = sets->P_nuc[k] / sqrt(sets->mass[k]);
+        for (int i = 0; i < seth->Nstate; i++) {
+            for (int j = 0; j < seth->Nstate; j++) {
+                if (i == j) continue;
+                if (seth->type_evo == 0) {
+                    if (seth->ifscalegamma == 0) {
+                       
+                            vb[k] += (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) *
+                                            (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                        
+                    } else {
+                       
+                            vb[k] += (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + j])) *
+                                            (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                        
+                    }
+                } else if (seth->type_evo == 1) {
+                    if (seth->ifscalegamma == 0) {
+                       
+                            vb[k] += (creal(sets->den_e[i * seth->Nstate + j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) *
+                                            (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                       
+                    } else {
+                        
+                            vb[k] += (creal(sets->den_e[i * seth->Nstate + j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - creal(sets->gamma_cv[i * seth->Nstate + j])) *
+                            (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                       
+                    }
+                }
+            
+            }
+        }
+        vb[k] = vb[k] / sqrt(sets->mass[k]);
+    }
+
+    double e_vb[seth->Ndof1*seth->Ndof2], norm_vb = 0.0;
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        norm_vb += vb[k] * vb[k];
+    }
+    norm_vb = sqrt(norm_vb);
+   
+    if (norm_vb < eps) {
+        return;
+    }
+    memcpy(e_vb, vb, seth->Ndof1*seth->Ndof2 * sizeof(double));
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        e_vb[k] = e_vb[k] / norm_vb;
+    }
+    
+    
+
+    double vpi_B[seth->Ndof1*seth->Ndof2], vpi_ver[seth->Ndof1*seth->Ndof2]; // vector \pi_B and vector \pi_ver
+
+    double vdot = 0.0; // \pi_{B,0}
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        vdot += vpi[k] * vb[k]/norm_vb;
+    }
+    
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        vpi_B[k] = e_vb[k] * vdot;
+        vpi_ver[k] = vpi[k] - vpi_B[k];
+    }
+
+   
+    double sintheta = 1.0 - (vdot * vdot) / (2 * K);
+    if(fabs(sintheta) < eps) {
+        return;
+    }
+
+    double c1 = 0.0, c2 = 0.0;
+    // c1 = sqrt(2 * K) * (vdot - sqrt(2 * K) * tanh(norm_vb * deltat /  sqrt(2 * K))) / (sqrt(2 * K) - vdot * tanh(norm_vb * deltat / sqrt(2 * K)));
+    // c2 = sqrt(2 * K) / (sqrt(2 * K) * cosh(norm_vb * deltat / sqrt(2 * K)) - vdot * sinh(norm_vb * deltat / sqrt(2 * K)));
+    c1 = sqrt(2 * K) * ((vdot - sqrt(2 * K)) + (vdot + sqrt(2 * K)) * exp(-2 * norm_vb * deltat/sqrt(2 * K))) / ((sqrt(2 * K) - vdot) + (vdot + sqrt(2 * K)) * exp(-2 * norm_vb * deltat/sqrt(2 * K)));
+    c2 = sqrt(2 * K) * 2 * exp(-1 * norm_vb * deltat/sqrt(2 * K)) / ((sqrt(2 * K) - vdot) + (vdot + sqrt(2 * K)) * exp(-2 * norm_vb * deltat/sqrt(2 * K)));
+
+    for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+        sets->P_nuc[k] = c1 * e_vb[k] + c2 * vpi_ver[k];
+    }
+
+
+    
+}
+
 // P-E-R-P
 void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *seth) {
     #ifdef sunway
@@ -2557,12 +2654,14 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
     
     
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     evo_traj_ele(deltat,sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -3353,11 +3452,11 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         // } else if (ifmsbranch > 0) {
         //     cal_force_msbranch();
         if (seth->ifswitchforce == 1) {
-            // if(seth->if_flighttime_tully == 1){
-            //     cal_force_sh(sets,seth);
-            // } else {
+            if(seth->ifscaleenergy == 7){
+                cal_force_sh(sets,seth);
+            } else {
                 cal_force_switch(sets,seth);
-            // }
+            }
         // } else if (seth->ifswitchforce == 2) {
         //     cal_force_switch2();
         // } else if (seth->ifswitchforce == 3) {
