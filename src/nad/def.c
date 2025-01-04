@@ -4501,6 +4501,7 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
     double complex eiet[seth->Nstate * seth->Nstate];
     double sum;
     double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
+    double tempdm1[seth->Nstate * seth->Nstate];
 
 
     // for (i = 0; i < seth->Nstate * seth->Nstate; i++) {
@@ -4609,7 +4610,8 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
                     dc_matmul(sets->U_d2a,eiet,U,seth->Nstate,seth->Nstate,seth->Nstate);
                 }else if(para == 2){
                     // matmul(eiet, transpose(sets->U_d2a), U);
-                    cd_matmul(eiet,sets->U_d2a,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                    transpose(sets->U_d2a, tempdm1, seth->Nstate);
+                    cd_matmul(eiet,tempdm1,U,seth->Nstate,seth->Nstate,seth->Nstate);
                 }
         }
     }
