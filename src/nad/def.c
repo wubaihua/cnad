@@ -2107,7 +2107,7 @@ void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct s
 }
         
     
-void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth) {
+void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth, int para) {
     double x0[seth->Nstate], p0[seth->Nstate];
     double x0_mb[2 * (seth->Nstate - 1)], p0_mb[2 * (seth->Nstate - 1)];
     double complex propagator_unsmash[2 * 2 * (seth->Nstate - 1)];
@@ -2121,7 +2121,7 @@ void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth) {
             // printf("y1111111111\n");
             if (seth->rep == 0) cal_propagator(seth->Nstate, sets->V, deltat, sets->propagator,sets,seth);
             //  printf("y2222222222\n");
-            if (seth->rep == 1) cal_propagator_adia(seth->Nstate, deltat, sets->propagator,sets,seth);
+            if (seth->rep == 1) cal_propagator_adia(seth->Nstate, deltat, sets->propagator,sets,seth,para);
             memcpy(x0, sets->xe, seth->Nstate * sizeof(double));
             memcpy(p0, sets->pe, seth->Nstate * sizeof(double));
             //  printf("y3333333333333\n");
@@ -2140,7 +2140,7 @@ void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth) {
         
         case 1:
             if (seth->rep == 0) cal_propagator(seth->Nstate, sets->V, deltat, sets->propagator,sets,seth);
-            if (seth->rep == 1) cal_propagator_adia(seth->Nstate, deltat, sets->propagator,sets,seth);
+            if (seth->rep == 1) cal_propagator_adia(seth->Nstate, deltat, sets->propagator,sets,seth,para);
             // matmul_complex(seth->Nstate, sets->propagator, sets->den_e, sets->den_e);
             
             diagger(sets->propagator,tempcm1,seth->Nstate);
@@ -2659,7 +2659,7 @@ void evo_traj_algorithm1(double deltat,struct set_slave *sets,struct set_host *s
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
-    evo_traj_ele(deltat,sets,seth);
+    evo_traj_ele(deltat,sets,seth,1);
     cal_force(sets,seth);
     if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
@@ -2676,14 +2676,16 @@ void evo_traj_algorithm2(double deltat,struct set_slave *sets,struct set_host *s
     double tempv[seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate];
     
-    evo_traj_ele(deltat,sets,seth);
+    evo_traj_ele(deltat,sets,seth,1);
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -2702,13 +2704,15 @@ void evo_traj_algorithm3(double deltat,struct set_slave *sets,struct set_host *s
     
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat,sets,seth);
+    evo_traj_ele(deltat,sets,seth,1);
     
 }
 
@@ -2723,12 +2727,14 @@ void evo_traj_algorithm4(double deltat,struct set_slave *sets,struct set_host *s
     double tempdm[seth->Nstate*seth->Nstate];
     
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
+    evo_traj_ele(deltat,sets,seth,1);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -2743,16 +2749,18 @@ void evo_traj_algorithm5(double deltat,struct set_slave *sets,struct set_host *s
     double tempdm[seth->Nstate*seth->Nstate];
     
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat / 2,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
-    evo_traj_ele(deltat,sets,seth);
+    evo_traj_ele(deltat,sets,seth,1);
     evo_traj_nucR(deltat / 2,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -2767,16 +2775,18 @@ void evo_traj_algorithm6(double deltat,struct set_slave *sets,struct set_host *s
     double tempdm[seth->Nstate*seth->Nstate];
     
 
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,1);
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,2);
 }
 
 
@@ -2793,13 +2803,15 @@ void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *s
     
     // cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,1);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,2);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -2813,15 +2825,17 @@ void evo_traj_algorithm8(double deltat,struct set_slave *sets,struct set_host *s
     double tempdm[seth->Nstate*seth->Nstate];
     
 
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,1);
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,2);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
     
 }
@@ -2836,14 +2850,16 @@ void evo_traj_algorithm9(double deltat,struct set_slave *sets,struct set_host *s
     
     cal_force(sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);   
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,1);   
     evo_traj_nucR(deltat,sets,seth);
     dV_msmodel(sets->R_nuc, sets->dV,seth);
     V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
     if (seth->rep == 1) cal_NACV(sets,seth);
     cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_nucP(deltat / 2,sets,seth);
-    evo_traj_ele(deltat / 2,sets,seth);
+    evo_traj_ele(deltat / 2,sets,seth,2);
     
     
 }
@@ -4472,7 +4488,7 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
 // void cal_dvadia_state(){}
 
 
-void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_slave *sets, struct set_host *seth){
+void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_slave *sets, struct set_host *seth, int para){
     int i, j;
     double complex H_eff[seth->Nstate * seth->Nstate], C[seth->Nstate * seth->Nstate];
     double E[seth->Nstate], eig[seth->Nstate * seth->Nstate];
@@ -4562,6 +4578,7 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
 
         switch (seth->type_algorithm) {
             case 1:
+            case 3:
                 // matmul(eiet, sets->overlap_adia, U);
                 cd_matmul(eiet,sets->overlap_adia,U,seth->Nstate,seth->Nstate,seth->Nstate);
                 break;
@@ -4578,6 +4595,22 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
             //         matmul(eiet, transpose(sets->U_d2a), U);
             //     }
             //     break;
+            // case 5:
+            //     if(para == 1){
+            //         // matmul(sets->U_d2a, eiet, U);
+            //         dc_matmul(sets->overlap_adia,eiet,U,seth->Nstate,seth->Nstate,seth->Nstate);
+            //     }else if(para == 2){
+            //         // matmul(eiet, transpose(sets->U_d2a), U);
+            //         cd_matmul(eiet,sets->U_d2a,U,seth->Nstate,seth->Nstate,seth->Nstate);
+            //     }
+            case 7:
+                if(para == 1){
+                    // matmul(sets->U_d2a, eiet, U);
+                    dc_matmul(sets->U_d2a,eiet,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                }else if(para == 2){
+                    // matmul(eiet, transpose(sets->U_d2a), U);
+                    cd_matmul(eiet,sets->U_d2a,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                }
         }
     }
 
