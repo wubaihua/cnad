@@ -4604,14 +4604,19 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U, struct set_sl
             //         // matmul(eiet, transpose(sets->U_d2a), U);
             //         cd_matmul(eiet,sets->U_d2a,U,seth->Nstate,seth->Nstate,seth->Nstate);
             //     }
+            case 6:
             case 7:
+            case 8:
+            case 9:
                 if(para == 1){
                     // matmul(sets->U_d2a, eiet, U);
-                    dc_matmul(sets->U_d2a,eiet,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                    // dc_matmul(sets->U_d2a,eiet,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                    memcpy(U,eiet,seth->Nstate * seth->Nstate * sizeof(double complex));
                 }else if(para == 2){
                     // matmul(eiet, transpose(sets->U_d2a), U);
-                    transpose(sets->U_d2a, tempdm1, seth->Nstate);
-                    cd_matmul(eiet,tempdm1,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                    // transpose(sets->U_d2a, tempdm1, seth->Nstate);
+                    // cd_matmul(eiet,tempdm1,U,seth->Nstate,seth->Nstate,seth->Nstate);
+                    cd_matmul(eiet,sets->overlap_adia,U,seth->Nstate,seth->Nstate,seth->Nstate);
                 }
         }
     }
