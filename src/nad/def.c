@@ -984,8 +984,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         action[sets->init_occ - 1] += 1;
 
         // debug
-        // action[0]=1.35829767e+00,action[1]=5.28229802e-01;
-        // theta[0]=5.78670266e+00,theta[1]=5.23895044e-02 ;
+        // action[0]=1.01,action[1]=0.99;
+        // theta[0]=-1.0,theta[1]=2.0;
         // sets->P_nuc[0] = 8.7;
         // printf("%d %18.8e  %18.8e  %18.8e  %18.8e \n",seth->mpi_rank,action[0],action[1],theta[0],theta[1]);
       
@@ -2552,7 +2552,7 @@ void energy_conserve_naf_3(double deltat,struct set_slave *sets,struct set_host 
 void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_host *seth) {
     double eps = 1e-10;
   
-
+    // return;//debug
     double K = 0.0;
     for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
         K += 0.5 * sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
@@ -3084,14 +3084,21 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                 
             
             // if(slavecore_id == 10) printf("%18.8E %18.8E\n", sets->force[0],sets->force[299]);
-            
+            // printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d %18.8E %18.8E %18.8E %18.8E %18.8E\n",sets->t_now, sets->R_nuc[0],sets->P_nuc[0],
+            //                     sets->xe[0],sets->xe[1],sets->pe[0],sets->pe[1],sets->id_state+1,
+            //                     0.5*(sets->xe[0]*sets->xe[0]+sets->pe[0]*sets->pe[0])/sets->scale_sqc2,
+            //                     0.5*(sets->xe[1]*sets->xe[1]+sets->pe[1]*sets->pe[1])/sets->scale_sqc2,
+            //                     sets->E_adia[0],sets->E_adia[1],sets->E_adia[sets->id_state]);
 
         }
 
-        // printf("%d %d %f %f %f %f\n",slavecore_id, itime, sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0]);
+        // printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d %18.8E %18.8E\n",sets->t_now, sets->R_nuc[0],sets->P_nuc[0],
+        //                         sets->xe[0],sets->xe[1],sets->pe[0],sets->pe[1],sets->id_state+1,
+        //                         0.5*(sets->xe[0]*sets->xe[0]+sets->pe[0]*sets->pe[0])/sets->scale_sqc2,
+        //                         0.5*(sets->xe[1]*sets->xe[1]+sets->pe[1]*sets->pe[1])/sets->scale_sqc2);
         if(seth->if_flighttime_tully == 1){
             if((sets->R_nuc[0] < -1.0 * seth->Xb_tully && sets->P_nuc[0] < 0) || 
-               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {          
+               (sets->R_nuc[0] > seth->Xb_tully && sets->P_nuc[0] > 0) ) {    
                 break;
             }
         }
@@ -3468,7 +3475,7 @@ void cal_force(struct set_slave *sets,struct set_host *seth) {
         // } else if (ifmsbranch > 0) {
         //     cal_force_msbranch();
         if (seth->ifswitchforce == 1) {
-            if(seth->ifscaleenergy == 7){
+            if(seth->ifscaleenergy == 7 || seth->ifscaleenergy == 8){
                 cal_force_sh(sets,seth);
             } else {
                 cal_force_switch(sets,seth);

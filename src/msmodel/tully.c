@@ -87,6 +87,8 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
     if(setm->if_flighttime_tully == 1){
         R[0] = -1.0 * setm->Xb_tully;
     }
+
+    // P[0] = setm->P0_tully;
 }
 
 void V_tully(double *R, double *H, struct set_host *setm) {
