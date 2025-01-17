@@ -984,9 +984,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         action[sets->init_occ - 1] += 1;
 
         // debug
-        // action[0]=1.01,action[1]=0.99;
-        // theta[0]=-1.0,theta[1]=2.0;
-        // sets->P_nuc[0] = 8.7;
+        // action[0]=1.0279163790587629,action[1]=0.6866200133888645;
+        // theta[0]=4.435113217752501,theta[1]=1.0379228857653318;
+        // sets->P_nuc[0] = 7.855740656524664;
         // printf("%d %18.8e  %18.8e  %18.8e  %18.8e \n",seth->mpi_rank,action[0],action[1],theta[0],theta[1]);
       
 
@@ -1022,6 +1022,28 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             }
         }
 
+
+        // 计算 sets->cf0
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    if (i == j) {
+                        if (i == sets->init_occ - 1){
+                            sets->cf0[i * seth->Nstate + i] = seth->Nstate; 
+                        } else {
+                            sets->cf0[i * seth->Nstate + i] = 0.0; 
+                        }
+                    } else {
+                        if (i == sets->init_occ - 1 || j == sets->init_occ - 1){
+                            sets->cf0[i * seth->Nstate + j] = seth->Nstate * 0.6 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                        } else {
+                            sets->cf0[i * seth->Nstate + j] = 0.0;
+                        }
+                    }
+                }
+            }
+        }
+
         if (seth->if_scale_sqc == 1){
             sets->scale_sqc2 = 0;
             for (i = 0; i < seth->Nstate; i++){
@@ -1040,22 +1062,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
 
 
-        // 计算 sets->cf0
-        if (seth->if_allcf != 0) {
-            for (int i = 0; i < seth->Nstate; i++) {
-                for (int j = 0; j < seth->Nstate; j++) {
-                    if (i == j) {
-                        if (i == sets->init_occ - 1){
-                            sets->cf0[i * seth->Nstate + i] = 1.0; 
-                        } else {
-                            sets->cf0[i * seth->Nstate + i] = 0.0; 
-                        }
-                    } else {
-                         sets->cf0[i * seth->Nstate + j] = sets->den_e[i * seth->Nstate + j];
-                    }
-                }
-            }
-        }
+        
         
 
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 ||
@@ -2255,6 +2262,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     int i, j, icfall;
     double x2;
     double complex csum1,csum2;
+    double complex tempcm1[seth->Nstate * seth->Nstate];
    
     cal_correfun(sets,seth);
 
@@ -2365,12 +2373,77 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     if (seth->if_allcf >= 2) {
         if (seth->if_allcf == 2) {
             cfweight_msmodel(sets->weight0,sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc, 0, seth);
-            csum1 = 0, csum2 = 0;
-            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
-                csum1 += sets->weight0[i] * sets->cf0[i];
-                csum2 += sets->weightt[i] * sets->correfun_t[i];
+
+            if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
+                // Q_{nnkl}, k \ne l
+                memset(tempcm1,0,seth->Nstate*seth->Nstate*sizeof(double complex));
+                for (i = 0; i < seth->Nstate; i++) {
+                    tempcm1[i * seth->Nstate + i] = sets->cf0[i * seth->Nstate + i];
+                }
+                
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * tempcm1[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+
+                // Q_{nmkl}, n \ne m
+                if (seth->if_scale_sqc == 1){
+                    for (i = 0; i < seth->Nstate; i++){
+                        sets->xe[i] /= sqrt(sets->scale_sqc2);
+                        sets->pe[i] /= sqrt(sets->scale_sqc2);
+                    }
+                    if (seth->type_evo >= 1){
+                        for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                            sets->den_e[i] /= sqrt(sets->scale_sqc2);
+                        }
+                    }
+                }
+
+                for (i = 0; i < seth->Nstate ; i++) {
+                    for (j = 0; j < seth->Nstate; j++){
+                       sets->correfun_t[i*seth->Nstate+j] = sets->den_e[i*seth->Nstate+j];
+                    }
+                }
+
+
+                memcpy(tempcm1,sets->cf0,seth->Nstate*seth->Nstate*sizeof(double complex));
+                for (i = 0; i < seth->Nstate; i++) {
+                    tempcm1[i * seth->Nstate + i] = 0;
+                }
+                
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * tempcm1[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+
+
+                if (seth->if_scale_sqc == 1){
+                    for (i = 0; i < seth->Nstate; i++){
+                        sets->xe[i] *= sqrt(sets->scale_sqc2);
+                        sets->pe[i] *= sqrt(sets->scale_sqc2);
+                    }
+                    if (seth->type_evo >= 1){
+                        for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                            sets->den_e[i] *= sqrt(sets->scale_sqc2);
+                        }
+                    }
+                }
+
+            } else {
+          
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * sets->cf0[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+
             }
-            sets->cfeff[igrid_cal] += csum1 * csum2;
+
         } else if (seth->if_allcf == 3) {
             for (icfall = 1; icfall < seth->allcf_times + 1; icfall++) {
                 cfweight_msmodel(sets->weight0, sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc, icfall, seth);        

@@ -17,3 +17,5 @@ void sample_frozen(double *P, double *R, struct set_host *setm);
 void V_frozen(double *R, double *H, struct set_host *setm);
 
 void dV_frozen(double *R, double *dH, struct set_host *setm);
+
+void cfweight_frozen(double *w0, double *wt, struct set_host *setm);
