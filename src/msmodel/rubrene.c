@@ -96,6 +96,8 @@ void sample_rubrene(double *P, double *R, double beta, struct set_host *setm) {
                     box_muller(&R[i * setm->N_mode_rubrene + j], &x2, sqrt(1.0 / (beta * setm->omega_rubrene[j] * setm->mass_rubrene[i * setm->N_mode_rubrene + j] * setm->omega_rubrene[j])), 0.0);
                 }
             }
+// P[i * setm->N_mode_rubrene + j]=-0.1;
+// R[i * setm->N_mode_rubrene + j]=0.1;
         }
     }
 }
@@ -251,7 +253,7 @@ void cfweight_rubrene(double *w0, double *wt, double beta, double *R, double *P,
         for (i = 0; i < setm->Nstate_rubrene * setm->Nstate_rubrene; i++) {
             rho[i] /= sum;
         }
- 
+
         memset(w0, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
         memset(wt, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
  

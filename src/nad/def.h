@@ -474,13 +474,13 @@ struct set_slave
 
     // int if_Pdis, s_N;
     // double s_start, s_end;
-    double *s; // 1D double array: [size1]
-    double *real_expisP; // 1D double array: [size1]
-    double *imag_expisP; // 1D double array: [size1]
-    double complex *expisP; // 1D complex array: [size1]
-    double complex *mpi_expisP; // 1D complex array: [size1]
-    double *mpi_real_expisP;
-    double *mpi_imag_expisP;
+    // double *s; // 1D double array: [size1]
+    // double *real_expisP; // 1D double array: [size1]
+    // double *imag_expisP; // 1D double array: [size1]
+    double complex *expisp; // 1D complex array: [size1]
+    // double complex *mpi_expisP; // 1D complex array: [size1]
+    // double *mpi_real_expisP;
+    // double *mpi_imag_expisP;
 
     double *R_nuc_ref; // 3D double array: [size1][size2][size3]
     double *P_nuc_ref; // 3D double array: [size1][size2][size3]

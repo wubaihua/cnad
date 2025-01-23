@@ -166,6 +166,13 @@ void dynamics_slave(struct set_host *seth){
                 }
             }
 
+            if (seth->if_Pdis == 1) {
+                for (int i = 0; i < seth->s_N; i++){
+                    seth->save_real_expisp[i*seth->nproc_sw+idcore] = creal(sets.expisp[i]);
+                    seth->save_imag_expisp[i*seth->nproc_sw+idcore] = cimag(sets.expisp[i]);
+                }
+            }
+
 
         }
         athread_ssync_array();
@@ -234,6 +241,14 @@ void dynamics_slave(struct set_host *seth){
             seth->mpi_P_nuc_mean[i] = sets.P_nuc_mean[i];
             seth->mpi_R2_nuc_mean[i] = sets.R2_nuc_mean[i];
             seth->mpi_P2_nuc_mean[i] = sets.P2_nuc_mean[i];
+        }
+    }
+
+
+    if (seth->if_Pdis == 1) {
+        for (int i = 0; i < seth->s_N; i++){
+            seth->mpi_real_expisp[i] = creal(sets.expisp[i]);
+            seth->mpi_imag_expisp[i] = cimag(sets.expisp[i]);
         }
     }
 

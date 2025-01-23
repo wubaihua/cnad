@@ -323,6 +323,27 @@ int main(int argc, char *argv[]) {
     }
 
 
+    if (seth.if_Pdis == 1) {
+        seth.fi_real_expisp = (double *)malloc(seth.s_N * sizeof(double));
+        seth.fi_imag_expisp = (double *)malloc(seth.s_N * sizeof(double));
+        memset(seth.fi_real_expisp, 0, seth.s_N * sizeof(double));
+        memset(seth.fi_imag_expisp, 0, seth.s_N * sizeof(double));
+        #ifdef sunway
+        for (int i = 0; i < seth.s_N; i++){
+            for(int j = 0; j < seth.nproc_sw; j++){
+                seth.fi_real_expisp[i] += seth.save_real_expisp[i * seth.nproc_sw + j];
+                seth.fi_imag_expisp[i] += seth.save_imag_expisp[i * seth.nproc_sw + j];
+            }
+        }
+        free(seth.save_real_expisp);
+        free(seth.save_imag_expisp);
+        #elif defined(x86)
+        memcpy(seth.fi_real_expisp, seth.mpi_real_expisp, seth.s_N * sizeof(double));
+        memcpy(seth.fi_imag_expisp, seth.mpi_imag_expisp, seth.s_N * sizeof(double));
+        #endif
+    }
+
+
 
 
 
@@ -544,6 +565,16 @@ int main(int argc, char *argv[]) {
         
     }
 
+    if (seth.if_Pdis == 1) {
+        for (int i = 0; i < seth.s_N; i++){
+            MPI_Reduce(&seth.fi_real_expisp[i], &seth.mpi_real_expisp[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+            MPI_Reduce(&seth.fi_imag_expisp[i], &seth.mpi_imag_expisp[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        }
+
+        free(seth.fi_real_expisp);
+        free(seth.fi_imag_expisp);
+        
+    }
 
 
     if (seth.mean_nuc == 1) {
@@ -712,6 +743,20 @@ int main(int argc, char *argv[]) {
                 for (int i = 0; i < seth.Ngrid; i++) {
                     seth.mpi_real_cfeff[i] = seth.mpi_real_cfeff[i]/seth.Ntraj;
                     seth.mpi_imag_cfeff[i] = seth.mpi_imag_cfeff[i]/seth.Ntraj;
+                }
+            }
+        }
+
+        if (seth.if_Pdis == 1) {
+            if (seth.if_st_nan == 1) {
+                for (int i = 0; i < seth.s_N; i++) {
+                    seth.mpi_real_expisp[i] = seth.mpi_real_expisp[i]/(seth.Ntraj - seth.mpi_N_nan_sum[0]);
+                    seth.mpi_imag_expisp[i] = seth.mpi_imag_expisp[i]/(seth.Ntraj - seth.mpi_N_nan_sum[0]);
+                }
+            } else {
+                for (int i = 0; i < seth.s_N; i++) {
+                    seth.mpi_real_expisp[i] = seth.mpi_real_expisp[i]/seth.Ntraj;
+                    seth.mpi_imag_expisp[i] = seth.mpi_imag_expisp[i]/seth.Ntraj;
                 }
             }
         }

@@ -434,7 +434,10 @@ struct set_host
     double *mpi_imag_cfeff;
     double *save_real_cfeff;
     double *save_imag_cfeff;
-
+    double *mpi_real_expisp;
+    double *mpi_imag_expisp;
+    double *save_real_expisp;
+    double *save_imag_expisp;
 
 
     double *save_flighttime;
@@ -457,6 +460,12 @@ struct set_host
     double *fi_real_cfeff;
     double *fi_imag_cfeff;
     double *fi_time_grid;
+
+    double *fi_real_expisp;
+    double *fi_imag_expisp;
+
+
+    
 
 
     // int *count_st; // 2D int array: [size1][size2]
@@ -621,7 +630,7 @@ struct set_host
 
     int if_Pdis, s_N;
     double s_start, s_end;
-    // double *s; // 1D double array: [size1]
+    double *s_grid; // 1D double array: [size1]
     // double *real_expisP; // 1D double array: [size1]
     // double *imag_expisP; // 1D double array: [size1]
     // double complex *expisP; // 1D complex array: [size1]

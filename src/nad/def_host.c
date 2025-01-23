@@ -217,12 +217,12 @@
 // int if_Pdis, s_N;
 // double s_start, s_end;
 // // double *s; // 1D double array: [size1]
-// // double *real_expisP; // 1D double array: [size1]
-// // double *imag_expisP; // 1D double array: [size1]
-// // double complex *expisP; // 1D complex array: [size1]
-// // double complex *mpi_expisP; // 1D complex array: [size1]
-// // double *mpi_real_expisP;
-// // double *mpi_imag_expisP;
+// // double *real_expisp; // 1D double array: [size1]
+// // double *imag_expisp; // 1D double array: [size1]
+// // double complex *expisp; // 1D complex array: [size1]
+// // double complex *mpi_expisp; // 1D complex array: [size1]
+// // double *mpi_real_expisp;
+// // double *mpi_imag_expisp;
 
 // // double *R_nuc_ref; // 3D double array: [size1][size2][size3]
 // // double *P_nuc_ref; // 3D double array: [size1][size2][size3]
@@ -903,6 +903,7 @@ void readinp(struct set_host *seth){
             }
         }
 
+
         if (NULL != cJSON_GetObjectItem(item, "if_engconsv")) {
             list = cJSON_GetObjectItem(item, "if_engconsv");
             if (list->type == cJSON_Number) {
@@ -1409,6 +1410,25 @@ void init_host(struct set_host *seth){
     }
 
 
+    if (seth->if_Pdis == 1) {
+        seth->s_grid = (double *)malloc(seth->s_N * sizeof(double));
+        for (int i = 0; i < seth->s_N; i++) {
+            seth->s_grid[i] = seth->s_start + (seth->s_end - seth->s_start) / (seth->s_N - 1) * i;
+        }
+
+
+        seth->mpi_real_expisp = (double *)malloc(seth->s_N * sizeof(double));
+        seth->mpi_imag_expisp = (double *)malloc(seth->s_N * sizeof(double));  
+        memset(seth->mpi_real_expisp, 0, seth->s_N * sizeof(double));
+        memset(seth->mpi_imag_expisp, 0, seth->s_N * sizeof(double));  
+
+        seth->save_real_expisp = (double *)malloc(seth->s_N * seth->nproc_sw * sizeof(double));
+        seth->save_imag_expisp = (double *)malloc(seth->s_N * seth->nproc_sw * sizeof(double));  
+        memset(seth->save_real_expisp, 0, seth->s_N * seth->nproc_sw * sizeof(double));
+        memset(seth->save_imag_expisp, 0, seth->s_N * seth->nproc_sw * sizeof(double));
+    }
+
+
 
     if(seth->if_flighttime_tully == 1) {
         seth->save_flighttime = (double *)malloc(8 * seth->Ntraj/seth->mpi_size * sizeof(double));
@@ -1764,6 +1784,10 @@ void print_info(struct set_host *seth){
         if (seth->mean_nuc == 1) {
             printf("mean_nuc = 1: Output mean nuclear DOFs.\n");
         }
+        if (seth->if_Pdis == 1) {
+            printf("if_Pdis = 1: Output P distribution.\n");
+            printf("s_start= %f, s_end= %f, s_N= %d\n", seth->s_start, seth->s_end, seth->s_N);
+        }
         // if (if_st_eng == 1) {
         //     printf("if_st_eng = 1: estimate total energy \n");
         // }
@@ -2031,6 +2055,16 @@ void fileout(struct set_host *seth) {
             fclose(cfeff_file);
         }
 
+        if (seth->if_Pdis == 1) {
+            strncpy(outname, seth->filepath, len - 5);
+            strcpy(outname + len - 5, ".expisp");
+            FILE *file = fopen(outname, "w");
+            for (int i = 0; i < seth->s_N; i++) {
+                fprintf(file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->mpi_real_expisp[i], seth->mpi_imag_expisp[i]);
+            }
+            fclose(file);
+        }
+
 //     if (P_nuc_mean != NULL) {
 //         strncpy(outname, filepath, len - 5);
 //         strcpy(outname + len - 5, ".Pmean");
@@ -2101,7 +2135,7 @@ void fileout(struct set_host *seth) {
 //         strcpy(outname + len - 5,  ".expisp");
 //         FILE *file = fopen(outname, "w");
 //         for (int i = 0; i < s_N; i++) {
-//             fprintf(file, "%f %f %f\n", s[i], real_expisP[i], imag_expisP[i]);
+//             fprintf(file, "%f %f %f\n", s[i], real_expisp[i], imag_expisp[i]);
 //         }
 //         fclose(file);
 //     }
@@ -2215,6 +2249,21 @@ void fileout_mpi(int id, struct set_host *seth) {
             fprintf(cfeff_file, "%18.8E %18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_real_cfeff[i]/seth->Ntraj*seth->mpi_size, seth->fi_imag_cfeff[i]/seth->Ntraj*seth->mpi_size);
         }
         fclose(cfeff_file);
+    }
+
+
+    if (seth->if_Pdis == 1) {
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".expisp");
+        FILE *file = fopen(outname, "w");
+        for (int i = 0; i < seth->s_N; i++) {
+            fprintf(file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->fi_real_expisp[i]/seth->Ntraj*seth->mpi_size, seth->fi_imag_expisp[i]/seth->Ntraj*seth->mpi_size);
+        }
+        fclose(file);
     }
 
 

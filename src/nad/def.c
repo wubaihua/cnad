@@ -205,12 +205,12 @@
 // // int seth->if_Pdis, seth->s_N;
 // // double s_start, s_end;
 // double *s; // 1D double array: [size1]
-// double *real_sets->expisP; // 1D double array: [size1]
-// double *imag_sets->expisP; // 1D double array: [size1]
-// double complex *sets->expisP; // 1D complex array: [size1]
-// double complex *mpi_sets->expisP; // 1D complex array: [size1]
-// double *mpi_real_sets->expisP;
-// double *mpi_imag_sets->expisP;
+// double *real_sets->expisp; // 1D double array: [size1]
+// double *imag_sets->expisp; // 1D double array: [size1]
+// double complex *sets->expisp; // 1D complex array: [size1]
+// double complex *mpi_sets->expisp; // 1D complex array: [size1]
+// double *mpi_real_sets->expisp;
+// double *mpi_imag_sets->expisp;
 
 // double *sets->R_nuc_ref; // 3D double array: [size1][size2][size3]
 // double *sets->P_nuc_ref; // 3D double array: [size1][size2][size3]
@@ -724,14 +724,10 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
         sets->pop_fb = (double *)malloc(seth->Nstate * seth->Ngrid * 2 * sizeof(double));
         memset(sets->pop_fb, 0, seth->Nstate * seth->Ngrid * 2 * sizeof(double));
     }
-    // if (seth->if_Pdis == 1) {
-    //     sets->s = (double *)malloc(seth->s_N * sizeof(double));
-    //     sets->expisP = (double  complex *)malloc(seth->s_N * sizeof(double complex ));
-    //     memset(sets->expisP, 0, seth->s_N * sizeof(double complex ));
-    //     for (i = 0; i < seth->s_N; i++) {
-    //         sets->s[i] = seth->s_start + i * (seth->s_end - seth->s_start) / seth->s_N;
-    //     }
-    // }
+    if (seth->if_Pdis == 1) {
+        sets->expisp = (double  complex *)malloc(seth->s_N * sizeof(double complex ));
+        memset(sets->expisp, 0, seth->s_N * sizeof(double complex ));
+    }
    
     // if (seth->temperature != 0.0 && seth->beta == 0.0) {
     //     seth->beta = 1 / (kb * seth->temperature);
@@ -881,7 +877,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         
         // 调用 random_prob 函数
         random_prob(seth->Nstate, action);
-
+// sets->init_occ=1;
+// for (int i = 0; i < seth->Nstate; i++) {
+//     action[i] = (1.0-0.5)/(seth->Nstate-1);
+//     theta[i] = i*2*M_PI/seth->Nstate;
+//     // printf("action[%d]=%f\n",i,action[i]);
+// }
+// action[sets->init_occ - 1] = 0.5;
         // 计算 sets->xe 和 sets->pe
         for (int i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * cos(theta[i]);
@@ -3468,55 +3470,54 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
     
 
-    // if (seth->if_Pdis == 1) {
-    //     if (strcmp(seth->method, "mash") == 0 || strcmp(seth->method, "MASH") == 0) {
+    if (seth->if_Pdis == 1) {
+        if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
+               strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
+               strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0) {
     
-    //         for(i=0;i<seth->s_N;i++){
-    //             // sets->expisP[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * 2 * sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
-    //             sets->expisP[i] += sets->correfun_0 *(cos(sets->P_nuc[0] * sets->s[i]) + I * sin(sets->P_nuc[0] * sets->s[i])) * 2 * sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
-    //         }
-    //             // break;
-    //     } else if (strcmp(seth->method, "unsmash") == 0 ||
-    //               strcmp(seth->method, "UNSMASH") == 0 ||
-    //               strcmp(seth->method, "unSMASH") == 0 ){
-    //         for(i=0;i<seth->s_N;i++){
-    //             // sets->expisP[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * seth->Nstate * rho0_unsmash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
-    //             sets->expisP[i] += sets->correfun_0 * (cos(sets->P_nuc[0] * sets->s[i]) + I * sin(sets->P_nuc[0] * sets->s[i])) * seth->Nstate * sets->rho0_unsmash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
-    //         }
-    //             // break;
-    //     } else if (strcmp(seth->method, "mash-mf") == 0 ||
-    //                 strcmp(seth->method, "MASH-MF") == 0 ){
-    //         for(i=0;i<seth->s_N;i++){
-    //             // sets->expisP[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * 2 * sets->measure_mash;
-    //             sets->expisP[i] += sets->correfun_0 * (cos(sets->P_nuc[0] * sets->s[i]) + I* sin(sets->P_nuc[0] * sets->s[i])) * 2 * sets->measure_mash;
-    //         }
-    //             // break;
-    //     } else if (strcmp(seth->method, "sqc") == 0 ||
-    //                strcmp(seth->method, "SQC") == 0 ||                 
-    //                strcmp(seth->method, "mf3") == 0 ||
-    //                strcmp(seth->method, "MF3") == 0 ||
-    //                strcmp(seth->method, "sqc2") == 0 ||
-    //                strcmp(seth->method, "SQC2") == 0 ||
-    //                strcmp(seth->method, "sqc3") == 0 ||
-    //                strcmp(seth->method, "SQC3") == 0 ){
-    //         x2 = 0;
-    //         for (i = 0; i < seth->Nstate; i++) {
-    //             x2 += creal(sets->correfun_t[i * seth->Nstate + i]);
-    //         }
-    //         for(i=0;i<seth->s_N;i++){
-    //             // sets->expisP[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * x2;
-    //             sets->expisP[i] += sets->correfun_0 * ( cos( sets->P_nuc[0] * sets->s[i]) + I * sin( sets->P_nuc[0] * sets->s[i]) ) * x2;
-    //         }
-    //             // break;
+            for(i = 0; i < seth->s_N; i++){
+                // sets->expisp[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * 2 * sets->rho0_mash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
+                sets->expisp[i] += (cos(sets->P_nuc[0] * seth->s_grid[i]) + I * sin(sets->P_nuc[0] * seth->s_grid[i])) * (creal(sets->correfun_0 * sets->correfun_t[0]) + creal(sets->correfun_0 * sets->correfun_t[3]));
+            }
+                // break;
+        // } else if (strcmp(seth->method, "unsmash") == 0 ||
+        //           strcmp(seth->method, "UNSMASH") == 0 ||
+        //           strcmp(seth->method, "unSMASH") == 0 ){
+        //     for(i = 0; i < seth->s_N; i++){
+        //         // sets->expisp[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * seth->Nstate * rho0_unsmash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
+        //         sets->expisp[i] += sets->correfun_0 * (cos(sets->P_nuc[0] * sets->s[i]) + I * sin(sets->P_nuc[0] * sets->s[i])) * seth->Nstate * sets->rho0_unsmash[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] * sets->measure_mash;
+        //     }
+        //         // break;
+        } else if (strcmp(seth->method, "MASH-MF") == 0 || strcmp(seth->method, "mash-mf") == 0 ||
+                   strcmp(seth->method, "mashmf") == 0 || strcmp(seth->method, "MASHMF") == 0 ||
+                   strcmp(seth->method, "mr") == 0 || strcmp(seth->method, "MR") == 0) {
+            for(i = 0; i < seth->s_N; i++){
+                // sets->expisp[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * 2 * sets->measure_mash;
+                sets->expisp[i] += sets->correfun_0 * (cos(sets->P_nuc[0] * seth->s_grid[i]) + I* sin(sets->P_nuc[0] * seth->s_grid[i])) * 2 * sets->measure_mash;
+            }
+                // break;
+        } else if (strcmp(seth->method, "sqc") == 0 ||  strcmp(seth->method, "SQC") == 0 
+            || strcmp(seth->method, "mf3") == 0 || strcmp(seth->method, "MF3") == 0
+            || strcmp(seth->method, "CW2") == 0 || strcmp(seth->method, "cw2") == 0 
+            || strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
+            x2 = 0;
+            for (i = 0; i < seth->Nstate; i++) {
+                x2 += creal(sets->correfun_t[i * seth->Nstate + i]);
+            }
+            for(i = 0; i < seth->s_N; i++){
+                // sets->expisp[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]) * x2;
+                sets->expisp[i] += sets->correfun_0 * ( cos( sets->P_nuc[0] * seth->s_grid[i]) + I * sin( sets->P_nuc[0] * seth->s_grid[i]) ) * x2;
+            }
+                // break;
 
-    //     } else {
-    //             for(i=0;i<seth->s_N;i++){
-    //                 // sets->expisP[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]);
-    //                 sets->expisP[i] += sets->correfun_0 * ( cos( sets->P_nuc[0] * sets->s[i]) + I * sin( sets->P_nuc[0] * sets->s[i]) );
-    //             }
-    //             // break;
-    //     }
-    // }
+        } else {
+                for(i = 0; i < seth->s_N; i++){
+                    // sets->expisp[i] += sets->correfun_0 * cexp(I * sets->P_nuc[0] * s[i]);
+                    sets->expisp[i] += sets->correfun_0 * ( cos( sets->P_nuc[0] * seth->s_grid[i]) + I * sin( sets->P_nuc[0] * seth->s_grid[i]) );
+                }
+                // break;
+        }
+    }
     
 }
 
@@ -4801,6 +4802,10 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
         free(sets->P_nuc_mean);
         free(sets->R2_nuc_mean);
         free(sets->P2_nuc_mean);
+    }
+
+    if(seth->if_Pdis == 1){
+       free(sets->expisp);
     }
 
 }
