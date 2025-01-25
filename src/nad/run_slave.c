@@ -42,7 +42,7 @@ void dynamics_slave(struct set_host *seth){
     init_msmodel(sets.mass,seth);
     #endif
     
-   
+
     
     #ifdef sunway
     init_seed(seth->mpi_rank*seth->nproc_sw+slavecore_id);

@@ -2058,11 +2058,11 @@ void fileout(struct set_host *seth) {
         if (seth->if_Pdis == 1) {
             strncpy(outname, seth->filepath, len - 5);
             strcpy(outname + len - 5, ".expisp");
-            FILE *file = fopen(outname, "w");
+            FILE *expisp_file = fopen(outname, "w");
             for (int i = 0; i < seth->s_N; i++) {
-                fprintf(file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->mpi_real_expisp[i], seth->mpi_imag_expisp[i]);
+                fprintf(expisp_file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->mpi_real_expisp[i], seth->mpi_imag_expisp[i]);
             }
-            fclose(file);
+            fclose(expisp_file);
         }
 
 //     if (P_nuc_mean != NULL) {
@@ -2259,11 +2259,11 @@ void fileout_mpi(int id, struct set_host *seth) {
         strcpy(outname + len - 5, "_mpi");
         strcpy(outname + len - 5 + strlen("_mpi"), cid);
         strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".expisp");
-        FILE *file = fopen(outname, "w");
+        FILE *expisp_file = fopen(outname, "w");
         for (int i = 0; i < seth->s_N; i++) {
-            fprintf(file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->fi_real_expisp[i]/seth->Ntraj*seth->mpi_size, seth->fi_imag_expisp[i]/seth->Ntraj*seth->mpi_size);
+            fprintf(expisp_file, "%18.8E %18.8E %18.8E\n", seth->s_grid[i], seth->fi_real_expisp[i]/seth->Ntraj*seth->mpi_size, seth->fi_imag_expisp[i]/seth->Ntraj*seth->mpi_size);
         }
-        fclose(file);
+        fclose(expisp_file);
     }
 
 
