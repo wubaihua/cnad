@@ -113,6 +113,8 @@ if(x86)
     # 链接库
     target_link_libraries(cnad
             lapacke 
+            lapack 
+            blas
             m
             gfortran
     )
