@@ -652,6 +652,11 @@ struct set_slave
     // int if_traceless_force;
 
 
+    // double c1_exact_prop, c2_exact_prop;
+    // double *e_vb_exact_prop, *vpi_ver_exact_prop;
+    // int *index_exact_prop;
+
+
 
 };
 
