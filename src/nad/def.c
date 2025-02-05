@@ -784,6 +784,10 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
             sets->E_adia = (double *)malloc(seth->Nstate * sizeof(double));
             sets->U_d2a_old = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
             sets->E_adia_old = (double *)malloc(seth->Nstate * sizeof(double));
+            sets->U_ref = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
+            sets->U_ref_old = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
+            memset(sets->U_ref, 0, seth->Nstate * seth->Nstate * sizeof(double));
+        
         }
     }
 
@@ -2059,11 +2063,13 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
 
 
 void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct set_slave *sets,struct set_host *seth) {
-    int i, j;
+    int i, j, imax;
     double E[Nstate], C[Nstate * Nstate];
     double sineig[Nstate * Nstate], coseig[Nstate * Nstate];
     double real_pro[Nstate * Nstate], img_pro[Nstate * Nstate];
-    
+    double overlap[seth->Nstate * seth->Nstate], overlap2[seth->Nstate * seth->Nstate], vmax;
+    double tempdm1[seth->Nstate*seth->Nstate],tempdm2[seth->Nstate*seth->Nstate],tempdm3[seth->Nstate*seth->Nstate],tempdm4[seth->Nstate*seth->Nstate], tempdv1[seth->Nstate];
+    int id_max[seth->Nstate], idloc, id1, id2;
     // printf("%18.8E %18.8E %18.8E %18.8E \n",H[0],H[1],H[2],H[3]);
     // 调用dia_symmat函数
     dia_symmat(Nstate, H, E, C);
@@ -2084,7 +2090,7 @@ void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct s
     }
     //  printf("z 22222222  \n");
     // 计算real_pro和img_pro
-    double tempdm1[Nstate*Nstate],tempdm2[Nstate*Nstate];
+   
     
     transpose(C, tempdm1, Nstate);
     dd_matmul(coseig,tempdm1,tempdm2,Nstate,Nstate,Nstate);
@@ -2105,13 +2111,40 @@ void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct s
         // printf("11111\n");
         memcpy(sets->U_d2a,C,Nstate*Nstate*sizeof(double));
         memcpy(sets->E_adia,E,Nstate*sizeof(double));
-        // for (i = 0; i < seth->Nstate * seth->Nstate; i++) {
-        //     sets->U_d2a[i] = C[i];
-        //     if(i<seth->Nstate) {sets->E_adia[i] = E[i]};
-        // }
-        // for (i = 0; i < seth->Nstate; i++) {
-        //     sets->E_adia[i] = E[i];
-        // }
+        
+        if (sets->if_ad_nac) {
+            transpose(sets->U_d2a,tempdm1,seth->Nstate);
+            dd_matmul(tempdm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
+            // matmul(transpose(sets->U_d2a), sets->U_ref, overlap);
+            memset(overlap2, 0, seth->Nstate * seth->Nstate * sizeof(double));
+        
+            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                tempdm1[i] = fabs(overlap[i]);
+            }
+
+            for (i = 0; i < seth->Nstate; i++) {
+                idloc=maxloc(tempdm1, seth->Nstate * seth->Nstate);
+                id1 = idloc / seth->Nstate; 
+                id2 = idloc % seth->Nstate; 
+                overlap2[idloc] = (overlap[idloc] >= 0.0) ? 1.0 : -1.0;
+                for (j = 0; j < seth->Nstate; j++) {
+                    tempdm1[id1 * seth->Nstate + j] = 0;
+                    tempdm1[j * seth->Nstate + id2] = 0;
+                }
+            }
+
+            dd_matmul(sets->U_d2a, overlap2, tempdm1, seth->Nstate, seth->Nstate, seth->Nstate);
+            memcpy(sets->U_d2a,tempdm1,seth->Nstate * seth->Nstate * sizeof(double));
+
+            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                tempdm2[i] = fabs(overlap2[i]);
+            }
+            dd_matmul(sets->E_adia, tempdm2, tempdv1, 1, seth->Nstate, seth->Nstate);
+            memcpy(sets->E_adia, tempdv1, seth->Nstate * sizeof(double));
+        }
+        memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double));
+        memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double));
+        sets->if_ad_nac = 1;
     }
     //  printf("z 55555  \n");
 }
@@ -3070,6 +3103,7 @@ void evo_traj_savetraj(struct set_slave *sets,struct set_host *seth) {
     if (seth->ifswitchforce > 0 && seth->rep == 0){
         if (sets->E_adia != NULL) memcpy(sets->E_adia_old, sets->E_adia, seth->Nstate * sizeof(double));
         if (sets->U_d2a != NULL) memcpy(sets->U_d2a_old, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double));
+        if (sets->U_ref != NULL) memcpy(sets->U_ref_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double));
     }
     
     sets->id_state_old = sets->id_state;
@@ -4976,7 +5010,17 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
     if(seth->if_Pdis == 1){
        free(sets->expisp);
     }
-
+    
+    if (seth->ifswitchforce > 0) {
+        if (seth->rep == 0) {
+            free(sets->U_d2a);
+            free(sets->U_ref);
+            free(sets->U_d2a_old);
+            free(sets->U_ref_old);
+            free(sets->E_adia);
+            free(sets->E_adia_old);
+        }
+    }
 
 
 }
