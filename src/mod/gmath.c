@@ -123,7 +123,71 @@ double complex trace_comp(int n, double complex *A) {
 
 // Initialize random seed
 void init_seed(int my_prl) {
-    srand(my_prl);
+    // srand(my_prl);
+
+
+    
+    int n, i;
+    int ival[8];
+    int v[3];
+    unsigned int *seed;
+
+    // Get current date and time
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    ival[0] = tm.tm_year + 1900;
+    ival[1] = tm.tm_mon + 1;
+    ival[2] = tm.tm_mday;
+    ival[3] = tm.tm_hour;
+    ival[4] = tm.tm_min;
+    ival[5] = tm.tm_sec;
+    ival[6] = (int)t; // seconds since epoch
+    ival[7] = (int)(t % 1000); // milliseconds
+
+    // Calculate offsets
+    v[0] = 101 * ival[7] + 256 * ival[6] + ival[7] % 103;
+    v[1] = ival[5] + 64 * ival[4] + (1993 % (2 + ival[6]) + 3) * 97 * ival[7];
+    v[2] = ival[2] + 4 * ival[1] + 16 * ival[0] + (997 % (1 + ival[6]) + 5) * 101 * ival[7];
+
+    // Get the size of the seed array
+    n = 256; // Example size, this should be determined by the implementation
+    seed = (unsigned int *)malloc(n * sizeof(unsigned int));
+
+    // Initialize the seed array with random values
+    srand((unsigned int)time(NULL));
+    for (i = 0; i < n; i++) {
+        seed[i] = rand();
+    }
+
+    // First bias
+    for (i = 0; i < n; i++) {
+        seed[i] += v[i % 3] + ival[7];
+    }
+
+    // Second bias
+    if (n >= 8) {
+        for (i = 0; i < 8; i++) {
+            seed[i] += ival[i];
+        }
+    } else {
+        for (i = 0; i < n; i++) {
+            seed[i] += ival[i];
+        }
+    }
+
+    // Parallel processing bias
+    if (my_prl) {
+        for (i = 0; i < n; i++) {
+            seed[i] += 113 * my_prl;
+        }
+    }
+
+    // Set the new seed
+    srand(seed[0]);
+
+    // Free allocated memory
+    free(seed);
 }
 
 
