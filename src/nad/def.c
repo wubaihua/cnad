@@ -2665,9 +2665,14 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
     double complex gamma_cv_save[seth->Nstate * seth->Nstate], den_e_save[seth->Nstate * seth->Nstate];
     double tempdm1[seth->Nstate * seth->Nstate], tempdm2[seth->Nstate * seth->Nstate], tempdv1[seth->Nstate], tempdv2[seth->Nstate];
     double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
+    double c1 = 0.0, c2 = 0.0;
 
+
+    if (seth->Ndof1 * seth->Ndof2 == 1) { // only one nuclear degree of freedom
+        return;
+    }
   
-    // return;//debug
+    
     double K = 0.0;
     for (int i = 0; i < seth->Ndof1*seth->Ndof2; i++) {
         K += 0.5 * sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
@@ -2808,8 +2813,15 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
     }
     norm_vb = sqrt(norm_vb);
    
-    if (norm_vb < eps) {
-        
+    if (norm_vb < eps) { // if \vec B is too small, using the taylor expansion
+        c1 = 0.0;
+        for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+            c1 += vb[k] * sets->P_nuc[k] / sqrt(sets->mass[k]);
+        }
+        c1 = c1 * deltat / (2 * K) + 1.0;
+        for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+            sets->P_nuc[k] = c1 * sets->P_nuc[k] - deltat * sqrt(sets->mass[k]) * vb[k];
+        }
         return;
     }
     memcpy(e_vb, vb, seth->Ndof1*seth->Ndof2 * sizeof(double));
@@ -2833,13 +2845,13 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
 
    
     double sintheta = 1.0 - (vdot * vdot) / (2 * K);
-    if(fabs(sintheta) < eps) {
+    if(fabs(sintheta) < eps) { // \vec B // M^{-1/2}P 
         
         return;
     }
 
 
-    double c1 = 0.0, c2 = 0.0;
+    
     // c1 = sqrt(2 * K) * (vdot - sqrt(2 * K) * tanh(norm_vb * deltat /  sqrt(2 * K))) / (sqrt(2 * K) - vdot * tanh(norm_vb * deltat / sqrt(2 * K)));
     // c2 = sqrt(2 * K) / (sqrt(2 * K) * cosh(norm_vb * deltat / sqrt(2 * K)) - vdot * sinh(norm_vb * deltat / sqrt(2 * K)));
     c1 = sqrt(2 * K) * ((vdot - sqrt(2 * K)) + (vdot + sqrt(2 * K)) * exp(-2 * norm_vb * deltat/sqrt(2 * K))) / ((sqrt(2 * K) - vdot) + (vdot + sqrt(2 * K)) * exp(-2 * norm_vb * deltat/sqrt(2 * K)));
