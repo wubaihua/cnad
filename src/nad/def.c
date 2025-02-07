@@ -3087,6 +3087,46 @@ void evo_traj_algorithm9(double deltat,struct set_slave *sets,struct set_host *s
 }
 
 
+// (P-E)^N-R-(E-P)^N
+void evo_traj_algorithm10(double deltat,struct set_slave *sets,struct set_host *seth) {
+    #ifdef sunway
+    int slavecore_id=athread_get_id(-1);
+    #endif
+    double tempv[seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate];
+    
+    for (int i = 0; i < seth->n_step_algom; i++) {
+        cal_force(sets,seth);
+        evo_traj_nucP(deltat / (2 * seth->n_step_algom),sets,seth);
+        if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / (2 * seth->n_step_algom),sets,seth);
+        evo_traj_ele(deltat / (2 * seth->n_step_algom),sets,seth,1);
+    }
+   
+    evo_traj_nucR(deltat,sets,seth);
+    dV_msmodel(sets->R_nuc, sets->dV,seth);
+    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+    if (seth->rep == 1) cal_NACV(sets,seth);
+
+    evo_traj_ele(deltat / (2 * seth->n_step_algom),sets,seth,2);
+    cal_force(sets,seth);
+    if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / (2 * seth->n_step_algom),sets,seth);
+    evo_traj_nucP(deltat / (2 * seth->n_step_algom),sets,seth);
+    if (seth->n_step_algom > 1) {
+        for (int i = 0; i < seth->n_step_algom - 1; i++) {
+            evo_traj_ele(deltat / (2 * seth->n_step_algom),sets,seth,1);
+            cal_force(sets,seth);
+            if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / (2 * seth->n_step_algom),sets,seth);
+            evo_traj_nucP(deltat / (2 * seth->n_step_algom),sets,seth);
+        }
+    }
+    
+
+   
+    
+    
+}
+
+
 
 void evo_traj_savetraj(struct set_slave *sets,struct set_host *seth) {
     // 假设所有变量已经在def.h中声明
@@ -3367,9 +3407,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             case 9:
                 evo_traj_algorithm9(dt_evo,sets,seth);
                 break;
-            // case 10:
-            //     evo_traj_algorithm10(dt_evo);
-            //     break;
+            case 10:
+                evo_traj_algorithm10(dt_evo,sets,seth);
+                break;
         }
 
         //debug
@@ -3420,6 +3460,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                                     break;
                                 case 9:
                                     evo_traj_algorithm9(dt_evo,sets,seth);
+                                    break;
+                                case 10:
+                                    evo_traj_algorithm10(dt_evo,sets,seth);
                                     break;
                             }
 
@@ -3480,7 +3523,10 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                                 break;
                             case 9:
                                 evo_traj_algorithm9(dt_evo,sets,seth);
-                            break;
+                                break;
+                            case 10:
+                                evo_traj_algorithm10(dt_evo,sets,seth);
+                                break;
                         }
 
                         if (seth->scaleenergy_type == 1) {
@@ -3522,7 +3568,10 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
                                 break;
                             case 9:
                                 evo_traj_algorithm9(dt_evo,sets,seth);
-                            break;
+                                break;
+                            case 10:
+                                evo_traj_algorithm10(dt_evo,sets,seth);
+                                break;
                         }
 
                         if (seth->scaleenergy_type == 1) {

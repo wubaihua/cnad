@@ -525,7 +525,7 @@ void initial_para(struct set_host *seth) {
 
     seth->type_algorithm = 1;
 
-    seth->n_step_algo5 = 4;
+    seth->n_step_algom = 1;
 
     seth->if_typemb = 0;
 
@@ -1198,10 +1198,10 @@ void readinp(struct set_host *seth){
             }
         }
 
-        if (NULL != cJSON_GetObjectItem(item, "n_step_algo5")) {
-            list = cJSON_GetObjectItem(item, "n_step_algo5");
+        if (NULL != cJSON_GetObjectItem(item, "n_step_algom")) {
+            list = cJSON_GetObjectItem(item, "n_step_algom");
             if (list->type == cJSON_Number) {
-                seth->n_step_algo5 = list->valueint;
+                seth->n_step_algom = list->valueint;
             }
         }
 
@@ -1844,7 +1844,7 @@ void print_info(struct set_host *seth){
         //     printf("Using Langevin dynamics, eta= %f\n", eta_langevin);
         // }
         printf("index of algorithm: %d\n", seth->type_algorithm);
-        // if (type_algorithm == 5) printf("n_step_algo5= %d\n", n_step_algo5);
+        if (seth->type_algorithm == 10) printf("n_step_algom= %d\n", seth->n_step_algom);
         // if (allow_hop != 0) {
         //     printf("allow_hop= %d\n", allow_hop);
         // }

@@ -803,7 +803,7 @@ struct set_host
 
     int scaleenergy_type;
 
-    int n_step_algo5;
+    // int n_step_algo5;
 
     int allow_hop;
 
@@ -827,6 +827,8 @@ struct set_host
 
 
     int if_print;
+
+    int n_step_algom;
 
 
 
@@ -912,6 +914,9 @@ struct set_host
         // dual harmonic oscilators:
         int type_dualho;
         // double A1_dualho, A2_dualho, R01_dualho, R02_dualho, 
+
+
+
 
 };
 
