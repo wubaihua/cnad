@@ -57,6 +57,11 @@ void parameter_tully(double *mass, struct set_host *setm) {
             setm->Z_tully = 4;
             setm->R0_tully = -27.5;
             break;
+        case 6:
+            mass[0] = 2000.0;
+            setm->R0_tully = 0.0;
+            break;
+
     }
 }
 
@@ -75,6 +80,9 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
             break;
         case 5:
             setm->gamma_tully = 1.0 / 8;
+            break;
+        case 6:
+
             break;
         }
     }
@@ -137,6 +145,19 @@ void V_tully(double *R, double *H, struct set_host *setm) {
             }
             H[2] = H[1];
             break;
+        case 6:
+            if (R[0] < 2 * M_PI){
+                H[0] = 0.5 * setm->A_tully;
+                H[1] = 0.0;
+                H[2] = 0.0;
+                H[3] = -0.5 * setm->A_tully;
+            } else {
+                H[0] = 0.5 * setm->A_tully * cos(setm->B_tully * R[0]);
+                H[1] = 0.5 * setm->A_tully * sin(setm->B_tully * R[0]);
+                H[2] = 0.5 * setm->A_tully * sin(setm->B_tully * R[0]);
+                H[3] = -0.5 * setm->A_tully * cos(setm->B_tully * R[0]);
+            }
+            break;
     }
 }
 
@@ -185,6 +206,19 @@ void dV_tully(double *R, double *dH, struct set_host *setm) {
                 dH[1] = -setm->B_tully * exp(setm->C_tully * (R[0] - setm->Z_tully)) * setm->C_tully + setm->B_tully * exp(-setm->C_tully * (R[0] + setm->Z_tully)) * setm->C_tully;
             }
             dH[2] = dH[1];
+            break;
+        case 6:
+            if (R[0] < 2 * M_PI){
+                dH[0] = 0.0;
+                dH[1] = 0.0;
+                dH[2] = 0.0;
+                dH[3] = 0.0;
+            } else {
+                dH[0] = -0.5 * setm->A_tully * setm->B_tully * sin(setm->B_tully * R[0]);
+                dH[1] = 0.5 * setm->A_tully * setm->B_tully * cos(setm->B_tully * R[0]);
+                dH[2] = 0.5 * setm->A_tully * setm->B_tully * cos(setm->B_tully * R[0]);
+                dH[3] = 0.5 * setm->A_tully * setm->B_tully * sin(setm->B_tully * R[0]);
+            }
             break;
     }
 }

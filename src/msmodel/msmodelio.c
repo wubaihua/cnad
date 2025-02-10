@@ -396,6 +396,22 @@ void readinp_tully(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
         }        
     }
 
+    if (NULL !=  cJSON_GetObjectItem(item, "A_tully")){
+        list=cJSON_GetObjectItem(item, "A_tully");
+        if (list->type == cJSON_Number) {
+            setm->A_tully = list->valuedouble; 
+        }        
+    }
+
+
+    if (NULL !=  cJSON_GetObjectItem(item, "B_tully")){
+        list=cJSON_GetObjectItem(item, "B_tully");
+        if (list->type == cJSON_Number) {
+            setm->B_tully = list->valuedouble; 
+        }        
+    }
+
+
     
     *Ndof1 = 1;
     *Ndof2 = 1;
