@@ -882,13 +882,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         
         // 调用 random_prob 函数
         random_prob(seth->Nstate, action);
-// sets->init_occ=1;
-// for (int i = 0; i < seth->Nstate; i++) {
-//     action[i] = (1.0-0.5)/(seth->Nstate-1);
-//     theta[i] = i*2*M_PI/seth->Nstate;
-//     // printf("action[%d]=%f\n",i,action[i]);
-// }
-// action[sets->init_occ - 1] = 0.5;
+        // sets->init_occ=1;
+        // for (int i = 0; i < seth->Nstate; i++) {
+        //     action[i] = (1.0-0.5)/(seth->Nstate-1);
+        //     theta[i] = i*2*M_PI/seth->Nstate;
+        //     // printf("action[%d]=%f\n",i,action[i]);
+        // }
+        // action[sets->init_occ - 1] = 0.5;
         // 计算 sets->xe 和 sets->pe
         for (int i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * cos(theta[i]);
@@ -1239,6 +1239,22 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         sets->correfun_0 = seth->Nstate * (0.5 * (sets->xe[sets->init_occ-1] * sets->xe[sets->init_occ-1] + sets->pe[sets->init_occ-1] * sets->pe[sets->init_occ-1]) - seth->gamma_zpe);
 
 
+        if (seth->type_evo >= 1) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+                }
+            }
+        }
+
     } else if (strcmp(seth->method, "mf3") == 0 || strcmp(seth->method, "MF3") == 0 ||
                strcmp(seth->method, "CW2") == 0 || strcmp(seth->method, "cw2") == 0 ) {
         
@@ -1257,6 +1273,21 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
         sets->correfun_0 = seth->Nstate * (0.5 * (sets->xe[sets->init_occ-1] * sets->xe[sets->init_occ-1] + sets->pe[sets->init_occ-1] * sets->pe[sets->init_occ-1]) - seth->gamma_zpe);
 
+        if (seth->type_evo >= 1) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->den_e[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                }
+            }
+        }
+
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    sets->cf0[i * seth->Nstate + j] = seth->Nstate * (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]);
+                }
+            }
+        }
 
     }  else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
         
@@ -1287,6 +1318,23 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
 
         sets->correfun_0 = 1.0;
+
+
+        if (seth->if_allcf != 0) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    if (i == j) {
+                        if (i == sets->init_occ - 1){
+                            sets->cf0[i * seth->Nstate + i] = seth->Nstate; 
+                        } else {
+                            sets->cf0[i * seth->Nstate + i] = 0.0; 
+                        }
+                    } else {
+                        sets->cf0[i * seth->Nstate + j] = seth->Nstate * 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                    }
+                }
+            }
+        }
     }
 
     if (seth->ifcv == -1 || seth->ifcv == 1) {
@@ -1959,7 +2007,11 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                         sets->correfun_t[i * seth->Nstate + i] = 0.0;
                     }
                 } else {
-                    sets->correfun_t[i * seth->Nstate + j] = (1.0 + seth->Nstate) / (2 * pow(1 + seth->Nstate * seth->gamma_zpe, 2)) * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                    if (seth->type_evo == 0) {
+                        sets->correfun_t[i * seth->Nstate + j] = (1.0 + seth->Nstate) / (2 * pow(1 + seth->Nstate * seth->gamma_zpe, 2)) * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                    } else if (seth->type_evo == 1){
+                        sets->correfun_t[i * seth->Nstate + j] = sets->den_e[i * seth->Nstate + j] * (1.0 + seth->Nstate) / pow(1 + seth->Nstate * seth->gamma_zpe, 2);
+                    }
                 }
                     
             }
@@ -1969,21 +2021,38 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
     } else if (strcmp(seth->method, "mf3") == 0 || strcmp(seth->method, "MF3") == 0 ||
                strcmp(seth->method, "CW2") == 0 || strcmp(seth->method, "cw2") == 0 ) {
         
-       
-        for (i = 0; i < seth->Nstate; i++) {
-            for (j = 0; j < seth->Nstate; j++) {
-                if (i == j){
-                    if (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i] >= 2.0) {
-                        sets->correfun_t[i * seth->Nstate + i] = pow((1.0 + seth->Nstate * seth->gamma_zpe)/(seth->Nstate * seth->gamma_zpe),seth->Nstate - 1.0) / seth->Nstate ;
+        if(seth->type_evo == 0){
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    if (i == j){
+                        if (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i] >= 2.0) {
+                            sets->correfun_t[i * seth->Nstate + i] = pow((1.0 + seth->Nstate * seth->gamma_zpe)/(seth->Nstate * seth->gamma_zpe),seth->Nstate - 1.0) / seth->Nstate ;
+                        } else {
+                            sets->correfun_t[i * seth->Nstate + i] = 0.0;
+                        }
                     } else {
-                        sets->correfun_t[i * seth->Nstate + i] = 0.0;
+                        sets->correfun_t[i * seth->Nstate + j] = (1.0 + seth->Nstate) / (2 * pow(1 + seth->Nstate * seth->gamma_zpe, 2)) * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
                     }
-                } else {
-                    sets->correfun_t[i * seth->Nstate + j] = (1.0 + seth->Nstate) / (2 * pow(1 + seth->Nstate * seth->gamma_zpe, 2)) * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                        
                 }
-                    
+            }
+        } else if (seth->type_evo == 1){
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    if (i == j){
+                        if (creal(sets->den_e[i * seth->Nstate + i]) >= 1.0) {
+                            sets->correfun_t[i * seth->Nstate + i] = pow((1.0 + seth->Nstate * seth->gamma_zpe)/(seth->Nstate * seth->gamma_zpe),seth->Nstate - 1.0) / seth->Nstate ;
+                        } else {
+                            sets->correfun_t[i * seth->Nstate + i] = 0.0;
+                        }
+                    } else {
+                        sets->correfun_t[i * seth->Nstate + j] = sets->den_e[i * seth->Nstate + j] * (1.0 + seth->Nstate) / pow(1 + seth->Nstate * seth->gamma_zpe, 2);
+                    }
+                        
+                }
             }
         }
+        
 
     } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
         
@@ -2468,6 +2537,43 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
                         }
                     }
                 }
+
+            } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0 ) {
+                // Q_{nnkl}, k \ne l
+                memset(tempcm1,0,seth->Nstate*seth->Nstate*sizeof(double complex));
+                for (i = 0; i < seth->Nstate; i++) {
+                    tempcm1[i * seth->Nstate + i] = sets->cf0[i * seth->Nstate + i];
+                }
+                
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * tempcm1[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+
+                // Q_{nmkl}, n \ne m
+
+                for (int i = 0; i < seth->Nstate * seth->Nstate; i++) {
+                    sets->correfun_t[i] = sets->den_e[i] * (1.0 + seth->Nstate) / pow(1 + seth->Nstate * seth->gamma_zpe, 2);
+                }
+                for (int i = 0; i < seth->Nstate; i++) {
+                    sets->correfun_t[i * seth->Nstate + i] -= (1.0 - seth->gamma_zpe) / (1 + seth->Nstate * seth->gamma_zpe);
+                }
+
+
+                memcpy(tempcm1,sets->cf0,seth->Nstate*seth->Nstate*sizeof(double complex));
+                for (i = 0; i < seth->Nstate; i++) {
+                    tempcm1[i * seth->Nstate + i] = 0;
+                }
+                
+                csum1 = 0, csum2 = 0;
+                for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+                    csum1 += sets->weight0[i] * tempcm1[i];
+                    csum2 += sets->weightt[i] * sets->correfun_t[i];
+                }
+                sets->cfeff[igrid_cal] += csum1 * csum2;
+
 
             } else {
           
@@ -3332,7 +3438,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
     while (itime <= nstep) {
         if (i_re >= seth->Nbreak && igrid < seth->Ngrid) {
-
+            // printf("%18.8E %18.8E %18.8E\n",sets->t_now,sets->R_nuc[0],sets->P_nuc[0]);
             
             evo_traj_calProp(igrid,sets,seth);
              

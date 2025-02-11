@@ -97,6 +97,7 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
     }
 
     // P[0] = setm->P0_tully;
+    // R[0] = setm->R0_tully;
 }
 
 void V_tully(double *R, double *H, struct set_host *setm) {
