@@ -831,6 +831,8 @@ struct set_host
     int n_step_algom;
 
 
+    int type_seed;
+
 
     // model parameters
 

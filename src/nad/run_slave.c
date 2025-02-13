@@ -46,6 +46,9 @@ void dynamics_slave(struct set_host *seth){
     
     #ifdef sunway
     init_seed(seth->mpi_rank*seth->nproc_sw+slavecore_id);
+    if(seth->type_seed == 1){
+        srand(seth->mpi_rank*seth->nproc_sw+slavecore_id);
+    }
     for (int itraj = 1; itraj <= run_size; itraj++) {
         if (itraj % seth->nproc_sw == slavecore_id) { 
             sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
@@ -56,6 +59,9 @@ void dynamics_slave(struct set_host *seth){
     athread_ssync_array();
     #elif defined(x86)
     init_seed(seth->mpi_rank);
+    if(seth->type_seed == 1){
+        srand(seth->mpi_rank);
+    }
     for (int itraj = 1; itraj <= run_size; itraj++) {
         sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
         sample_ele(&sets,seth);       
