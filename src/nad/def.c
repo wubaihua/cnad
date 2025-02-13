@@ -778,7 +778,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     // printf("333366\n");
     memset(sets->N_nan_sum, 0, seth->Ngrid * sizeof(unsigned long long));
     // printf("444466\n");
-    if (seth->ifswitchforce > 0) {
+    if (seth->ifswitchforce > 0 || seth->type_hop == 1) {
         if (seth->rep == 0) {
             sets->U_d2a = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
             sets->E_adia = (double *)malloc(seth->Nstate * sizeof(double));
@@ -787,8 +787,15 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
             sets->U_ref = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
             sets->U_ref_old = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
             memset(sets->U_ref, 0, seth->Nstate * seth->Nstate * sizeof(double));
+            if (seth->direc_padj == 0 || seth->direc_padj == 1){
+                sets->dv_adia = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 * sizeof(double));
+                sets->nac = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 * sizeof(double));
+                sets->dv_adia_old = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 * sizeof(double));
+                sets->nac_old = (double *)malloc(seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 * sizeof(double));
+            }
         
         }
+        
     }
 
     // printf("666666\n");
@@ -1557,7 +1564,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             
     //     }
     // }
-    if (seth->ifswitchforce > 0 && seth->type_hop == 1) {
+    if (seth->ifswitchforce > 0 && seth->type_hop == 1 || seth->type_hop == 1) {
         if (seth->rep == 0) {
             
             V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
@@ -1619,8 +1626,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             }
             memcpy(sets->gamma_cv,gamma_cv_save,seth->Nstate * seth->Nstate * sizeof(double complex));
         }
-    }
 
+    }
 
 }
 
@@ -2176,7 +2183,8 @@ void cal_propagator(int Nstate, double *H, double dt, double complex *U,struct s
     //  printf("z  4444444444 \n");
     // 检查sets->E_adia是否已分配
     // printf("%d %d\n",seth->ifswitchforce, seth->rep);
-    if (seth->ifswitchforce > 0 && seth->rep == 0) {
+    
+    if (seth->ifswitchforce > 0 && seth->rep == 0 || seth->type_hop == 1 && seth->rep == 0) {
         // printf("11111\n");
         memcpy(sets->U_d2a,C,Nstate*Nstate*sizeof(double));
         memcpy(sets->E_adia,E,Nstate*sizeof(double));
@@ -3105,8 +3113,7 @@ void evo_traj_algorithm6(double deltat,struct set_slave *sets,struct set_host *s
     #endif
     double tempv[seth->Nstate];
     double tempdm[seth->Nstate*seth->Nstate];
-    
-
+   
     evo_traj_ele(deltat / 2,sets,seth,1);
     cal_force(sets,seth,2);
     evo_traj_nucP(deltat / 2,sets,seth);
@@ -3264,7 +3271,7 @@ void evo_traj_savetraj(struct set_slave *sets,struct set_host *seth) {
         if (sets->nac_check != NULL) memcpy(sets->nac_check_old, sets->nac_check, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double));
     }
 
-    if (seth->ifswitchforce > 0 && seth->rep == 0){
+    if (seth->ifswitchforce > 0 && seth->rep == 0 || seth->type_hop == 1 && seth->rep == 0){
         if (sets->E_adia != NULL) memcpy(sets->E_adia_old, sets->E_adia, seth->Nstate * sizeof(double));
         if (sets->U_d2a != NULL) memcpy(sets->U_d2a_old, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double));
         if (sets->U_ref != NULL) memcpy(sets->U_ref_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double));
@@ -3302,7 +3309,7 @@ void evo_traj_back(struct set_slave *sets,struct set_host *seth) {
     }
 
 
-    if (seth->ifswitchforce > 0 && seth->rep == 0){
+    if (seth->ifswitchforce > 0 && seth->rep == 0 || seth->type_hop == 1 && seth->rep == 0){
         memcpy(sets->E_adia, sets->E_adia_old, seth->Nstate * sizeof(double));
         memcpy(sets->U_d2a, sets->U_d2a_old, seth->Nstate * seth->Nstate * sizeof(double));
     }
@@ -3441,7 +3448,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
    
     R00 = sets->R_nuc[0];
     P00 = sets->P_nuc[0];
-
+ 
     while (itime <= nstep) {
         if (i_re >= seth->Nbreak && igrid < seth->Ngrid) {
             // printf("%18.8E %18.8E %18.8E\n",sets->t_now,sets->R_nuc[0],sets->P_nuc[0]);
@@ -4133,6 +4140,7 @@ void cal_force_switch(struct set_slave *sets, struct set_host *seth, int para) {
         if (sets->id_state != id_switch) {
             switch (seth->direc_padj) {
                 case 0:
+                    if (seth->rep == 0) cal_NACV(sets,seth);
                     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
                         sets->P_nuc[i] /= sqrt(sets->mass[i]);
                         deltavector[i] = 0;
@@ -4191,6 +4199,7 @@ void cal_force_switch(struct set_slave *sets, struct set_host *seth, int para) {
                     }
                     break;
                 case 1:
+                    if (seth->rep == 0) cal_NACV(sets,seth);
                     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
                         deltavector[i] = sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + i];
                     }
@@ -4527,6 +4536,7 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
         if (sets->id_state != id_switch) {
             switch (seth->direc_padj) {
                 case 0:
+                    if (seth->rep == 0) cal_NACV(sets,seth);
                     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
                         sets->P_nuc[i] /= sqrt(sets->mass[i]);
                         deltavector[i] = 0;
@@ -4590,6 +4600,7 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
                     }
                     break;
                 case 1:
+                    if (seth->rep == 0) cal_NACV(sets,seth);
                     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
                         deltavector[i] = sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + i];
                     }
@@ -4908,7 +4919,7 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
         memcpy(sets->E_adia, tempdv1, seth->Nstate * sizeof(double));
     }
 
-    if (seth->type_prop_adia > 0) {
+    if (seth->type_prop_adia > 0 && seth->rep == 1) {
         transpose(sets->U_d2a,tempdm1,seth->Nstate);
         dd_matmul(tempdm1, sets->U_ref, sets->overlap_adia, seth->Nstate, seth->Nstate, seth->Nstate);
     }
@@ -4916,7 +4927,6 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
     memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double));
     memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double));
     sets->if_ad_nac = 1;
-
 
     transpose(sets->U_d2a,tempdm1,seth->Nstate);
     for (i = 0; i < seth->Ndof1; i++) {
@@ -5192,7 +5202,7 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
        free(sets->expisp);
     }
     
-    if (seth->ifswitchforce > 0) {
+    if (seth->ifswitchforce > 0 || seth->type_hop == 1) {
         if (seth->rep == 0) {
             free(sets->U_d2a);
             free(sets->U_ref);
@@ -5200,7 +5210,15 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
             free(sets->U_ref_old);
             free(sets->E_adia);
             free(sets->E_adia_old);
+
+            if (seth->direc_padj == 0 || seth->direc_padj == 1) {
+                free(sets->dv_adia);
+                free(sets->nac);
+                free(sets->dv_adia_old);
+                free(sets->nac_old);
+            }
         }
+        
     }
 
 
