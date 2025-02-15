@@ -547,7 +547,7 @@ void initial_para(struct set_host *seth) {
 
     seth->if_flighttime_tully = 0;
 
-    seth->type_seed = 0;
+    seth->type_seed = 1;
 
     seth->nproc_sw = 64;
 }
