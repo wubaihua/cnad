@@ -60,7 +60,7 @@ void dynamics_slave(struct set_host *seth){
     #elif defined(x86)
     init_seed(seth->mpi_rank);
     if(seth->type_seed == 1){
-        srand(seth->mpi_rank);
+        srand(seth->mpi_rank+1);
     }
     for (int itraj = 1; itraj <= run_size; itraj++) {
         sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);

@@ -891,8 +891,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         random_prob(seth->Nstate, action);
         // sets->init_occ=1;
         // for (int i = 0; i < seth->Nstate; i++) {
-        //     action[i] = (1.0-0.5)/(seth->Nstate-1);
-        //     theta[i] = i*2*M_PI/seth->Nstate;
+        //     action[i] = (1.0)/(seth->Nstate);
+        //     theta[i] = 1.5;
         //     // printf("action[%d]=%f\n",i,action[i]);
         // }
         // action[sets->init_occ - 1] = 0.5;
@@ -3783,7 +3783,6 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         #endif
     }
      
-
     
 
     if (seth->if_Pdis == 1) {
