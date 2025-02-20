@@ -1206,7 +1206,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             for (int i = 0; i < seth->Nstate; i++) {
                 for (int j = 0; j < seth->Nstate; j++) {
                     if (i == j) {
-                        if( i == sets->init_occ ){
+                        if( i == sets->init_occ - 1 ){
                            sets->cf0[i * seth->Nstate + j] = seth->Nstate;
                         } else {
                            sets->cf0[i * seth->Nstate + j] = 0;
@@ -1542,7 +1542,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         } else if (strcmp(seth->method, "MS-MASH") == 0 || strcmp(seth->method, "ms-mash") == 0 ||
                strcmp(seth->method, "msmash") == 0 || strcmp(seth->method, "MSMASH") == 0 ||
                strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ||
-               strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ) {
+               strcmp(seth->method, "MA-NAF-RM") == 0 || strcmp(seth->method, "ma-naf-rm") == 0 ||
+               strcmp(seth->method, "msmash2") == 0 || strcmp(seth->method, "MSMASH2") == 0) {
             
             for (int i = 0; i < seth->Nstate; i++) {
                 if(seth->type_evo == 0) c_main[i] = (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]);
