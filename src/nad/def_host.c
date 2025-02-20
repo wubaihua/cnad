@@ -1596,14 +1596,18 @@ void print_info(struct set_host *seth){
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") ==0 ) {
         printf("Method: Mapping Approach to Surface Hopping (MASH)\n");
-        printf("Related Pulication: J. Chem. Phys. 2023, in press\n");
+        printf("Related Pulication: J. Chem. Phys. 2023, 158, 104111\n");
         // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
     } else if (strcmp(seth->method, "MS-MASH") == 0 || strcmp(seth->method, "ms-mash") == 0 ||
                strcmp(seth->method, "msmash") == 0 || strcmp(seth->method, "MSMASH") == 0 ||
                strcmp(seth->method, "MASH-RM") == 0 || strcmp(seth->method, "mash-rm") == 0 ) {
         printf("Method: Multi-State Mapping Approach to Surface Hopping (MS-MASH)\n");
-        printf("Related Pulication: arXiv:2305.08835\n");
+        printf("Related Pulication: J. Chem. Phys. 2023, 159, 094115\n");
         // if (ifreflp_mash == 1) printf("ifreflp_mash=%d\n", ifreflp_mash);
+
+    } else if (strcmp(seth->method, "msmash2") == 0 || strcmp(seth->method, "MSMASH2") == 0) {
+        printf("Method: Multi-State Mapping Approach to Surface Hopping version 2 (MS-MASH2)\n");
+        printf("Related Pulication: J. Chem. Phys. 2024, 161, 144102\n");
 
     } else if (strcmp(seth->method, "MA-NAF-MR") == 0 || strcmp(seth->method, "ma-naf-mr") == 0) {
 
