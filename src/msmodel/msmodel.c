@@ -11,6 +11,7 @@
 
 #include "sbm.h"
 #include "morse3.h"
+#include "morse2.h"
 #include "sem.h"
 #include "fmo.h"
 #include "sf.h"
@@ -47,6 +48,9 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
         parameter_morse3(mass,setm);
+    } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
+       strcmp(setm->msmodelname, "Morse2") == 0) {
+        parameter_morse2(mass,setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         parameter_SEM(mass,setm);
@@ -91,6 +95,9 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
         sample_morse3(P, R,setm);
+    } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
+       strcmp(setm->msmodelname, "Morse2") == 0) {
+        sample_morse2(P, R,setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         sample_SEM(P, R, beta,setm);
@@ -135,6 +142,9 @@ void V_msmodel(double *R, double *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
         V_morse3(R, H, setm);
+    } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
+       strcmp(setm->msmodelname, "Morse2") == 0) {
+        V_morse2(R, H, setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         V_SEM(R, H, setm->forcetype,setm);
@@ -179,6 +189,9 @@ void dV_msmodel(double *R, double *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
         dV_morse3(R, dH, setm);
+    } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
+       strcmp(setm->msmodelname, "Morse2") == 0) {
+        dV_morse2(R, dH, setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
         dV_SEM(R, dH, setm->forcetype,setm);

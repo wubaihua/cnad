@@ -855,6 +855,14 @@ struct set_host
         double omega_morse3, mass_morse3;
 
 
+        // 2-state Morse potential models parameters
+        int type_morse2;
+        double A_morse2[4], beta_morse2[2], D_morse2[2], C_morse2[2], R0_morse2[2];
+        double R00_morse2[4], alpha_morse2[4];
+        double Re_morse2;
+        double omega_morse2, mass_morse2;
+
+
         // site-exciton model parameters
         int N_bath_SEM, Nstate_SEM;
         double bias_SEM, delta_SEM, k_eff_SEM, omega_c_SEM, lambda_SEM;
