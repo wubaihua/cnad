@@ -1609,6 +1609,10 @@ void print_info(struct set_host *seth){
         printf("Method: Multi-State Mapping Approach to Surface Hopping version 2 (MS-MASH2)\n");
         printf("Related Pulication: J. Chem. Phys. 2024, 161, 144102\n");
 
+    } else if (strcmp(seth->method, "msmash3") == 0 || strcmp(seth->method, "MSMASH3") == 0) {
+        printf("Method: Multi-State Mapping Approach to Surface Hopping version 3 (MS-MASH3)\n");
+        printf("Related Pulication: J. Chem. Phys. 2024, 161, 144102\n");
+
     } else if (strcmp(seth->method, "MA-NAF-MR") == 0 || strcmp(seth->method, "ma-naf-mr") == 0) {
 
         printf("Method: Mapping Approach to Nonadibatic Field\n");
