@@ -206,7 +206,7 @@ void cfweight_rubrene(double *w0, double *wt, double beta, double *R, double *P,
     E = (double *)malloc(setm->Nstate_rubrene * sizeof(double));
     C = (double *)malloc(setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
     expe = (double *)malloc(setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
-    if(setm->if_classical == 0){
+    if(setm->if_classical == 0 || setm->if_classical == 2){
         
         
         memset(Heff, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
