@@ -33,14 +33,14 @@ void parameter_morse2(double *mass, struct set_host *setm) {
 
     switch (setm->type_morse2) {
         case 1:
-            // setm->D_morse2[0] = 0.003; setm->D_morse2[1] = 0.004; setm->D_morse2[2] = 0.003;
-            // setm->beta_morse2[0] = 0.65; setm->beta_morse2[1] = 0.6; setm->beta_morse2[2] = 0.65;
-            // setm->R0_morse2[0] = 5.0; setm->R0_morse2[1] = 4.0; setm->R0_morse2[2] = 6.0;
-            // setm->C_morse2[0] = 0.0; setm->C_morse2[1] = 0.01; setm->C_morse2[2] = 0.006;
-            // setm->A_morse2[1] = 0.002; setm->A_morse2[5] = 0.002; setm->A_morse2[2] = 0;
-            // setm->R00_morse2[1] = 3.4; setm->R00_morse2[5] = 4.8; setm->R00_morse2[2] = 0;
-            // setm->alpha_morse2[1] = 16; setm->alpha_morse2[5] = 16; setm->alpha_morse2[2] = 0;
-            // setm->Re_morse2 = 2.9;
+            setm->D_morse2[0] = 0.02; setm->D_morse2[1] = 0.003;
+            setm->beta_morse2[0] = 0.65; setm->beta_morse2[1] = 0.65;
+            setm->R0_morse2[0] = 4.5; setm->R0_morse2[1] = 4.4;
+            setm->C_morse2[0] = 0.0; setm->C_morse2[1] = 0.02;
+            setm->A_morse2[1] = 0.005; setm->A_morse2[2] = 0.005;
+            setm->R00_morse2[1] = 3.34; setm->R00_morse2[2] = 3.34;
+            setm->alpha_morse2[1] = 8; setm->alpha_morse2[2] = 8;
+            setm->Re_morse2 = 3.3;
             break;
         case 2:
             setm->D_morse2[0] = 0.02; setm->D_morse2[1] = 0.003;
