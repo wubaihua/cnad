@@ -91,13 +91,16 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
     box_muller(&P[0], &x2, sqrt(setm->gamma_tully / 2.0), setm->P0_tully);
     box_muller(&R[0], &x2, sqrt(1.0 / (setm->gamma_tully * 2.0)), setm->R0_tully);
 
+    if (setm->if_classical == 1) {
+        P[0] = setm->P0_tully;
+        R[0] = setm->R0_tully;
+    }
 
     if(setm->if_flighttime_tully == 1){
         R[0] = -1.0 * setm->Xb_tully;
     }
 
-    // P[0] = setm->P0_tully;
-    // R[0] = setm->R0_tully;
+    
 }
 
 void V_tully(double *R, double *H, struct set_host *setm) {
