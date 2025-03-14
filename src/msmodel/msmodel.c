@@ -135,97 +135,118 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
 }
 
 // Build the diabatic potential matrix of the model
-void V_msmodel(double *R, double *H, double t, struct set_host *setm){
+void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
+    double *V_real = (double *)malloc(setm->Nstate * setm->Nstate * sizeof(double));
+    int ifcpy = 0;
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
-        V_SBM(R, H, setm->forcetype,setm);
+        V_SBM(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
-        V_morse3(R, H, setm);
+        V_morse3(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
        strcmp(setm->msmodelname, "Morse2") == 0) {
-        V_morse2(R, H, setm);
+        V_morse2(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
-        V_SEM(R, H, setm->forcetype,setm);
+        V_SEM(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
-        V_FMO(R, H, setm->forcetype,setm);
+        V_FMO(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "SF") == 0 ||
        strcmp(setm->msmodelname, "sf") == 0) {
-        V_SF(R, H, setm->forcetype,setm);
+        V_SF(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
-        V_AIC(R, H, setm->forcetype,setm);
+        V_AIC(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
-        V_pyrazine(R, H, setm->forcetype,setm);
+        V_pyrazine(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
-        V_crco5(R, H, setm->forcetype,setm);
+        V_crco5(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "tully") == 0) {
-        V_tully(R, H, setm);
+        V_tully(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
         strcmp(setm->msmodelname, "semdp") == 0) {
-        V_SEMdp(R, H, setm->forcetype,setm);
+        V_SEMdp(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
-        V_FMOdp(R, H, setm->forcetype,setm);
+        V_FMOdp(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
-        V_rubrene(R, H, setm->forcetype,setm);
+        V_rubrene(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
-        V_dnalvcm(R, H, setm->forcetype,setm);
+        V_dnalvcm(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
-        V_frozen(R, H, setm);
+        V_frozen(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
-        V_dualho(R, H, setm);
+        V_dualho(R, V_real, setm);
     }
+
+    if(ifcpy == 0){
+        for (int i = 0; i < setm->Nstate; i++) {
+            for (int j = 0; j < setm->Nstate; j++) {
+                H[i * setm->Nstate + j] = V_real[i * setm->Nstate + j] + 0 * I;
+            }
+        }
+    }
+    free(V_real);
 }
 
 // Build the first-order derivative matrix of the model
-void dV_msmodel(double *R, double *dH, struct set_host *setm){
+void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
+    double *dV_real = (double *)malloc(setm->Nstate * setm->Nstate * setm->Ndof1 * setm->Ndof2 * sizeof(double));
+    int ifcpy = 0;
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
-        dV_SBM(R, dH, setm->forcetype,setm);
+        dV_SBM(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "morse3") == 0 ||
        strcmp(setm->msmodelname, "Morse3") == 0) {
-        dV_morse3(R, dH, setm);
+        dV_morse3(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "morse2") == 0 ||
        strcmp(setm->msmodelname, "Morse2") == 0) {
-        dV_morse2(R, dH, setm);
+        dV_morse2(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "SEM") == 0 ||
        strcmp(setm->msmodelname, "sem") == 0) {
-        dV_SEM(R, dH, setm->forcetype,setm);
+        dV_SEM(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "FMO") == 0 ||
        strcmp(setm->msmodelname, "fmo") == 0) {
-        dV_FMO(R, dH, setm->forcetype,setm);
+        dV_FMO(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "SF") == 0 ||
        strcmp(setm->msmodelname, "sf") == 0) {
-        dV_SF(R, dH, setm->forcetype,setm);
+        dV_SF(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "AIC") == 0 ||
        strcmp(setm->msmodelname, "aic") == 0) {
-        dV_AIC(R, dH, setm->forcetype,setm);
+        dV_AIC(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
-        dV_pyrazine(R, dH, setm->forcetype,setm);
+        dV_pyrazine(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
-        dV_crco5(R, dH, setm->forcetype,setm);
+        dV_crco5(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "tully") == 0) {
-        dV_tully(R, dH, setm);
+        dV_tully(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
         strcmp(setm->msmodelname, "semdp") == 0) {
-        dV_SEMdp(R, dH, setm->forcetype,setm);
+        dV_SEMdp(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "FMOdp") == 0 ||
         strcmp(setm->msmodelname, "fmodp") == 0) {
-        dV_FMOdp(R, dH, setm->forcetype,setm);
+        dV_FMOdp(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
-        dV_rubrene(R, dH, setm->forcetype,setm);
+        dV_rubrene(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
-        dV_dnalvcm(R, dH, setm->forcetype,setm);
+        dV_dnalvcm(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
-        dV_frozen(R, dH, setm);
+        dV_frozen(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
-        dV_dualho(R, dH, setm);
+        dV_dualho(R, dV_real, setm);
     }
+    for (int i = 0; i < setm->Nstate; i++) {
+        for (int j = 0; j < setm->Nstate; j++) {
+            for (int k = 0; k < setm->Ndof1 * setm->Ndof2; k++) {
+                dH[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] = dV_real[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] + 0 * I;
+            }
+        }
+    }
+    free(dV_real);
 }
 
 // Calculate the nuclear force of the model

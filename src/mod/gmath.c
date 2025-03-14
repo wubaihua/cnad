@@ -271,6 +271,19 @@ void transpose(double *A, double *AT, int n) {
 
 
 
+void transpose_conjugate(double complex *A, double complex *AT, int n) {
+   
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            AT[j * n + i] = conj(A[i * n + j]);
+        }
+    }
+
+}
+
+
+
+
 void diagger(double complex *A, double complex *Ad, int n) {
    
     for (int i = 0; i < n; i++) {

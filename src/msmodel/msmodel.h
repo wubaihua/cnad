@@ -26,10 +26,10 @@ void init_msmodel(double *mass, struct set_host *setm);
 void sample_msmodel(double *P, double *R, double beta, struct set_host *setm);
 
 // Build the diabatic potential matrix of the model
-void V_msmodel(double *R, double *H, double t, struct set_host *setm);
+void V_msmodel(double *R, double complex *H, double t, struct set_host *setm);
 
 // Build the first-order derivative matrix of the model
-void dV_msmodel(double *R, double *dH, struct set_host *setm);
+void dV_msmodel(double *R, double complex *dH, struct set_host *setm);
 // Calculate the nuclear force of the model
 
 void nucforce_msmodel(double *R, double *nf, struct set_host *setm);

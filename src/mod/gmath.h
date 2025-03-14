@@ -51,7 +51,7 @@ void dc_matmul(double *A, double complex *B, double complex *C, int nA, int nB, 
 void cd_matmul(double complex *A, double *B, double complex *C, int nA, int nB, int nC);
 
 void transpose(double *A, double *AT, int n) ;
-
+void transpose_conjugate(double complex *A, double complex *AT, int n);
 void diagger(double complex *A, double complex *Ad, int n) ;
 
 int any_isnan(double complex *array, int size) ;
