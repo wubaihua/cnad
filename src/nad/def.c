@@ -4402,11 +4402,11 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
                     csum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
                 }
                 // prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
-                prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * sum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * csum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
                 if (prob_hop[i] < 0) prob_hop[i] = 0;
                 if (prob_hop[i] > 1) prob_hop[i] = 1;
             }
-            
+    
             sum = 0;
             for (int i = 0; i < seth->Nstate; i++) {
                 sum += prob_hop[i];
