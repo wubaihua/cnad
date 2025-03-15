@@ -92,13 +92,13 @@ void sample_pyrazine(double *P, double *R, struct set_host *setm) {
 
 }
 
-void V_pyrazine(double *R, double *H, int forcetype, struct set_host *setm) {
+void V_pyrazine(double *R, double complex *H, int forcetype, struct set_host *setm) {
     
     V_LVCM(R, H, forcetype, setm);
     
 }
 
-void dV_pyrazine(double *R, double *dH, int forcetype, struct set_host *setm) {
+void dV_pyrazine(double *R, double complex *dH, int forcetype, struct set_host *setm) {
     
     dV_LVCM(R, dH, forcetype, setm);
 

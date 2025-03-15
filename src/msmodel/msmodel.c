@@ -25,6 +25,7 @@
 #include "dnalvcm.h"
 #include "frozen.h"
 #include "dualho.h"
+#include "bpy.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -82,8 +83,10 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_dnalvcm(mass,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         parameter_frozen(mass,setm);
-    }else if (strcmp(setm->msmodelname, "dualho") == 0) {
+    } else if (strcmp(setm->msmodelname, "dualho") == 0) {
         parameter_dualho(mass,setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0) {
+        parameter_bpy(mass,setm);
     }
 }
 
@@ -131,6 +134,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_frozen(P, R, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0) {
         sample_dualho(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0) {
+        sample_bpy(P, R, setm);
     }
 }
 
@@ -160,10 +165,12 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
        strcmp(setm->msmodelname, "aic") == 0) {
         V_AIC(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
-        V_pyrazine(R, V_real, setm->forcetype,setm);
+        V_pyrazine(R, H, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
-        V_crco5(R, V_real, setm->forcetype,setm);
+        V_crco5(R, H, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "tully") == 0) {
         V_tully(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
@@ -175,11 +182,15 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         V_rubrene(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
-        V_dnalvcm(R, V_real, setm->forcetype,setm);
+        V_dnalvcm(R, H, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
         V_frozen(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
         V_dualho(R, V_real, setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0 ) {
+        V_bpy(R, H, setm->forcetype,setm);
+        ifcpy = 1;
     }
 
     if(ifcpy == 0){
@@ -218,10 +229,12 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
        strcmp(setm->msmodelname, "aic") == 0) {
         dV_AIC(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "pyrazine") == 0) {
-        dV_pyrazine(R, dV_real, setm->forcetype,setm);
+        dV_pyrazine(R, dH, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
-        dV_crco5(R, dV_real, setm->forcetype,setm);
+        dV_crco5(R, dH, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "tully") == 0) {
         dV_tully(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
@@ -233,16 +246,22 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         dV_rubrene(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
-        dV_dnalvcm(R, dV_real, setm->forcetype,setm);
+        dV_dnalvcm(R, dH, setm->forcetype,setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
         dV_frozen(R, dV_real, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
         dV_dualho(R, dV_real, setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0 ) {
+        dV_bpy(R, dH, setm->forcetype,setm);
+        ifcpy = 1;
     }
-    for (int i = 0; i < setm->Nstate; i++) {
-        for (int j = 0; j < setm->Nstate; j++) {
-            for (int k = 0; k < setm->Ndof1 * setm->Ndof2; k++) {
-                dH[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] = dV_real[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] + 0 * I;
+    if(ifcpy == 0){
+        for (int i = 0; i < setm->Nstate; i++) {
+            for (int j = 0; j < setm->Nstate; j++) {
+                for (int k = 0; k < setm->Ndof1 * setm->Ndof2; k++) {
+                    dH[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] = dV_real[i * setm->Nstate * setm->Ndof1 * setm->Ndof2 + j * setm->Ndof1 * setm->Ndof2 + k] + 0 * I;
+                }
             }
         }
     }
@@ -281,6 +300,8 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_rubrene(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         nucforce_dnalvcm(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0) {
+        nucforce_bpy(R, nf,setm);
     }
 }
 

@@ -727,6 +727,25 @@ void readinp_dualho(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set
 
 
 
+void readinp_bpy(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    
+    setm->Nstate_lvcm = 11;
+    setm->N_mode_lvcm = 6;
+    
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+
+}
+
+
+
+
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
@@ -779,6 +798,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_frozen(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "dualho") == 0) {
         readinp_dualho(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "bpy") == 0) {
+        readinp_bpy(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

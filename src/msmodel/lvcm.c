@@ -37,8 +37,8 @@ void parameter_LVCM(double *mass, struct set_host *setm) {
         mass[j] = 1.0;
     }
 
-    setm->H_ele_lvcm = (double *)malloc(setm->Nstate_lvcm * setm->Nstate_lvcm * sizeof(double));
-    memset(setm->H_ele_lvcm, 0, setm->Nstate_lvcm * setm->Nstate_lvcm * sizeof(double));
+    setm->H_ele_lvcm = (double complex *)malloc(setm->Nstate_lvcm * setm->Nstate_lvcm * sizeof(double complex));
+    memset(setm->H_ele_lvcm, 0, setm->Nstate_lvcm * setm->Nstate_lvcm * sizeof(double complex));
     setm->c_lvcm = (double *)malloc(setm->Nstate_lvcm * setm->Nstate_lvcm * setm->N_mode_lvcm * sizeof(double));
     memset(setm->c_lvcm, 0, setm->Nstate_lvcm * setm->Nstate_lvcm * setm->N_mode_lvcm * sizeof(double));
     setm->omega_lvcm = (double *)malloc(setm->N_mode_lvcm * sizeof(double));
@@ -67,7 +67,7 @@ void sample_LVCM(double *P, double *R, struct set_host *setm) {
 
 }
 
-void V_LVCM(double *R, double *H, int forcetype, struct set_host *setm) {
+void V_LVCM(double *R, double complex *H, int forcetype, struct set_host *setm) {
     int i, j, k;
 
     for (i = 0; i < setm->Nstate_lvcm * setm->Nstate_lvcm; i++) {
@@ -96,7 +96,7 @@ void V_LVCM(double *R, double *H, int forcetype, struct set_host *setm) {
     
 }
 
-void dV_LVCM(double *R, double *dH, int forcetype, struct set_host *setm) {
+void dV_LVCM(double *R, double complex *dH, int forcetype, struct set_host *setm) {
     int i, j, k;
 
     for (i = 0; i < setm->Nstate_lvcm; i++){

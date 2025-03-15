@@ -877,7 +877,8 @@ struct set_host
 
         // Linear vibronic coupling model parameters
         int N_mode_lvcm, Nstate_lvcm;
-        double *H_ele_lvcm, *c_lvcm, *omega_lvcm ;
+        double complex *H_ele_lvcm; 
+        double *c_lvcm, *omega_lvcm ;
         double *R0_lvcm, *P0_lvcm, *alpha_lvcm;
 
 

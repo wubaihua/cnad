@@ -30,15 +30,15 @@
 // }
 
 
-void parameter_pyrazine(double *mass, struct set_host *setm);
+void parameter_bpy(double *mass, struct set_host *setm);
 
-void sample_pyrazine(double *P, double *R, struct set_host *setm);
+void sample_bpy(double *P, double *R, struct set_host *setm);
 
-void V_pyrazine(double *R, double complex *H, int forcetype, struct set_host *setm);
+void V_bpy(double *R, double complex *H, int forcetype, struct set_host *setm) ;
 
-void dV_pyrazine(double *R, double complex *dH, int forcetype, struct set_host *setm) ;
+void dV_bpy(double *R, double complex *dH, int forcetype, struct set_host *setm) ;
 
-void nucforce_pyrazine(double *R, double *nf, struct set_host *setm) ;
+void nucforce_bpy(double *R, double *nf, struct set_host *setm) ;
 
 
 

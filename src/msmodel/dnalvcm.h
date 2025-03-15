@@ -34,9 +34,9 @@ void parameter_dnalvcm(double *mass, struct set_host *setm);
 
 void sample_dnalvcm(double *P, double *R, struct set_host *setm);
 
-void V_dnalvcm(double *R, double *H, int forcetype, struct set_host *setm);
+void V_dnalvcm(double *R, double complex *H, int forcetype, struct set_host *setm);
 
-void dV_dnalvcm(double *R, double *dH, int forcetype, struct set_host *setm) ;
+void dV_dnalvcm(double *R, double complex *dH, int forcetype, struct set_host *setm) ;
 
 void nucforce_dnalvcm(double *R, double *nf, struct set_host *setm) ;
 
