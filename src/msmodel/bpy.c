@@ -50,6 +50,9 @@ void parameter_bpy(double *mass, struct set_host *setm) {
     setm->H_ele_lvcm[0 * 11 + 0] = 2.81 / au_2_eV ;
     setm->H_ele_lvcm[1 * 11 + 1] = 2.81 / au_2_eV ;
     setm->H_ele_lvcm[2 * 11 + 2] = 2.81 / au_2_eV ;
+    // setm->H_ele_lvcm[0 * 11 + 0] = 2.84 / au_2_eV ;
+    // setm->H_ele_lvcm[1 * 11 + 1] = 2.84 / au_2_eV ;
+    // setm->H_ele_lvcm[2 * 11 + 2] = 2.84 / au_2_eV ;
 
     setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.0161  / au_2_eV         ;
     setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0002  / au_2_eV         ;
@@ -88,6 +91,7 @@ void parameter_bpy(double *mass, struct set_host *setm) {
 
     //W^{S1, S1}
     setm->H_ele_lvcm[6 * 11 + 6] = 2.94 / au_2_eV ;
+    // setm->H_ele_lvcm[6 * 11 + 6] = 2.96 / au_2_eV ;
     setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = -0.0172  / au_2_eV  ;
     setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.009  / au_2_eV     ;
     setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = -0.0289  / au_2_eV   ;
@@ -95,6 +99,7 @@ void parameter_bpy(double *mass, struct set_host *setm) {
 
     //W^{S2, S2}
     setm->H_ele_lvcm[7 * 11 + 7] = 3.11 / au_2_eV ;
+    // setm->H_ele_lvcm[7 * 11 + 7] = 3.13 / au_2_eV ;
     setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0187  / au_2_eV    ;
     setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0091  / au_2_eV    ;
     setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = -0.0271  / au_2_eV   ;
@@ -146,14 +151,14 @@ void parameter_bpy(double *mass, struct set_host *setm) {
     setm->H_ele_lvcm[6 * 11 + 5] = ( 0.0769 + I * 0.0186 ) / au_2_eV ;
 
     //W^{T1, T2}
-    setm->H_ele_lvcm[1 * 11 + 3] = ( 0.0719 + I * 0.0177 ) / au_2_eV ;
-    setm->H_ele_lvcm[0 * 11 + 4] = - ( 0.0719 - I * 0.0177 ) / au_2_eV ;
-    setm->H_ele_lvcm[2 * 11 + 4] = ( 0.0719 + I * 0.0177 )  / au_2_eV ;
-    setm->H_ele_lvcm[1 * 11 + 5] = - ( 0.0719 - I * 0.0177 ) / au_2_eV ;
-    setm->H_ele_lvcm[3 * 11 + 1] = ( 0.0719 - I * 0.0177 ) / au_2_eV ;
-    setm->H_ele_lvcm[4 * 11 + 0] = - ( 0.0719 + I * 0.0177 ) / au_2_eV ;
-    setm->H_ele_lvcm[4 * 11 + 2] = ( 0.0719 - I * 0.0177 )  / au_2_eV ;
-    setm->H_ele_lvcm[5 * 11 + 1] = - ( 0.0719 + I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[0 * 11 + 4] = ( 0.0719 + I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[1 * 11 + 3] = - ( 0.0719 - I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[1 * 11 + 5] = ( 0.0719 + I * 0.0177 )  / au_2_eV ;
+    setm->H_ele_lvcm[2 * 11 + 4] = - ( 0.0719 - I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[4 * 11 + 0] = ( 0.0719 - I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[3 * 11 + 1] = - ( 0.0719 + I * 0.0177 ) / au_2_eV ;
+    setm->H_ele_lvcm[5 * 11 + 1] = ( 0.0719 - I * 0.0177 )  / au_2_eV ;
+    setm->H_ele_lvcm[4 * 11 + 2] = - ( 0.0719 + I * 0.0177 ) / au_2_eV ;
 
     setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0086 / au_2_eV    ;
     setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.019 / au_2_eV     ;
@@ -171,14 +176,35 @@ void parameter_bpy(double *mass, struct set_host *setm) {
     setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.019 / au_2_eV      ;
     
     //W^{T2, T3}
-    setm->H_ele_lvcm[4 * 11 + 8] = ( -0.0270 + I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[3 * 11 + 9] = - ( -0.0270 - I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[5 * 11 + 9] = ( -0.0270 + I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[4 * 11 + 10] = - ( -0.0270 - I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[8 * 11 + 4] = ( -0.0270 - I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[9 * 11 + 3] = - ( -0.0270 + I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[9 * 11 + 5] = ( -0.0270 - I * 0.0046 ) / au_2_eV ;
-    setm->H_ele_lvcm[10 * 11 + 4] = - ( -0.0270 + I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[3 * 11 + 9] = ( -0.0270 + I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[4 * 11 + 8] = - ( -0.0270 - I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[4 * 11 + 10] = ( -0.0270 + I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[5 * 11 + 9] = - ( -0.0270 - I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[9 * 11 + 3] = ( -0.0270 - I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[8 * 11 + 4] = - ( -0.0270 + I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[10 * 11 + 4] = ( -0.0270 - I * 0.0046 ) / au_2_eV ;
+    setm->H_ele_lvcm[9 * 11 + 5] = - ( -0.0270 + I * 0.0046 ) / au_2_eV ;
+
+
+
+    // for (int i = 0; i < setm->Nstate_lvcm; i++) {
+    //     for (int j = 0; j < setm->Nstate_lvcm; j++) {
+    //         setm->H_ele_lvcm[i * 11 + j] = conj(setm->H_ele_lvcm[i * 11 + j]);
+    //     }
+    // }
+
+
+// for (int i = 0; i < setm->Nstate_lvcm; i++) {
+//     for (int j = 0; j < setm->Nstate_lvcm; j++) {
+//         // if(fabs(cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV) > 1e-6){
+//         printf("(%f + i * %f)  ", creal(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV, cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV);
+//         // }else{
+//         // printf("(%f)  ", creal(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV, cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV);
+//         // }
+//     }
+//     printf("\n");
+// }
+// exit(-1);
 
 
 }
