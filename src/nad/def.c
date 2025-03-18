@@ -742,6 +742,14 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         sets->correfun_0 = 1.0;
         
         sets->id_state = sets->init_occ-1;
+
+        if (seth->type_evo >= 1) {
+            for (i = 0; i < seth->Nstate * seth->Nstate; i++) {
+                sets->den_e[i] = 0.0 + 0.0 * I;
+            }
+            sets->den_e[(sets->init_occ-1) * seth->Nstate + (sets->init_occ-1)] = 1.0 + 0.0 * I;
+        }
+
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
                strcmp(seth->method, "ma-naf-mr") == 0 || strcmp(seth->method, "MA-NAF-MR") == 0 ) {
@@ -1609,6 +1617,10 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                 sets->xe[i] = creal(tempcv2[i]);
                 sets->pe[i] = cimag(tempcv2[i]);
             }
+            if (seth->type_evo == 1 || seth->type_evo == 3) {
+                cc_matmul(tempcm1, sets->den_e,  tempcm2, seth->Nstate, seth->Nstate, seth->Nstate);
+                cc_matmul(tempcm2, sets->U_d2a, sets->den_e, seth->Nstate, seth->Nstate, seth->Nstate);
+            }
         }
         for (i = 0; i < seth->Nstate; i++) {
             for (j = 0; j < seth->Nstate; j++) {
@@ -1620,6 +1632,9 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
                 }
                 else {
                     sets->correfun_t[i * seth->Nstate + j] = 0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]);
+                    if (seth->type_evo == 1 || seth->type_evo == 3) {
+                        sets->correfun_t[i * seth->Nstate + j] = sets->den_e[i * seth->Nstate + j];
+                    }
                 }
             }
         }
@@ -1643,6 +1658,10 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
             for (i = 0; i < seth->Nstate; i++) {
                 sets->xe[i] = creal(tempcv2[i]);
                 sets->pe[i] = cimag(tempcv2[i]);
+            }
+            if (seth->type_evo == 1 || seth->type_evo == 3) {
+                cc_matmul(sets->den_e,tempcm1,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                cc_matmul(sets->U_d2a,tempcm2,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
             }
         }
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
@@ -4414,7 +4433,8 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
                     csum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
                 }
                 // prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
-                prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * csum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                if (seth->type_evo == 0) prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * csum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                if (seth->type_evo == 1) prob_hop[i] = 2.0 * seth->dt * creal(sets->den_e[i * seth->Nstate + sets->id_state] * csum) / creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state]);
                 if (prob_hop[i] < 0) prob_hop[i] = 0;
                 if (prob_hop[i] > 1) prob_hop[i] = 1;
             }
