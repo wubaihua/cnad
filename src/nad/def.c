@@ -123,14 +123,22 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     //     }
 
     if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0 || 
-        strcmp(seth->method, "FS-NAF") == 0 || strcmp(seth->method, "fs-naf") == 0 ) {
+        strcmp(seth->method, "FS-NAF") == 0 || strcmp(seth->method, "fs-naf") == 0){
 
         if(seth->if_default == 0) {
             seth->type_hop = 0;
             seth->direc_padj = 1;
             seth->ifreflp = 1;
         }
-        
+
+    } if (strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ){
+
+        if(seth->if_default == 0) {
+            seth->type_hop = 2;
+            seth->direc_padj = 1;
+            seth->ifreflp = 1;
+        }
+           
 
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
                strcmp(seth->method, "mash-mr") == 0 || strcmp(seth->method, "MASH-MR") == 0 ||
@@ -716,7 +724,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         
 
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 ||
-               strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ) {
+               strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ||
+        strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ) {
         for (i = 0; i < seth->Nstate; i++) {
             action[i] = 0;
         }
@@ -1259,7 +1268,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             strcmp(seth->method, "CC-FSSH") == 0 || strcmp(seth->method, "cc-fssh") == 0 || strcmp(seth->method, "fsshswitch") == 0 || strcmp(seth->method, "pcsh") == 0 ||
             strcmp(seth->method, "PCSH") == 0 || strcmp(seth->method, "PCSH-NAF") == 0 || strcmp(seth->method, "pcsh-naf") == 0 || strcmp(seth->method, "BCSH") == 0 ||
             strcmp(seth->method, "bcsh") == 0 || strcmp(seth->method, "BCSH-NAF") == 0 || strcmp(seth->method, "bcsh-naf") == 0 ||
-            strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0) {
+            strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ||
+            strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ) {
 
             double x2 = (double)rand() / RAND_MAX;
             double ps1, ps2;
@@ -1582,7 +1592,8 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
         }
 
     } else if (strcmp(seth->method, "fssh") == 0 || strcmp(seth->method, "FSSH") == 0 ||
-                strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0) {
+                strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ||
+                strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ) {
         if(seth->sampletype == 2){
             // transpose(sets->U_d2a,tempdm,seth->Nstate);
             // memcpy(tempv,sets->xe,seth->Nstate*sizeof(double));
@@ -3340,7 +3351,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     }
 
     
-
+    evo_traj_savetraj(sets,seth);
     cal_force(sets,seth,1);
 
     // debug
@@ -3767,7 +3778,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
     
     memset(sets->force,0,seth->Ndof1*seth->Ndof2*sizeof(double));
 
-    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0) {
+    if (strcmp(seth->method, "FSSH") == 0 || strcmp(seth->method, "fssh") == 0 ||
+        strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ) {
         cal_force_sh(sets,seth,para);
         // sets->force = -sets->dv_adia[sets->id_state][sets->id_state];
     } else if (strcmp(seth->method, "MASH") == 0 || strcmp(seth->method, "mash") == 0 ||
@@ -4386,7 +4398,7 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
     double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
     double complex tempcv1[seth->Nstate], tempcv2[seth->Nstate];
     double deltavector[seth->Ndof1 * seth->Ndof2],P_para[seth->Ndof1 * seth->Ndof2],P_ver[seth->Ndof1 * seth->Ndof2];
-    double sum;
+    double sum, x1, x2;
     double complex csum;
     double complex Q_dia[seth->Nstate * seth->Nstate];
     double deltaE_mash;
@@ -4484,6 +4496,110 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
 
             id_switch = maxloc(c_main, seth->Nstate);
             break;
+
+        case 2: // GFSH
+            if (seth->rep == 0) {
+                if (seth->type_evo == 0) {
+                    memcpy(xe_save,sets->xe,seth->Nstate*sizeof(double));
+                    memcpy(pe_save,sets->pe,seth->Nstate*sizeof(double));
+                    // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    // dd_matmul(tempdm1,xe_save,sets->xe,seth->Nstate,seth->Nstate,1);
+                    // dd_matmul(tempdm1,pe_save,sets->pe,seth->Nstate,seth->Nstate,1);
+                    transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        tempcv1[i] = xe_save[i] + I * pe_save[i];
+                    }
+                    cc_matmul(tempcm1,tempcv1,tempcv2,seth->Nstate,seth->Nstate,1);
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        sets->xe[i] = creal(tempcv2[i]);
+                        sets->pe[i] = cimag(tempcv2[i]);
+                    }
+                } else if (seth->type_evo == 1) {
+                    memcpy(den_e_save,sets->den_e,seth->Nstate * seth->Nstate * sizeof(double complex));
+                    // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    // dc_matmul(tempdm1,den_e_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
+                    // cd_matmul(tempcm1,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+                    transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
+                    cc_matmul(tempcm1,den_e_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                    cc_matmul(tempcm2,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+                }
+                memcpy(gamma_cv_save,sets->gamma_cv ,seth->Nstate * seth->Nstate * sizeof(double complex));
+                cc_matmul(tempcm1,gamma_cv_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                cc_matmul(tempcm2,sets->U_d2a,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+          
+            }
+
+            if (seth->type_evo == 0){
+                x1 = 0.5 * ( sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state])
+                    - 0.5 * (sets->xe_old[sets->id_state] * sets->xe_old[sets->id_state] + sets->pe_old[sets->id_state] * sets->pe_old[sets->id_state]);
+            } else if (seth->type_evo == 1){
+                x1 = creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state]) - creal(sets->den_e_old[sets->id_state * seth->Nstate + sets->id_state]);
+            }
+            if (x1 >= 0) {
+                memset(prob_hop, 0, seth->Nstate * sizeof(double));
+            } else {
+                memset(prob_hop, 0, seth->Nstate * sizeof(double));
+                sum = 0.0;
+                for (int i = 0; i < seth->Nstate; i++) {
+                    if (seth->type_evo == 0) {
+                        if (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i] 
+                            < sets->xe_old[i] * sets->xe_old[i] + sets->pe_old[i] * sets->pe_old[i]) {
+                            sum += 0.5 * ( sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i])
+                                - 0.5 * (sets->xe_old[i] * sets->xe_old[i] + sets->pe_old[i] * sets->pe_old[i]);
+                        }
+                    } else if (seth->type_evo == 1) {
+                        if (creal(sets->den_e[i * seth->Nstate + i]) < creal(sets->den_e_old[i * seth->Nstate + i])) { 
+                            sum += creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->den_e_old[i * seth->Nstate + i]);
+                        }
+                    }
+                }
+
+                
+
+                for (int i = 0; i < seth->Nstate; i++){
+                    if (i == sets->id_state) continue;
+                    if (seth->type_evo == 0){
+                        x2 = 0.5 * ( sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i])
+                                - 0.5 * (sets->xe_old[i] * sets->xe_old[i] + sets->pe_old[i] * sets->pe_old[i]);
+                    } else if (seth->type_evo == 1){
+                        x2 = creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->den_e_old[i * seth->Nstate + i]);
+                    }
+                    if (x2 > 0) {
+                        prob_hop[i] = x2 * x1 / sum;
+                        if (seth->type_evo == 0)  prob_hop[i] /= 0.5 * ( sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                        if (seth->type_evo == 1)  prob_hop[i] /= creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state]);
+                    }
+                    if (prob_hop[i] < 0) prob_hop[i] = 0;
+                    if (prob_hop[i] > 1) prob_hop[i] = 1;
+                }
+            }
+
+
+            sum = 0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum += prob_hop[i];
+            }
+            r_hop = ((double) rand() / RAND_MAX);
+            id_switch = sets->id_state;
+            for (int i = 0; i < seth->Nstate; i++) {
+                r_hop -= prob_hop[i];
+                if(r_hop < 0){
+                    // double a=0, b=0, c=0;
+                    // for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    //     a += 0.5 * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j]
+                    //                  / sets->mass[j];
+                    //     b += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->P_nuc[j] / sets->mass[j];
+                    // }
+                    // c = sets->E_adia[i] - sets->E[sets->id_state];
+                    id_switch = i;
+                    break;
+                }
+            }
+
+
+
     }
     
     if (para == 1){

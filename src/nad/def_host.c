@@ -1522,9 +1522,9 @@ void print_info(struct set_host *seth){
     // } else if (strcmp(method, "A-FSSH") == 0 || strcmp(method, "a-fssh") == 0 || strcmp(method, "AFSSH") == 0 || strcmp(method, "afssh") == 0) {
     //     printf("Method: Augmented Fewest Switches Surface Hopping (A-FSSH)\n");
     //     printf("Related Publication: J. Chem. Phys. 2011, 134, 024105\n");
-    // } else if (strcmp(method, "GFSH") == 0 || strcmp(method, "gfsh") == 0) {
-    //     printf("Method: Global Flux Surface Hopping (GFSH)\n");
-    //     printf("Related Publication: J. Chem. Theory Comput. 2014, 10, 3598-3605\n");
+    } else if (strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0) {
+        printf("Method: Global Flux Surface Hopping (GFSH)\n");
+        printf("Related Publication: J. Chem. Theory Comput. 2014, 10, 3598-3605\n");
     // } else if (strcmp(method, "SC-FSSH") == 0 || strcmp(method, "sc-fssh") == 0) {
     //     printf("Method: Self-Consistent Fewest Switches Surface Hopping (SC-FSSH)\n");
     //     printf("Related Publication: J. Phys. Chem. Lett. 2014, 5, 713-719\n");
