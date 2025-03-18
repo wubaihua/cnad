@@ -1408,6 +1408,99 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             memcpy(sets->gamma_cv,gamma_cv_save,seth->Nstate * seth->Nstate * sizeof(double complex));
         }
 
+    } else if (seth->ifswitchforce > 0 && seth->type_hop != 1) {
+        if (seth->rep == 0) {
+            
+            V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
+            #ifdef sunway
+            int slavecore_id = athread_get_id(-1);
+            #endif
+          
+            
+            dia_hermitemat(seth->Nstate, sets->V, sets->E_adia, sets->U_d2a);
+
+            // printf("%d\n",slavecore_id);
+
+            if (seth->type_evo == 0) {
+                memcpy(xe_save,sets->xe,seth->Nstate*sizeof(double));
+                memcpy(pe_save,sets->pe,seth->Nstate*sizeof(double));
+                // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                // dd_matmul(tempdm1,xe_save,sets->xe,seth->Nstate,seth->Nstate,1);
+                // dd_matmul(tempdm1,pe_save,sets->pe,seth->Nstate,seth->Nstate,1);
+                transpose_conjugate(sets->U_d2a, tempcm1, seth->Nstate);
+                for (i = 0; i < seth->Nstate; i++) {
+                    tempcv1[i] = sets->xe[i] + I * sets->pe[i];
+                }
+                cc_matmul(tempcm1, tempcv1, tempcv2, seth->Nstate, seth->Nstate, 1);
+                for (i = 0; i < seth->Nstate; i++) {
+                    sets->xe[i] = creal(tempcv2[i]);
+                    sets->pe[i] = cimag(tempcv2[i]);
+                }
+            } else if (seth->type_evo == 1) {
+                memcpy(den_e_save,sets->den_e,seth->Nstate * seth->Nstate * sizeof(double complex));
+                transpose_conjugate(sets->U_d2a, tempcm1, seth->Nstate);
+                cc_matmul(tempcm1,den_e_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                cc_matmul(tempcm2,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+            }
+            memcpy(gamma_cv_save,sets->gamma_cv ,seth->Nstate * seth->Nstate * sizeof(double complex));
+            cc_matmul(tempcm1,gamma_cv_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+            cc_matmul(tempcm2,sets->U_d2a,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+        }
+
+        if(seth->type_hop == 3 || seth->type_hop == 4) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                if (seth->type_evo == 0) {
+                    c_main[i] = fabs((sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) / 2 - creal(sets->gamma_cv[i * seth->Nstate + i]));
+                } else if (seth->type_evo == 1) {
+                    c_main[i] = fabs(creal(sets->den_e[i * seth->Nstate + i] - sets->gamma_cv[i * seth->Nstate + i]));
+                }
+            }
+            double sum1 = 0.0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum1 += c_main[i];
+            }
+            for (int i = 0; i < seth->Nstate; i++) {
+                c_main[i] = c_main[i] / sum1;
+            }
+
+        }
+
+
+        double r1 = (double)rand() / RAND_MAX;
+        double ps1, ps2;
+        for (int i = 0; i < seth->Nstate; i++) {
+            sets->id_state = i;
+            
+            if (i == 0) {
+                ps1 = 0;
+                // ps2 = sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0];
+                ps2 = c_main[0];
+            } else {
+                ps1 = 0;
+                for (int k = 0; k < i - 1; k++) {
+                    // ps1 += sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k];
+                    ps1 += c_main[k];
+                }
+                // ps2 = ps1 + sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + i] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + i];
+                ps2 = ps1 + c_main[i];
+            }
+            if (r1 >= ps1 && r1 < ps2) {
+                break;
+            }
+        }
+
+    
+
+        if (seth->rep == 0) {
+            if (seth->type_evo == 0) {
+                memcpy(sets->xe,xe_save,seth->Nstate*sizeof(double));
+                memcpy(sets->pe,pe_save,seth->Nstate*sizeof(double));
+            } else if (seth->type_evo == 1) {
+                memcpy(sets->den_e,den_e_save,seth->Nstate * seth->Nstate * sizeof(double complex));
+            }
+            memcpy(sets->gamma_cv,gamma_cv_save,seth->Nstate * seth->Nstate * sizeof(double complex));
+        }
+
     }
 
 }
@@ -3812,6 +3905,7 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
         cal_force_sh(sets,seth,para);
 
     } else {
+        
         // if (if_ref == 1) {
         //     cal_force_mf_ref();
         // } else if (if_1st > 0) {
@@ -4618,6 +4712,120 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
                 }
             }
 
+            break;
+        
+        case 3: // NaF(S)
+        
+            if (seth->rep == 0) {
+                if (seth->type_evo == 0) {
+                    memcpy(xe_save,sets->xe,seth->Nstate*sizeof(double));
+                    memcpy(pe_save,sets->pe,seth->Nstate*sizeof(double));
+                    // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    // dd_matmul(tempdm1,xe_save,sets->xe,seth->Nstate,seth->Nstate,1);
+                    // dd_matmul(tempdm1,pe_save,sets->pe,seth->Nstate,seth->Nstate,1);
+                    transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        tempcv1[i] = xe_save[i] + I * pe_save[i];
+                    }
+                    cc_matmul(tempcm1,tempcv1,tempcv2,seth->Nstate,seth->Nstate,1);
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        sets->xe[i] = creal(tempcv2[i]);
+                        sets->pe[i] = cimag(tempcv2[i]);
+                    }
+                } else if (seth->type_evo == 1) {
+                    memcpy(den_e_save,sets->den_e,seth->Nstate * seth->Nstate * sizeof(double complex));
+                    // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+                    // dc_matmul(tempdm1,den_e_save,tempcm1,seth->Nstate,seth->Nstate,seth->Nstate);
+                    // cd_matmul(tempcm1,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+                    transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
+                    cc_matmul(tempcm1,den_e_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                    cc_matmul(tempcm2,sets->U_d2a,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+                }
+                memcpy(gamma_cv_save,sets->gamma_cv ,seth->Nstate * seth->Nstate * sizeof(double complex));
+                cc_matmul(tempcm1,gamma_cv_save,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                cc_matmul(tempcm2,sets->U_d2a,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+          
+            }
+
+    
+            for (int i = 0; i < seth->Nstate; i++){
+                
+                if (seth->type_evo == 0)  prob_hop[i] = cabs(0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - creal(sets->gamma_cv[i * seth->Nstate + i]));
+                if (seth->type_evo == 1)  prob_hop[i] = cabs(creal(sets->den_e[i * seth->Nstate + i]) - creal(sets->gamma_cv[i * seth->Nstate + i]));
+                
+            }
+            
+
+
+            sum = 0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum += prob_hop[i];
+            }
+            for (int i = 0; i < seth->Nstate; i++) {
+                prob_hop[i] /= sum;
+            }
+            
+            r_hop = ((double) rand() / RAND_MAX);
+            id_switch = sets->id_state;
+            for (int i = 0; i < seth->Nstate; i++) {
+                r_hop -= prob_hop[i];
+                if(r_hop < 0){
+                    // double a=0, b=0, c=0;
+                    // for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    //     a += 0.5 * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j]
+                    //                  / sets->mass[j];
+                    //     b += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->P_nuc[j] / sets->mass[j];
+                    // }
+                    // c = sets->E_adia[i] - sets->E[sets->id_state];
+                    id_switch = i;
+                    break;
+                }
+            }
+
+            break;
+
+
+        case 4: // NaF(FS)
+            for (int i = 0; i < seth->Nstate; i++){
+                csum = 0;
+                for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    csum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
+                }
+                // prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
+                if (seth->type_evo == 0) prob_hop[i] = 2.0 * seth->dt * creal((0.5 * (sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) - sets->gamma_cv[i * seth->Nstate + sets->id_state]) * csum) 
+                                                        / (0.5 * (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]) - creal(sets->gamma_cv[sets->id_state * seth->Nstate + sets->id_state]));
+                if (seth->type_evo == 1) prob_hop[i] = 2.0 * seth->dt * creal((sets->den_e[i * seth->Nstate + sets->id_state] - sets->gamma_cv[i * seth->Nstate + sets->id_state]) * csum) 
+                                                        / creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state] - sets->gamma_cv[sets->id_state * seth->Nstate + sets->id_state]);
+                if (prob_hop[i] < 0) prob_hop[i] = 0;
+                if (prob_hop[i] > 1) prob_hop[i] = 1;
+            }
+    
+            sum = 0;
+            for (int i = 0; i < seth->Nstate; i++) {
+                sum += prob_hop[i];
+            }
+            r_hop = ((double) rand() / RAND_MAX);
+            id_switch = sets->id_state;
+            for (int i = 0; i < seth->Nstate; i++) {
+                r_hop -= prob_hop[i];
+                if(r_hop < 0){
+                    // double a=0, b=0, c=0;
+                    // for (int j = 0; j < seth->Ndof1 * seth->Ndof2; j++){
+                    //     a += 0.5 * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j]
+                    //                  / sets->mass[j];
+                    //     b += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] 
+                    //          * sets->P_nuc[j] / sets->mass[j];
+                    // }
+                    // c = sets->E_adia[i] - sets->E[sets->id_state];
+                    id_switch = i;
+                    break;
+                }
+            }
+
+            break;
 
 
     }
