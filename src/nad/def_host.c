@@ -1839,6 +1839,10 @@ void print_info(struct set_host *seth){
             if (seth->ifscalegamma == 1) printf("scale gamma to %f\n", seth->gamma_rescale);
             printf("direction for adjustment P: %d\n", seth->direc_padj);
         }
+        if (seth->if_default != 0) {
+            printf("if_default= %d\n", seth->if_default);
+            printf("type_hop= %d\n", seth->type_hop);
+        }
         // if (ifmashforce > 0) {
         //     printf("ifmashforce= %d\n", ifmashforce);
         //     printf("ifreflp= %d\n", ifreflp);
