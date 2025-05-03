@@ -2485,11 +2485,20 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
         //     } else {
                 sets->population[i * seth->Ngrid  + igrid_cal] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
                 if (seth->if_st_fb == 1) {
-                    if (sets->P_nuc[0] > 0) {
-                        sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 0] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                    if (strcmp(seth->msmodelname, "retinal") == 0 ) {
+                        if (cos(sets->R_nuc[24]) < 0) {
+                            sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 0] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                        } else {
+                            sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 1] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                        } 
                     } else {
-                        sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 1] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                        if (sets->P_nuc[0] > 0) {
+                            sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 0] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                        } else {
+                            sets->pop_fb[i * seth->Ngrid *2  + igrid_cal * 2 + 1] += creal(sets->correfun_0 * sets->correfun_t[i * seth->Nstate + i]);
+                        }
                     }
+                    
                 }
         //     }
         }
