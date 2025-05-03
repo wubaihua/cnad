@@ -744,7 +744,21 @@ void readinp_bpy(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 }
 
 
+void readinp_retinal(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
 
+    cJSON *list;
+    
+    
+    setm->Nstate_lvcm = 2;
+    setm->N_mode_lvcm = 25;
+    
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+
+}
 
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
@@ -800,6 +814,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_dualho(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
         readinp_bpy(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "retinal") == 0) {
+        readinp_retinal(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

@@ -928,6 +928,11 @@ struct set_host
 
 
 
+        // retinal model
+        double W1_retinal, W2_retinal;
+
+
+
 
 };
 

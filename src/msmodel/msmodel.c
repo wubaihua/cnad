@@ -26,6 +26,7 @@
 #include "frozen.h"
 #include "dualho.h"
 #include "bpy.h"
+#include "retinal.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -87,6 +88,8 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_dualho(mass,setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
         parameter_bpy(mass,setm);
+    } else if (strcmp(setm->msmodelname, "retinal") == 0) {
+        parameter_retinal(mass,setm);
     }
 }
 
@@ -136,6 +139,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_dualho(P, R, setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
         sample_bpy(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "retinal") == 0) {
+        sample_retinal(P, R, setm);
     }
 }
 
@@ -190,6 +195,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
         V_dualho(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0 ) {
         V_bpy(R, H, setm->forcetype,setm);
+        ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "retinal") == 0 ) {
+        V_retinal(R, H, setm->forcetype, setm);
         ifcpy = 1;
     }
 
@@ -255,7 +263,11 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "bpy") == 0 ) {
         dV_bpy(R, dH, setm->forcetype,setm);
         ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "retinal") == 0 ) {
+        dV_retinal(R, dH,setm->forcetype, setm);
+        ifcpy = 1;
     }
+
     if(ifcpy == 0){
         for (int i = 0; i < setm->Nstate; i++) {
             for (int j = 0; j < setm->Nstate; j++) {
@@ -302,6 +314,8 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_dnalvcm(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
         nucforce_bpy(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "retinal") == 0) {
+        nucforce_retinal(R, nf,setm);
     }
 }
 
