@@ -932,7 +932,13 @@ struct set_host
         double W1_retinal, W2_retinal;
 
 
-
+        // AsO model 
+        double A_aso[3], R0_aso[3], S_aso[3], d_aso[3];
+        double c_aso, b_aso, rnac_aso;
+        double complex *soc_aso; 
+        double Re_aso;
+        double omega_aso, mass_aso;
+ 
 
 };
 

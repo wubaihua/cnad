@@ -761,6 +761,23 @@ void readinp_retinal(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
 }
 
 
+void readinp_aso(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    // if (NULL !=  cJSON_GetObjectItem(item, "type_morse3")){
+    //     list=cJSON_GetObjectItem(item, "type_morse3");
+    //     setm->type_morse3 = list->valueint; 
+    // }
+
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+    *Nstate = 5;
+
+}
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -816,6 +833,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_bpy(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "retinal") == 0) {
         readinp_retinal(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "aso") == 0) {
+        readinp_aso(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

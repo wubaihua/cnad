@@ -27,6 +27,7 @@
 #include "dualho.h"
 #include "bpy.h"
 #include "retinal.h"
+#include "aso.h"
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -90,6 +91,8 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_bpy(mass,setm);
     } else if (strcmp(setm->msmodelname, "retinal") == 0) {
         parameter_retinal(mass,setm);
+    } else if (strcmp(setm->msmodelname, "aso") == 0) {
+        parameter_aso(mass,setm);
     }
 }
 
@@ -141,6 +144,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_bpy(P, R, setm);
     } else if (strcmp(setm->msmodelname, "retinal") == 0) {
         sample_retinal(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "aso") == 0) {
+        sample_aso(P, R, setm);
     }
 }
 
@@ -198,6 +203,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
         ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "retinal") == 0 ) {
         V_retinal(R, H, setm->forcetype, setm);
+        ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "aso") == 0 ) {
+        V_aso(R, H, setm);
         ifcpy = 1;
     }
 
@@ -265,6 +273,9 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
         ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "retinal") == 0 ) {
         dV_retinal(R, dH,setm->forcetype, setm);
+        ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "aso") == 0 ) {
+        dV_aso(R, dH, setm);
         ifcpy = 1;
     }
 
@@ -336,6 +347,11 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
 
 
 
-
-
+void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
+    // double *dV_real = (double *)malloc(setm->Nstate * setm->Nstate * setm->Ndof1 * setm->Ndof2 * sizeof(double));
+    // int ifcpy = 0;
+    if (strcmp(setm->msmodelname, "aso") == 0) {
+        nac_aso(R, nac, setm);
+    }
+}
 
