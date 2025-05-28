@@ -2821,7 +2821,9 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
     double tempdm1[seth->Nstate * seth->Nstate], tempdm2[seth->Nstate * seth->Nstate], tempdv1[seth->Nstate], tempdv2[seth->Nstate];
     double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
     double complex tempcv1[seth->Nstate], tempcv2[seth->Nstate];
+    double complex commu_d_V[seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2];
     double c1 = 0.0, c2 = 0.0;
+    double complex csum1, csum2;
 
 
     if (seth->Ndof1 * seth->Ndof2 == 1) { // only one nuclear degree of freedom
@@ -2976,6 +2978,20 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
             vb[k] = vb[k] / sqrt(sets->mass[k]);
         }
     } else if(seth->rep == 2 ){
+
+        for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+            for (int i = 0; i < seth->Nstate; i++) {
+                for (int j = 0; j < seth->Nstate; j++) {
+                    csum1 = 0.0;
+                    for (int l = 0; l < seth->Nstate; l++) {
+                        csum1 += sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + l * seth->Ndof1 * seth->Ndof2 + k] * sets->V[l * seth->Nstate + j]
+                                 - sets->V[i * seth->Nstate + l] * sets->nac[l * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                    }
+                    commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] = csum1;
+                }
+            }
+        }
+
         for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
             vpi[k] = sets->P_nuc[k] / sqrt(sets->mass[k]);
             for (int i = 0; i < seth->Nstate; i++) {
@@ -2988,14 +3004,14 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
 
 
                                 vb[k] += creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - sets->gamma_cv[i * seth->Nstate + j]) *
-                                                ((sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
+                                                ( commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
 
                         } else {
 
                                 // if(seth->rep==0) vb[k] += Q_dia[i * seth->Nstate + j] * sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
 
                                 vb[k] += creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - sets->gamma_cv[i * seth->Nstate + j]) *
-                                                ((sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
+                                                ( commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
 
                         }
                     } else if (seth->type_evo == 1) {
@@ -3005,7 +3021,7 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
 
 
                                 vb[k] += creal( (sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]) *
-                                                ((sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
+                                                (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
 
                         } else {
 
@@ -3013,7 +3029,7 @@ void energy_conserve_naf_exact(double deltat,struct set_slave *sets,struct set_h
 
 
                                 vb[k] += creal(  (sets->den_e[i * seth->Nstate + j] * (1 + seth->Nstate * seth->gamma_rescale) / (1 + seth->Nstate * seth->gamma_zpe) - sets->gamma_cv[i * seth->Nstate + j]) *
-                                ((sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
+                                (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]));
 
                         }
                     }
@@ -3377,7 +3393,7 @@ void evo_traj_savetraj(struct set_slave *sets,struct set_host *seth) {
     // // printf("xxxxxxxxxxx\n");
     
     
-    if (seth->rep == 1){
+    if (seth->rep == 1 || seth->rep == 2) {
         if (sets->E_adia != NULL) memcpy(sets->E_adia_old, sets->E_adia, seth->Nstate * sizeof(double));
         if (sets->dv_adia != NULL) memcpy(sets->dv_adia_old, sets->dv_adia, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double complex));
         if (sets->nac != NULL) memcpy(sets->nac_old, sets->nac, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double complex));
@@ -3414,7 +3430,7 @@ void evo_traj_back(struct set_slave *sets,struct set_host *seth) {
     memcpy(sets->V, sets->V_old, seth->Nstate * seth->Nstate * sizeof(double complex));
     memcpy(sets->dV, sets->dV_old, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double complex));
     
-    if (seth->rep == 1){
+    if (seth->rep == 1 || seth->rep == 2) {
         memcpy(sets->E_adia, sets->E_adia_old, seth->Nstate * sizeof(double));
         memcpy(sets->dv_adia, sets->dv_adia_old, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double complex));
         memcpy(sets->nac, sets->nac_old, seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2 *sizeof(double complex));
@@ -4031,7 +4047,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
 void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
     int i, j, k;
     double force_trace[seth->Ndof1 * seth->Ndof2];
-
+    double complex commu_d_V[seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2];
+    double complex csum1, csum2;
     // if (seth->if_traceless_force == 1) {
     //     // for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
     //     //     sets->force_trace[i] = 0;
@@ -4091,6 +4108,38 @@ void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
                         }
                     }
                 }
+            } else if (seth->rep == 2) {
+
+                for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        for (int j = 0; j < seth->Nstate; j++) {
+                            csum1 = 0.0;
+                            for (int l = 0; l < seth->Nstate; l++) {
+                                csum1 += sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + l * seth->Ndof1 * seth->Ndof2 + k] * sets->V[l * seth->Nstate + j]
+                                         - sets->V[i * seth->Nstate + l] * sets->nac[l * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                            }
+                            commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] = csum1;
+                        }
+                    }
+                }
+        
+                for (i = 0; i < seth->Nstate; i++) {
+                    for (j = 0; j < seth->Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= creal(sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * ((sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * 0.5 - sets->gamma_cv[i * seth->Nstate + i]));
+                                // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
+                            }
+                        } else {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) 
+                                                  * (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]
+                                                    + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] ));
+                                // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                            }
+                        }
+                    }
+                }
             }
             break;
         case 1:
@@ -4120,6 +4169,38 @@ void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
                         } else {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
                                 sets->force[k] -= creal((sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]) * (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]);
+                            }
+                        }
+                    }
+                }
+            } else if (seth->rep == 2) {
+
+                for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+                    for (int i = 0; i < seth->Nstate; i++) {
+                        for (int j = 0; j < seth->Nstate; j++) {
+                            csum1 = 0.0;
+                            for (int l = 0; l < seth->Nstate; l++) {
+                                csum1 += sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + l * seth->Ndof1 * seth->Ndof2 + k] * sets->V[l * seth->Nstate + j]
+                                         - sets->V[i * seth->Nstate + l] * sets->nac[l * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+                            }
+                            commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] = csum1;
+                        }
+                    }
+                }
+
+                for (i = 0; i < seth->Nstate; i++) {
+                    for (j = 0; j < seth->Nstate; j++) {
+                        if (i == j) {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= creal(sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * (sets->den_e[i * seth->Nstate + i] - sets->gamma_cv[i * seth->Nstate + i]));
+                                // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
+                            }
+                        } else {
+                            for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+                                sets->force[k] -= creal((sets->den_e[i * seth->Nstate + j] - sets->gamma_cv[i * seth->Nstate + j]) 
+                                                  * (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]
+                                                    + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] ));
+                                // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
                             }
                         }
                     }
