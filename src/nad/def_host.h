@@ -938,7 +938,15 @@ struct set_host
         double complex *soc_aso; 
         double Re_aso;
         double omega_aso, mass_aso;
- 
+
+
+        // ab initio quantum chemistry model
+        int Natom_mole, NT_mole, Nstate_mole; 
+        double atommass_mole[110]; // atomic masses in amu
+        char atomname_mole[110]; // atomic names
+        int *atomindex_mole[110]; // atomic index
+        int char[2000];
+        double *R0_nuc_mole; // 2D double array: [size1][size2] nuclear coordinates
 
 };
 
