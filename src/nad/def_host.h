@@ -943,11 +943,16 @@ struct set_host
         // ab initio quantum chemistry model
         int Natom_mole, NT_mole, Nstate_mole; 
         double atommass_mole[110]; // atomic masses in amu
-        char atomname_mole[110]; // atomic names
-        int *atomindex_mole[110]; // atomic index
-        int char[2000];
+        char atomname_mole[110][4]; // atomic names
+        char **atomlist_mole; // atomic name list
+        int *atomindexlist_mole; // atomic index list
+        // char c2000_1[2000];
         double *R0_nuc_mole; // 2D double array: [size1][size2] nuclear coordinates
-
+        double *P0_nuc_mole; // 2D double array: [size1][size2] nuclear momenta
+        char path_qmkeyword_mole[400]; // path to the QM keyword file
+        char *qmkeyword_mole; // QM keyword string
+        char path_R0_nuc_mole[400]; // path to the xyz file 
+        char path_P0_nuc_mole[400]; // path to the initial nuclear momentum file
 };
 
 

@@ -778,6 +778,58 @@ void readinp_aso(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 }
 
 
+
+void readinp_mole(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+
+    if (NULL != cJSON_GetObjectItem(item, "Natom_mole")) {
+        list = cJSON_GetObjectItem(item, "Natom_mole");
+        if (list->type == cJSON_Number) {
+            setm->Natom_mole = list->valueint; 
+        }
+    }
+
+
+    if (NULL != cJSON_GetObjectItem(item, "Nstate_mole")) {
+        list = cJSON_GetObjectItem(item, "Nstate_mole");
+        if (list->type == cJSON_Number) {
+            setm->Nstate_mole = list->valueint; 
+        }
+    }
+
+
+    if (NULL != cJSON_GetObjectItem(item, "path_qmkeyword_mole")) {
+        list = cJSON_GetObjectItem(item, "path_qmkeyword_mole");
+        if (list->type == cJSON_String) {
+            strcpy(setm->path_qmkeyword_mole, list->valuestring); 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "path_R0_nuc_mole")) {
+        list = cJSON_GetObjectItem(item, "path_R0_nuc_mole");
+        if (list->type == cJSON_String) {
+            strcpy(setm->path_R0_nuc_mole, list->valuestring); 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "path_P0_nuc_mole")) {
+        list = cJSON_GetObjectItem(item, "path_P0_nuc_mole");
+        if (list->type == cJSON_String) {
+            strcpy(setm->path_P0_nuc_mole, list->valuestring); 
+        }
+    }
+
+
+    *Ndof1 = setm->Natom_mole;
+    *Ndof2 = 3;
+    *Nstate = setm->Nstate_mole;
+
+}
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -835,7 +887,10 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_retinal(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "aso") == 0) {
         readinp_aso(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "mole") == 0) {
+        readinp_mole(json, Ndof1, Ndof2, Nstate, setm);
     }
+
 
 
 
