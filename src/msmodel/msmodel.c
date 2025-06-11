@@ -28,6 +28,10 @@
 #include "bpy.h"
 #include "retinal.h"
 #include "aso.h"
+
+#ifdef x86
+    #include "mole.h"
+#endif
 // int forcetype;
 // char setm->msmodelname[200];
 
@@ -94,6 +98,12 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "aso") == 0) {
         parameter_aso(mass,setm);
     }
+
+    #ifdef x86
+        if (strcmp(setm->msmodelname, "mole") == 0) {
+            parameter_mole(mass,setm);
+        }
+    #endif
 }
 
 // Sample the initial conditionals for trajectories of the model

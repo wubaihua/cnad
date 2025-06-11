@@ -18,7 +18,7 @@
 #endif
 
 
-/
+
 
 // Initialize model parameters
 void parameter_mole(double *mass, struct set_host *setm) {
@@ -52,11 +52,28 @@ void parameter_mole(double *mass, struct set_host *setm) {
         setm->atommass_mole[i] = atom_masses[i];
         strcpy(setm->atomname_mole[i], atom_names[i]);
     }
+
+
+
+
+    for (int i = 0; i < setm->Natom_mole; i++){
+        for (int j = 0; j < 110; j++){
+            if (strcmp(setm->atomname_mole[j], setm->atomlist_mole[i]) == 0){
+                setm->atomindexlist_mole[i] = j;
+                break;
+            }
+        }
+    }
     
 
+    for (int i = 0; i < setm->Natom_mole; i++){
+        printf("%s\n",setm->atomlist_mole[i]);
+        printf("%d\n",setm->atomindexlist_mole[i]);
+        
+    }
 
 
-
+    exit(-1);
 
 
 

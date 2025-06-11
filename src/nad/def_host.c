@@ -1344,6 +1344,7 @@ void readinp(struct set_host *seth){
         seth->R0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
         seth->P0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
         seth->atomlist_mole = malloc(seth->Natom_mole * sizeof(char*));
+        seth->atomindexlist_mole = malloc(seth->Natom_mole * sizeof(int));
 
         FILE *R0_nuc_file = fopen(seth->path_R0_nuc_mole, "rb");
         if (!R0_nuc_file) {
@@ -1368,6 +1369,10 @@ void readinp(struct set_host *seth){
             }
             // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
             c2[2] = '\0';
+            if (strlen(c2) == 1) {
+                c2[1] = ' ';
+                c2[2] = '\0';
+            }
             seth->atomlist_mole[i] = strdup(c2);
             seth->R0_nuc_mole[i * 3] = x;
             seth->R0_nuc_mole[i * 3 + 1] = y;
