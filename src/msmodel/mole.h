@@ -29,7 +29,7 @@ void sample_mole(double *P, double *R, double beta, struct set_host *setm);
 void V_mole(double *R, double *H, int forcetype, struct set_host *setm);
 
 // Build the first-order derivative matrix of the model
-void dV_mole(double *R, double *dH, int forcetype, struct set_host *setm);
+void dV_mole(double *R, double complex *dH, int forcetype, struct set_host *setm);
 
 // Calculate the nuclear force of the model
 void nucforce_mole(double *R, double *nf, struct set_host *setm);

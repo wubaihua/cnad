@@ -1374,9 +1374,9 @@ void readinp(struct set_host *seth){
                 c2[2] = '\0';
             }
             seth->atomlist_mole[i] = strdup(c2);
-            seth->R0_nuc_mole[i * 3] = x;
-            seth->R0_nuc_mole[i * 3 + 1] = y;
-            seth->R0_nuc_mole[i * 3 + 2] = z;
+            seth->R0_nuc_mole[i * 3] = x / au_2_angstrom;
+            seth->R0_nuc_mole[i * 3 + 1] = y / au_2_angstrom;
+            seth->R0_nuc_mole[i * 3 + 2] = z / au_2_angstrom;
         }
 
         for (int i = 0; i < seth->Natom_mole; i++) {

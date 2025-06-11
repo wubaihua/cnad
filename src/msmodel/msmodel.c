@@ -156,7 +156,14 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_retinal(P, R, setm);
     } else if (strcmp(setm->msmodelname, "aso") == 0) {
         sample_aso(P, R, setm);
-    }
+    } 
+    
+    #ifdef x86
+        if (strcmp(setm->msmodelname, "mole") == 0) {
+            sample_mole(P, R, beta, setm);
+        }
+    #endif
+    
 }
 
 // Build the diabatic potential matrix of the model
@@ -287,7 +294,15 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "aso") == 0 ) {
         dV_aso(R, dH, setm);
         ifcpy = 1;
-    }
+    } 
+    
+    #ifdef x86
+        if (strcmp(setm->msmodelname, "mole") == 0 ) {
+            dV_mole(R, dH, setm->forcetype, setm);
+            ifcpy = 1;
+        }
+    #endif 
+
 
     if(ifcpy == 0){
         for (int i = 0; i < setm->Nstate; i++) {
