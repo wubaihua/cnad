@@ -161,10 +161,23 @@ void dV_mole(double *R, double complex *dH, int forcetype, struct set_host *setm
     for (int i = 0; i < setm->Natom_mole; i++){
         fprintf(inp, "%s  %f  %f  %f\n",setm->atomlist_mole[i], R[i * 3 + 0] * au_2_angstrom, R[i * 3 + 1] * au_2_angstrom, R[i * 3 + 2] * au_2_angstrom);
     }
-    fprintf(inp, "\n");
+    
+    fprintf(inp, "\"\"\"\n");
     fprintf(inp, "%s\n", setm->qmkeyword_mole);
     
     fclose(inp);
+
+    char cmd[256];
+    int ret;
+    snprintf(cmd, sizeof(cmd),
+        "mkdir ~/scratch");
+    // 执行命令
+    ret = system(cmd);
+    
+    snprintf(cmd, sizeof(cmd),
+        "python /mnt/f/GitHub/psinad_wbh/scripts/QM.py -d run_bdf -i bdfinp -qm \"bdf\" -t 0");
+    // 执行命令
+    ret = system(cmd);
     
 
     exit(-1);
