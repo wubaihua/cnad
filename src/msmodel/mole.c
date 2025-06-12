@@ -66,12 +66,12 @@ void parameter_mole(double *mass, struct set_host *setm) {
     }
 
     for (int i = 0; i < setm->Natom_mole; i++){
-        printf("%s\n",setm->atomlist_mole[i]);
-        printf("%d\n",setm->atomindexlist_mole[i]);
+        // printf("%s\n",setm->atomlist_mole[i]);
+        // printf("%d\n",setm->atomindexlist_mole[i]);
         mass[i * 3 + 0] = setm->atommass_mole[setm->atomindexlist_mole[i]] * amu_2_au;
         mass[i * 3 + 1] = setm->atommass_mole[setm->atomindexlist_mole[i]] * amu_2_au;
         mass[i * 3 + 2] = setm->atommass_mole[setm->atomindexlist_mole[i]] * amu_2_au;
-        printf("mass=%f\n",mass[i * 3 + 0]/amu_2_au);
+        // printf("mass=%f\n",mass[i * 3 + 0]/amu_2_au);
     }
 
 
@@ -167,17 +167,77 @@ void dV_mole(double *R, double complex *dH, int forcetype, struct set_host *setm
     
     fclose(inp);
 
-    char cmd[256];
-    int ret;
-    snprintf(cmd, sizeof(cmd),
-        "mkdir ~/scratch");
-    // 执行命令
-    ret = system(cmd);
+    // char cmd[256];
+    // int ret;
+    // snprintf(cmd, sizeof(cmd),"mkdir ~/scratch");
+    // // 执行命令
+    // ret = system(cmd);
     
-    snprintf(cmd, sizeof(cmd),
-        "python /mnt/f/GitHub/psinad_wbh/scripts/QM.py -d run_bdf -i bdfinp -qm \"bdf\" -t 0");
-    // 执行命令
-    ret = system(cmd);
+    // snprintf(cmd, sizeof(cmd),
+    //     "python /mnt/f/GitHub/psinad_wbh/scripts/QM.py -d run_bdf -i bdfinp -qm \"bdf\" -t 0 > QMlog");
+    // // 执行命令
+    // ret = system(cmd);
+
+
+    FILE *qmlog= fopen("QMlog","r");
+    if (!qmlog) {
+        printf("Error: Cannot open QMlog\n");
+        exit(1);
+    }
+
+    char line[512];
+    char last_line[512] = {0};
+    while (fgets(line, sizeof(line), qmlog)) {
+        strcpy(last_line, line); // 保存最后一行
+    }
+    fclose(qmlog);
+
+    if (strstr(last_line, "--- calculation terminated normally ---") == NULL) {
+        printf("Error: QM finishes unnormally!\n");
+        exit(-1);
+    };// else {
+    //    printf("yayyy\n");// debug
+    //}
+
+    FILE *qmdata= fopen("run_bdf/interface.ds","r");
+    if (!qmdata) {
+        printf("Error: Cannot open interface.ds\n");
+        exit(1);
+    }
+    for (int i = 0; i < 6; i++){
+        if (fgets(line, sizeof(line), qmdata) != NULL) {
+            // printf("%s\n",line);
+        }
+    }
+
+    double PES[setm->Nstate];
+    for (int i = 0; i < setm->Nstate; i++) {
+        if (fscanf(qmdata, "%lf", &PES[i]) != 1) {
+            
+        }
+        printf("%f\n",PES[i]);
+    }
+
+    for (int i = 0; i < 4; i++){
+        if (fgets(line, sizeof(line), qmdata) != NULL) {
+            printf("%s\n",line);
+        }
+    }
+
+    double dPES[setm->Nstate * setm->Natom_mole * 3];
+    for (int j = 0; j < setm->Natom_mole * 3; j++) {
+        for (int i = 0; i < setm->Nstate; i++) {
+            if (fscanf(qmdata, "%lf", &dPES[i * setm->Natom_mole * 3 + j]) != 1) {
+                  
+            }
+            printf("%18.8E  ",dPES[i * setm->Natom_mole * 3 + j]); 
+        }
+        
+        printf("\n");
+    }
+
+
+
     
 
     exit(-1);
