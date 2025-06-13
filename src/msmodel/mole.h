@@ -12,11 +12,13 @@
 // #include "cJSON.h"
 #include "msmodelio.h"
 #include "def_host.h"
-#ifdef sunway
-    #include <slave.h>
-    #include <athread.h>
+#ifdef x86
+    #include "def.h"
 #endif
-
+// #ifdef sunway
+//     #include <slave.h>
+//     #include <athread.h>
+// #endif
 
 
 // Initialize model parameters
@@ -30,6 +32,8 @@ void V_mole(double *R, double *H, int forcetype, struct set_host *setm);
 
 // Build the first-order derivative matrix of the model
 void dV_mole(double *R, double complex *dH, int forcetype, struct set_host *setm);
+
+// void qm_mole(double *R, struct set_host *setm, struct set_slave *sets);
 
 // Calculate the nuclear force of the model
 void nucforce_mole(double *R, double *nf, struct set_host *setm);

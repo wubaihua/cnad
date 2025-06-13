@@ -17,7 +17,9 @@
     #include <slave.h>
 #endif
 
-
+#ifdef x86
+    void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets);
+#endif
 
 void initial_vari(struct set_slave *sets,struct set_host *seth) {
     int i;
@@ -1342,7 +1344,11 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     if (seth->ifswitchforce > 0 && seth->type_hop == 1 || seth->type_hop == 1) {
         if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
             
-            V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
+            if (strcmp(seth->msmodelname, "mole") == 0 ) {
+                qm_msmodel(sets->R_nuc, seth, sets);   
+            } else {
+                V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
+            }
             #ifdef sunway
             int slavecore_id = athread_get_id(-1);
             #endif
@@ -1411,7 +1417,11 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     } else if (seth->ifswitchforce > 0 && seth->type_hop != 1) {
         if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
             
-            V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
+            if (strcmp(seth->msmodelname, "mole") == 0 ) {
+                qm_msmodel(sets->R_nuc, seth, sets);   
+            } else {
+                V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
+            }
             #ifdef sunway
             int slavecore_id = athread_get_id(-1);
             #endif
@@ -3301,10 +3311,14 @@ void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *s
     if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
     evo_traj_ele(deltat / 2,sets,seth,1);
     evo_traj_nucR(deltat,sets,seth);
-    dV_msmodel(sets->R_nuc, sets->dV,seth);
-    V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
-    if (seth->rep == 1) cal_NACV(sets,seth);
-    if (seth->rep == 2 || seth->rep == 3) nac_msmodel(sets->R_nuc, sets->nac, seth);
+    if (strcmp(seth->msmodelname, "mole") == 0 ) {
+        qm_msmodel(sets->R_nuc, seth, sets);   
+    } else {
+        dV_msmodel(sets->R_nuc, sets->dV,seth);
+        V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+        if (seth->rep == 1) cal_NACV(sets,seth);
+        if (seth->rep == 2 || seth->rep == 3) nac_msmodel(sets->R_nuc, sets->nac, seth);
+    }
     evo_traj_ele(deltat / 2,sets,seth,2);
     cal_force(sets,seth,1);
     if(seth->ifscaleenergy == 7) energy_conserve_naf_exact(deltat / 2,sets,seth);
@@ -3525,9 +3539,17 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     sets->t_now = 0;
     nstep = (int)(seth->ttot / seth->dt) + 1;
 
-    V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
-    dV_msmodel(sets->R_nuc, sets->dV,seth);
-    if (seth->rep == 1) cal_NACV(sets,seth);
+    // V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
+    // dV_msmodel(sets->R_nuc, sets->dV,seth);
+    // if (seth->rep == 1) cal_NACV(sets,seth);
+    if (strcmp(seth->msmodelname, "mole") == 0 ) {
+        qm_msmodel(sets->R_nuc, seth, sets);   
+    } else {
+        dV_msmodel(sets->R_nuc, sets->dV,seth);
+        V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
+        if (seth->rep == 1) cal_NACV(sets,seth);
+        if (seth->rep == 2 || seth->rep == 3) nac_msmodel(sets->R_nuc, sets->nac, seth);
+    }
     //debug
     // int slavecore_id;
     // slavecore_id=athread_get_id(-1);

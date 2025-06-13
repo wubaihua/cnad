@@ -12,7 +12,10 @@
 #include "msmodelio.h"
 #include "def_host.h"
 
-
+#ifdef x86
+    #include "def.h"
+    #include "mole.h"
+#endif
 // extern int forcetype;
 // extern char msmodelname[200];
 
@@ -38,5 +41,6 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
 
 void nac_msmodel(double *R, double complex *nac, struct set_host *setm);
 
+// void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets);
 
 #endif 

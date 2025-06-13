@@ -30,7 +30,9 @@
 #include "aso.h"
 
 #ifdef x86
+    #include "def.h"
     #include "mole.h"
+    void qm_mole(double *R, struct set_host *setm, struct set_slave *sets);
 #endif
 // int forcetype;
 // char setm->msmodelname[200];
@@ -378,5 +380,18 @@ void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
     if (strcmp(setm->msmodelname, "aso") == 0) {
         nac_aso(R, nac, setm);
     }
+}
+
+
+
+void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
+    // double *dV_real = (double *)malloc(setm->Nstate * setm->Nstate * setm->Ndof1 * setm->Ndof2 * sizeof(double));
+    // int ifcpy = 0;
+    #ifdef x86
+        if (strcmp(setm->msmodelname, "mole") == 0 ) {
+            qm_mole(R, setm, sets);
+        }
+    #endif 
+
 }
 
