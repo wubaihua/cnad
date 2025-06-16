@@ -1321,107 +1321,107 @@ void readinp(struct set_host *seth){
     // printf("path_R0_nuc_mole: %s\n", seth->path_R0_nuc_mole);
     // printf("path_P0_nuc_mole: %s\n", seth->path_P0_nuc_mole);
 
-    if (strcmp(seth->msmodelname, "mole") == 0) {
-        FILE *qmkeywordfile = fopen(seth->path_qmkeyword_mole, "rb");
-        if (!qmkeywordfile) {
-            perror("qmkeyword_mole opening failed");
-            // return NULL;
-        }
-        char buffer[2000];  // 读取缓冲区
-        size_t total_length = 0;
-        seth->qmkeyword_mole = malloc(1);  // 动态字符串初始化
-        seth->qmkeyword_mole[0] = '\0';
-        while (fgets(buffer, sizeof(buffer), qmkeywordfile)) {
-            total_length += strlen(buffer);
-            seth->qmkeyword_mole = realloc(seth->qmkeyword_mole, total_length + 1);
-            strcat(seth->qmkeyword_mole, buffer);  // 追加到动态字符串
-        }
-        // printf("=============================\n");
-        printf("%s", seth->qmkeyword_mole);
-        fclose(qmkeywordfile);
+    // if (strcmp(seth->msmodelname, "mole") == 0) {
+    //     FILE *qmkeywordfile = fopen(seth->path_qmkeyword_mole, "rb");
+    //     if (!qmkeywordfile) {
+    //         perror("qmkeyword_mole opening failed");
+    //         // return NULL;
+    //     }
+    //     char buffer[2000];  // 读取缓冲区
+    //     size_t total_length = 0;
+    //     seth->qmkeyword_mole = malloc(1);  // 动态字符串初始化
+    //     seth->qmkeyword_mole[0] = '\0';
+    //     while (fgets(buffer, sizeof(buffer), qmkeywordfile)) {
+    //         total_length += strlen(buffer);
+    //         seth->qmkeyword_mole = realloc(seth->qmkeyword_mole, total_length + 1);
+    //         strcat(seth->qmkeyword_mole, buffer);  // 追加到动态字符串
+    //     }
+    //     // printf("=============================\n");
+    //     printf("%s", seth->qmkeyword_mole);
+    //     fclose(qmkeywordfile);
 
 
-        seth->R0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
-        seth->P0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
-        seth->atomlist_mole = malloc(seth->Natom_mole * sizeof(char*));
-        seth->atomindexlist_mole = malloc(seth->Natom_mole * sizeof(int));
+    //     seth->R0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
+    //     seth->P0_nuc_mole = (double *)malloc(seth->Natom_mole * 3 * sizeof(double));
+    //     seth->atomlist_mole = malloc(seth->Natom_mole * sizeof(char*));
+    //     seth->atomindexlist_mole = malloc(seth->Natom_mole * sizeof(int));
 
-        FILE *R0_nuc_file = fopen(seth->path_R0_nuc_mole, "rb");
-        if (!R0_nuc_file) {
-            perror("R0_nuc_mole opening failed");
-            // return NULL;
-        }
-        int natom_check;
-        int istat = fscanf(R0_nuc_file, "%d\n", &natom_check);  // 读取原子数
-        // printf("natomcheck= %d \n",natom_check);
-        char comment_line[256];
-        if (!fgets(comment_line, sizeof(comment_line), R0_nuc_file)) {
-            fprintf(stderr, "警告: 读取注释行失败\n");
-        }
-        char c2[3];
-        double x, y, z;
-        for (int i = 0; i < seth->Natom_mole; i++) {
-            int read_count = fscanf(R0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
-            // printf("read_count: %d\n", read_count);
-            if (read_count != 4) {
-                fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
-                exit(EXIT_FAILURE);
-            }
-            // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
-            c2[2] = '\0';
-            if (strlen(c2) == 1) {
-                c2[1] = ' ';
-                c2[2] = '\0';
-            }
-            seth->atomlist_mole[i] = strdup(c2);
-            seth->R0_nuc_mole[i * 3] = x / au_2_angstrom;
-            seth->R0_nuc_mole[i * 3 + 1] = y / au_2_angstrom;
-            seth->R0_nuc_mole[i * 3 + 2] = z / au_2_angstrom;
-        }
+    //     FILE *R0_nuc_file = fopen(seth->path_R0_nuc_mole, "rb");
+    //     if (!R0_nuc_file) {
+    //         perror("R0_nuc_mole opening failed");
+    //         // return NULL;
+    //     }
+    //     int natom_check;
+    //     int istat = fscanf(R0_nuc_file, "%d\n", &natom_check);  // 读取原子数
+    //     // printf("natomcheck= %d \n",natom_check);
+    //     char comment_line[256];
+    //     if (!fgets(comment_line, sizeof(comment_line), R0_nuc_file)) {
+    //         fprintf(stderr, "警告: 读取注释行失败\n");
+    //     }
+    //     char c2[3];
+    //     double x, y, z;
+    //     for (int i = 0; i < seth->Natom_mole; i++) {
+    //         int read_count = fscanf(R0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
+    //         // printf("read_count: %d\n", read_count);
+    //         if (read_count != 4) {
+    //             fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
+    //             exit(EXIT_FAILURE);
+    //         }
+    //         // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
+    //         c2[2] = '\0';
+    //         if (strlen(c2) == 1) {
+    //             c2[1] = ' ';
+    //             c2[2] = '\0';
+    //         }
+    //         seth->atomlist_mole[i] = strdup(c2);
+    //         seth->R0_nuc_mole[i * 3] = x / au_2_angstrom;
+    //         seth->R0_nuc_mole[i * 3 + 1] = y / au_2_angstrom;
+    //         seth->R0_nuc_mole[i * 3 + 2] = z / au_2_angstrom;
+    //     }
 
-        for (int i = 0; i < seth->Natom_mole; i++) {
-            printf("%s %18.8E %18.8E %18.8E\n", seth->atomlist_mole[i], seth->R0_nuc_mole[i * 3], seth->R0_nuc_mole[i * 3 + 1], seth->R0_nuc_mole[i * 3 + 2]);
-        }
-        fclose(R0_nuc_file);
+    //     for (int i = 0; i < seth->Natom_mole; i++) {
+    //         printf("%s %18.8E %18.8E %18.8E\n", seth->atomlist_mole[i], seth->R0_nuc_mole[i * 3], seth->R0_nuc_mole[i * 3 + 1], seth->R0_nuc_mole[i * 3 + 2]);
+    //     }
+    //     fclose(R0_nuc_file);
 
 
 
-        FILE *P0_nuc_file = fopen(seth->path_P0_nuc_mole, "rb");
-        if (!P0_nuc_file) {
-            perror("P0_nuc_mole opening failed");
-            // return NULL;
-        }
+    //     FILE *P0_nuc_file = fopen(seth->path_P0_nuc_mole, "rb");
+    //     if (!P0_nuc_file) {
+    //         perror("P0_nuc_mole opening failed");
+    //         // return NULL;
+    //     }
     
-        istat = fscanf(P0_nuc_file, "%d\n", &natom_check);  // 读取原子数
-        // printf("natomcheck= %d \n",natom_check);
-        // char comment_line[256];
-        if (!fgets(comment_line, sizeof(comment_line), P0_nuc_file)) {
-            fprintf(stderr, "警告: 读取注释行失败\n");
-        }
-        for (int i = 0; i < seth->Natom_mole; i++) {
-            int read_count = fscanf(P0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
-            // printf("read_count: %d\n", read_count);
-            if (read_count != 4) {
-                fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
-                exit(EXIT_FAILURE);
-            }
-            // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
-            c2[2] = '\0';
-            // seth->atomlist_mole[i] = strdup(c2);
-            seth->P0_nuc_mole[i * 3] = x;
-            seth->P0_nuc_mole[i * 3 + 1] = y;
-            seth->P0_nuc_mole[i * 3 + 2] = z;
-        }
+    //     istat = fscanf(P0_nuc_file, "%d\n", &natom_check);  // 读取原子数
+    //     // printf("natomcheck= %d \n",natom_check);
+    //     // char comment_line[256];
+    //     if (!fgets(comment_line, sizeof(comment_line), P0_nuc_file)) {
+    //         fprintf(stderr, "警告: 读取注释行失败\n");
+    //     }
+    //     for (int i = 0; i < seth->Natom_mole; i++) {
+    //         int read_count = fscanf(P0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
+    //         // printf("read_count: %d\n", read_count);
+    //         if (read_count != 4) {
+    //             fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
+    //             exit(EXIT_FAILURE);
+    //         }
+    //         // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
+    //         c2[2] = '\0';
+    //         // seth->atomlist_mole[i] = strdup(c2);
+    //         seth->P0_nuc_mole[i * 3] = x;
+    //         seth->P0_nuc_mole[i * 3 + 1] = y;
+    //         seth->P0_nuc_mole[i * 3 + 2] = z;
+    //     }
 
-        for (int i = 0; i < seth->Natom_mole; i++) {
-            printf("%s %18.8E %18.8E %18.8E\n", seth->atomlist_mole[i], seth->P0_nuc_mole[i * 3], seth->P0_nuc_mole[i * 3 + 1], seth->P0_nuc_mole[i * 3 + 2]);
-        }
-        fclose(P0_nuc_file);
+    //     for (int i = 0; i < seth->Natom_mole; i++) {
+    //         printf("%s %18.8E %18.8E %18.8E\n", seth->atomlist_mole[i], seth->P0_nuc_mole[i * 3], seth->P0_nuc_mole[i * 3 + 1], seth->P0_nuc_mole[i * 3 + 2]);
+    //     }
+    //     fclose(P0_nuc_file);
 
 
 
-        // exit(0);
-    }
+    //     // exit(0);
+    // }
 
 }
 

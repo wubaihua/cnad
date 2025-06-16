@@ -808,6 +808,15 @@ void readinp_mole(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_h
         }
     }
 
+
+    if (NULL != cJSON_GetObjectItem(item, "path_qmpath_mole")) {
+        list = cJSON_GetObjectItem(item, "path_qmpath_mole");
+        if (list->type == cJSON_String) {
+            strcpy(setm->path_qmpath_mole, list->valuestring); 
+        }
+    }
+
+
     if (NULL != cJSON_GetObjectItem(item, "path_R0_nuc_mole")) {
         list = cJSON_GetObjectItem(item, "path_R0_nuc_mole");
         if (list->type == cJSON_String) {

@@ -298,12 +298,12 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
         ifcpy = 1;
     } 
     
-    #ifdef x86
-        if (strcmp(setm->msmodelname, "mole") == 0 ) {
-            dV_mole(R, dH, setm->forcetype, setm);
-            ifcpy = 1;
-        }
-    #endif 
+    // #ifdef x86
+    //     if (strcmp(setm->msmodelname, "mole") == 0 ) {
+    //         dV_mole(R, dH, setm->forcetype, setm);
+    //         ifcpy = 1;
+    //     }
+    // #endif 
 
 
     if(ifcpy == 0){

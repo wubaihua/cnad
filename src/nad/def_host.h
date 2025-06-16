@@ -953,6 +953,15 @@ struct set_host
         char *qmkeyword_mole; // QM keyword string
         char path_R0_nuc_mole[400]; // path to the xyz file 
         char path_P0_nuc_mole[400]; // path to the initial nuclear momentum file
+
+        char path_qmpath_mole[400];
+        char qmscript_mole[200];
+        char qmscratch_mole[200];
+        char qmsoft_mole[200];
+
+
+
+
 };
 
 

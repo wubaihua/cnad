@@ -28,7 +28,126 @@
 // Initialize model parameters
 void parameter_mole(double *mass, struct set_host *setm) {
 
+    FILE *qmpath= fopen(setm->path_qmpath_mole, "rb");
+    if (!qmpath) {
+        perror("qmpath_mole opening failed");
+        exit(1);
+    }
+    
+    if (fgets(setm->qmsoft_mole, sizeof(setm->qmsoft_mole), qmpath) != NULL) {
+        // printf("%s\n",line);
+    }
+    if (fgets(setm->qmscript_mole, sizeof(setm->qmscript_mole), qmpath) != NULL) {
+        // printf("%s\n",line);
+    }
+    if (fgets(setm->qmscratch_mole, sizeof(setm->qmscratch_mole), qmpath) != NULL) {
+        // printf("%s\n",line);
+    }
 
+    setm->qmscript_mole[strcspn(setm->qmscript_mole, "\r\n")] = 0;
+    setm->qmsoft_mole[strcspn(setm->qmsoft_mole, "\r\n")] = 0;
+    setm->qmscratch_mole[strcspn(setm->qmscratch_mole, "\r\n")] = 0;
+    
+    // printf("%s\n",setm->qmsoft_mole);
+    // printf("%s\n",setm->qmscript_mole);
+    // printf("%s\n",setm->qmscratch_mole);
+    // exit(-1);
+
+
+
+    // if (strcmp(setm->msmodelname, "mole") == 0) {
+    FILE *qmkeywordfile = fopen(setm->path_qmkeyword_mole, "rb");
+    if (!qmkeywordfile) {
+        perror("qmkeyword_mole opening failed");
+        // return NULL;
+    }
+    char buffer[2000];  // 读取缓冲区
+    size_t total_length = 0;
+    setm->qmkeyword_mole = malloc(1);  // 动态字符串初始化
+    setm->qmkeyword_mole[0] = '\0';
+    while (fgets(buffer, sizeof(buffer), qmkeywordfile)) {
+        total_length += strlen(buffer);
+        setm->qmkeyword_mole = realloc(setm->qmkeyword_mole, total_length + 1);
+        strcat(setm->qmkeyword_mole, buffer);  // 追加到动态字符串
+    }
+    // printf("=============================\n");
+    // printf("%s", setm->qmkeyword_mole);
+    fclose(qmkeywordfile);
+    setm->R0_nuc_mole = (double *)malloc(setm->Natom_mole * 3 * sizeof(double));
+    setm->P0_nuc_mole = (double *)malloc(setm->Natom_mole * 3 * sizeof(double));
+    setm->atomlist_mole = malloc(setm->Natom_mole * sizeof(char*));
+    setm->atomindexlist_mole = malloc(setm->Natom_mole * sizeof(int));
+    FILE *R0_nuc_file = fopen(setm->path_R0_nuc_mole, "rb");
+    if (!R0_nuc_file) {
+        perror("R0_nuc_mole opening failed");
+        // return NULL;
+    }
+    int natom_check;
+    int istat = fscanf(R0_nuc_file, "%d\n", &natom_check);  // 读取原子数
+    // printf("natomcheck= %d \n",natom_check);
+    char comment_line[256];
+    if (!fgets(comment_line, sizeof(comment_line), R0_nuc_file)) {
+        fprintf(stderr, "警告: 读取注释行失败\n");
+    }
+    char c2[3];
+    double x, y, z;
+    for (int i = 0; i < setm->Natom_mole; i++) {
+        int read_count = fscanf(R0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
+        // printf("read_count: %d\n", read_count);
+        if (read_count != 4) {
+            fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
+            exit(EXIT_FAILURE);
+        }
+        // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
+        c2[2] = '\0';
+        if (strlen(c2) == 1) {
+            c2[1] = ' ';
+            c2[2] = '\0';
+        }
+        setm->atomlist_mole[i] = strdup(c2);
+        setm->R0_nuc_mole[i * 3] = x / au_2_angstrom;
+        setm->R0_nuc_mole[i * 3 + 1] = y / au_2_angstrom;
+        setm->R0_nuc_mole[i * 3 + 2] = z / au_2_angstrom;
+    }
+    // for (int i = 0; i < setm->Natom_mole; i++) {
+    //     printf("%s %18.8E %18.8E %18.8E\n", setm->atomlist_mole[i], setm->R0_nuc_mole[i * 3], setm->R0_nuc_mole[i * 3 + 1], setm->R0_nuc_mole[i * 3 + 2]);
+    // }
+    fclose(R0_nuc_file);
+    FILE *P0_nuc_file = fopen(setm->path_P0_nuc_mole, "rb");
+    if (!P0_nuc_file) {
+        perror("P0_nuc_mole opening failed");
+        // return NULL;
+    }
+
+    istat = fscanf(P0_nuc_file, "%d\n", &natom_check);  // 读取原子数
+    // printf("natomcheck= %d \n",natom_check);
+    // char comment_line[256];
+    if (!fgets(comment_line, sizeof(comment_line), P0_nuc_file)) {
+        fprintf(stderr, "警告: 读取注释行失败\n");
+    }
+    for (int i = 0; i < setm->Natom_mole; i++) {
+        int read_count = fscanf(P0_nuc_file, "%2s %lf %lf %lf", c2, &x, &y, &z);
+        // printf("read_count: %d\n", read_count);
+        if (read_count != 4) {
+            fprintf(stderr, "Error reading R0_nuc_mole file at line %d\n", i + 1);
+            exit(EXIT_FAILURE);
+        }
+        // printf("c2: %s, x: %lf, y: %lf, z: %lf\n", c2, x, y, z);
+        c2[2] = '\0';
+        // setm->atomlist_mole[i] = strdup(c2);
+        setm->P0_nuc_mole[i * 3] = x;
+        setm->P0_nuc_mole[i * 3 + 1] = y;
+        setm->P0_nuc_mole[i * 3 + 2] = z;
+    }
+    // for (int i = 0; i < setm->Natom_mole; i++) {
+    //     printf("%s %18.8E %18.8E %18.8E\n", setm->atomlist_mole[i], setm->P0_nuc_mole[i * 3], setm->P0_nuc_mole[i * 3 + 1], setm->P0_nuc_mole[i * 3 + 2]);
+    // }
+    fclose(P0_nuc_file);
+
+
+
+        // exit(0);
+    // }
 
 
     char *atom_names[] = {"Bq","H ","He",  // Bq, 1-~2  
@@ -258,7 +377,7 @@ void dV_mole(double *R, double complex *dH, int forcetype, struct set_host *setm
 
 
 void qm_mole(double *R, struct set_host *setm, struct set_slave *sets) {
-    FILE *inp = fopen("bdfinp", "w");
+    FILE *inp = fopen("qminp", "w");
     fprintf(inp, "%s\n", "[GEOM]");
     fprintf(inp, "%s%d\n", "xyz=\"\"\"",setm->Natom_mole);
     fprintf(inp, "%s\n", "Comment: generated by CNAD");
@@ -273,13 +392,22 @@ void qm_mole(double *R, struct set_host *setm, struct set_slave *sets) {
 
     char cmd[256];
     int ret;
-    snprintf(cmd, sizeof(cmd),"mkdir ~/scratch");
+    snprintf(cmd, sizeof(cmd),"mkdir %s",setm->qmscratch_mole);
     // 执行命令
     ret = system(cmd);
     
-    snprintf(cmd, sizeof(cmd),
-        "python /mnt/f/GitHub/psinad_wbh/scripts/QM.py -d run_bdf -i bdfinp -qm \"bdf\" -t 0 > QMlog");
+    // printf("python %s -d run_%s -i qminp -qm %s%s%s -t 0 > QMlog\n",
+    //     setm->qmscript_mole,setm->qmsoft_mole,"\"",setm->qmsoft_mole,"\"");
+    //     exit(-1);
+    
+
+    int ncheck = snprintf(cmd, sizeof(cmd),
+        "python %s -d run_qm -i qminp -qm \"%s\" -t 0 > QMlog",
+        setm->qmscript_mole,setm->qmsoft_mole);
     // 执行命令
+    if (ncheck >= sizeof(cmd)) {
+        fprintf(stderr, "Warning: command string truncated!\n");
+    }
     ret = system(cmd);
 
 
@@ -303,7 +431,7 @@ void qm_mole(double *R, struct set_host *setm, struct set_slave *sets) {
     //    printf("yayyy\n");// debug
     //}
 
-    FILE *qmdata= fopen("run_bdf/interface.ds","r");
+    FILE *qmdata= fopen("run_qm/interface.ds","r");
     if (!qmdata) {
         printf("Error: Cannot open interface.ds\n");
         exit(1);
