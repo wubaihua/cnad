@@ -589,7 +589,7 @@ void qm_mole(double *R, struct set_host *setm, struct set_slave *sets) {
 
     
 
-    exit(-1);
+    // exit(-1);
 }
 
 // Calculate the nuclear force of the model

@@ -398,7 +398,7 @@ void cal_force_eld(struct set_slave *sets,struct set_host *seth);
 void cal_NACV(struct set_slave *sets,struct set_host *seth);
 void cal_propagator_adia(int Nstate, double dt, double complex *U,struct set_slave *sets,struct set_host *seth, int para);
 void cal_propagator_gen(int Nstate, double complex *H, double dt, double complex *U, struct set_slave *sets, struct set_host *seth);
-
+void corre_trajprop( struct set_slave *sets, struct set_host *seth);
 void free_vari(struct set_slave *sets, struct set_host *seth);
 
 #endif // DEF_H

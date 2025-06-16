@@ -3312,7 +3312,8 @@ void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *s
     evo_traj_ele(deltat / 2,sets,seth,1);
     evo_traj_nucR(deltat,sets,seth);
     if (strcmp(seth->msmodelname, "mole") == 0 ) {
-        qm_msmodel(sets->R_nuc, seth, sets);   
+        qm_msmodel(sets->R_nuc, seth, sets); 
+        corre_trajprop(sets, seth);
     } else {
         dV_msmodel(sets->R_nuc, sets->dV,seth);
         V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
@@ -5763,6 +5764,34 @@ void cal_propagator_gen(int Nstate, double complex *H, double dt, double complex
 
 // void cal_propagator_adia_unsmash(){}
 // void cal_propagator_dia_unsmash(){}
+
+
+
+void corre_trajprop( struct set_slave *sets, struct set_host *seth){
+    double norm_nac, norm_nac_old, dot_nac;
+
+    for (int i = 0; i < seth->Nstate; i++){
+        for (int j = 0; j < seth->Nstate; j++){
+            if (i == j) continue;
+            norm_nac = 0;
+            norm_nac_old = 0;
+            dot_nac = 0;
+            for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++){
+                norm_nac += pow(sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k],2);
+                norm_nac_old += pow(sets->nac_old[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k], 2);
+                dot_nac += sets->nac_old[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]
+                          * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+            }
+
+            if (dot_nac < 0.0) {
+                for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++){
+                    sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] *= -1; 
+                }
+            }
+
+        }
+    }
+}
 
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
