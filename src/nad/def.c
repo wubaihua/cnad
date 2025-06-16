@@ -1345,7 +1345,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
-                qm_msmodel(sets->R_nuc, seth, sets);   
+                #ifdef x86
+                qm_msmodel(sets->R_nuc, seth, sets); 
+                #endif  
             } else {
                 V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
             }
@@ -1418,7 +1420,9 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
-                qm_msmodel(sets->R_nuc, seth, sets);   
+                #ifdef x86
+                qm_msmodel(sets->R_nuc, seth, sets);  
+                #endif 
             } else {
                 V_msmodel(sets->R_nuc, sets->V, 0.0, seth);
             }
@@ -3312,7 +3316,9 @@ void evo_traj_algorithm7(double deltat,struct set_slave *sets,struct set_host *s
     evo_traj_ele(deltat / 2,sets,seth,1);
     evo_traj_nucR(deltat,sets,seth);
     if (strcmp(seth->msmodelname, "mole") == 0 ) {
+        #ifdef x86
         qm_msmodel(sets->R_nuc, seth, sets); 
+        #endif
         corre_trajprop(sets, seth);
     } else {
         dV_msmodel(sets->R_nuc, sets->dV,seth);
@@ -3544,7 +3550,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // dV_msmodel(sets->R_nuc, sets->dV,seth);
     // if (seth->rep == 1) cal_NACV(sets,seth);
     if (strcmp(seth->msmodelname, "mole") == 0 ) {
-        qm_msmodel(sets->R_nuc, seth, sets);   
+        #ifdef x86
+        qm_msmodel(sets->R_nuc, seth, sets); 
+        #endif   
     } else {
         dV_msmodel(sets->R_nuc, sets->dV,seth);
         V_msmodel(sets->R_nuc, sets->V, sets->t_now,seth);
