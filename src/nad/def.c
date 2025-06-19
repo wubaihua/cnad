@@ -1342,7 +1342,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
    
     if (seth->ifswitchforce > 0 && seth->type_hop == 1 || seth->type_hop == 1) {
-        if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
+        if (seth->rep == 0 || seth->rep == 3) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
                 #ifdef x86
@@ -1406,7 +1406,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
         sets->id_state = maxloc(c_main, seth->Nstate);
 
-        if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
+        if (seth->rep == 0 || seth->rep == 3) {
             if (seth->type_evo == 0) {
                 memcpy(sets->xe,xe_save,seth->Nstate*sizeof(double));
                 memcpy(sets->pe,pe_save,seth->Nstate*sizeof(double));
@@ -1417,7 +1417,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
 
     } else if (seth->ifswitchforce > 0 && seth->type_hop != 1) {
-        if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
+        if (seth->rep == 0 || seth->rep == 3) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
                 #ifdef x86
@@ -3537,11 +3537,20 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     #ifdef sunway
     slavecore_id=athread_get_id(-1);
     #endif
+    FILE *traj_Rnuc = NULL;
+    FILE *traj_Pnuc = NULL;
+    FILE *traj_ele= NULL;
+    FILE *traj_occ= NULL;
+    FILE *traj_kinetic= NULL;
+    FILE *traj_potential= NULL;
+    FILE *traj_nac= NULL;
     
     // if_bak = false;
     // itime_save = 0;
 
     // count_sets->pertraj = 0;
+
+    
 
     sets->t_now = 0;
     nstep = (int)(seth->ttot / seth->dt) + 1;
@@ -3637,6 +3646,16 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
    
     R00 = sets->R_nuc[0];
     P00 = sets->P_nuc[0];
+
+    if (seth->if_printtraj == 1){
+        traj_Rnuc = fopen("traj_Rnuc.xyz","w");
+        traj_Pnuc = fopen("traj_Pnuc.xyz","w");
+        traj_ele = fopen("traj_ele.dat","w");
+        traj_occ = fopen("traj_occ.dat","w");
+        traj_kinetic = fopen("traj_kinetic.dat","w");
+        traj_potential = fopen("traj_potential.dat","w");
+        traj_nac = fopen("traj_nac.dat","w");
+    }
  
     while (itime <= nstep) {
         if (i_re >= seth->Nbreak && igrid < seth->Ngrid) {
@@ -3650,19 +3669,15 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             igrid++;
             i_re = 0;
             
-            //debug
-            //  if(slavecore_id == 10) printf("%18.8E %18.8E %18.8E %18.8E %18.8E \n", sets->R_nuc[0],sets->P_nuc[0],sets->xe[0],sets->pe[0],sets->force[0]);
+            if (seth->if_printtraj == 1){
                 
-            
-            // if(slavecore_id == 10) printf("%18.8E %18.8E\n", sets->force[0],sets->force[299]);
-            // printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d %18.8E %18.8E %18.8E %18.8E %18.8E\n",sets->t_now, sets->R_nuc[0],sets->P_nuc[0],
-            //                     sets->xe[0],sets->xe[1],sets->pe[0],sets->pe[1],sets->id_state+1,
-            //                     0.5*(sets->xe[0]*sets->xe[0]+sets->pe[0]*sets->pe[0])/sets->scale_sqc2,
-            //                     0.5*(sets->xe[1]*sets->xe[1]+sets->pe[1]*sets->pe[1])/sets->scale_sqc2,
-            //                     sets->E_adia[0],sets->E_adia[1],sets->E_adia[sets->id_state]);
+                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, sets, seth);
+                
+                
+            }
 
         }
-
+        
         // printf("%18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %18.8E %d %18.8E %18.8E\n",sets->t_now, sets->R_nuc[0],sets->P_nuc[0],
         //                         sets->xe[0],sets->xe[1],sets->pe[0],sets->pe[1],sets->id_state+1,
         //                         0.5*(sets->xe[0]*sets->xe[0]+sets->pe[0]*sets->pe[0])/sets->scale_sqc2,
@@ -4041,6 +4056,20 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         }
     }
     
+
+
+
+    if (seth->if_printtraj == 1){
+        fclose(traj_Rnuc);
+        fclose(traj_Pnuc); 
+        fclose(traj_ele);
+        fclose(traj_occ);
+        fclose(traj_kinetic);
+        fclose(traj_potential);
+        fclose(traj_nac);
+    }
+
+
 }
 
 
@@ -5801,6 +5830,84 @@ void corre_trajprop( struct set_slave *sets, struct set_host *seth){
     }
 }
 
+
+void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ, 
+                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, 
+                struct set_slave *sets, struct set_host *seth){
+        
+        fprintf(traj_Rnuc, "%d\n",seth->Natom_mole);
+        fprintf(traj_Rnuc, "%s %18.8E %s\n","nuclear coordinate (ang), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
+        for (int i = 0; i < seth->Natom_mole; i++){
+            fprintf(traj_Rnuc, "%s  %18.8E  %18.8E  %18.8E\n",seth->atomlist_mole[i], sets->R_nuc[i * 3 + 0] * au_2_angstrom, sets->R_nuc[i * 3 + 1] * au_2_angstrom, sets->R_nuc[i * 3 + 2] * au_2_angstrom);
+        } 
+
+
+
+        fprintf(traj_Pnuc, "%d\n",seth->Natom_mole);
+        fprintf(traj_Pnuc, "%s %18.8E %s\n","nuclear momentum (au), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
+        for (int i = 0; i < seth->Natom_mole; i++){
+            fprintf(traj_Pnuc, "%s  %18.8E  %18.8E  %18.8E\n",seth->atomlist_mole[i], sets->P_nuc[i * 3 + 0], sets->P_nuc[i * 3 + 1], sets->P_nuc[i * 3 + 2]);
+        } 
+
+        fprintf(traj_ele, "%18.8E",sets->t_now / seth->unittrans_t);
+        if(seth->type_evo == 0){
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(traj_ele, "%18.8E",sets->xe[i]);
+            }
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(traj_ele, "%18.8E",sets->pe[i]);
+            }
+        } else if (seth->type_evo == 1){
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_ele, "%18.8E",creal(sets->den_e[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_ele, "%18.8E",cimag(sets->den_e[i]));
+            }
+        }
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(traj_ele, "%18.8E",creal(sets->gamma_cv[i]));
+        }
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(traj_ele, "%18.8E",cimag(sets->gamma_cv[i]));
+        }
+        fprintf(traj_ele,"\n");
+
+        fprintf(traj_occ, "%18.8E  %d\n",sets->t_now / seth->unittrans_t, sets->id_state + 1);
+
+
+        double Ekin = 0;
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            Ekin += 0.5 * sets->P_nuc[i] *  sets->P_nuc[i] / sets->mass[i];
+        }
+        fprintf(traj_kinetic, "%18.8E  %18.8E\n", sets->t_now / seth->unittrans_t, Ekin);
+
+        fprintf(traj_potential, "%18.8E",sets->t_now / seth->unittrans_t);
+        if (seth->rep == 1){
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(traj_potential, "%18.8E", sets->E_adia[i]);
+            }
+        } else {
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_potential, "%18.8E", creal(sets->V[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_potential, "%18.8E", cimag(sets->V[i]));
+            }
+        }
+        fprintf(traj_potential,"\n");
+
+
+        
+        fprintf(traj_nac, "%s %18.8E %s\n","NAC(au), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            for (int j = 0; j < seth->Nstate * seth->Nstate; j++){
+                fprintf(traj_nac, "%18.8E", creal(sets->nac[j * seth->Natom_mole * 3 + i]));
+            }
+            fprintf(traj_nac, "\n");
+        }
+        
+}
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
     free(sets->R_nuc);

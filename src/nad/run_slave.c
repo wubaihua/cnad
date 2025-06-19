@@ -64,7 +64,7 @@ void dynamics_slave(struct set_host *seth){
     } 
     for (int itraj = 1; itraj <= run_size; itraj++) {
         sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
-        sample_ele(&sets,seth);     
+        sample_ele(&sets,seth);   
         evo_traj_new(itraj,&sets,seth);
     }
     #endif

@@ -834,6 +834,9 @@ struct set_host
     int type_seed;
 
 
+    int if_printtraj;
+
+
     // model parameters
 
 

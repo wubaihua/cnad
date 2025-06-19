@@ -399,6 +399,9 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth);
 void cal_propagator_adia(int Nstate, double dt, double complex *U,struct set_slave *sets,struct set_host *seth, int para);
 void cal_propagator_gen(int Nstate, double complex *H, double dt, double complex *U, struct set_slave *sets, struct set_host *seth);
 void corre_trajprop( struct set_slave *sets, struct set_host *seth);
+void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ, 
+                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, 
+                struct set_slave *sets, struct set_host *seth);
 void free_vari(struct set_slave *sets, struct set_host *seth);
 
 #endif // DEF_H
