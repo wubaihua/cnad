@@ -1505,7 +1505,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
 
     
 
-        if (seth->rep == 0 || seth->rep == 2 || seth->rep == 3) {
+        if (seth->rep == 0 || seth->rep == 3) {
             if (seth->type_evo == 0) {
                 memcpy(sets->xe,xe_save,seth->Nstate*sizeof(double));
                 memcpy(sets->pe,pe_save,seth->Nstate*sizeof(double));
@@ -5873,7 +5873,17 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         }
         fprintf(traj_ele,"\n");
 
-        fprintf(traj_occ, "%18.8E  %d\n",sets->t_now / seth->unittrans_t, sets->id_state + 1);
+        fprintf(traj_occ, "%18.8E", sets->t_now / seth->unittrans_t);
+        fprintf(traj_occ, "  %d", sets->id_state + 1);
+        if (seth->ifswitchforce > 0) {
+            if (seth->rep == 2){
+                fprintf(traj_occ, "  %18.8E",creal(sets->V[sets->id_state * seth->Nstate + sets->id_state]));
+            } else if (seth->rep == 1 || seth->rep == 3){
+                fprintf(traj_occ, "  %18.8E",sets->E_adia[sets->id_state]);
+            }
+        }
+        
+        fprintf(traj_occ,"\n");
 
 
         double Ekin = 0;
