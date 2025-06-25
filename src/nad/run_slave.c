@@ -10,6 +10,7 @@
 #include "msmodelio.h"
 #include <stdbool.h>
 #include "def_host.h"
+#include <time.h>
 #ifdef sunway
     #include <slave.h>
 #endif
@@ -46,7 +47,7 @@ void dynamics_slave(struct set_host *seth){
     
     #ifdef sunway
     init_seed(seth->mpi_rank*seth->nproc_sw+slavecore_id);
-    if(seth->type_seed == 1){
+    if(seth->type_seed == 1 || seth->type_seed == 2){
         srand(seth->mpi_rank*seth->nproc_sw+slavecore_id);
     }
     for (int itraj = 1; itraj <= run_size; itraj++) {
@@ -59,9 +60,13 @@ void dynamics_slave(struct set_host *seth){
     athread_ssync_array();
     #elif defined(x86)
     init_seed(seth->mpi_rank);
+    unsigned int seed = (unsigned int)time(NULL) + seth->mpi_rank;
     if(seth->type_seed == 1){
         srand(seth->mpi_rank+1);
-    } 
+    } else if (seth->type_seed == 2){
+        init_seed(seed);
+    }
+    
     for (int itraj = 1; itraj <= run_size; itraj++) {
         sample_msmodel(sets.P_nuc, sets.R_nuc, seth->beta,seth);
         sample_ele(&sets,seth);   
