@@ -5840,7 +5840,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         for (int i = 0; i < seth->Natom_mole; i++){
             fprintf(traj_Rnuc, "%s  %18.8E  %18.8E  %18.8E\n",seth->atomlist_mole[i], sets->R_nuc[i * 3 + 0] * au_2_angstrom, sets->R_nuc[i * 3 + 1] * au_2_angstrom, sets->R_nuc[i * 3 + 2] * au_2_angstrom);
         } 
-
+        fflush(traj_Rnuc);
 
 
         fprintf(traj_Pnuc, "%d\n",seth->Natom_mole);
@@ -5848,6 +5848,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         for (int i = 0; i < seth->Natom_mole; i++){
             fprintf(traj_Pnuc, "%s  %18.8E  %18.8E  %18.8E\n",seth->atomlist_mole[i], sets->P_nuc[i * 3 + 0], sets->P_nuc[i * 3 + 1], sets->P_nuc[i * 3 + 2]);
         } 
+        fflush(traj_Pnuc);
 
         fprintf(traj_ele, "%18.8E",sets->t_now / seth->unittrans_t);
         if(seth->type_evo == 0){
@@ -5872,6 +5873,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
             fprintf(traj_ele, "%18.8E",cimag(sets->gamma_cv[i]));
         }
         fprintf(traj_ele,"\n");
+        fflush(traj_ele);
 
         fprintf(traj_occ, "%18.8E", sets->t_now / seth->unittrans_t);
         fprintf(traj_occ, "  %d", sets->id_state + 1);
@@ -5884,6 +5886,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         }
         
         fprintf(traj_occ,"\n");
+        fflush(traj_occ);
 
 
         double Ekin = 0;
@@ -5891,6 +5894,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
             Ekin += 0.5 * sets->P_nuc[i] *  sets->P_nuc[i] / sets->mass[i];
         }
         fprintf(traj_kinetic, "%18.8E  %18.8E\n", sets->t_now / seth->unittrans_t, Ekin);
+        fflush(traj_kinetic);
 
         fprintf(traj_potential, "%18.8E",sets->t_now / seth->unittrans_t);
         if (seth->rep == 1){
@@ -5906,6 +5910,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
             }
         }
         fprintf(traj_potential,"\n");
+        fflush(traj_potential);
 
 
         
@@ -5916,6 +5921,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
             }
             fprintf(traj_nac, "\n");
         }
+        fflush(traj_nac);
         
 }
 

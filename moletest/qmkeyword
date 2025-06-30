@@ -1,0 +1,144 @@
+[QM]
+exec = "BDF"
+ncore = 1 # if necessary
+use_mpi = false # if nenessary
+
+[QM.BDF]
+path="/home/wbh/bdf-pkg-0.9.6/sbin/bdfdrv.py"
+N = 9
+F = 3
+
+level0 = """
+$compass
+title
+ test
+basis
+ cc-pVDZ-DK
+geometry
+$COORD_XYZ
+end geometry
+skeleton
+nosymm
+$end
+
+$XUANYUAN
+heff 
+21
+hsoc
+2
+$END
+
+$SCF
+rks         
+dft         
+ b3lyp
+spinmulti
+ 1
+Charge    
+ 0
+$END
+
+# gradient of S0
+$resp
+geom
+$end
+
+# TDDFT
+$tddft
+itda
+1
+nroot
+5
+istore
+1
+crit_e
+ 1e-8
+crit_vec
+ 1e-6
+$end
+
+# Gradient of S1
+$resp
+geom
+method         
+ 2
+irep
+ 1
+iroot          
+ 1
+nfiles         
+ 1
+$end
+
+
+# S0-S1 NAC
+$resp
+QUAD
+FNAC
+single
+norder
+1
+imethod
+2
+nfiles
+1
+states
+1
+1 1 1
+$end
+
+
+## Triples Calulations
+$tddft
+isf 
+ 1
+itda
+ 1
+ialda
+ 4
+idiag
+ 1
+nroot
+ 3
+istore 
+ 2
+crit_e
+ 1e-8
+crit_vec
+ 1e-6
+$end
+
+# Gradient of T1
+$resp
+geom
+norder
+1
+imethod
+2
+irep
+1
+iroot
+ 1
+nfiles
+2
+$end
+
+# TDDFT SOC 
+$tddft
+isoc
+ 2
+nprt # print level
+ 10
+nfiles
+ 2
+ifgs 
+ 1
+imatsoc
+ 2
+ 0 0 0 2 1 1
+ 1 1 1 2 1 1
+idiag 
+ 2
+$end
+
+"""
