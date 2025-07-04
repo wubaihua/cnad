@@ -3544,6 +3544,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     FILE *traj_kinetic= NULL;
     FILE *traj_potential= NULL;
     FILE *traj_nac= NULL;
+    FILE *traj_den = NULL;
     
     // if_bak = false;
     // itime_save = 0;
@@ -3655,6 +3656,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         traj_kinetic = fopen("traj_kinetic.dat","w");
         traj_potential = fopen("traj_potential.dat","w");
         traj_nac = fopen("traj_nac.dat","w");
+        traj_den = fopen("traj_den.dat","w");
     }
  
     while (itime <= nstep) {
@@ -3671,7 +3673,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             
             if (seth->if_printtraj == 1){
                 
-                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, sets, seth);
+                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, traj_den, sets, seth);
                 
                 
             }
@@ -4067,6 +4069,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         fclose(traj_kinetic);
         fclose(traj_potential);
         fclose(traj_nac);
+        fclose(traj_den);
     }
 
 
@@ -5832,7 +5835,7 @@ void corre_trajprop( struct set_slave *sets, struct set_host *seth){
 
 
 void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ, 
-                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, 
+                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, FILE *traj_den,
                 struct set_slave *sets, struct set_host *seth){
         
         fprintf(traj_Rnuc, "%d\n",seth->Natom_mole);
@@ -5922,7 +5925,20 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
             fprintf(traj_nac, "\n");
         }
         fflush(traj_nac);
-        
+
+
+
+        fprintf(traj_den, "%18.8E",sets->t_now / seth->unittrans_t);
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(traj_den, "%18.8E", creal(sets->correfun_0 * sets->correfun_t[i]));
+        }
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(traj_den, "%18.8E", cimag(sets->correfun_0 * sets->correfun_t[i]));
+        }
+        fprintf(traj_den,"\n");
+        fflush(traj_den);
+
+
 }
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
