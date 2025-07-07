@@ -5760,46 +5760,46 @@ void cal_propagator_gen(int Nstate, double complex *H, double dt, double complex
 
 
 
-    if (seth->rep == 3) {
-        // printf("11111\n");
-        dia_hermitemat(seth->Nstate, H, sets->E_adia, sets->U_d2a);
+    // if (seth->rep == 3) {
+    //     // printf("11111\n");
+    //     dia_hermitemat(seth->Nstate, H, sets->E_adia, sets->U_d2a);
         
-        if (sets->if_ad_nac) {
-            // transpose(sets->U_d2a,tempdm1,seth->Nstate);
-            // dd_matmul(tempdm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
-            transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
-            cc_matmul(tempcm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
+    //     if (sets->if_ad_nac) {
+    //         // transpose(sets->U_d2a,tempdm1,seth->Nstate);
+    //         // dd_matmul(tempdm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
+    //         transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
+    //         cc_matmul(tempcm1,sets->U_ref,overlap,seth->Nstate,seth->Nstate,seth->Nstate);
 
-            memset(overlap2, 0, seth->Nstate * seth->Nstate * sizeof(double));
+    //         memset(overlap2, 0, seth->Nstate * seth->Nstate * sizeof(double));
         
-            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
-                tempdm1[i] = cabs(overlap[i]);
-            }
+    //         for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+    //             tempdm1[i] = cabs(overlap[i]);
+    //         }
 
-            for (i = 0; i < seth->Nstate; i++) {
-                idloc=maxloc(tempdm1, seth->Nstate * seth->Nstate);
-                id1 = idloc / seth->Nstate; 
-                id2 = idloc % seth->Nstate; 
-                overlap2[idloc] = (creal(overlap[idloc]) >= 0.0) ? 1.0 : -1.0;
-                for (j = 0; j < seth->Nstate; j++) {
-                    tempdm1[id1 * seth->Nstate + j] = 0;
-                    tempdm1[j * seth->Nstate + id2] = 0;
-                }
-            }
+    //         for (i = 0; i < seth->Nstate; i++) {
+    //             idloc=maxloc(tempdm1, seth->Nstate * seth->Nstate);
+    //             id1 = idloc / seth->Nstate; 
+    //             id2 = idloc % seth->Nstate; 
+    //             overlap2[idloc] = (creal(overlap[idloc]) >= 0.0) ? 1.0 : -1.0;
+    //             for (j = 0; j < seth->Nstate; j++) {
+    //                 tempdm1[id1 * seth->Nstate + j] = 0;
+    //                 tempdm1[j * seth->Nstate + id2] = 0;
+    //             }
+    //         }
 
-            cd_matmul(sets->U_d2a, overlap2, tempcm1, seth->Nstate, seth->Nstate, seth->Nstate);
-            memcpy(sets->U_d2a,tempcm1,seth->Nstate * seth->Nstate * sizeof(double complex));
+    //         cd_matmul(sets->U_d2a, overlap2, tempcm1, seth->Nstate, seth->Nstate, seth->Nstate);
+    //         memcpy(sets->U_d2a,tempcm1,seth->Nstate * seth->Nstate * sizeof(double complex));
 
-            for (i = 0; i < seth->Nstate * seth->Nstate; i++){
-                tempdm2[i] = fabs(overlap2[i]);
-            }
-            dd_matmul(sets->E_adia, tempdm2, tempdv1, 1, seth->Nstate, seth->Nstate);
-            memcpy(sets->E_adia, tempdv1, seth->Nstate * sizeof(double));
-        }
-        memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double complex));
-        memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double complex));
-        sets->if_ad_nac = 1;
-    }
+    //         for (i = 0; i < seth->Nstate * seth->Nstate; i++){
+    //             tempdm2[i] = fabs(overlap2[i]);
+    //         }
+    //         dd_matmul(sets->E_adia, tempdm2, tempdv1, 1, seth->Nstate, seth->Nstate);
+    //         memcpy(sets->E_adia, tempdv1, seth->Nstate * sizeof(double));
+    //     }
+    //     memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double complex));
+    //     memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double complex));
+    //     sets->if_ad_nac = 1;
+    // }
 }
 
 // void cal_propagator_adia_unsmash(){}

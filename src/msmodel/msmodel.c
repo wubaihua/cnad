@@ -387,10 +387,110 @@ void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
 void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
     // double *dV_real = (double *)malloc(setm->Nstate * setm->Nstate * setm->Ndof1 * setm->Ndof2 * sizeof(double));
     // int ifcpy = 0;
+    double complex tempcm1[setm->Nstate * setm->Nstate], tempcm2[setm->Nstate * setm->Nstate];
+    double tempdm1[setm->Nstate*setm->Nstate],tempdm2[setm->Nstate*setm->Nstate],tempdm3[setm->Nstate*setm->Nstate],tempdm4[setm->Nstate*setm->Nstate], tempdv1[setm->Nstate];
+    int id_max[setm->Nstate], idloc, id1, id2;
+    double complex overlap[setm->Nstate * setm->Nstate];
+    double overlap2[setm->Nstate * setm->Nstate], vmax;
     
         if (strcmp(setm->msmodelname, "mole") == 0 ) {
             qm_mole(R, setm, sets);
         }
+
+        printf("V before corr:\n");
+        for (int i = 0; i < setm->Nstate; i++) {
+            for (int j = 0; j < setm->Nstate; j++) {
+                printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
+            }
+            printf("\n");
+        }
+
+
+
+        
+        
+
+
+
+        if (setm->rep == 2 || setm->rep == 3) {
+            for (int i = 0; i < setm->Nstate; i++) {
+                for (int j = 0; j < setm->Nstate; j++) {
+                    if (i == j) {
+                        continue;
+                    }
+                    if (cabs(sets->V[i * setm->Nstate + j]) > 1e-10) {
+                        if (creal(sets->V[i * setm->Nstate + j]) * (creal(sets->V_old[i * setm->Nstate + j])) < 0.0) {
+                            sets->V[i * setm->Nstate + j] = - sets->V[i * setm->Nstate + j];
+                        }
+                    }
+                }
+            }
+            // printf("11111\n");
+            dia_hermitemat(setm->Nstate, sets->V, sets->E_adia, sets->U_d2a);
+            
+            if (sets->if_ad_nac) {
+                // transpose(sets->U_d2a,tempdm1,setm->Nstate);
+                // dd_matmul(tempdm1,sets->U_ref,overlap,setm->Nstate,setm->Nstate,setm->Nstate);
+                transpose_conjugate(sets->U_d2a,tempcm1,setm->Nstate);
+                cc_matmul(tempcm1,sets->U_ref,overlap,setm->Nstate,setm->Nstate,setm->Nstate);
+
+                memset(overlap2, 0, setm->Nstate * setm->Nstate * sizeof(double));
+            
+                for (int i = 0; i < setm->Nstate * setm->Nstate; i++){
+                    tempdm1[i] = cabs(overlap[i]);
+                }
+
+                for (int i = 0; i < setm->Nstate; i++) {
+                    idloc=maxloc(tempdm1, setm->Nstate * setm->Nstate);
+                    id1 = idloc / setm->Nstate; 
+                    id2 = idloc % setm->Nstate; 
+                    overlap2[idloc] = (creal(overlap[idloc]) >= 0.0) ? 1.0 : -1.0;
+                    for (j = 0; j < setm->Nstate; j++) {
+                        tempdm1[id1 * setm->Nstate + j] = 0;
+                        tempdm1[j * setm->Nstate + id2] = 0;
+                    }
+                }
+
+                printf("ovERLAP:\n");
+                for (int i = 0; i < setm->Nstate; i++) {
+                    for (int j = 0; j < setm->Nstate; j++) {
+                        printf("%f  ", overlap2[i * setm->Nstate + j]);
+                    }
+                    printf("\n");
+                }
+
+                cd_matmul(sets->U_d2a, overlap2, tempcm1, setm->Nstate, setm->Nstate, setm->Nstate);
+                memcpy(sets->U_d2a,tempcm1,setm->Nstate * setm->Nstate * sizeof(double complex));
+
+                for (int i = 0; i < setm->Nstate * setm->Nstate; i++){
+                    tempdm2[i] = fabs(overlap2[i]);
+                }
+                dd_matmul(sets->E_adia, tempdm2, tempdv1, 1, setm->Nstate, setm->Nstate);
+                memcpy(sets->E_adia, tempdv1, setm->Nstate * sizeof(double));
+
+                memset(tempdm1, 0, setm->Nstate * setm->Nstate * sizeof(double));
+                for (int i = 0; i < setm->Nstate; i++) {
+                    tempdm1[i * setm->Nstate + i] = sets->E_adia[i];
+                }
+                transpose_conjugate(sets->U_d2a, tempcm1, setm->Nstate);
+                dc_matmul(tempdm1, tempcm1, tempcm2, setm->Nstate, setm->Nstate, setm->Nstate);
+                cc_matmul(sets->U_d2a,tempcm2,sets->V,setm->Nstate, setm->Nstate, setm->Nstate);
+
+                printf("V after corr:\n");
+                for (int i = 0; i < setm->Nstate; i++) {
+                    for (int j = 0; j < setm->Nstate; j++) {
+                        printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
+                    }
+                    printf("\n");
+                }
+                printf("==========================================\n");
+
+            }
+            memcpy(sets->U_d2a_old, sets->U_ref, setm->Nstate * setm->Nstate * sizeof(double complex));
+            memcpy(sets->U_ref, sets->U_d2a, setm->Nstate * setm->Nstate * sizeof(double complex));
+            sets->if_ad_nac = 1;
+        }
+        
     
 
 }
