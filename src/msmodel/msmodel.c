@@ -397,13 +397,13 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
             qm_mole(R, setm, sets);
         }
 
-        printf("V before corr:\n");
-        for (int i = 0; i < setm->Nstate; i++) {
-            for (int j = 0; j < setm->Nstate; j++) {
-                printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
-            }
-            printf("\n");
-        }
+        // printf("V before corr:\n");
+        // for (int i = 0; i < setm->Nstate; i++) {
+        //     for (int j = 0; j < setm->Nstate; j++) {
+        //         printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
+        //     }
+        //     printf("\n");
+        // }
 
 
 
@@ -451,13 +451,13 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
                     }
                 }
 
-                printf("ovERLAP:\n");
-                for (int i = 0; i < setm->Nstate; i++) {
-                    for (int j = 0; j < setm->Nstate; j++) {
-                        printf("%f  ", overlap2[i * setm->Nstate + j]);
-                    }
-                    printf("\n");
-                }
+                // printf("ovERLAP:\n");
+                // for (int i = 0; i < setm->Nstate; i++) {
+                //     for (int j = 0; j < setm->Nstate; j++) {
+                //         printf("%f  ", overlap2[i * setm->Nstate + j]);
+                //     }
+                //     printf("\n");
+                // }
 
                 cd_matmul(sets->U_d2a, overlap2, tempcm1, setm->Nstate, setm->Nstate, setm->Nstate);
                 memcpy(sets->U_d2a,tempcm1,setm->Nstate * setm->Nstate * sizeof(double complex));
@@ -476,14 +476,14 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
                 dc_matmul(tempdm1, tempcm1, tempcm2, setm->Nstate, setm->Nstate, setm->Nstate);
                 cc_matmul(sets->U_d2a,tempcm2,sets->V,setm->Nstate, setm->Nstate, setm->Nstate);
 
-                printf("V after corr:\n");
-                for (int i = 0; i < setm->Nstate; i++) {
-                    for (int j = 0; j < setm->Nstate; j++) {
-                        printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
-                    }
-                    printf("\n");
-                }
-                printf("==========================================\n");
+                // printf("V after corr:\n");
+                // for (int i = 0; i < setm->Nstate; i++) {
+                //     for (int j = 0; j < setm->Nstate; j++) {
+                //         printf("%18.8E  ", creal(sets->V[i * setm->Nstate + j]));
+                //     }
+                //     printf("\n");
+                // }
+                // printf("==========================================\n");
 
             }
             memcpy(sets->U_d2a_old, sets->U_ref, setm->Nstate * setm->Nstate * sizeof(double complex));
