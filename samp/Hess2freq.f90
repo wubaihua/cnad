@@ -61,10 +61,18 @@ allocate(atomid(natm))
 call loclabel(10,"Atomic numbers")
 read(10,"(a)") c300
 ! print *,c300
-if(natm < 5)then
+if(natm < 6)then
 	read(10,*) atomid
 else
-	read(10,"(5I4)") atomid
+	! read(10,"(6(1PI))") atomid
+	nline = int(natm / 6) + 1
+	nres = mod(natm, 6)
+	do i=1,nline
+		read(10,*) atomid((i-1)*6+1:min(i*6,natm))
+	end do
+	if (nres > 0) then
+		read(10,*) atomid(nline*6+1:natm)
+	end if
 end if
 write(*,*) "atomic id:"
 write(*,"(6(I4))") int(atomid) !Convert to integer
@@ -491,8 +499,8 @@ real*8 :: amu2kg,b2m,au2J,au2wn
 
 au2wn = 219474.6313702
 
-cutoff=100 / au2wn 
-cutoff2=200  / au2wn
+cutoff=0 / au2wn 
+cutoff2=30  / au2wn
 
 nsize=size(Rsamp,1)
 allocate(mass3n(nsize))
