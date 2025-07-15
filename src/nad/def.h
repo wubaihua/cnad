@@ -400,7 +400,7 @@ void cal_propagator_adia(int Nstate, double dt, double complex *U,struct set_sla
 void cal_propagator_gen(int Nstate, double complex *H, double dt, double complex *U, struct set_slave *sets, struct set_host *seth);
 void corre_trajprop( struct set_slave *sets, struct set_host *seth);
 void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ, 
-                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, FILE *traj_den,
+                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, FILE *traj_den,  FILE *traj_dv, FILE *traj_Ud2a,
                 struct set_slave *sets, struct set_host *seth);
 void free_vari(struct set_slave *sets, struct set_host *seth);
 

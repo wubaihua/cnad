@@ -3544,6 +3544,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     FILE *traj_kinetic= NULL;
     FILE *traj_potential= NULL;
     FILE *traj_nac= NULL;
+    FILE *traj_dv = NULL;
+    FILE *traj_Ud2a = NULL;
     FILE *traj_den = NULL;
     
     // if_bak = false;
@@ -3656,6 +3658,11 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         traj_kinetic = fopen("traj_kinetic.dat","w");
         traj_potential = fopen("traj_potential.dat","w");
         traj_nac = fopen("traj_nac.dat","w");
+        traj_dv = fopen("traj_dv.dat","w");
+        if (seth->rep == 2 || seth->rep == 3) {
+            traj_Ud2a = fopen("traj_Ud2a.dat","w");
+        }
+        traj_Ud2a = fopen("traj_Ud2a.dat","w");
         traj_den = fopen("traj_den.dat","w");
     }
  
@@ -3673,7 +3680,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             
             if (seth->if_printtraj == 1){
                 
-                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, traj_den, sets, seth);
+                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, traj_den, traj_dv, traj_Ud2a, sets, seth);
                 
                 
             }
@@ -4069,6 +4076,10 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         fclose(traj_kinetic);
         fclose(traj_potential);
         fclose(traj_nac);
+        fclose(traj_dv);
+        if (seth->rep == 2 || seth->rep == 3) {
+            fclose(traj_Ud2a);
+        }
         fclose(traj_den);
     }
 
@@ -5835,7 +5846,7 @@ void corre_trajprop( struct set_slave *sets, struct set_host *seth){
 
 
 void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ, 
-                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, FILE *traj_den,
+                FILE *traj_kinetic, FILE *traj_potential, FILE *traj_nac, FILE *traj_den, FILE *traj_dv, FILE *traj_Ud2a,
                 struct set_slave *sets, struct set_host *seth){
         
         fprintf(traj_Rnuc, "%d\n",seth->Natom_mole);
@@ -5918,13 +5929,41 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
 
         
         fprintf(traj_nac, "%s %18.8E %s\n","NAC(au), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
-        for (int i = 0; i < seth->Natom_mole * 3; i++){
+         for (int i = 0; i < seth->Natom_mole * 3; i++){
             for (int j = 0; j < seth->Nstate * seth->Nstate; j++){
                 fprintf(traj_nac, "%18.8E", creal(sets->nac[j * seth->Natom_mole * 3 + i]));
             }
             fprintf(traj_nac, "\n");
         }
         fflush(traj_nac);
+
+
+        fprintf(traj_dv, "%s %18.8E %s\n","dV(au), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            for (int j = 0; j < seth->Nstate; j++){
+                if (seth->rep == 1){
+                    fprintf(traj_dv, "%18.8E", creal(sets->dv_adia[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+                } else if (seth->rep == 2 || seth->rep == 3){
+                    fprintf(traj_dv, "%18.8E", creal(sets->dV[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+                }
+                
+            }
+            fprintf(traj_dv, "\n");
+        }
+        fflush(traj_dv);
+
+
+        if (seth->rep == 2 || seth->rep == 3) {
+            fprintf(traj_Ud2a, "%s %18.8E %s\n","Ud2a(au), t=",sets->t_now / seth->unittrans_t, seth->unit_t);
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_Ud2a, "%18.8E", creal(sets->U_d2a[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(traj_Ud2a, "%18.8E", cimag(sets->U_d2a[i]));
+            }
+            fprintf(traj_Ud2a,"\n");
+            fflush(traj_Ud2a);
+        }
 
 
 
@@ -5938,7 +5977,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         fprintf(traj_den,"\n");
         fflush(traj_den);
 
-
+        exit(-1);
 }
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
