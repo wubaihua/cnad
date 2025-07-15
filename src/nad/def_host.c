@@ -551,6 +551,8 @@ void initial_para(struct set_host *seth) {
 
     seth->if_printtraj = 0;
 
+    seth->if_restart = 0;
+
     seth->nproc_sw = 64;
 }
 
@@ -1293,6 +1295,14 @@ void readinp(struct set_host *seth){
             list = cJSON_GetObjectItem(item, "if_printtraj");
             if (list->type == cJSON_Number) {
                 seth->if_printtraj = list->valueint;
+            }
+        }
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_restart")) {
+            list = cJSON_GetObjectItem(item, "if_restart");
+            if (list->type == cJSON_Number) {
+                seth->if_restart = list->valueint;
             }
         }
         

@@ -835,6 +835,7 @@ struct set_host
 
 
     int if_printtraj;
+    int if_restart;
 
 
     // model parameters

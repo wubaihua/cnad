@@ -467,6 +467,10 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
     double complex tempcv1[seth->Nstate], tempcv2[seth->Nstate];
 
+    if (seth->if_restart == 1) {
+        return;
+    }
+
     // Generate random numbers for theta
     for (i = 0; i < seth->Nstate; i++) {
         theta[i] = ((double) rand() / RAND_MAX) * 2 * M_PI;
@@ -3561,9 +3565,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // V_msmodel(sets->R_nuc, sets->V, 0.0,seth);
     // dV_msmodel(sets->R_nuc, sets->dV,seth);
     // if (seth->rep == 1) cal_NACV(sets,seth);
-    if (strcmp(seth->msmodelname, "mole") == 0 ) {
+    if (strcmp(seth->msmodelname, "mole") == 0) {
         #ifdef x86
-        qm_msmodel(sets->R_nuc, seth, sets); 
+        if (seth->if_restart == 0) qm_msmodel(sets->R_nuc, seth, sets); 
         #endif   
     } else {
         dV_msmodel(sets->R_nuc, sets->dV,seth);
@@ -3590,12 +3594,12 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     //     }
     // }
     
-   
+  
 
     i_re = seth->Nbreak;
     igrid = 0;
 
-    if (seth->ifscaleenergy > 0) {
+    if (seth->ifscaleenergy > 0 && seth->ifscaleenergy < 7) {
         sets->E_conserve = 0.0;
         for(i = 0; i < seth->Ndof1*seth->Ndof2; i++){
             sets->E_conserve += sets->P_nuc[i] * sets->P_nuc[i] / sets->mass[i];
@@ -3603,7 +3607,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         sets->E_conserve *= 0.5;
         sets->E_conserve += sets->E_adia[sets->id_state];
     }
-
+ 
     if (seth->ifscaleenergy > 0) {
         switch (seth->ifscaleenergy) {
             case 1:
@@ -3619,8 +3623,8 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     }
 
     
-    evo_traj_savetraj(sets,seth);
-    cal_force(sets,seth,1);
+    if(seth->if_restart == 0) evo_traj_savetraj(sets,seth);
+    if(seth->if_restart == 0) cal_force(sets,seth,1);
 
     // debug
     // int slavecore_id;
@@ -3650,7 +3654,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     R00 = sets->R_nuc[0];
     P00 = sets->P_nuc[0];
 
-    if (seth->if_printtraj == 1){
+    if (seth->if_printtraj == 1 && seth->if_restart == 0){
         traj_Rnuc = fopen("traj_Rnuc.xyz","w");
         traj_Pnuc = fopen("traj_Pnuc.xyz","w");
         traj_ele = fopen("traj_ele.dat","w");
@@ -3664,6 +3668,29 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         }
         traj_Ud2a = fopen("traj_Ud2a.dat","w");
         traj_den = fopen("traj_den.dat","w");
+    } else if (seth->if_printtraj == 1 && seth->if_restart == 1) {
+        traj_Rnuc = fopen("traj_Rnuc.xyz","a+");
+        traj_Pnuc = fopen("traj_Pnuc.xyz","a+");
+        traj_ele = fopen("traj_ele.dat","a+");
+        traj_occ = fopen("traj_occ.dat","a+");
+        traj_kinetic = fopen("traj_kinetic.dat","a+");
+        traj_potential = fopen("traj_potential.dat","a+");
+        traj_nac = fopen("traj_nac.dat","a+");
+        traj_dv = fopen("traj_dv.dat","a+");
+        if (seth->rep == 2 || seth->rep == 3) {
+            traj_Ud2a = fopen("traj_Ud2a.dat","a+");
+        }
+        traj_Ud2a = fopen("traj_Ud2a.dat","a+");
+        traj_den = fopen("traj_den.dat","a+");
+        read_restart(&itime, &i_re, &igrid, sets, seth);
+
+        printf("Restarting from time: %18.8E, itime: %d, i_re: %d, igrid: %d\n", sets->t_now, itime, i_re, igrid);
+        printf("correfun_0: %18.8E %18.8E\n", creal(sets->correfun_0), cimag(sets->correfun_0));
+        exit(-1);
+
+        evo_traj_savetraj(sets,seth);
+        cal_force(sets,seth,1);
+
     }
  
     while (itime <= nstep) {
@@ -3680,7 +3707,11 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             
             if (seth->if_printtraj == 1){
                 
-                 print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, traj_kinetic, traj_potential, traj_nac, traj_den, traj_dv, traj_Ud2a, sets, seth);
+                print_traj(traj_Rnuc, traj_Pnuc, traj_ele, traj_occ, 
+                            traj_kinetic, traj_potential, traj_nac, traj_den, traj_dv, traj_Ud2a, 
+                            sets, seth);
+                
+                print_restart(itime, i_re, igrid, sets, seth);
                 
                 
             }
@@ -5977,7 +6008,263 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         fprintf(traj_den,"\n");
         fflush(traj_den);
 
+
+
+        
+}
+
+
+
+
+void print_restart(int itime, int i_re, int igrid, struct set_slave *sets, struct set_host *seth){
+
+        
+        FILE *restart = fopen("restart.dat", "w");
+        fprintf(restart, "%18.8E\n",sets->t_now);
+        fprintf(restart, "%d\n", itime);
+        fprintf(restart, "%d\n", i_re);
+        fprintf(restart, "%d\n", igrid);
+        fprintf(restart, "%18.8E %18.8E\n", creal(sets->correfun_0), cimag(sets->correfun_0));
+        fprintf(restart, "%d\n",  sets->id_state);
+                
+        
+        fprintf(restart, "R_nuc:\n");
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            fprintf(restart, "%18.8E",sets->R_nuc[i]);
+        } 
+        fprintf(restart, "\n");
+
+        fprintf(restart, "P_nuc:\n");
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            fprintf(restart, "%18.8E",sets->P_nuc[i]);
+        }
+        fprintf(restart, "\n");
+
+        fprintf(restart, "eleDOFs:\n");
+        if(seth->type_evo == 0){
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(restart, "%18.8E",sets->xe[i]);
+            }
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(restart, "%18.8E",sets->pe[i]);
+            }
+        } else if (seth->type_evo == 1){
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E",creal(sets->den_e[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E",cimag(sets->den_e[i]));
+            }
+        }
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(restart, "%18.8E",creal(sets->gamma_cv[i]));
+        }
+        for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            fprintf(restart, "%18.8E",cimag(sets->gamma_cv[i]));
+        }
+        fprintf(restart, "\n");
+
+
+        fprintf(restart, "potential:\n");
+        if (seth->rep == 1){
+            for (int i = 0; i < seth->Nstate; i++){
+                fprintf(restart, "%18.8E", sets->E_adia[i]);
+            }
+        } else {
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E", creal(sets->V[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E", cimag(sets->V[i]));
+            }
+        }
+        fprintf(restart,"\n");
+        
+        fprintf(restart, "dV:\n");
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            for (int j = 0; j < seth->Nstate; j++){
+                if (seth->rep == 1){
+                    fprintf(restart, "%18.8E", creal(sets->dv_adia[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+                } else if (seth->rep == 2 || seth->rep == 3){
+                    fprintf(restart, "%18.8E", creal(sets->dV[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+                }
+                
+            }
+            fprintf(restart, "\n");
+        }
+
+        fprintf(restart, "nac:\n");
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            for (int j = 0; j < seth->Nstate * seth->Nstate; j++){
+                fprintf(restart, "%18.8E", creal(sets->nac[j * seth->Natom_mole * 3 + i]));
+            }
+            fprintf(restart, "\n");
+        }
+
+
+        fprintf(restart, "force:\n");
+        for (int i = 0; i < seth->Natom_mole * 3; i++){
+            fprintf(restart, "%18.8E",sets->force[i]);
+        }
+        fprintf(restart, "\n");
+        
+
+        if (seth->rep == 2 || seth->rep == 3) {
+            fprintf(restart, "Ud2a:\n");
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E", creal(sets->U_d2a[i]));
+            }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+                fprintf(restart, "%18.8E", cimag(sets->U_d2a[i]));
+            }
+            fprintf(restart,"\n");
+            // fprintf(restart, "Uref:\n");
+            // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            //     fprintf(restart, "%18.8E", creal(sets->U_ref[i]));
+            // }
+            // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+            //     fprintf(restart, "%18.8E", cimag(sets->U_ref[i]));
+            // }
+            // fprintf(restart,"\n");
+        }
+
+
+
+
+
+        fflush(restart);
+        fclose(restart); 
+
+
+
+}
+
+
+
+
+void read_restart(int *itime, int *i_re, int *igrid, struct set_slave *sets, struct set_host *seth){
+        double dn1, dn2;
+        int i, j;
+        
+        FILE *restart = fopen("restart.dat", "r");
        
+        if (fscanf(restart, "%lf", &dn1)!= 1) {}; sets->t_now = dn1;
+        if (fscanf(restart, "%d", &i)   != 1) {}; *itime = i;
+        if (fscanf(restart, "%d", &i)   != 1) {}; *i_re = i;
+        if (fscanf(restart, "%d", &i)   != 1) {}; *igrid = i;
+        if (fscanf(restart, "%lf", &dn1)!= 1) {}; if (fscanf(restart, "%lf", &dn2) != 1) {}; sets->correfun_0 = dn1 + I * dn2;
+        if (fscanf(restart, "%d", &i)   != 1) {}; sets->id_state = i;
+                
+        
+
+        // fprintf(restart, "R_nuc:\n");
+        // for (int i = 0; i < seth->Natom_mole * 3; i++){
+        //     fprintf(restart, "%18.8E",sets->R_nuc[i]);
+        // } 
+        // fprintf(restart, "\n");
+
+        // fprintf(restart, "P_nuc:\n");
+        // for (int i = 0; i < seth->Natom_mole * 3; i++){
+        //     fprintf(restart, "%18.8E",sets->P_nuc[i]);
+        // }
+        // fprintf(restart, "\n");
+
+        // fprintf(restart, "eleDOFs:\n");
+        // if(seth->type_evo == 0){
+        //     for (int i = 0; i < seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E",sets->xe[i]);
+        //     }
+        //     for (int i = 0; i < seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E",sets->pe[i]);
+        //     }
+        // } else if (seth->type_evo == 1){
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E",creal(sets->den_e[i]));
+        //     }
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E",cimag(sets->den_e[i]));
+        //     }
+        // }
+        // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //     fprintf(restart, "%18.8E",creal(sets->gamma_cv[i]));
+        // }
+        // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //     fprintf(restart, "%18.8E",cimag(sets->gamma_cv[i]));
+        // }
+        // fprintf(restart, "\n");
+
+
+        // fprintf(restart, "potential:\n");
+        // if (seth->rep == 1){
+        //     for (int i = 0; i < seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E", sets->E_adia[i]);
+        //     }
+        // } else {
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E", creal(sets->V[i]));
+        //     }
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E", cimag(sets->V[i]));
+        //     }
+        // }
+        // fprintf(restart,"\n");
+        
+        // fprintf(restart, "dV:\n");
+        // for (int i = 0; i < seth->Natom_mole * 3; i++){
+        //     for (int j = 0; j < seth->Nstate; j++){
+        //         if (seth->rep == 1){
+        //             fprintf(restart, "%18.8E", creal(sets->dv_adia[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+        //         } else if (seth->rep == 2 || seth->rep == 3){
+        //             fprintf(restart, "%18.8E", creal(sets->dV[j * seth->Nstate *  seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + i]));
+        //         }
+                
+        //     }
+        //     fprintf(restart, "\n");
+        // }
+
+        // fprintf(restart, "nac:\n");
+        // for (int i = 0; i < seth->Natom_mole * 3; i++){
+        //     for (int j = 0; j < seth->Nstate * seth->Nstate; j++){
+        //         fprintf(restart, "%18.8E", creal(sets->nac[j * seth->Natom_mole * 3 + i]));
+        //     }
+        //     fprintf(restart, "\n");
+        // }
+
+
+        // fprintf(restart, "force:\n");
+        // for (int i = 0; i < seth->Natom_mole * 3; i++){
+        //     fprintf(restart, "%18.8E",sets->force[i]);
+        // }
+        // fprintf(restart, "\n");
+        
+
+        // if (seth->rep == 2 || seth->rep == 3) {
+        //     fprintf(restart, "Ud2a:\n");
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E", creal(sets->U_d2a[i]));
+        //     }
+        //     for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //         fprintf(restart, "%18.8E", cimag(sets->U_d2a[i]));
+        //     }
+        //     fprintf(restart,"\n");
+        //     // fprintf(restart, "Uref:\n");
+        //     // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //     //     fprintf(restart, "%18.8E", creal(sets->U_ref[i]));
+        //     // }
+        //     // for (int i = 0; i < seth->Nstate * seth->Nstate; i++){
+        //     //     fprintf(restart, "%18.8E", cimag(sets->U_ref[i]));
+        //     // }
+        //     // fprintf(restart,"\n");
+        // }
+
+
+
+
+
+        fclose(restart); 
+
+
+
 }
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
