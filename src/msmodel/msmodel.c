@@ -413,22 +413,24 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
 
 
         if (setm->rep == 2 || setm->rep == 3) {
-            for (int i = 0; i < setm->Nstate; i++) {
-                for (int j = 0; j < setm->Nstate; j++) {
-                    if (i == j) {
-                        continue;
-                    }
-                    if (cabs(sets->V[i * setm->Nstate + j]) > 1e-10) {
-                        if (creal(sets->V[i * setm->Nstate + j]) * (creal(sets->V_old[i * setm->Nstate + j])) < 0.0) {
-                            sets->V[i * setm->Nstate + j] = - sets->V[i * setm->Nstate + j];
+            
+            // printf("11111\n");
+            // dia_hermitemat(setm->Nstate, sets->V, sets->E_adia, sets->U_d2a);
+            
+            if (sets->if_ad_nac) {
+                for (int i = 0; i < setm->Nstate; i++) {
+                    for (int j = 0; j < setm->Nstate; j++) {
+                        if (i == j) {
+                            continue;
+                        }
+                        if (cabs(sets->V[i * setm->Nstate + j]) > 1e-10) {
+                            if (creal(sets->V[i * setm->Nstate + j]) * (creal(sets->V_old[i * setm->Nstate + j])) < 0.0) {
+                                sets->V[i * setm->Nstate + j] = - sets->V[i * setm->Nstate + j];
+                            }
                         }
                     }
                 }
-            }
-            // printf("11111\n");
-            dia_hermitemat(setm->Nstate, sets->V, sets->E_adia, sets->U_d2a);
-            
-            if (sets->if_ad_nac) {
+                dia_hermitemat(setm->Nstate, sets->V, sets->E_adia, sets->U_d2a);
                 // transpose(sets->U_d2a,tempdm1,setm->Nstate);
                 // dd_matmul(tempdm1,sets->U_ref,overlap,setm->Nstate,setm->Nstate,setm->Nstate);
                 transpose_conjugate(sets->U_d2a,tempcm1,setm->Nstate);
@@ -485,6 +487,9 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
                 // }
                 // printf("==========================================\n");
 
+            }
+            else {
+                dia_hermitemat(setm->Nstate, sets->V, sets->E_adia, sets->U_d2a);
             }
             memcpy(sets->U_d2a_old, sets->U_ref, setm->Nstate * setm->Nstate * sizeof(double complex));
             memcpy(sets->U_ref, sets->U_d2a, setm->Nstate * setm->Nstate * sizeof(double complex));

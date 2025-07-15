@@ -5977,7 +5977,7 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
         fprintf(traj_den,"\n");
         fflush(traj_den);
 
-        exit(-1);
+       
 }
 
 void free_vari(struct set_slave *sets, struct set_host *seth) {
