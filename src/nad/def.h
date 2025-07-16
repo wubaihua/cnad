@@ -367,6 +367,9 @@ struct set_slave
     // int *index_exact_prop;
 
 
+    int if_recal_qm;
+
+
 
 };
 

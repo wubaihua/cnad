@@ -3556,6 +3556,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
     // itime_save = 0;
 
     // count_sets->pertraj = 0;
+    sets->if_recal_qm = 1;
 
     
 
@@ -3687,6 +3688,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         printf("Restarting from time: %18.8E, itime: %d, i_re: %d, igrid: %d\n", sets->t_now, itime, i_re, igrid);
         printf("correfun_0: %18.8E %18.8E\n", creal(sets->correfun_0), cimag(sets->correfun_0));
         printf("idocc=%d\n", sets->id_state);
+
+        sets->if_recal_qm = 0;
+
         // printf("R=\n");
         // for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
         //     printf("%18.8E ", sets->R_nuc[i]);
@@ -4079,7 +4083,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
             }
         }
 
-        
+        sets->if_recal_qm = 1;
         
     }
 
