@@ -6132,6 +6132,7 @@ void print_restart(int itime, int i_re, int igrid, struct set_slave *sets, struc
         fprintf(restart, "%d\n", igrid);
         fprintf(restart, "%18.8E %18.8E\n", creal(sets->correfun_0), cimag(sets->correfun_0));
         fprintf(restart, "%d\n",  sets->id_state);
+        fprintf(restart, "%18.8E\n",sets->scale_sqc2);
                 
         
         fprintf(restart, "R_nuc:\n");
@@ -6266,6 +6267,7 @@ void read_restart(int *itime, int *i_re, int *igrid, struct set_slave *sets, str
         if (fscanf(restart, "%d", &i)   != 1) {}; *igrid = i;
         if (fscanf(restart, "%lf", &dn1)!= 1) {}; if (fscanf(restart, "%lf", &dn2) != 1) {}; sets->correfun_0 = dn1 + I * dn2;
         if (fscanf(restart, "%d", &i)   != 1) {}; sets->id_state = i;
+        if (fscanf(restart, "%lf", &dn1)!= 1) {}; sets->scale_sqc2 = dn1;
                 
         
         for (int i = 0; i < 2; i++){
