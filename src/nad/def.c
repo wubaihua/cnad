@@ -3689,7 +3689,10 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
         printf("correfun_0: %18.8E %18.8E\n", creal(sets->correfun_0), cimag(sets->correfun_0));
         printf("idocc=%d\n", sets->id_state);
 
-        sets->if_recal_qm = 0;
+
+        
+
+        // sets->if_recal_qm = 0;
 
         // printf("R=\n");
         // for (i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
@@ -3794,8 +3797,10 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
         // exit(-1);
 
-        evo_traj_savetraj(sets,seth);
+        qm_msmodel(sets->R_nuc, seth, sets); 
         cal_force(sets,seth,1);
+        evo_traj_savetraj(sets,seth);
+        
 
     }
  
@@ -6123,7 +6128,10 @@ void print_traj(FILE *traj_Rnuc, FILE *traj_Pnuc,FILE *traj_ele, FILE *traj_occ,
 
 
 void print_restart(int itime, int i_re, int igrid, struct set_slave *sets, struct set_host *seth){
-
+        char cmd[256];
+        int ret;
+        snprintf(cmd, sizeof(cmd),"cp restart.dat restart_save.dat");
+        ret = system(cmd);
         
         FILE *restart = fopen("restart.dat", "w");
         fprintf(restart, "%18.8E\n",sets->t_now);
