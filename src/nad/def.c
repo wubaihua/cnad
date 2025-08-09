@@ -1350,6 +1350,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
                 #ifdef x86
+                sets->if_recal_qm = 1;
                 qm_msmodel(sets->R_nuc, seth, sets); 
                 #endif  
             } else {
