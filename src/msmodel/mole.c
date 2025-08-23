@@ -550,6 +550,14 @@ void qm_mole(double *R, struct set_host *setm, struct set_slave *sets) {
     }
 
 
+    if (setm->rep == 2 || setm->rep == 3) {
+        for (int i = 0; i < setm->Nstate * setm->Nstate * setm->Natom_mole * 3; ++i) {
+            if (isnan(creal(sets->dV[i]))) {
+                printf("Error: read NAN!\n");
+                exit(-1);
+            }
+        }
+    }
 
 
     // printf("V=\n");
