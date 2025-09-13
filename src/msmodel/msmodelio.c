@@ -779,6 +779,38 @@ void readinp_aso(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 
 
 
+void readinp_isc(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "type_isc")){
+        list=cJSON_GetObjectItem(item, "type_isc");
+        setm->type_isc = list->valueint; 
+    }
+    if (NULL != cJSON_GetObjectItem(item, "rs_isc")) {
+        list = cJSON_GetObjectItem(item, "rs_isc");
+        if (list->type == cJSON_Number) {
+            setm->rs_isc = list->valuedouble; 
+        }
+    } 
+    if (NULL != cJSON_GetObjectItem(item, "drs_isc")) {
+        list = cJSON_GetObjectItem(item, "drs_isc");
+        if (list->type == cJSON_Number) {
+            setm->drs_isc = list->valuedouble; 
+        }
+    }
+
+    *Ndof1 = 1;
+    *Ndof2 = 1;
+
+    if (setm->type_isc == 1) *Nstate = 4;
+    
+
+}
+
+
+
 void readinp_mole(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     
 
@@ -898,6 +930,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_aso(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "mole") == 0) {
         readinp_mole(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "isc") == 0) {
+        readinp_isc(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

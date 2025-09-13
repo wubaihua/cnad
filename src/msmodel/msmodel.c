@@ -28,6 +28,7 @@
 #include "bpy.h"
 #include "retinal.h"
 #include "aso.h"
+#include "isc.h"
 
 #ifdef x86
     #include "def.h"
@@ -99,6 +100,8 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_retinal(mass,setm);
     } else if (strcmp(setm->msmodelname, "aso") == 0) {
         parameter_aso(mass,setm);
+    } else if (strcmp(setm->msmodelname, "isc") == 0) {
+        parameter_isc(mass,setm);
     }
 
     #ifdef x86
@@ -158,6 +161,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_retinal(P, R, setm);
     } else if (strcmp(setm->msmodelname, "aso") == 0) {
         sample_aso(P, R, setm);
+    } else if (strcmp(setm->msmodelname, "isc") == 0) {
+        sample_isc(P, R, setm);
     } 
     
     #ifdef x86
@@ -225,6 +230,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
         ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "aso") == 0 ) {
         V_aso(R, H, setm);
+        ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "isc") == 0 ) {
+        V_isc(R, H, setm);
         ifcpy = 1;
     }
 
@@ -296,7 +304,10 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "aso") == 0 ) {
         dV_aso(R, dH, setm);
         ifcpy = 1;
-    } 
+    }   else if (strcmp(setm->msmodelname, "isc") == 0 ) {
+        dV_isc(R, dH, setm);
+        ifcpy = 1;
+    }
     
     // #ifdef x86
     //     if (strcmp(setm->msmodelname, "mole") == 0 ) {
@@ -379,6 +390,8 @@ void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
     // int ifcpy = 0;
     if (strcmp(setm->msmodelname, "aso") == 0) {
         nac_aso(R, nac, setm);
+    } else if (strcmp(setm->msmodelname, "isc") == 0) {
+        nac_isc(R, nac, setm);
     }
 }
 

@@ -944,6 +944,13 @@ struct set_host
         double omega_aso, mass_aso;
 
 
+        // ISC model
+        int type_isc;
+        double a1_isc, a2_isc, dE_isc, alpha1_isc, alpha2_isc;
+        double complex c0_isc, c1_isc;
+        double rs_isc, drs_isc;
+
+
         // ab initio quantum chemistry model
         int Natom_mole, NT_mole, Nstate_mole; 
         double atommass_mole[110]; // atomic masses in amu
