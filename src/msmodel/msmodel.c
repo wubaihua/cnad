@@ -437,7 +437,10 @@ void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets){
                             continue;
                         }
                         if (cabs(sets->V[i * setm->Nstate + j]) > 1e-10) {
-                            if (creal(sets->V[i * setm->Nstate + j]) * (creal(sets->V_old[i * setm->Nstate + j])) < 0.0) {
+                            // if (creal(sets->V[i * setm->Nstate + j]) * (creal(sets->V_old[i * setm->Nstate + j])) < 0.0) {
+                            //     sets->V[i * setm->Nstate + j] = - sets->V[i * setm->Nstate + j];
+                            // }
+                            if (creal(conj(sets->V[i * setm->Nstate + j]) * (sets->V_old[i * setm->Nstate + j])) < 0.0) {
                                 sets->V[i * setm->Nstate + j] = - sets->V[i * setm->Nstate + j];
                             }
                         }
