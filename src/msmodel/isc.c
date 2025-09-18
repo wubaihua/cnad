@@ -27,7 +27,7 @@ void parameter_isc(double *mass, struct set_host *setm) {
     int i, j;
 
    
-    if (setm->type_isc == 1) {
+    if (setm->type_isc == 1 || setm->type_isc == 2) {
         mass[0] = 20000.0; // in a.u.
         setm->a1_isc = 0.03452;
         setm->a2_isc = 0.5;
@@ -49,7 +49,7 @@ void sample_isc(double *P, double *R, struct set_host *setm) {
     double x2, gamma_isc;
 
 
-    if (setm->type_isc == 1) {
+    if (setm->type_isc == 1 || setm->type_isc == 2) {
         gamma_isc = 20.0;
         box_muller(&P[0], &x2, sqrt(gamma_isc / 2), 20.0);
         box_muller(&R[0], &x2, sqrt(1 / (gamma_isc * 2)), 5.0);
@@ -60,7 +60,7 @@ void V_isc(double *R, double complex *H, struct set_host *setm) {
     int i, j;
 
 
-    if (setm->type_isc == 1) {
+    if (setm->type_isc == 1 || setm->type_isc == 2) {
 
         memset(H, 0, 4 * 4 * sizeof(double complex)); // Initialize H to zero
         H[0 * 4 + 0] = setm->a1_isc * exp(-setm->alpha1_isc * R[0]) + setm->dE_isc; // S1
@@ -123,7 +123,19 @@ void dV_isc(double *R, double complex *dH, struct set_host *setm) {
         dH[0 * 4 + 3] = conj(z);
         dH[3 * 4 + 0] = z;
 
+    } else if (setm->type_isc == 2) {
+
+        memset(dH, 0, 4 * 4 * sizeof(double complex)); // Initialize H to zero
+        dH[0 * 4 + 0] = -1.0 * setm->alpha1_isc * setm->a1_isc * exp(-setm->alpha1_isc * R[0]); 
+        dH[1 * 4 + 1] = -1.0 * setm->alpha2_isc * setm->a2_isc * exp(-setm->alpha2_isc * R[0]); // T1
+        dH[2 * 4 + 2] = dH[1 * 4 + 1]; // T1
+        dH[3 * 4 + 3] = dH[1 * 4 + 1]; // T1
+
+        
+
+
     }
+    
 
 }
 
@@ -131,7 +143,7 @@ void dV_isc(double *R, double complex *dH, struct set_host *setm) {
 
 void nac_isc(double *R, double complex *nac, struct set_host *setm) {
 
-    if (setm->type_isc == 1) {
+    if (setm->type_isc == 1 || setm->type_isc == 2) {
         memset(nac, 0, 4 * 4 * sizeof(double)); // Initialize nac to zero
     }
     

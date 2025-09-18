@@ -804,7 +804,7 @@ void readinp_isc(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
     *Ndof1 = 1;
     *Ndof2 = 1;
 
-    if (setm->type_isc == 1) *Nstate = 4;
+    if (setm->type_isc == 1 || setm->type_isc == 2) *Nstate = 4;
     
 
 }
