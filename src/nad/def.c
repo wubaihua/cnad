@@ -6339,10 +6339,11 @@ void read_restart(int *itime, int *i_re, int *igrid, struct set_slave *sets, str
                 // fprintf(restart, "%18.8E", cimag(sets->V[i]));
                 if (fscanf(restart, "%lf", &dn1)!= 1) {}; sets->V[i] += I * dn1;
             }
+            for (int i = 0; i < seth->Nstate * seth->Nstate; i++) {
+                sets->V_old[i] = sets->V[i];
+            }
         }
-        for (int i = 0; i < seth->Nstate * seth->Nstate; i++) {
-            sets->V_old[i] = sets->V[i];
-        }
+        
         
         for (int i = 0; i < 2; i++){
             if (fgets(line, sizeof(line), restart) != NULL) {};
@@ -6379,6 +6380,7 @@ void read_restart(int *itime, int *i_re, int *igrid, struct set_slave *sets, str
                     } else {
                         for (int k = 0; k < seth->Natom_mole * 3; k++){
                             sets->nac[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k] = nacread[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k];
+                            sets->nac_old[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k] = nacread[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k];
                         }
                     }
                 }
@@ -6396,6 +6398,7 @@ void read_restart(int *itime, int *i_re, int *igrid, struct set_slave *sets, str
                     } else {
                         for (int k = 0; k < seth->Natom_mole * 3; k++){
                             sets->nac[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k] = nacread[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k];
+                            sets->nac_old[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k] = nacread[i * seth->Nstate * seth->Natom_mole * 3 + j * seth->Natom_mole * 3 + k];
                         }
                     }
                 }

@@ -40,5 +40,7 @@ void dV_bpy(double *R, double complex *dH, int forcetype, struct set_host *setm)
 
 void nucforce_bpy(double *R, double *nf, struct set_host *setm) ;
 
+void nac_bpy(double *R, double complex *nac, struct set_host *setm) ;
+
 
 

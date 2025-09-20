@@ -144,7 +144,7 @@ void dV_isc(double *R, double complex *dH, struct set_host *setm) {
 void nac_isc(double *R, double complex *nac, struct set_host *setm) {
 
     if (setm->type_isc == 1 || setm->type_isc == 2) {
-        memset(nac, 0, 4 * 4 * sizeof(double)); // Initialize nac to zero
+        memset(nac, 0, 4 * 4 * sizeof(double complex)); // Initialize nac to zero
     }
     
     

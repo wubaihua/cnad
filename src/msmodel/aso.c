@@ -139,7 +139,7 @@ void dV_aso(double *R, double complex *dH, struct set_host *setm) {
 
 void nac_aso(double *R, double complex *nac, struct set_host *setm) {
 
-    memset(nac, 0, 5 * 5 * sizeof(double)); // Initialize nac to zero
+    memset(nac, 0, 5 * 5 * sizeof(double complex)); // Initialize nac to zero
     nac[0 * 5 + 1] = setm->c_aso * exp(-setm->b_aso * (R[0] - setm->rnac_aso) * (R[0] - setm->rnac_aso)); // S0 - S1
     nac[1 * 5 + 0] = -nac[0 * 5 + 1]; // S1 - S0
     
