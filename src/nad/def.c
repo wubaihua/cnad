@@ -3797,8 +3797,9 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
 
         // exit(-1);
-
+        #ifdef x86
         qm_msmodel(sets->R_nuc, seth, sets); 
+        #endif
         cal_force(sets,seth,1);
         evo_traj_savetraj(sets,seth);
         
