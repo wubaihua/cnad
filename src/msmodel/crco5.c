@@ -129,4 +129,14 @@ void nucforce_crco5(double *R, double *nf, struct set_host *setm) {
 }
 
 
+void nac_crco5(double *R, double complex *nac, struct set_host *setm) {
+
+    
+    memset(nac, 0, setm->Nstate_lvcm * setm->Nstate_lvcm * setm->N_mode_lvcm * sizeof(double complex)); // Initialize nac to zero
+    
+    
+    
+}
+
+
 

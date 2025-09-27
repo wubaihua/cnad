@@ -394,6 +394,9 @@ void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
         nac_isc(R, nac, setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
         nac_bpy(R, nac, setm);
+    } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
+       strcmp(setm->msmodelname, "CrCO5") == 0) {
+        nac_crco5(R, nac, setm);
     }
 }
 

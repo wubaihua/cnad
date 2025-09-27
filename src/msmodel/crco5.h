@@ -40,4 +40,4 @@ void dV_crco5(double *R, double complex *dH, int forcetype, struct set_host *set
 
 void nucforce_crco5(double *R, double *nf, struct set_host *setm) ;
 
-
+void nac_crco5(double *R, double complex *nac, struct set_host *setm);
