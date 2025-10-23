@@ -1,3 +1,5 @@
+! Modified from Hess2freq.pl by Sobereva
+! http://sobereva.com/328
 program Hess2freq
 implicit real*8 (a-h,o-z)
 real*8,parameter :: pi=3.141592653589793D0
@@ -531,8 +533,10 @@ do ire=1,nsize
 		Psamp(ire)=0.0D0 !Set momentum to zero
 	else if (freq2(ire)>cutoff**2 .and. freq2(ire)<=cutoff2**2) then
 		
-		call box_muller(Rsamp(ire),x2,sqrt(1/(beta*freq2(ire))),0.0D0)
-		call box_muller(Psamp(ire),x2,sqrt(1/(beta)),0.0D0)
+		! call box_muller(Rsamp(ire),x2,sqrt(1/(beta*freq2(ire))),0.0D0)
+		! call box_muller(Psamp(ire),x2,sqrt(1/(beta)),0.0D0)
+		Rsamp(ire)=0.0D0 !If frequency is zero or negative, set position to zero
+		Psamp(ire)=0.0D0 !Set momentum to zero
 	else
 		
 		if(beta>1e5)then
