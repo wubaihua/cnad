@@ -665,6 +665,10 @@ void readinp_dnalvcm(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
             setm->Nstate_lvcm = 7;
             setm->N_mode_lvcm = 39;
             break;
+        case 4:
+            setm->Nstate_lvcm = 8;
+            setm->N_mode_lvcm = 30;
+            break;
     }
 
     *Ndof1 = 1;
