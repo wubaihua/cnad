@@ -61,7 +61,21 @@ void parameter_tully(double *mass, struct set_host *setm) {
             mass[0] = 2000.0;
             setm->R0_tully = 0.0;
             break;
-
+        case 7: // modified SAC1
+            setm->A_tully = 0.01;
+            setm->B_tully = 1.6;
+            setm->C_tully = 0.005;
+            setm->D_tully = 1;
+            setm->R0_tully = -3.8;
+            break;
+        case 8: // modified SAC2
+            setm->A_tully = 0.01;
+            setm->A2_tully = 0.005;
+            setm->B_tully = 1.6;
+            setm->C_tully = 0.005;
+            setm->D_tully = 1;
+            setm->R0_tully = -3.8;
+            break;
     }
 }
 
@@ -73,6 +87,8 @@ void sample_tully(double *P, double *R, struct set_host *setm) {
         case 1:
         case 2:
         case 3:
+        case 7:
+        case 8:
             setm->gamma_tully = 1;
             break;
         case 4:
@@ -162,6 +178,18 @@ void V_tully(double *R, double *H, struct set_host *setm) {
                 H[3] = -0.5 * setm->A_tully * cos(setm->B_tully * R[0]);
             }
             break;
+        case 7:
+            H[0] = setm->A_tully * tanh(setm->B_tully * R[0]);
+            H[3] = -1.0 * setm->A_tully * tanh(setm->B_tully * R[0]);
+            H[1] = setm->C_tully * exp(-setm->D_tully * R[0] * R[0]);
+            H[2] = H[1];
+            break;
+        case 8:
+            H[0] = setm->A_tully * tanh(setm->B_tully * R[0]);
+            H[3] = setm->A2_tully * tanh(setm->B_tully * R[0]);
+            H[1] = setm->C_tully * exp(-setm->D_tully * R[0] * R[0]);
+            H[2] = H[1];
+            break;
     }
 }
 
@@ -223,6 +251,18 @@ void dV_tully(double *R, double *dH, struct set_host *setm) {
                 dH[2] = 0.5 * setm->A_tully * setm->B_tully * cos(setm->B_tully * R[0]);
                 dH[3] = 0.5 * setm->A_tully * setm->B_tully * sin(setm->B_tully * R[0]);
             }
+            break;
+        case 7:
+            dH[0] = setm->A_tully * setm->B_tully * (1.0 - tanh(setm->B_tully * R[0]) * tanh(setm->B_tully * R[0]));
+            dH[3] = -1.0 * setm->A_tully * setm->B_tully * (1.0 - tanh(setm->B_tully * R[0]) * tanh(setm->B_tully * R[0]));
+            dH[1] = -setm->C_tully * 2 * setm->D_tully * R[0] * exp(-setm->D_tully * R[0] * R[0]);
+            dH[2] = dH[1];
+            break;
+        case 8:
+            dH[0] = setm->A_tully * setm->B_tully * (1.0 - tanh(setm->B_tully * R[0]) * tanh(setm->B_tully * R[0]));
+            dH[3] = setm->A2_tully * setm->B_tully * (1.0 - tanh(setm->B_tully * R[0]) * tanh(setm->B_tully * R[0]));
+            dH[1] = -setm->C_tully * 2 * setm->D_tully * R[0] * exp(-setm->D_tully * R[0] * R[0]);
+            dH[2] = dH[1];
             break;
     }
 }
