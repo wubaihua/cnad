@@ -29,6 +29,7 @@
 #include "retinal.h"
 #include "aso.h"
 #include "isc.h"
+#include "sbmtd.h"
 
 #ifdef x86
     #include "def.h"
@@ -102,6 +103,9 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_aso(mass,setm);
     } else if (strcmp(setm->msmodelname, "isc") == 0) {
         parameter_isc(mass,setm);
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        parameter_SBMTD(mass,setm);
     }
 
     #ifdef x86
@@ -163,7 +167,10 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_aso(P, R, setm);
     } else if (strcmp(setm->msmodelname, "isc") == 0) {
         sample_isc(P, R, setm);
-    } 
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        sample_SBMTD(P, R, beta,setm);
+    }
     
     #ifdef x86
         if (strcmp(setm->msmodelname, "mole") == 0) {
@@ -234,6 +241,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "isc") == 0 ) {
         V_isc(R, H, setm);
         ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        V_SBMTD(R, V_real, setm->forcetype, t, setm);
     }
 
     if(ifcpy == 0){
@@ -307,6 +317,9 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     }   else if (strcmp(setm->msmodelname, "isc") == 0 ) {
         dV_isc(R, dH, setm);
         ifcpy = 1;
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        dV_SBMTD(R, dV_real, setm->forcetype, 0.0, setm);
     }
     
     // #ifdef x86
@@ -365,6 +378,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_bpy(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "retinal") == 0) {
         nucforce_retinal(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        nucforce_SBMTD(R, nf,setm);
     }
 }
 

@@ -875,6 +875,106 @@ void readinp_mole(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_h
 }
 
 
+void readinp_SBMTD(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    if (NULL !=  cJSON_GetObjectItem(item, "N_bath_SBM")){
+        list=cJSON_GetObjectItem(item, "N_bath_SBM");
+        setm->N_bath_SBM = list->valueint; 
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "bathtype")) {
+        list = cJSON_GetObjectItem(item, "bathtype");
+        setm->bathtype = list->valueint; 
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "eps_SBM")) {
+        list = cJSON_GetObjectItem(item, "eps_SBM");
+        if (list->type == cJSON_Number) {
+            setm->eps_SBM = list->valuedouble;
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "delta_SBM")) {
+        list = cJSON_GetObjectItem(item, "delta_SBM");
+        if (list->type == cJSON_Number) {
+            setm->delta_SBM = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "alpha_SBM")) {
+        list = cJSON_GetObjectItem(item, "alpha_SBM");
+        if (list->type == cJSON_Number) {
+            setm->alpha_SBM = list->valuedouble;
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "omega_c_SBM")) {
+        list = cJSON_GetObjectItem(item, "omega_c_SBM");
+        if (list->type == cJSON_Number) {
+            setm->omega_c_SBM = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "lambda_SBM")) {
+        list = cJSON_GetObjectItem(item, "lambda_SBM");
+        if (list->type == cJSON_Number) {
+            setm->lambda_SBM = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "s_SBM")) {
+        list = cJSON_GetObjectItem(item, "s_SBM");
+        if (list->type == cJSON_Number) {
+            setm->s_SBM = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "eps0_SBMTD")) {
+        list = cJSON_GetObjectItem(item, "eps0_SBMTD");
+        if (list->type == cJSON_Number) {
+            setm->eps0_SBMTD = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "alpha_SBMTD")) {
+        list = cJSON_GetObjectItem(item, "alpha_SBMTD");
+        if (list->type == cJSON_Number) {
+            setm->alpha_SBMTD = list->valuedouble; 
+        }
+    }
+
+    if (NULL != cJSON_GetObjectItem(item, "omega_SBMTD")) {
+        list = cJSON_GetObjectItem(item, "omega_SBMTD");
+        if (list->type == cJSON_Number) {
+            setm->omega_SBMTD = list->valuedouble; 
+        }
+    }
+
+
+
+
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_bath_SBM;
+    *Nstate = 2;
+
+
+    // //debug
+    // printf("N_bath_SBM: %d\n", N_bath_SBM);
+    // printf("bathtype: %d\n", bathtype);
+    // printf("eps_SBM: %f\n", eps_SBM);
+    // printf("delta_SBM: %f\n", delta_SBM);
+    // printf("alpha_SBM: %f\n", alpha_SBM);
+    // printf("omega_c_SBM: %f\n", omega_c_SBM);
+    // printf("F: %d\n", Nstate);
+
+    // //debug
+}
+
+
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
        strcmp(setm->msmodelname, "sbm") == 0) {
@@ -936,6 +1036,9 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_mole(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "isc") == 0) {
         readinp_isc(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
+       strcmp(setm->msmodelname, "sbmtd") == 0) {
+        readinp_SBMTD(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

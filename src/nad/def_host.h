@@ -950,6 +950,9 @@ struct set_host
         double complex c0_isc, c1_isc;
         double rs_isc, drs_isc;
 
+        // TD SBM:
+        double eps0_SBMTD, alpha_SBMTD, omega_SBMTD;
+
 
         // ab initio quantum chemistry model
         int Natom_mole, NT_mole, Nstate_mole; 
