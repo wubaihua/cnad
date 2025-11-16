@@ -1285,7 +1285,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             strcmp(seth->method, "fs-naf") == 0 || strcmp(seth->method, "FS-NAF") == 0 ||
             strcmp(seth->method, "GFSH") == 0 || strcmp(seth->method, "gfsh") == 0 ) {
 
-            double x2 = (double)rand() / RAND_MAX;
+            double x2 = (double) rand() / RAND_MAX;
             double ps1, ps2;
             for (int i = 0; i < seth->Nstate; i++) {
                 sets->id_state = i;
@@ -1296,7 +1296,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                     ps2 = cabs(sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0]) * cabs(sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + 0]);
                 } else {
                     ps1 = 0;
-                    for (int k = 0; k < i - 1; k++) {
+                    for (int k = 0; k < i; k++) {
                         // ps1 += sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k];
                         ps1 += cabs(sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k]) * cabs(sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k]);
                     }
@@ -1421,7 +1421,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             memcpy(sets->gamma_cv,gamma_cv_save,seth->Nstate * seth->Nstate * sizeof(double complex));
         }
 
-    } else if (seth->ifswitchforce > 0 && seth->type_hop != 1) {
+    } else if (seth->ifswitchforce > 0 && seth->type_hop > 1) {
         if (seth->rep == 0 || seth->rep == 3) {
             
             if (strcmp(seth->msmodelname, "mole") == 0 ) {
@@ -1496,7 +1496,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 ps2 = c_main[0];
             } else {
                 ps1 = 0;
-                for (int k = 0; k < i - 1; k++) {
+                for (int k = 0; k < i; k++) {
                     // ps1 += sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k] * sets->U_d2a[(sets->init_occ - 1) * seth->Nstate + k];
                     ps1 += c_main[k];
                 }
