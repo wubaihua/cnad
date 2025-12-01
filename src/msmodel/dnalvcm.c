@@ -14326,9 +14326,9819 @@ void parameter_dnalvcm(double *mass, struct set_host *setm) {
 
             setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.0027116  / au_2_eV ;
 
+        
+        case 5: // A_CAM
 
+            setm->H_ele_lvcm[0] =   0.00000000e+00    / au_2_eV ;
+            setm->H_ele_lvcm[7] =   1.26394180e-01    / au_2_eV ;
+            setm->H_ele_lvcm[14] =  1.96939740e-01     / au_2_eV ;
+            setm->H_ele_lvcm[21] =  5.93895010e-01     / au_2_eV ;
+            setm->H_ele_lvcm[28] =  9.85692570e-01     / au_2_eV ;
+            setm->H_ele_lvcm[35] =  1.43545302e+00     / au_2_eV ;
+            
+
+
+            double wall5[39]  = {1.80337700e-02,  
+                                 2.12277700e-02,  
+                                 2.76974800e-02,  
+                                 3.41677700e-02,  
+                                 3.83594200e-02,  
+                                 6.51554400e-02,  
+                                 6.57345300e-02,  
+                                 6.66917000e-02,  
+                                 6.88912000e-02,  
+                                 7.27668800e-02,  
+                                 7.78165000e-02,  
+                                 8.44834600e-02,  
+                                 8.73987400e-02,  
+                                 9.17498800e-02,  
+                                 1.03276070e-01,  
+                                 1.08769190e-01,  
+                                 1.13363030e-01,  
+                                 1.18933590e-01,  
+                                 1.24000610e-01,  
+                                 1.27798950e-01,  
+                                 1.37353370e-01,  
+                                 1.45607770e-01,  
+                                 1.58026680e-01,  
+                                 1.60563670e-01,  
+                                 1.69351940e-01,  
+                                 1.73225640e-01,  
+                                 1.74160770e-01,  
+                                 1.80403700e-01,  
+                                 1.83835920e-01,  
+                                 1.92596360e-01,  
+                                 1.95584950e-01,  
+                                 2.04818260e-01,  
+                                 2.10106770e-01,  
+                                 2.12129030e-01,  
+                                 3.98650620e-01,  
+                                 4.07782890e-01,  
+                                 4.51937090e-01,  
+                                 4.57271440e-01,  
+                                 4.67641670e-01  };
+        
+            for (int i = 0; i < 39; i++){
+                setm->omega_lvcm[i] = wall5[i] / au_2_eV ;
+            }
+
+//Matrix 0:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.02677457  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = -0.0158917  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.02677457  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.00211181  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0042769  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.0158917  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.02817462  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = -0.01247777  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.00211181  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.02817462  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0042769  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = -0.01247777  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+//Matrix 1:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.01143697  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = -0.00170177  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.01143697  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = -0.01345105  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.01153289  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.00170177  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.01698602  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = -0.0118081  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = -0.01345105  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.01698602  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.01153289  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = -0.0118081  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+//Matrix 2:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.00499249  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = -0.01935627  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.00499249  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0036982  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = -0.0108068  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = -0.01935627  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.00451397  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.04011064  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0036982  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.00451397  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = -0.0108068  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.04011064  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+//Matrix 3:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.00054506  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.01678534  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0015612  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.01346962  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = -0.00318747  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = -0.00318747  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = -0.01265207  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.01678534  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.01115756  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = -0.0027153  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0015612  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.0027153  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = -0.0303406  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = -0.02585201  / au_2_eV ;
+
+//Matrix 4:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.02546463  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00013188  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.02546463  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.00081748  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.05202053  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.00013188  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.01413753  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.00822266  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.00081748  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.01413753  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.05202053  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00822266  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+//Matrix 5:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = -0.01428595  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.01669085  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.06049497  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0269363  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.01532902  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.01532902  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.02490076  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.01669085  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.02911553  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00029813  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = -0.06049497  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = -0.00029813  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.02108819  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.00653131  / au_2_eV ;
+
+//Matrix 6:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = -0.01804243  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = -0.01202787  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = -0.01804243  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.00362499  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.00278898  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = -0.01202787  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.00827375  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.00294824  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = -0.00362499  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = -0.00827375  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.00278898  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.00294824  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+//Matrix 7:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.00354667  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0283136  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = -0.07286357  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.02341308  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.00977225  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.00977225  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = -0.01252736  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0283136  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.02380914  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.01188209  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = -0.07286357  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.01188209  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = -0.04803645  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = -0.01183812  / au_2_eV ;
+
+//Matrix 8:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.00214479  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = -0.01674805  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = -0.00214479  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = -0.00016025  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.01578113  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = -0.01674805  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.00637563  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = -0.0133459  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.00016025  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00637563  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.01578113  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = -0.0133459  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+//Matrix 9:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0590354  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.01939787  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0590354  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0116956  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = -0.03929022  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.01939787  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.03106976  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.04717325  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0116956  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.03106976  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = -0.03929022  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.04717325  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+//Matrix 10:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = -0.00951723  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.00396815  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.07713392  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = -0.04381396  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0091561  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0091561  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = -0.04067695  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = -0.00396815  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.00598701  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0008838  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.07713392  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0008838  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = -0.07715044  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = -0.00299361  / au_2_eV ;
+
+//Matrix 11:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = -0.04272606  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = -0.00177928  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.04272606  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = -0.00502009  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.07152185  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.00177928  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = -0.02258754  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = -0.07157014  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = -0.00502009  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = -0.02258754  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.07152185  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = -0.07157014  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+//Matrix 12:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = -0.03523591  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.04521103  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = -0.03523591  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = -0.02193737  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.05257535  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.04521103  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = -0.04476253  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = -0.01212004  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = -0.02193737  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.04476253  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.05257535  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.01212004  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+//Matrix 13:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.1077618  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = -0.02437999  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.06860867  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.02190104  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.00741467  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.00741467  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.04503887  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = -0.02437999  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.09850624  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = -0.01245611  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.06860867  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = -0.01245611  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.06121965  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.07741636  / au_2_eV ;
+
+//Matrix 14:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.03355131  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = -0.01905704  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = -0.03355131  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = -0.01128079  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = -0.00383993  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = -0.01905704  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = -0.02423816  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = -0.02887243  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.01128079  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = -0.02423816  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.00383993  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = -0.02887243  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+//Matrix 15:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = -0.01557412  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = -0.01039224  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = -0.01557412  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = -0.00266043  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = -0.01580037  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = -0.01039224  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = -0.01064801  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.02278386  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = -0.00266043  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = -0.01064801  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = -0.01580037  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.02278386  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+//Matrix 16:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.22204521  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.00371685  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0178382  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.02721298  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = -0.00214281  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = -0.00214281  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = -0.02353926  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.00371685  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.22436314  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = -0.01816216  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0178382  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = -0.01816216  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.08543772  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = -0.02217744  / au_2_eV ;
+
+//Matrix 17:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.06353361  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = -0.02062029  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = -0.03698173  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = -0.02488892  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = -0.01177541  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = -0.01177541  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = -0.07007932  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = -0.02062029  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = -0.02843658  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.00108151  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = -0.03698173  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.00108151  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.13102833  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = -0.03401362  / au_2_eV ;
+
+//Matrix 18:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = -0.02243769  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = -0.01002613  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = -0.02243769  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.00692711  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = -0.02503327  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = -0.01002613  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = -0.03146738  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.02828215  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.00692711  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = -0.03146738  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = -0.02503327  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.02828215  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+//Matrix 19:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -6.8e-07  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = -0.00277882  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.04369352  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = -0.02161856  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = -0.01579706  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = -0.01579706  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = -0.05443514  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.00277882  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = -0.07768867  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = -0.01234583  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.04369352  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = -0.01234583  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.00027303  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = -0.071704  / au_2_eV ;
+
+//Matrix 20:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.03496684  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.00773567  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = -0.00355855  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.03156714  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = -0.00974841  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = -0.00974841  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.00407586  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.00773567  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = -0.02421854  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = -0.00670517  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = -0.00355855  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = -0.00670517  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.05605559  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.08612784  / au_2_eV ;
+
+//Matrix 21:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = -0.0424504  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.01698535  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = -0.00578068  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.04016375  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.02842559  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.02842559  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.02228876  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.01698535  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = -0.00190421  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.00259147  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = -0.00578068  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.00259147  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = -0.01034022  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = -0.00939036  / au_2_eV ;
+
+//Matrix 22:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.06925409  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.02452802  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = -0.00857054  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.08967158  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.01278331  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.01278331  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.05917486  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.02452802  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.05496581  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.00455209  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = -0.00857054  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.00455209  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = -0.06381068  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.06068104  / au_2_eV ;
+
+//Matrix 23:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.1351058  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.02842218  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.00495616  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.08340422  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = -0.00462815  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = -0.00462815  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.03006554  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.02842218  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.05306073  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0031625  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.00495616  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0031625  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.03142916  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.04122683  / au_2_eV ;
+
+//Matrix 24:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = -0.07605713  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = -0.01005341  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.0055223  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = -0.08380027  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.00838524  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.00838524  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = -0.08817766  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = -0.01005341  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = -0.03985534  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.04575895  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = -0.0055223  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = -0.04575895  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.09688039  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = -0.00598438  / au_2_eV ;
+
+//Matrix 25:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.01902502  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.10343242  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.01188619  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.03082988  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.05608088  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.05608088  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = -0.00130538  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.10343242  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0905028  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.02692273  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.01188619  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.02692273  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.03387605  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.01537424  / au_2_eV ;
+
+//Matrix 26:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.00832408  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.06344015  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.08998531  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = -0.10901732  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.05079878  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.05079878  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = -0.12173792  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.06344015  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = -0.00517127  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.00543882  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.08998531  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = -0.00543882  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.10601175  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.08612107  / au_2_eV ;
+
+//Matrix 27:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = -0.10546453  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = -0.07371388  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.00579283  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.03419531  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = -0.01306644  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.01306644  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.04821643  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = -0.07371388  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.00927223  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.00261834  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.00579283  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.00261834  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = -0.0263949  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = -0.04613053  / au_2_eV ;
+
+//Matrix 28:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.08721239  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.01485475  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = -0.03066504  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = -0.00435431  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.00648149  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.00648149  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.04966399  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.01485475  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.08176991  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.00986099  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = -0.03066504  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.00986099  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0427221  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.03754891  / au_2_eV ;
+
+//Matrix 29:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.08979985  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.02880399  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = -0.02142416  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.04750775  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = -0.01593288  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = -0.01593288  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = -0.00587269  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.02880399  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = -0.06694553  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.02218406  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = -0.02142416  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.02218406  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.06000427  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = -0.00136225  / au_2_eV ;
+
+//Matrix 30:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.11211214  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.01017712  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = -0.0262747  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.18522452  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.06824202  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = -0.06824202  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.1044474  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.01017712  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = -0.0151079  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.01848857  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = -0.0262747  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.01848857  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.12231934  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = -0.00027909  / au_2_eV ;
+
+//Matrix 31:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.06777005  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = -0.04985523  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.04421984  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.01731978  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = -0.05096893  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = -0.05096893  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = -0.04534867  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = -0.04985523  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = -0.13647805  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.01893092  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.04421984  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = -0.01893092  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.01483089  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = -0.01686986  / au_2_eV ;
+
+//Matrix 32:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.11290603  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.16515072  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.00275194  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.18045447  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.01565403  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.01565403  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = -0.01389494  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.16515072  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = -0.04909232  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.01294303  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = -0.00275194  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.01294303  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.05143254  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = -0.07989134  / au_2_eV ;
+
+//Matrix 33:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = -0.10301544  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.05367442  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = -0.09651208  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = -0.02631425  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.05543062  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.05543062  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.05120585  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.05367442  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.11185129  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.03469762  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = -0.09651208  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.03469762  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = -0.00135273  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.04640216  / au_2_eV ;
+
+//Matrix 34:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = -0.0648984  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = -0.02497776  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.00766526  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = -0.03020747  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.0091466  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = -0.0091466  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.00652786  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = -0.02497776  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = -0.0459881  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.0066099  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = -0.00766526  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = -0.0066099  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0028574  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = -0.01142879  / au_2_eV ;
+
+//Matrix 35:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = -0.01999995  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.00303954  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.01649768  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = -0.02027379  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.00882331  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.00882331  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = -0.0076177  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.00303954  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.00176878  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.00208607  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.01649768  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = -0.00208607  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.04884484  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = -0.01891205  / au_2_eV ;
+
+//Matrix 36:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.01768749  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = -0.01527236  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.00244145  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = -0.02258623  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = -0.00352107  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = -0.00352107  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = -0.00367296  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = -0.01527236  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.01251712  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = -0.00259441  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.00244145  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = -0.00259441  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.01619076  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = -0.00789108  / au_2_eV ;
+
+//Matrix 37:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = -0.00013592  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = -0.00761668  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00077238  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.01061248  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = -0.00381049  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.00381049  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 1.2e-07  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = -0.00761668  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = -0.01129283  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00467658  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.00077238  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.00467658  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = -0.00530624  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.00176867  / au_2_eV ;
+
+//Matrix 38:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = -0.00081633  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.00079207  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = -0.00233043  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.00013595  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = -0.00095518  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = -0.00095518  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = -0.00040806  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.00079207  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = -0.00489805  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.00035168  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = -0.00233043  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.00035168  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.00258508  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
         
             break;
+        
+
+        case 6: // G_CAM
+
+            setm->H_ele_lvcm[0] =   0.00000000e+00   / au_2_eV ;
+            setm->H_ele_lvcm[10] =   3.33452200e-02   / au_2_eV ;
+            setm->H_ele_lvcm[20] =   4.29873230e-01    / au_2_eV ;
+            setm->H_ele_lvcm[30] =   4.49090260e-01    / au_2_eV ;
+            setm->H_ele_lvcm[40] =   4.98281360e-01    / au_2_eV ;
+            setm->H_ele_lvcm[50] =   1.11432879e+00    / au_2_eV ;
+            setm->H_ele_lvcm[60] =   1.17565870e+00    / au_2_eV ;
+            setm->H_ele_lvcm[70] =   1.21809078e+00    / au_2_eV ;
+            setm->H_ele_lvcm[80] =   1.30063011e+00    / au_2_eV ;
+            
+            
+
+
+            double wall6[42]  = {3.95305200e-02,  
+                                 1.70646100e-02,  
+                                 1.96714200e-02,  
+                                 2.44189500e-02,  
+                                 4.00923600e-02,  
+                                 4.23296600e-02,  
+                                 4.45687000e-02,  
+                                 5.09443300e-02,  
+                                 6.12919900e-02,  
+                                 6.63465500e-02,  
+                                 6.82368700e-02,  
+                                 7.47582200e-02,  
+                                 7.89964000e-02,  
+                                 8.32941900e-02,  
+                                 8.36437500e-02,  
+                                 8.84403000e-02,  
+                                 9.29629200e-02,  
+                                 9.89040900e-02,  
+                                 1.05134350e-01,  
+                                 1.05811520e-01,  
+                                 1.19468970e-01,  
+                                 1.29115070e-01,  
+                                 1.34279380e-01,  
+                                 1.34814590e-01,  
+                                 1.42036340e-01,  
+                                 1.47881880e-01,  
+                                 1.64253950e-01,  
+                                 1.67524410e-01,  
+                                 1.71141430e-01,  
+                                 1.74777790e-01,  
+                                 1.81738860e-01,  
+                                 1.92099730e-01,  
+                                 1.96622240e-01,  
+                                 2.02151420e-01,  
+                                 2.04041500e-01,  
+                                 2.08764790e-01,  
+                                 2.27035980e-01,  
+                                 4.04524030e-01,  
+                                 4.49127670e-01,  
+                                 4.52778470e-01,  
+                                 4.56020230e-01,  
+                                 4.68581810e-01};
+        
+            for (int i = 0; i < 42; i++){
+                setm->omega_lvcm[i] = wall6[i] / au_2_eV ;
+            }
+//Matrix 0:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.03572459  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = -4.495e-05  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = -0.03741696  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = -0.03277777  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = -0.0389691  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = -0.00015207  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = -0.00996558  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.03572459  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = -0.02641256  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -4.495e-05  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = -0.00285094  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = -0.02641256  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = -0.00285094  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.01438086  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.03563844  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.00989772  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.00122041  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.00646712  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.03741696  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.01438086  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.03277777  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.03563844  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.0389691  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.00989772  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.00015207  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.00122041  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 0] = -0.00996558  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 0] = 0.00646712  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 0] = 0.0  / au_2_eV ;
+
+//Matrix 1:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = -0.0088213  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.01055481  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = -0.00907425  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = -0.00674716  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = -0.00334119  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.00271381  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = -0.00988019  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.0088213  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = -7.641e-05  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.01055481  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.00654809  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = -7.641e-05  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.00654809  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = -0.01062437  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.01754426  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = -0.01050928  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.00434478  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.00502559  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.00907425  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = -0.01062437  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.00674716  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.01754426  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.00334119  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = -0.01050928  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = 0.00271381  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.00434478  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 1] = -0.00988019  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 1] = 0.00502559  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 1] = 0.0  / au_2_eV ;
+
+//Matrix 2:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = -0.00061391  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.01409732  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = -0.00770593  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = -0.00540221  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = -0.01308081  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.00270473  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.01884948  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = -0.00061391  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = -0.0123909  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.01409732  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.01331235  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = -0.0123909  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.01331235  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.00942017  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = -0.01446914  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = -0.01122064  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.01068721  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = -0.00623953  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = -0.00770593  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.00942017  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = -0.00540221  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = -0.01446914  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = -0.01308081  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = -0.01122064  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.00270473  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = 0.01068721  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 2] = 0.01884948  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 2] = -0.00623953  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 2] = 0.0  / au_2_eV ;
+
+//Matrix 3:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.01536653  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = -0.0110884  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.00669807  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.01702481  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.03047975  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.01628262  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.02405783  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.01536653  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.00364289  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = -0.0110884  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.00626815  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = -0.00364289  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = -0.00626815  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = -0.00630522  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = -0.01019801  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = -0.01524362  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.02149464  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = -0.02198014  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.00669807  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.00630522  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.01702481  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.01019801  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.03047975  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.01524362  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.01628262  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = 0.02149464  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 3] = 0.02405783  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 3] = -0.02198014  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 3] = 0.0  / au_2_eV ;
+
+//Matrix 4:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.00258571  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = -0.02603826  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.00666704  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00022372  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = -7.27e-06  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.01979037  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = -0.02547335  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = -4.87e-05  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = -0.00206438  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.00022372  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00734613  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.00029738  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0009069  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.00020223  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = -0.01481791  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = -0.00053116  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = -0.02603826  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = -0.00381022  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = -7.27e-06  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00029738  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.00421781  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = -0.00014363  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.00256568  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = -0.00307913  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.00042769  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = 0.01979037  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.0009069  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = -0.00014363  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = -0.00231295  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = -0.0021685  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = 0.00223378  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.0011806  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = -0.02547335  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = 0.00020223  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.00256568  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = -0.0021685  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.00625927  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = 0.00160253  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.00011624  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = -4.87e-05  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = -0.01481791  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = -0.00307913  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.00223378  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.00160253  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = -0.03674399  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = -0.01194835  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 4] = -0.00206438  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 4] = -0.00053116  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 4] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 4] = 0.00042769  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 4] = 0.0011806  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 4] = 0.00011624  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 4] = -0.01194835  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 4] = 0.01443064  / au_2_eV ;
+
+//Matrix 5:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = -0.0195922  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.00405834  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = -0.02938795  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0006019  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00392715  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.02284629  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = -0.01535778  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = 0.00143961  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.00137044  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0006019  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.00530575  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0032381  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.00022065  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = 0.00140996  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = -0.00684941  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.00682652  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.00405834  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = -0.02312964  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = -0.00392715  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.0032381  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.02421789  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = -0.00170581  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = -0.00079155  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = -0.00101654  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.00082864  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.02284629  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.00022065  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00170581  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = -0.03483113  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = 0.00320988  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = -0.00131583  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.00033302  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = -0.01535778  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = 0.00140996  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00079155  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = 0.00320988  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = -0.02367386  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = -0.00040122  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.00115588  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = 0.00143961  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = -0.00684941  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00101654  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = -0.00131583  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = -0.00040122  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = -0.00938768  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = 0.00088593  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 5] = -0.00137044  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 5] = -0.00682652  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 5] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 5] = -0.00082864  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 5] = -0.00033302  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 5] = -0.00115588  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 5] = 0.00088593  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 5] = -0.01374149  / au_2_eV ;
+
+//Matrix 6:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = -0.02853885  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = -0.01078544  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.00250302  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.01176331  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = -0.01768156  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.01618446  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0678554  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = -0.02853885  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.00316167  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = -0.01078544  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.00550885  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.00316167  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = -0.00550885  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = -0.02181103  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = -0.02810971  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = -0.02031243  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0384357  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = -0.01967532  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.00250302  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.02181103  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.01176331  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.02810971  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = -0.01768156  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.02031243  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.01618446  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = 0.0384357  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 6] = 0.0678554  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 6] = -0.01967532  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 6] = 0.0  / au_2_eV ;
+
+//Matrix 7:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.02508548  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0124698  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.00612568  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.02043936  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = -0.00528877  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = -0.00202974  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.02702355  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.02508548  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = -0.01561789  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0124698  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.00826223  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = -0.01561789  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.00826223  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.00462747  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.02647216  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = -0.00791388  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.00831798  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = -0.00880164  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.00612568  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.00462747  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.02043936  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.02647216  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = -0.00528877  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = -0.00791388  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = -0.00202974  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = 0.00831798  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 7] = 0.02702355  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 7] = -0.00880164  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 7] = 0.0  / au_2_eV ;
+
+//Matrix 8:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = -0.00299324  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = -0.00862175  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.03278939  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00182365  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = -0.00428402  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = -0.01350638  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = 0.01614719  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = -0.00129086  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.00201547  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.00182365  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0217747  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.00646989  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = -0.00099087  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = 0.00114106  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.00223768  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.00615258  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = -0.00862175  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = -0.01850374  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.00428402  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00646989  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = -0.04095844  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.01146584  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = -0.00720748  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.00226823  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = -0.00123513  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.01350638  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = -0.00099087  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.01146584  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = -0.02598785  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = -0.00189508  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = -0.00225526  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.00262009  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.01614719  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00114106  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = -0.00720748  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = -0.00189508  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = -0.03728321  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.00020753  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = -0.00670574  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = -0.00129086  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00223768  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = 0.00226823  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = -0.00225526  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = 0.00020753  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = 0.00624815  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = -0.01002217  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 8] = 0.00201547  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 8] = 0.00615258  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 8] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 8] = -0.00123513  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 8] = 0.00262009  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 8] = -0.00670574  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 8] = -0.01002217  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 8] = 0.08246497  / au_2_eV ;
+
+//Matrix 9:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = -0.05959335  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.01287557  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = -0.05047743  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0006384  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = -0.00323334  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = -0.00921182  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 4.951e-05  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.00033829  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = -0.00014023  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0006384  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = -0.02353703  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.00349859  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = -0.00213481  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = -0.00053019  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.00101184  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.00124006  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.01287557  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = -0.04449011  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = -0.00323334  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.00349859  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = -0.05700896  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.01550091  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 0.00641851  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.00010781  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.00119301  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = -0.00921182  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = -0.00213481  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.01550091  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = -0.048707  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 0.00484399  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.00032253  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = -0.00140472  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 4.951e-05  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = -0.00053019  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.00641851  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.00484399  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = -0.05850499  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = -0.00034288  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.00101469  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = 0.00033829  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.00101184  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.00010781  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = 0.00032253  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = -0.00034288  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = -0.0488437  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = 0.00693362  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 9] = -0.00014023  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 9] = 0.00124006  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 9] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 9] = 0.00119301  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 9] = -0.00140472  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 9] = 0.00101469  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 9] = 0.00693362  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 9] = -0.08802951  / au_2_eV ;
+
+//Matrix 10:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.00404494  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0047063  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = -0.02619748  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.00734763  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.054219  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = -0.01354821  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = -0.02807178  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.00404494  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.02431879  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0047063  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.00135998  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = -0.02431879  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.00135998  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = -0.02887502  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = -0.00166  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = -0.02132881  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = -0.02441371  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.00952588  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = -0.02619748  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.02887502  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.00734763  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.00166  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = 0.054219  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.02132881  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = -0.01354821  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = -0.02441371  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 10] = -0.02807178  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 10] = 0.00952588  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 10] = 0.0  / au_2_eV ;
+
+//Matrix 11:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.04279209  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = -0.00407463  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = -0.01283261  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.06649432  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = -0.05465463  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = -0.00460382  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = -0.00930468  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.04279209  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.01775105  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.00407463  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = -0.00880696  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.01775105  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = -0.00880696  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.00625232  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.00988746  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.02071589  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = -0.00999749  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.01309211  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.01283261  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.00625232  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = 0.06649432  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.00988746  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.05465463  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.02071589  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.00460382  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = -0.00999749  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 11] = -0.00930468  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 11] = 0.01309211  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 11] = 0.0  / au_2_eV ;
+
+//Matrix 12:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = -0.06095324  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = -0.00460189  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.02734736  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.00014383  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = -0.00189573  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.01085351  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.0053725  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.00074027  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = 0.00034057  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = -0.00014383  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.01074906  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = -0.00333157  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.00095646  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = -0.00295101  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.000545  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = -0.00525392  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = -0.00460189  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = -0.02938848  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = -0.00189573  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.00333157  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.01823195  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = -0.00684809  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.02031531  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = -0.00124763  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = 0.00183231  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.01085351  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.00095646  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = -0.00684809  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.02748573  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = -0.00222761  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.00525693  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = -0.00104192  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.0053725  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.00295101  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.02031531  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = -0.00222761  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.02626744  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = 0.0018962  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = 0.00834347  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.00074027  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = 0.000545  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = -0.00124763  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = 0.00525693  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.0018962  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = -0.05360263  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = -0.01014384  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 12] = 0.00034057  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 12] = -0.00525392  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 12] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 12] = 0.00183231  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 12] = -0.00104192  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 12] = 0.00834347  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 12] = -0.01014384  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 12] = -0.1070909  / au_2_eV ;
+
+//Matrix 13:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = -0.01697202  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.00184156  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.001156  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = -0.01084561  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = -0.00409705  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.02488223  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.06787839  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = -0.01697202  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0294877  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.00184156  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = -0.00266332  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0294877  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = -0.00266332  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.02446049  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.02189051  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.03306101  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.08745814  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = -0.02068211  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.001156  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.02446049  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = -0.01084561  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.02189051  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = -0.00409705  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.03306101  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.02488223  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = 0.08745814  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 13] = 0.06787839  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 13] = -0.02068211  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 13] = 0.0  / au_2_eV ;
+
+//Matrix 14:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.00068023  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.00204153  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.02408145  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.00118774  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = -0.007427  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = -0.01600043  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = -0.00848862  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = -0.00074898  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 1.962e-05  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.00118774  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.02721156  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.00244347  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = -0.00208511  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = -0.00082458  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.02155434  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 0.01040097  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.00204153  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.00149668  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.007427  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.00244347  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.00462628  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.01011848  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = 0.00060024  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.00426797  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 9.242e-05  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.01600043  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = -0.00208511  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.01011848  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 0.00503338  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = -0.00691201  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = -0.00354776  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 3.545e-05  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.00848862  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = -0.00082458  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.00060024  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = -0.00691201  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = 0.01319632  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = -0.00176159  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = -0.00290604  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = -0.00074898  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.02155434  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 0.00426797  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = -0.00354776  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = -0.00176159  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.0744246  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 0.00072868  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 14] = 1.962e-05  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 14] = 0.01040097  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 14] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 14] = 9.242e-05  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 14] = 3.545e-05  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 14] = -0.00290604  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 14] = 0.00072868  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 14] = 0.05455923  / au_2_eV ;
+
+//Matrix 15:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0712806  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = -0.0369511  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.07688188  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.05168839  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.12870227  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = -0.01356689  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = -0.03620649  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0712806  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = -0.0066746  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 1.2e-07  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = -0.0369511  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = -0.02551916  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = -0.0066746  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = -0.02551916  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.01697743  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.00973542  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.00075221  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = -0.03580052  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.02635196  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.07688188  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.01697743  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.05168839  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.00973542  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = 0.12870227  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 1.2e-07  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.00075221  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = -0.01356689  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = -0.03580052  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 15] = -0.03620649  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 15] = 0.02635196  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 15] = 0.0  / au_2_eV ;
+
+//Matrix 16:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = -0.04823243  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = -0.00833008  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.00764028  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = -0.01825441  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = -0.01180704  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = -0.01801398  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = -0.0768891  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.04823243  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.06867902  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.00833008  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = -0.01263617  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.06867902  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = -0.01263617  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.01160736  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.05068844  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.05566236  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = -0.0499747  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.02190425  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = 0.00764028  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.01160736  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.01825441  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.05068844  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.01180704  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.05566236  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.01801398  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = -0.0499747  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 16] = -0.0768891  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 16] = 0.02190425  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 16] = 0.0  / au_2_eV ;
+
+//Matrix 17:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.00423152  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = -0.01169813  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.02372232  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = -0.00398112  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.00859946  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0002297  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = -0.01123839  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.00423152  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = -0.00859375  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = -0.01169813  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.01427532  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = -0.00859375  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.01427532  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.00726138  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = -0.02698199  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = -0.02182715  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.00823541  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.00625978  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.02372232  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.00726138  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = -0.00398112  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = -0.02698199  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.00859946  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = -0.02182715  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = 0.0002297  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.00823541  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 17] = -0.01123839  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 17] = 0.00625978  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 17] = 0.0  / au_2_eV ;
+
+//Matrix 18:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = -0.01442099  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.01912303  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = -0.00612263  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.00099604  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = -0.00704354  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.01556829  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = -0.00254818  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = 0.00028421  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.00017675  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.00099604  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.02422093  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.00482811  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.00104886  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = 0.00056532  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = -0.00990664  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = -0.00719347  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.01912303  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = -0.00898078  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = -0.00704354  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.00482811  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = -0.02313231  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = -0.0086214  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = 0.00291652  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = -0.00292454  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.00096021  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.01556829  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.00104886  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = -0.0086214  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = -0.01836728  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = -0.00335204  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = 0.0021575  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = -0.00321468  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = -0.00254818  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = 0.00056532  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.00291652  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = -0.00335204  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = -0.00515882  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = -0.0018721  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.00863304  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.00028421  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = -0.00990664  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = -0.00292454  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = 0.0021575  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = -0.0018721  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = -0.05322749  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = 0.0252776  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 18] = 0.00017675  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 18] = -0.00719347  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 18] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 18] = 0.00096021  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 18] = -0.00321468  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 18] = 0.00863304  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 18] = 0.0252776  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 18] = -0.16556369  / au_2_eV ;
+
+//Matrix 19:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = -0.00642655  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.00930442  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = -0.0157733  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = -0.00341332  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = -0.01146342  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = -0.02144902  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = -0.01671774  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.00642655  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.01528697  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.00930442  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = -0.002402  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.01528697  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = -0.002402  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.03431359  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.03017982  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.03363971  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = -0.03083736  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.00940445  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.0157733  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.03431359  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.00341332  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.03017982  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.01146342  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.03363971  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.02144902  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = -0.03083736  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 19] = -0.01671774  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 19] = 0.00940445  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 19] = 0.0  / au_2_eV ;
+
+//Matrix 20:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = -0.08435523  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = -0.00039903  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = -0.03591899  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.00065767  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = -0.00079566  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = -0.01411372  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = 0.00039619  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.00044521  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = -0.00059706  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.00065767  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = -0.00530641  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.00602193  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = -0.00164263  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = 0.00033512  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.03217554  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = 0.00316165  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = -0.00039903  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = -0.03877618  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = -0.00079566  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.00602193  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = -0.05850854  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.00587734  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = 0.00206846  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.00605044  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = -0.00030257  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = -0.01411372  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = -0.00164263  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.00587734  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = -0.03622868  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = -0.00575384  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = -0.01307404  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = 0.00120467  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.00039619  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.00033512  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.00206846  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = -0.00575384  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = -0.04888826  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = -0.00435231  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = -0.00658314  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = 0.00044521  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.03217554  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = 0.00605044  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = -0.01307404  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = -0.00435231  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = 0.19415686  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = -0.01704072  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 20] = -0.00059706  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 20] = 0.00316165  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 20] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 20] = -0.00030257  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 20] = 0.00120467  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 20] = -0.00658314  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 20] = -0.01704072  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 20] = 0.04987875  / au_2_eV ;
+
+//Matrix 21:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = -0.0440833  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0138853  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.01469445  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.00019788  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = -0.00668263  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.01494491  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = -0.00102204  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.00136482  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.00028699  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.00019788  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = -0.00272095  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = -0.00063354  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = -0.00053792  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = -0.00095223  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.01835755  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.00501345  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0138853  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.01864068  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = -0.00668263  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = -0.00063354  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.00244939  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = -0.00904216  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.00397648  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.00225598  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.00029803  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.01494491  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = -0.00053792  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = -0.00904216  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.00163123  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.00261745  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = -0.00245146  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 8.626e-05  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = -0.00102204  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = -0.00095223  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.00397648  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 0.00261745  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.01251794  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.00071634  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = 0.00123392  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.00136482  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.01835755  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.00225598  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = -0.00245146  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.00071634  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = 0.02913025  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = -0.01412518  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 21] = 0.00028699  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 21] = 0.00501345  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 21] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 21] = 0.00029803  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 21] = 8.626e-05  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 21] = 0.00123392  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 21] = -0.01412518  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 21] = -0.01212327  / au_2_eV ;
+
+//Matrix 22:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = -0.00979683  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = -0.02908617  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = -0.03047669  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.00033593  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.00034549  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = -0.00412516  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = 0.00782241  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = -0.00028664  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = 0.00030217  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.00033593  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = -0.00761489  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.00530691  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = -0.00089813  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = -0.00166158  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.00098302  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = -0.01066827  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = -0.02908617  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.04911725  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.00034549  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.00530691  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = -0.06231263  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.01044971  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = 0.03287394  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.00281527  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = -0.00021742  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = -0.00412516  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = -0.00089813  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.01044971  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = -0.02407486  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = -0.00730055  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = -0.00401816  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = 0.00327531  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.00782241  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = -0.00166158  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.03287394  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = -0.00730055  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = -0.07130924  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.00093157  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = -0.00211053  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = -0.00028664  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = 0.00098302  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = 0.00281527  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = -0.00401816  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = 0.00093157  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = 0.03780854  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = -0.05273093  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 22] = 0.00030217  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 22] = -0.01066827  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 22] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 22] = -0.00021742  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 22] = 0.00327531  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 22] = -0.00211053  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 22] = -0.05273093  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 22] = -0.01685322  / au_2_eV ;
+
+//Matrix 23:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.00096978  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.06174245  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.00394598  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.00097009  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = -0.00898345  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.02255153  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = -0.01587406  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = 0.00141343  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = -0.00101273  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.00097009  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = -0.01129274  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.00021667  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.00076674  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = -0.00132475  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = -0.0006985  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.0019409  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.06174245  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = -0.01784082  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = -0.00898345  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.00021667  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = -0.01551051  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.00533011  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = 0.01674665  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = -0.00041499  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.00180524  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.02255153  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = -0.00076674  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = -0.00533011  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.00013559  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = -0.00471812  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = -0.0020048  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = -0.00368779  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = -0.01587406  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = -0.00132475  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.01674665  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.00471812  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = -0.0096629  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = -0.00272564  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.00031566  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = 0.00141343  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = -0.0006985  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = -0.00041499  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.0020048  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = -0.00272564  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = 0.03664041  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = 0.02433249  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 23] = -0.00101273  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 23] = 0.0019409  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 23] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 23] = 0.00180524  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 23] = -0.00368779  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 23] = 0.00031566  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 23] = 0.02433249  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 23] = -0.00466494  / au_2_eV ;
+
+//Matrix 24:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = -0.08190826  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = -0.02690906  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = -0.00965986  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.00137267  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.01259883  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = -0.00800346  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = 0.01002558  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = -0.00074808  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.00092147  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.00137267  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = -0.00380822  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.00401562  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.00080405  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = -0.00096017  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.00404871  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.0023203  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = -0.02690906  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = -0.0272093  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = -0.01259883  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.00401562  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.0444924  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.00060983  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = 0.00622991  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.0015807  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = -0.00035882  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = -0.00800346  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.00080405  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.00060983  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = -0.01346371  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = -0.01654515  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = -0.00084274  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.00064139  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.01002558  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = -0.00096017  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.00622991  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = -0.01654515  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = -0.02558459  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.0001714  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = -0.00262244  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = -0.00074808  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.00404871  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = 0.0015807  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = -0.00084274  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = 0.0001714  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = 0.00486599  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = -0.03730758  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 24] = 0.00092147  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 24] = 0.0023203  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 24] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 24] = -0.00035882  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 24] = 0.00064139  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 24] = -0.00262244  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 24] = -0.03730758  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 24] = 0.01676733  / au_2_eV ;
+
+//Matrix 25:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = -0.07156583  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = -0.00994437  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = -0.03496675  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.00040691  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.00323517  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.00030413  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = -0.00546552  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.00144443  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = -0.00101124  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.00040691  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = -0.00054145  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.00371753  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.00199961  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.00294988  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.02047907  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = -0.02271333  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = -0.00994437  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.01360563  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.00323517  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.00371753  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = -0.03279069  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = -0.00293056  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = -0.00036873  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.00306197  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = -0.00192189  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = 0.00030413  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.00199961  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = -0.00293056  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = -0.03197454  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.00330645  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.00172041  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = 0.00376451  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = -0.00546552  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = 0.00294988  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = -0.00036873  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.00330645  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = -0.02843506  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = 0.00133703  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = 0.00129125  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = -0.00144443  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = -0.02047907  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = -0.00306197  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = -0.00172041  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.00133703  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.00038028  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = -0.02034262  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 25] = -0.00101124  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 25] = -0.02271333  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 25] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 25] = -0.00192189  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 25] = 0.00376451  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 25] = 0.00129125  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 25] = -0.02034262  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 25] = -0.03866928  / au_2_eV ;
+
+//Matrix 26:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.04109093  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.04039865  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.04462637  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = -0.00156844  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.01245639  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.01120604  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.006591  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = -4.703e-05  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.00153028  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = -0.00156844  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.02571043  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.00491638  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.00148732  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.00098677  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.02838098  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.00897556  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.04039865  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.083265  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.01245639  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = -0.00491638  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.07673865  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.00371747  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = -0.02235482  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.00350946  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = -0.00095751  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = -0.01120604  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = -0.00148732  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.00371747  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.04925137  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.00190001  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = -0.00388503  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = -0.0018188  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.006591  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.00098677  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.02235482  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = 0.00190001  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.06353904  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.00099739  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.00132757  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = -4.703e-05  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.02838098  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = 0.00350946  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.00388503  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.00099739  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.12707985  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.00016637  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 26] = 0.00153028  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 26] = 0.00897556  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 26] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 26] = -0.00095751  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 26] = -0.0018188  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 26] = 0.00132757  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 26] = 0.00016637  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 26] = 0.02829968  / au_2_eV ;
+
+//Matrix 27:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = -0.04068112  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = -0.0027088  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.00721018  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = -0.00039541  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = -0.00167135  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.00819449  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = -0.01324374  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.00123458  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = -0.00160167  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.00039541  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.00938666  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = -0.00256547  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = -0.00067162  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = -0.00096482  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.01877852  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = 0.00186716  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = -0.0027088  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.02394613  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.00167135  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = -0.00256547  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.03333458  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = -0.01022575  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.0026  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.00109517  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = -4.13e-06  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.00819449  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = -0.00067162  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = -0.01022575  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = -0.01524009  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.00880651  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.00032251  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = 0.001866  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.01324374  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = -0.00096482  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.0026  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.00880651  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.01973559  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = 0.00399458  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = 0.00228515  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = 0.00123458  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.01877852  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = 0.00109517  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.00032251  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.00399458  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = -0.01986309  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = -0.02734374  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 27] = -0.00160167  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 27] = 0.00186716  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 27] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 27] = -4.13e-06  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 27] = 0.001866  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 27] = 0.00228515  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 27] = -0.02734374  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 27] = -0.03442776  / au_2_eV ;
+
+//Matrix 28:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = -0.06422  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.01219465  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.02979646  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = -0.00089407  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.01116922  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = -0.01112696  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.02315269  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = -0.00075664  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = 0.00181681  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = -0.00089407  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0850354  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.00241539  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = -0.00093705  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.00156517  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 0.00609225  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = -0.00752083  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.01219465  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0342875  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.01116922  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.00241539  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.06449152  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.00902482  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = -0.00038734  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 2.593e-05  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = -0.00156631  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = -0.01112696  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = -0.00093705  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 0.00902482  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0255848  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = -0.00443915  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 0.00671817  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = 0.0008526  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.02315269  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.00156517  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = -0.00038734  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = -0.00443915  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.02927253  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = 0.004644  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = 0.00582918  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = -0.00075664  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = 0.00609225  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = 2.593e-05  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.00671817  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.004644  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = -0.10578453  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = -0.02451844  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 28] = 0.00181681  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 28] = -0.00752083  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 28] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 28] = -0.00156631  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 28] = 0.0008526  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 28] = 0.00582918  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 28] = -0.02451844  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 28] = -0.07057204  / au_2_eV ;
+
+//Matrix 29:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.02026777  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = -0.04078748  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.02734788  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = -0.0006893  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.00182953  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.01514434  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.00556371  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.00069644  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.00033236  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = -0.0006893  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.019316  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = -0.00442752  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = -0.00146069  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.00146047  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.03489208  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.00221971  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = -0.04078748  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.11810201  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.00182953  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = -0.00442752  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.06231061  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = -0.0051825  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = -0.0278471  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.00050792  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = -0.00096282  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.01514434  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = -0.00146069  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = -0.0051825  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.03071581  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.01355137  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = -0.00314583  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.00498878  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.00556371  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.00146047  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = -0.0278471  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.01355137  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.07580425  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.00859337  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = -0.00140904  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.00069644  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.03489208  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = 0.00050792  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = -0.00314583  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = 0.00859337  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = 0.10010435  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = -0.07907976  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 29] = 0.00033236  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 29] = 0.00221971  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 29] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 29] = -0.00096282  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 29] = 0.00498878  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 29] = -0.00140904  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 29] = -0.07907976  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 29] = 0.07910192  / au_2_eV ;
+
+//Matrix 30:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.08870971  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0267625  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0443548  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.00057756  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.00111135  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.03765635  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.00457999  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.00188152  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.00137757  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = -0.00057756  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.0128033  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = -0.0078727  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = -0.00072494  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = -0.00481329  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.0347199  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.02026497  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0267625  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.06775562  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.00111135  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.0078727  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.05810458  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = -0.02093159  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.00679344  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.00335669  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.00281778  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.03765635  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.00072494  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = -0.02093159  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.06190802  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.00535822  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = -0.00357447  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = -0.00209977  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.00457999  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = -0.00481329  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.00679344  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = 0.00535822  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = 0.04924441  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = -0.0033166  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = -0.00451  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.00188152  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.0347199  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.00335669  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = -0.00357447  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = -0.0033166  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.10222488  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.04717663  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 30] = 0.00137757  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 30] = 0.02026497  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 30] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 30] = 0.00281778  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 30] = -0.00209977  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 30] = -0.00451  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 30] = 0.04717663  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 30] = 0.10663368  / au_2_eV ;
+
+//Matrix 31:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.10068163  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.00601484  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.09347006  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = -0.00270589  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.01545249  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.02286431  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.00997914  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.00279013  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = 0.00049921  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = -0.00270589  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0491019  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.00862364  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.00116479  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.0018472  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.02562153  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = -0.00340872  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.00601484  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.214562  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.01545249  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = -0.00862364  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.13267095  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = -0.02053348  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = -0.02491387  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.00277217  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = -0.00217109  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.02286431  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.00116479  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.02053348  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.11252157  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.00651529  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = -0.00030656  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = 0.00043268  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.00997914  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.0018472  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.02491387  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.00651529  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.11102502  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.00314598  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = 0.00752496  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.00279013  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = 0.02562153  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = 0.00277217  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = -0.00030656  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.00314598  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = 0.13237567  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = -0.03386467  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 31] = 0.00049921  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 31] = -0.00340872  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 31] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 31] = -0.00217109  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 31] = 0.00043268  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 31] = 0.00752496  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 31] = -0.03386467  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 31] = -0.01523598  / au_2_eV ;
+
+//Matrix 32:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.08204041  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.00851845  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.08054573  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = -0.00181679  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.00259059  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.00233237  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = -0.01240854  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.00043855  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = -0.00053825  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = -0.00181679  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = -0.0361387  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.01583329  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.00060924  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = -0.00164188  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.00682945  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 0.00652832  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.00851845  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.06898265  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.00259059  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = -0.01583329  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.11763927  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = -0.01816099  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = -0.01374038  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.00144279  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = -0.00044318  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.00233237  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.00060924  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.01816099  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = 0.04788748  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = -3.036e-05  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = -0.00481823  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = -0.00095171  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = -0.01240854  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = -0.00164188  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.01374038  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = -3.036e-05  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = 0.10040844  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = -0.00167152  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 8.075e-05  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = 0.00043855  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.00682945  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = 0.00144279  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = -0.00481823  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = -0.00167152  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.15228394  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 0.02472862  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 32] = -0.00053825  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 32] = 0.00652832  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 32] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 32] = -0.00044318  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 32] = -0.00095171  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 32] = 8.075e-05  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 32] = 0.02472862  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 32] = 0.10459468  / au_2_eV ;
+
+//Matrix 33:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.015514  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.02128272  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = -0.08217635  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = -0.00235484  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.02410216  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = -0.03120662  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = 0.01577971  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = -0.00235533  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.00072563  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = -0.00235484  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = -0.01346845  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.001143  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = -0.00131845  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = 0.00054947  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = -0.01098743  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.01503802  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.02128272  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = -0.10177402  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.02410216  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.001143  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = -0.02122794  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.0153285  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = -0.01840427  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = 0.00028245  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.00046927  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = -0.03120662  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = -0.00131845  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.0153285  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = -0.04039285  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = 0.02272019  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = -0.00206972  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = -0.0017184  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.01577971  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.00054947  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = -0.01840427  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = 0.02272019  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = -0.06112332  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = -0.00276727  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = -0.01037893  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = -0.00235533  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = -0.01098743  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.00028245  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = -0.00206972  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = -0.00276727  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = 0.02552314  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.05521655  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 33] = 0.00072563  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 33] = 0.01503802  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 33] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 33] = 0.00046927  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 33] = -0.0017184  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 33] = -0.01037893  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 33] = 0.05521655  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 33] = 0.07218339  / au_2_eV ;
+
+//Matrix 34:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.192003  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = -0.09524169  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.15211343  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.00159574  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.01239432  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.03882467  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = -0.00010064  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.00168527  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.00046059  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = -0.00159574  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.02022265  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.01573401  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.00044564  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = -0.00947599  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.02221204  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.03254351  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = -0.09524169  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.09643743  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = -0.01239432  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.01573401  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.11994805  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = -0.02177845  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = 0.02872149  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = -0.00089253  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.00533025  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.03882467  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.00044564  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.02177845  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.13022026  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = -0.01051385  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.0103929  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.00029614  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = -0.00010064  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = -0.00947599  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.02872149  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = -0.01051385  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = 0.12599967  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = 0.00332016  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = -0.004865  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.00168527  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.02221204  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = -0.00089253  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.0103929  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = 0.00332016  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = -0.06202133  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = -0.02651223  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 34] = 0.00046059  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 34] = 0.03254351  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 34] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 34] = 0.00533025  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 34] = 0.00029614  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 34] = -0.004865  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 34] = -0.02651223  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 34] = 0.21329387  / au_2_eV ;
+
+//Matrix 35:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = -0.05890537  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.02987043  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = -0.18054403  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = -0.00113943  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.03301144  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.00895655  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = -0.00161423  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = 0.00129411  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = -0.0021542  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = -0.00113943  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = -0.01630816  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.00949151  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.00071626  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = 0.00117909  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = -0.01054787  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = 0.00908522  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.02987043  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = -0.14599619  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.03301144  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.00949151  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.11212963  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = -0.01070491  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = -0.01099153  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = -0.00210958  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = 0.00112502  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.00895655  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.00071626  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.01070491  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = -0.16356898  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = 0.02257813  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = -0.00697289  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = -0.00052095  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = -0.00161423  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.00117909  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.01099153  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = 0.02257813  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = -0.13604339  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = -0.00196721  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = -0.00900028  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = 0.00129411  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = -0.01054787  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = -0.00210958  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = -0.00697289  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = -0.00196721  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = -0.03627285  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = 0.04137855  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 35] = -0.0021542  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 35] = 0.00908522  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 35] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 35] = 0.00112502  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 35] = -0.00052095  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 35] = -0.00900028  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 35] = 0.04137855  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 35] = -0.04657367  / au_2_eV ;
+
+//Matrix 36:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.09131586  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.05737565  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = -0.06775956  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0089295  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.00229322  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.00603152  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = -0.00376459  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = 0.00039588  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = -0.0008131  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0089295  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.42011326  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.05006523  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.00570718  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = 0.01237439  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = -0.06019363  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = -0.02688552  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.05737565  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.00596476  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.00229322  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.05006523  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = -0.05382805  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = -0.00830684  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = 0.01133908  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = -0.00502679  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = -0.00155672  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.00603152  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.00570718  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = -0.00830684  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = -0.07268548  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = 0.00622478  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = -0.01177523  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = -0.00346217  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = -0.00376459  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = 0.01237439  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = 0.01133908  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = 0.00622478  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = -0.05867694  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = -0.00956532  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = -0.01061467  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = 0.00039588  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = -0.06019363  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = -0.00502679  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = -0.01177523  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = -0.00956532  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = 0.14566429  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = 0.07181277  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 36] = -0.0008131  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 36] = -0.02688552  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 36] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 36] = -0.00155672  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 36] = -0.00346217  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 36] = -0.01061467  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 36] = 0.07181277  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 36] = 0.0711248  / au_2_eV ;
+
+//Matrix 37:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = -0.00476198  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.00056009  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.00258507  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = -0.00015165  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00245587  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = -0.00020177  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = 0.00126846  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.0004482  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = -0.00018317  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.00015165  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0062586  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 7.83e-06  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = -0.00050821  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = 0.00033531  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.00631144  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = -0.0025724  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.00056009  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.02163303  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.00245587  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 7.83e-06  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00299465  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.00349936  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = 0.00847083  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.00351427  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = -0.00123224  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.00020177  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = -0.00050821  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00349936  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = -0.003666  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = -0.00686968  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = -0.00456196  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = 0.00076884  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.00126846  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.00033531  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00847083  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = -0.00686968  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = -0.03662023  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = -0.00487789  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = -0.00056474  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = 0.0004482  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = 0.00631144  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = 0.00351427  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = -0.00456196  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = -0.00487789  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = 0.06792001  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = -0.01434915  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 37] = -0.00018317  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 37] = -0.0025724  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 37] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 37] = -0.00123224  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 37] = 0.00076884  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 37] = -0.00056474  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 37] = -0.01434915  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 37] = 0.01141312  / au_2_eV ;
+
+//Matrix 38:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.01972826  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = -0.00137622  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = -0.0449867  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = -0.0036288  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.02100373  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = -0.05481694  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.05228775  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = -0.00357188  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.0030064  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = -0.0036288  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.02258789  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.00428721  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = -0.00518226  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.00440165  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.00025456  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.00542279  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = -0.00137622  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = -0.00299328  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.02100373  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.00428721  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = -0.00992694  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.02584568  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = -0.0252006  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.00165987  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = -0.0009231  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = -0.05481694  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = -0.00518226  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.02584568  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = -0.04498854  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.04972437  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = -0.00274949  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.00300955  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.05228775  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.00440165  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = -0.0252006  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.04972437  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = -0.05180483  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.00254569  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = -0.00436169  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = -0.00357188  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.00025456  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = 0.00165987  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = -0.00274949  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = 0.00254569  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.00095192  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.00781192  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 38] = 0.0030064  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 38] = 0.00542279  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 38] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 38] = -0.0009231  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 38] = 0.00300955  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 38] = -0.00436169  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 38] = 0.00781192  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 38] = 0.01673666  / au_2_eV ;
+
+//Matrix 39:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = -0.00557837  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = -0.00612274  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = -0.11684161  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = -0.00348738  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = 0.05165208  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.06093944  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.02853349  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = 0.00334846  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.0020774  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = -0.00348738  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.00354057  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = 0.0050394  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.00137665  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.00241592  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = -0.00121349  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.00018062  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = -0.00612274  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = -0.0106124  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.05165208  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.0050394  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = -0.05321191  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = -0.02605138  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = -0.02353689  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = -0.00126756  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = -0.00222798  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.06093944  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.00137665  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = -0.02605138  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = -0.1171821  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.0213309  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = -0.0074479  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.00322145  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.02853349  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.00241592  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = -0.02353689  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.0213309  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = -0.06039978  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = 0.00147601  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = -0.00621828  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.00334846  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = -0.00121349  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = -0.00126756  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = -0.0074479  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = 0.00147601  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = -0.00013052  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = -0.0021703  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 39] = 0.0020774  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 39] = 0.00018062  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 39] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 39] = -0.00222798  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 39] = 0.00322145  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 39] = -0.00621828  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 39] = -0.0021703  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 39] = 0.01768902  / au_2_eV ;
+
+//Matrix 40:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = -0.01115642  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.01006179  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = 0.01685817  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = -0.00219261  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = 0.0213954  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = -0.01104181  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = -0.01576476  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = -0.00082839  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = -0.00086557  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = -0.00219261  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = -0.00046044  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = -0.01166049  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.00313539  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.00651711  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.00315817  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = -0.00028139  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.01006179  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = -0.00530646  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = 0.0213954  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = -0.01166049  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = 0.12218268  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = -0.03350468  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = -0.07113218  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = -0.00295539  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = -0.00398132  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = -0.01104181  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = 0.00313539  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = -0.03350468  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.02376329  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.0184099  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.00143804  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = 0.00036301  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = -0.01576476  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = 0.00651711  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = -0.07113218  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.0184099  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.05970141  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.00119997  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = 0.00442321  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = -0.00082839  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = 0.00315817  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = -0.00295539  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.00143804  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.00119997  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.00259069  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = 0.01301167  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 40] = -0.00086557  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 40] = -0.00028139  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 40] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 40] = -0.00398132  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 40] = 0.00036301  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 40] = 0.00442321  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 40] = 0.01301167  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 40] = -0.01714918  / au_2_eV ;
+
+//Matrix 41:
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = -0.0009524  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = -0.00045425  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = -0.03644786  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = -0.00217414  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.02995693  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = -0.0279039  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = 0.05176284  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = -0.00275203  / au_2_eV ;
+
+setm->c_lvcm[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = 0.00557472  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = -0.00217414  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.00136093  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.00192477  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = -0.00078253  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = 0.0027809  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = -9.614e-05  / au_2_eV ;
+
+setm->c_lvcm[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = 0.0006628  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = -0.00045425  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = -0.00190479  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[3 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = 0.02995693  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.00192477  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = -0.02287054  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = 0.0078175  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = -0.0341512  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = 0.00105018  / au_2_eV ;
+
+setm->c_lvcm[4 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = -0.00342304  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = -0.0279039  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = -0.00078253  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.0078175  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = 0.04854907  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = -0.02094138  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = 0.00362467  / au_2_eV ;
+
+setm->c_lvcm[5 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = -0.00279303  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = 0.05176284  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.0027809  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = -0.0341512  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = -0.02094138  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = -0.03113651  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = -0.00094851  / au_2_eV ;
+
+setm->c_lvcm[6 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = -0.00271065  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = -0.00275203  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = -9.614e-05  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = 0.00105018  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = 0.00362467  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = -0.00094851  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = -0.0006802  / au_2_eV ;
+
+setm->c_lvcm[7 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = -0.00030129  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + 41] = 0.00557472  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + 41] = 0.0006628  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 3 * setm->N_mode_lvcm + 41] = 0.0  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 4 * setm->N_mode_lvcm + 41] = -0.00342304  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 5 * setm->N_mode_lvcm + 41] = -0.00279303  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 6 * setm->N_mode_lvcm + 41] = -0.00271065  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 7 * setm->N_mode_lvcm + 41] = -0.00030129  / au_2_eV ;
+
+setm->c_lvcm[8 * setm->Nstate_lvcm * setm->N_mode_lvcm + 8 * setm->N_mode_lvcm + 41] = 0.00013596  / au_2_eV ;
+        break;
      }
 
      

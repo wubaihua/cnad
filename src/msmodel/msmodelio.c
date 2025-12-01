@@ -653,21 +653,29 @@ void readinp_dnalvcm(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
     }
 
     switch (setm->type_dnalvcm) {
-        case 1:
+        case 1: // 7HG_CAM
             setm->Nstate_lvcm = 6;
             setm->N_mode_lvcm = 42;
             break;
-        case 2:
+        case 2: // C_CAM
             setm->Nstate_lvcm = 7;
             setm->N_mode_lvcm = 33;
             break;
-        case 3:
+        case 3: // T_CAM
             setm->Nstate_lvcm = 7;
             setm->N_mode_lvcm = 39;
             break;
-        case 4:
+        case 4: // U_CAM
             setm->Nstate_lvcm = 8;
             setm->N_mode_lvcm = 30;
+            break;
+        case 5: // A_CAM
+            setm->Nstate_lvcm = 6;
+            setm->N_mode_lvcm = 39;
+            break;
+        case 6: // G_CAM
+            setm->Nstate_lvcm = 9;
+            setm->N_mode_lvcm = 42;
             break;
     }
 
