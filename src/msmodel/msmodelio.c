@@ -702,19 +702,36 @@ void readinp_frozen(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set
     if (NULL !=  cJSON_GetObjectItem(item, "Hele_frozen")){
         cJSON *numbers = cJSON_GetObjectItem(item, "Hele_frozen"); 
         setm->Nstate_frozen = (int)sqrt(cJSON_GetArraySize(numbers)); 
-        setm->Hele_frozen = (double *)malloc(setm->Nstate_frozen * setm->Nstate_frozen * sizeof(double));   
+        setm->Hele_frozen = (double complex *)malloc(setm->Nstate_frozen * setm->Nstate_frozen * sizeof(double complex)); 
         for (int i = 0; i < setm->Nstate_frozen * setm->Nstate_frozen; i++) {
-            number = cJSON_GetArrayItem(numbers, i); 
-            setm->Hele_frozen[i] = number->valuedouble; 
-        }   
+            // number = cJSON_GetArrayItem(numbers, i); 
+            // setm->Hele_frozen[i] = number->valuedouble; 
+            cJSON *pair = cJSON_GetArrayItem(numbers, i);
+                 
+            if (pair->type == cJSON_Array) {
+                // 如果是复数对[re, im]
+                double re = cJSON_GetArrayItem(pair, 0)->valuedouble;
+                double im = cJSON_GetArrayItem(pair, 1)->valuedouble;
+                setm->Hele_frozen[i] = re + im * I;
+            } else if (pair->type == cJSON_Number) {
+                // 如果只是单个实数
+                
+                setm->Hele_frozen[i] = pair->valuedouble + 0.0 * I;
+                    
+            }   
+        }
     }
     *Ndof1 = 1;
     *Ndof2 = 1;
     *Nstate = setm->Nstate_frozen;
 
 
-     
-
+//      for (int i = 0; i < setm->Nstate_frozen; i++) {
+//         for (int j = 0; j < setm->Nstate_frozen; j++) {
+//             printf("Hele_frozen[%d][%d] = %f + %fi\n", i, j, creal(setm->Hele_frozen[i * setm->Nstate_frozen + j]), cimag(setm->Hele_frozen[i * setm->Nstate_frozen + j]));
+//         }
+//     }
+// exit(-1);
 
 }
 

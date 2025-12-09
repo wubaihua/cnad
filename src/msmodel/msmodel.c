@@ -226,7 +226,8 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
         V_dnalvcm(R, H, setm->forcetype,setm);
         ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "frozen") == 0 ) {
-        V_frozen(R, V_real, setm);
+        V_frozen(R, H, setm);
+        ifcpy = 1;
     } else if (strcmp(setm->msmodelname, "dualho") == 0 ) {
         V_dualho(R, V_real, setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0 ) {

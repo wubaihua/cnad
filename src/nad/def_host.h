@@ -922,7 +922,7 @@ struct set_host
 
         // frozen nuclei limit
         int Nstate_frozen;
-        double *Hele_frozen;
+        double complex *Hele_frozen;
         
 
 
