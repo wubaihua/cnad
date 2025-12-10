@@ -541,8 +541,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         random_prob(seth->Nstate, action);
         // sets->init_occ=1;
         // for (int i = 0; i < seth->Nstate; i++) {
-        //     action[i] = (1.0)/(seth->Nstate);
-        //     theta[i] = 1.5;
+        //     action[i] = 1.0;
+        //     theta[i] = 0.0;
         //     // printf("action[%d]=%f\n",i,action[i]);
         // }
         // action[sets->init_occ - 1] = 0.5;
@@ -551,6 +551,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->xe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * (1 + seth->Nstate * seth->gamma_zpe) * action[i]) * sin(theta[i]);
         }
+
+        
 
         // 初始化 sets->gamma_cv
         for (int i = 0; i < seth->Nstate; i++) {
@@ -592,7 +594,7 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             action[i] = seth->gamma_zpe;
         }
         action[sets->init_occ - 1] += 1.0;
-
+        
         // 计算 sets->xe 和 sets->pe
         for (i = 0; i < seth->Nstate; i++) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
@@ -636,13 +638,15 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
         }
         p1 = 100000;
         while (1.0 - action[sets->init_occ - 1] < p1){
-            for (i = 0; i < seth->Nstate; i++) {
-                action[i] = ((double) rand() / RAND_MAX);
-            }
+            // for (i = 0; i < seth->Nstate; i++) {
+            //     action[i] = ((double) rand() / RAND_MAX);
+            // }
+            action[sets->init_occ - 1] = ((double) rand() / RAND_MAX);
             p1 = ((double) rand() / RAND_MAX);
         }
         for (i = 0; i < seth->Nstate; i++) {
             if (i == sets->init_occ - 1) continue;
+            action[i] = ((double) rand() / RAND_MAX);
             action[i] *= (1.0 - action[sets->init_occ - 1]);
         }
         action[sets->init_occ - 1] += 1;
@@ -2339,6 +2343,8 @@ void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth, in
                 sets->xe[i]=creal(tempv1[i])-cimag(tempv2[i]);
                 sets->pe[i]=creal(tempv2[i])+cimag(tempv1[i]);
             }
+
+            
            
             break;
         
@@ -4302,6 +4308,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
         //     }
         // }
     }
+
+    
     
 }
 

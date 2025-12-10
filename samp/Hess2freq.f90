@@ -458,7 +458,7 @@ real*8 :: x2, cutoff,au2wn
 
 
 au2wn = 219474.6313702
-cutoff=100 / au2wn
+cutoff=30 / au2wn
 
 nsize=size(Rsamp,1)
 allocate(mass3n(nsize))
@@ -474,9 +474,13 @@ do ire=1,nsize
 		Rsamp(ire)=0.0D0 !If frequency is zero or negative, set position to zero
 		Psamp(ire)=0.0D0 !Set momentum to zero
 	else
-		call box_muller(Rsamp(ire),x2,sqrt(1/(beta*freq2(ire))),0.0D0)
-		call box_muller(Psamp(ire),x2,sqrt(1/(beta)),0.0D0)
-
+		if(beta>1e5)then
+			Rsamp(ire)=0.0D0
+			Psamp(ire)=0.0D0
+		else
+			call box_muller(Rsamp(ire),x2,sqrt(1/(beta*freq2(ire))),0.0D0)
+			call box_muller(Psamp(ire),x2,sqrt(1/(beta)),0.0D0)
+		end if
 	end if
 	
 end do
