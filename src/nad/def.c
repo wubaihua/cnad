@@ -482,7 +482,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
     }
 
     if (strcmp(seth->method, "MFT") == 0 || strcmp(seth->method, "mft") == 0 ||
-        strcmp(seth->method, "BCMF") == 0 || strcmp(seth->method, "bcmf") == 0) {
+        strcmp(seth->method, "BCMF") == 0 || strcmp(seth->method, "bcmf") == 0 ||
+        strcmp(seth->method, "adia") == 0 || strcmp(seth->method, "adiabatic") == 0 ) {
         
         if (seth->if_occ_rand) {
             x2 = (double) rand() / RAND_MAX;
@@ -516,6 +517,8 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
                 sets->cf0[i] = sets->den_e[i] - sets->gamma_cv[i];
             }
         }
+
+        sets->id_state = sets->init_occ-1;
 
         // if (if_ref == 1) {
         //     for (iref = 0; iref < Nref; iref++) {
@@ -1597,7 +1600,8 @@ void cal_correfun(struct set_slave *sets,struct set_host *seth) {
 
     
     if (strcmp(seth->method, "MFT") == 0 || strcmp(seth->method, "mft") == 0 ||
-        strcmp(seth->method, "BCMF") == 0 || strcmp(seth->method, "bcmf") == 0) {
+        strcmp(seth->method, "BCMF") == 0 || strcmp(seth->method, "bcmf") == 0 ||
+        strcmp(seth->method, "adia") == 0 || strcmp(seth->method, "adiabatic") == 0 ) {
         
         if (seth->type_evo == 1 || seth->type_evo == 3) {
             for (i = 0; i < seth->Nstate * seth->Nstate; i++) {
@@ -2323,6 +2327,10 @@ void evo_traj_ele(double deltat,struct set_slave *sets,struct set_host *seth, in
     int i;
     double complex tempv1[seth->Nstate],tempv2[seth->Nstate];
     double complex tempcm1[seth->Nstate*seth->Nstate],tempcm2[seth->Nstate*seth->Nstate];
+
+    if (strcmp(seth->method, "adia") == 0 || strcmp(seth->method, "adiabatic") == 0 ) {
+        return;
+    }
    
     switch (seth->type_evo) {
         case 0:
@@ -4258,7 +4266,9 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
                strcmp(seth->method, "msmash3") == 0 || strcmp(seth->method, "MSMASH3") == 0 ) {
 
         cal_force_sh(sets,seth,para);
-
+    
+    } else if (strcmp(seth->method, "adia") == 0 || strcmp(seth->method, "adiabatic") == 0) {
+        cal_force_adia(sets,seth);
     } else {
         
         // if (if_ref == 1) {
@@ -5520,6 +5530,74 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
 }
 
 
+
+
+void cal_force_adia(struct set_slave *sets, struct set_host *seth) {
+    double c_main[seth->Nstate], sumc_main[seth->Nstate];
+    double xe_save[seth->Nstate], pe_save[seth->Nstate];
+    double complex gamma_cv_save[seth->Nstate * seth->Nstate], den_e_save[seth->Nstate * seth->Nstate];
+    double tempdm1[seth->Nstate * seth->Nstate], tempdm2[seth->Nstate * seth->Nstate], tempdv1[seth->Nstate], tempdv2[seth->Nstate];
+    double complex tempcm1[seth->Nstate * seth->Nstate], tempcm2[seth->Nstate * seth->Nstate];
+    double complex tempcv1[seth->Nstate], tempcv2[seth->Nstate];
+    double deltavector[seth->Ndof1 * seth->Ndof2],P_para[seth->Ndof1 * seth->Ndof2],P_ver[seth->Ndof1 * seth->Ndof2];
+    double sum, x1, x2;
+    double complex csum;
+    double complex Q_dia[seth->Nstate * seth->Nstate];
+    double deltaE_mash;
+    double prob_hop[seth->Nstate], r_hop;
+    int id_switch;
+    double complex commu_d_V[seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2];
+    double complex csum1, csum2;
+    
+    
+    if (seth->rep == 1) {
+        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+            sets->force[i] = - creal(sets->dv_adia[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + i]);
+        }
+        
+    } else if (seth->rep == 0 || seth->rep == 2) {
+        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+            sets->force[i] = - creal(sets->dV[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + sets->id_state * seth->Ndof1 * seth->Ndof2 + i]);
+        }
+    // } else if (seth->rep == 3) {
+
+    //     for (int k = 0; k < seth->Ndof1*seth->Ndof2; k++) {
+    //         for (int i = 0; i < seth->Nstate; i++) {
+    //             for (int j = 0; j < seth->Nstate; j++) {
+    //                 csum1 = 0.0;
+    //                 for (int l = 0; l < seth->Nstate; l++) {
+    //                     csum1 += sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + l * seth->Ndof1 * seth->Ndof2 + k] * sets->V[l * seth->Nstate + j]
+    //                              - sets->V[i * seth->Nstate + l] * sets->nac[l * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+    //                 }
+    //                 commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k] = csum1;
+    //             }
+    //         }
+    //     }
+
+    //     for (int i = 0; i < seth->Nstate; i++) {
+    //         for (int j = 0; j < seth->Nstate; j++) {
+    //             if (i == j) {
+    //                 for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+    //                     sets->force[k] -= creal(sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * (Q_dia[j * seth->Nstate + i]));
+    //                     // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
+    //                 }
+    //             } else {
+    //                 for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
+    //                     sets->force[k] -= creal((Q_dia[i * seth->Nstate + j])
+    //                                       * (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]
+    //                                         + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] ));
+    //                     // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+    //                 }
+    //             }
+    //         }
+    //     }
+        
+    }
+
+   
+
+
+}
 
 
 void cal_force_eld(struct set_slave *sets,struct set_host *seth) {

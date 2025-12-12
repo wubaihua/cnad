@@ -1780,6 +1780,8 @@ void print_info(struct set_host *seth){
 
     } else if (strcmp(seth->method, "NW") == 0 || strcmp(seth->method, "nw") == 0) {
         printf("Method: New Window Function Approach (NW)\n");
+    } else if (strcmp(seth->method, "adia") == 0 || strcmp(seth->method, "adiabatic") == 0) {
+        printf("Method: adiabatic molecular dynamics\n");
     // } else if (strcmp(method, "unsmash") == 0 || strcmp(method, "UNSMASH") == 0 || strcmp(method, "unSMASH") == 0) {
     //     printf("Method: uncoupled spheres Mapping Approach to Surface Hopping (unSMASH)\n");
     //     printf("Related Pulication: arXiv:2403.10627\n");
