@@ -665,13 +665,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
-        // //debug
-        // for (i = 0; i < seth->Nstate; i++) {
-        //     sets->xe[i] = 0.5;
-        //     sets->pe[i] = 0.5;
-        // }
-        // sets->xe[sets->init_occ - 1] = 1.5;
-        // sets->pe[sets->init_occ - 1] = 0.0;
+        //debug
+        for (i = 0; i < seth->Nstate; i++) {
+            sets->xe[i] = 0.5;
+            sets->pe[i] = 0.5;
+        }
+        sets->xe[sets->init_occ - 1] = 1.5;
+        sets->pe[sets->init_occ - 1] = 0.0;
      
         
         if(seth->if_scale_sqc == 0)seth->gamma_zpe = 1.0 / 3.0 ;
@@ -4311,6 +4311,8 @@ void cal_force(struct set_slave *sets,struct set_host *seth,int para) {
             cal_force_mf(sets,seth);
         }
     }
+
+    
     
     if (seth->forcetype == 1) {
         nucforce_msmodel(sets->R_nuc, sets->force_nuc, seth);
@@ -4389,7 +4391,7 @@ void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
                             }
                         } else {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - sets->gamma_cv[i * seth->Nstate + j]) * (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]);
+                                sets->force[k] -= creal((0.5 * (sets->xe[i] - I * sets->pe[i]) * (sets->xe[j] + I * sets->pe[j]) - sets->gamma_cv[j * seth->Nstate + i]) * (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]);
                                 // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
                             }
                         }
