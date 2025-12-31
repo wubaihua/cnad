@@ -665,7 +665,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
-
+        // //debug
+        // for (i = 0; i < seth->Nstate; i++) {
+        //     sets->xe[i] = 0.5;
+        //     sets->pe[i] = 0.5;
+        // }
+        // sets->xe[sets->init_occ - 1] = 1.5;
+        // sets->pe[sets->init_occ - 1] = 0.0;
      
         
         if(seth->if_scale_sqc == 0)seth->gamma_zpe = 1.0 / 3.0 ;
@@ -4378,12 +4384,12 @@ void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
                     for (j = 0; j < seth->Nstate; j++) {
                         if (i == j) {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                                sets->force[k] -= creal((0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - creal(sets->gamma_cv[i * seth->Nstate + i])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]);
+                                sets->force[k] -= creal((0.5 * (sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) - sets->gamma_cv[i * seth->Nstate + i]) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]);
                                 // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
                             }
                         } else {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]);
+                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - sets->gamma_cv[i * seth->Nstate + j]) * (sets->E_adia[j] - sets->E_adia[i]) * sets->nac[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k]);
                                 // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
                             }
                         }
@@ -4408,12 +4414,12 @@ void cal_force_mf(struct set_slave *sets,struct set_host *seth) {
                     for (j = 0; j < seth->Nstate; j++) {
                         if (i == j) {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                                sets->force[k] -= creal(sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * ((sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * 0.5 - sets->gamma_cv[i * seth->Nstate + i]));
+                                sets->force[k] -= creal((sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]) * ((sets->xe[i] * sets->xe[i] + sets->pe[i] * sets->pe[i]) * 0.5 - sets->gamma_cv[i * seth->Nstate + i]));
                                 // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
                             }
                         } else {
                             for (k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) 
+                                sets->force[k] -= creal((0.5 * (sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) - sets->gamma_cv[i * seth->Nstate + j]) 
                                                   * (commu_d_V[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]
                                                     + sets->dV[j * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] ));
                                 // sets->force[k] -= (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - creal(sets->gamma_cv[i * seth->Nstate + j])) * sets->dv_adia[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
@@ -4951,6 +4957,9 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
     int id_switch;
     double complex commu_d_V[seth->Nstate * seth->Nstate * seth->Ndof1 * seth->Ndof2];
     double complex csum1, csum2;
+
+
+    
     
     
     switch (seth->type_hop){
@@ -5508,7 +5517,7 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
             for (int j = 0; j < seth->Nstate; j++) {
                 if (i == j) {
                     for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++) {
-                        sets->force[k] -= creal(sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] * (Q_dia[j * seth->Nstate + i]));
+                        sets->force[k] -= creal((sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k] + commu_d_V[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + k]) * (Q_dia[i * seth->Nstate + i]));
                         // printf("sets->force(%d)=%18.8E,%d,%d,%d)=%18.8E\n",i,j,k,l,sets->dv_adia[i*seth->Nstate*seth->Ndof1*seth->Ndof2+j*seth->Ndof1*seth->Ndof2+k*seth->Ndof2+l]);
                     }
                 } else {
@@ -5525,7 +5534,36 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
     }
 
    
+//debug
+    // printf("den:\n");
+    // for (int i = 0; i < 1; i++) {
+    //     for (int j = 0; j < seth->Nstate; j++) {
+    //         csum1 =  ((sets->xe[i] + I * sets->pe[i]) * (sets->xe[j] - I * sets->pe[j]) * 0.5 - sets->gamma_cv[i * seth->Nstate + j] );
+    //         printf("(%f, %f), ", creal(csum1), cimag(csum1)) ;
+    //     }
+    //     printf("\n");
+    // }
+    // printf("-------------------\n");
+    // printf("fm:\n");
+    // for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++){
+    //     for (int i = 0; i < 1; i++) {
+    //         for (int j = 0; j < seth->Nstate; j++) {
+                
+    //                 csum2 = sets->dV[i * seth->Nstate * seth->Ndof1 * seth->Ndof2 + j * seth->Ndof1 * seth->Ndof2 + k];
+    //                 printf("%18.8e, ", creal(csum2)) ;
+    //             }
+    //         }
+    //     printf("\n");
+    // }
+    // printf("=====================\n");
 
+    // printf("f:\n");
+    // for (int k = 0; k < seth->Ndof1 * seth->Ndof2; k++){
+    //     printf("%18.8e, ", sets->force[k]) ;
+        
+    // }
+    // printf("\n");
+    // printf("=====================\n");
 
 }
 
