@@ -665,13 +665,13 @@ void sample_ele(struct set_slave *sets,struct set_host *seth) {
             sets->xe[i] = sqrt(2 * action[i]) * cos(theta[i]);
             sets->pe[i] = sqrt(2 * action[i]) * sin(theta[i]);
         }
-        //debug
-        for (i = 0; i < seth->Nstate; i++) {
-            sets->xe[i] = 0.5;
-            sets->pe[i] = 0.5;
-        }
-        sets->xe[sets->init_occ - 1] = 1.5;
-        sets->pe[sets->init_occ - 1] = 0.0;
+        // //debug
+        // for (i = 0; i < seth->Nstate; i++) {
+        //     sets->xe[i] = 0.5;
+        //     sets->pe[i] = 0.5;
+        // }
+        // sets->xe[sets->init_occ - 1] = 1.5;
+        // sets->pe[sets->init_occ - 1] = 0.0;
      
         
         if(seth->if_scale_sqc == 0)seth->gamma_zpe = 1.0 / 3.0 ;
