@@ -187,25 +187,6 @@ void parameter_bpy(double *mass, struct set_host *setm) {
 
 
 
-    // for (int i = 0; i < setm->Nstate_lvcm; i++) {
-    //     for (int j = 0; j < setm->Nstate_lvcm; j++) {
-    //         setm->H_ele_lvcm[i * 11 + j] = conj(setm->H_ele_lvcm[i * 11 + j]);
-    //     }
-    // }
-
-
-// for (int i = 0; i < setm->Nstate_lvcm; i++) {
-//     for (int j = 0; j < setm->Nstate_lvcm; j++) {
-//         // if(fabs(cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV) > 1e-6){
-//         printf("(%f + i * %f)  ", creal(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV, cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV);
-//         // }else{
-//         // printf("(%f)  ", creal(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV, cimag(setm->H_ele_lvcm[i * 11 + j]) * au_2_eV);
-//         // }
-//     }
-//     printf("\n");
-// }
-// exit(-1);
-
 
 }
 
@@ -214,25 +195,28 @@ void sample_bpy(double *P, double *R, struct set_host *setm) {
     double x2;
 
     sample_LVCM(P, R, setm);
-    
+
 
 }
 
 void V_bpy(double *R, double complex *H, int forcetype, struct set_host *setm) {
-    
+
     V_LVCM(R, H, forcetype, setm);
+   
     
 }
 
 void dV_bpy(double *R, double complex *dH, int forcetype, struct set_host *setm) {
-    
+ 
     dV_LVCM(R, dH, forcetype, setm);
+    
 
 }
 
 void nucforce_bpy(double *R, double *nf, struct set_host *setm) {
 
     nucforce_LVCM(R, nf, setm);
+   
 
 }
 
