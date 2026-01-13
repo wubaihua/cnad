@@ -103,6 +103,9 @@ if(x86)
     add_library(sbmtd OBJECT src/msmodel/sbmtd.c)
     set_target_properties(sbmtd PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(soctest OBJECT src/msmodel/soctest.c)
+    set_target_properties(soctest PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(mole OBJECT src/msmodel/mole.c)
     set_target_properties(mole PROPERTIES COMPILE_FLAGS "-I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -129,7 +132,7 @@ if(x86)
                         $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:crco5>
                         $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:rubrene> $<TARGET_OBJECTS:dnalvcm> 
                         $<TARGET_OBJECTS:frozen>  $<TARGET_OBJECTS:dualho>   $<TARGET_OBJECTS:bpy> $<TARGET_OBJECTS:retinal> $<TARGET_OBJECTS:aso> $<TARGET_OBJECTS:isc> 
-                        $<TARGET_OBJECTS:sbmtd> $<TARGET_OBJECTS:mole> 
+                        $<TARGET_OBJECTS:sbmtd> $<TARGET_OBJECTS:soctest> $<TARGET_OBJECTS:mole> 
                         $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
@@ -242,6 +245,9 @@ elseif(sunway)
     add_library(sbmtd OBJECT src/msmodel/sbmtd.c)
     set_target_properties(sbmtd PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
+    add_library(soctest OBJECT src/msmodel/soctest.c)
+    set_target_properties(soctest PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
+
     add_library(msmodel OBJECT src/msmodel/msmodel.c)
     set_target_properties(msmodel PROPERTIES COMPILE_FLAGS "-mslave -I src/nad/ -I src/msmodel/ -I src/mod/")
 
@@ -265,7 +271,7 @@ elseif(sunway)
                         $<TARGET_OBJECTS:sf> $<TARGET_OBJECTS:aic> $<TARGET_OBJECTS:lvcm> $<TARGET_OBJECTS:pyrazine> $<TARGET_OBJECTS:crco5> 
                         $<TARGET_OBJECTS:semdp> $<TARGET_OBJECTS:fmodp> $<TARGET_OBJECTS:tully> $<TARGET_OBJECTS:rubrene> $<TARGET_OBJECTS:dnalvcm> 
                         $<TARGET_OBJECTS:frozen> $<TARGET_OBJECTS:dualho>  $<TARGET_OBJECTS:bpy> $<TARGET_OBJECTS:retinal> $<TARGET_OBJECTS:aso> $<TARGET_OBJECTS:isc> 
-                        $<TARGET_OBJECTS:sbmtd> $<TARGET_OBJECTS:msmodel> 
+                        $<TARGET_OBJECTS:sbmtd> $<TARGET_OBJECTS:soctest> $<TARGET_OBJECTS:msmodel> 
                         $<TARGET_OBJECTS:def> $<TARGET_OBJECTS:run_slave> $<TARGET_OBJECTS:def_host> $<TARGET_OBJECTS:nad>)
 
     # 链接库

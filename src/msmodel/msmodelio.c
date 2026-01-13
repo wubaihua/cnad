@@ -840,6 +840,7 @@ void readinp_isc(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_ho
 
 
 
+
 void readinp_mole(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     
 
@@ -999,6 +1000,22 @@ void readinp_SBMTD(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_
     // //debug
 }
 
+void readinp_soctest(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    
+
+    cJSON *list;
+    
+    
+    setm->Nstate_lvcm = 3;
+    setm->N_mode_lvcm = 3;
+    
+
+    *Ndof1 = 1;
+    *Ndof2 = setm->N_mode_lvcm;
+    *Nstate = setm->Nstate_lvcm;
+
+}
+
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
@@ -1064,6 +1081,8 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         readinp_SBMTD(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0) {
+        readinp_soctest(json, Ndof1, Ndof2, Nstate, setm);
     }
 
 

@@ -30,6 +30,7 @@
 #include "aso.h"
 #include "isc.h"
 #include "sbmtd.h"
+#include "soctest.h"
 
 #ifdef x86
     #include "def.h"
@@ -106,6 +107,8 @@ void init_msmodel(double *mass, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         parameter_SBMTD(mass,setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0) {
+        parameter_soctest(mass,setm);
     }
 
     #ifdef x86
@@ -170,6 +173,8 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         sample_SBMTD(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0) {
+        sample_soctest(P, R, setm);
     }
     
     #ifdef x86
@@ -245,6 +250,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         V_SBMTD(R, V_real, setm->forcetype, t, setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0 ) {
+        V_soctest(R, H, setm->forcetype, setm);
+        ifcpy = 1;
     }
 
     if(ifcpy == 0){
@@ -321,6 +329,9 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         dV_SBMTD(R, dV_real, setm->forcetype, 0.0, setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0 ) {
+        dV_soctest(R, dH, setm->forcetype, setm);
+        ifcpy = 1;
     }
     
     // #ifdef x86
@@ -382,6 +393,8 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "SBMTD") == 0 ||
        strcmp(setm->msmodelname, "sbmtd") == 0) {
         nucforce_SBMTD(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0) {
+        nucforce_soctest(R, nf,setm);
     }
 }
 
@@ -414,6 +427,8 @@ void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
     } else if (strcmp(setm->msmodelname, "crco5") == 0 ||
        strcmp(setm->msmodelname, "CrCO5") == 0) {
         nac_crco5(R, nac, setm);
+    } else if (strcmp(setm->msmodelname, "soctest") == 0) {
+        nac_soctest(R, nac, setm);
     }
 }
 
