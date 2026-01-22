@@ -110,8 +110,19 @@ void nac_soctest(double *R, double complex *nac, struct set_host *setm) {
 
     
     memset(nac, 0, setm->Nstate_lvcm * setm->Nstate_lvcm * setm->N_mode_lvcm * sizeof(double complex)); // Initialize nac to zero
+
     
-    
+    for (int k = 0; k < setm->N_mode_lvcm; k++) {
+        
+        nac[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + k] = 0.2 ;
+        nac[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + k] = -0.2 ;
+        nac[0 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + k] = 0.5 ;
+        nac[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 0 * setm->N_mode_lvcm + k] = -0.5 ;
+        nac[1 * setm->Nstate_lvcm * setm->N_mode_lvcm + 2 * setm->N_mode_lvcm + k] = -0.1 ;
+        nac[2 * setm->Nstate_lvcm * setm->N_mode_lvcm + 1 * setm->N_mode_lvcm + k] = 0.1 ;
+        
+    }
+      
     
 }
 
