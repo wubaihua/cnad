@@ -148,7 +148,7 @@ write(*,*) sqrt(abs(eigvalarr))*sign(1.0d0,eigvalarr) * 219474.6313702
 
 
 
-write(*,"(a)") "Input T (K), Nsamp, type of sampling (0 for classical, 1 for quantum), and output form (0 for 1 xyz file, 1 for multiple xyz files):"
+write(*,"(a)") "Input T (K), Nsamp, type of sampling (0 for classical, 1 for quantum), and output form (0 for 1 xyz file, 1 for multiple xyz files, 2 for psinad samp files):"
 read(*,*) T,nssmp,i_typesamp,i_typeout
 
 
@@ -157,7 +157,7 @@ beta=1.0D0/(T*1.3806E-5/4.35974) !Beta in a.u.
 
 write(*,*) "T=",T, "K, beta=", beta, ", Nsamp=",nssmp," i_typesamp=",i_typesamp," i_typeout=",i_typeout
 
-if(i_typeout == 0)then 
+if(i_typeout == 0 .or. i_typeout == 2)then 
 	open(11,file="Rsample.xyz",status="replace")
 	open(12,file="Psample.xyz",status="replace")
 end if
@@ -183,6 +183,13 @@ do i=1,nssmp
 		open(12,file="sample_"//trim(adjustl(c10))//"/P0.xyz",status="replace")
 	end if
 
+	if(i_typeout == 2)then 
+		write(c10, '(I10)') i 
+		! call system("mkdir -p sample_"//trim(adjustl(c10)))
+		open(110,file="samp"//trim(adjustl(c10))//".ds",status="replace")
+		! open(12,file="sample_"//trim(adjustl(c10))//"/P0.xyz",status="replace")
+	end if
+
 	write(11,*) natm
 	write(11,*) "Sampled coordinates at step ",i
 	do j=1,natm
@@ -194,6 +201,21 @@ do i=1,nssmp
 	do j=1,natm
 		write(12,"(a2,3E18.8)") atom_names(int(atomid(j))), Psamp((j-1)*3+1), Psamp((j-1)*3+2), Psamp((j-1)*3+3)
 	end do
+
+	if(i_typeout == 2)then 
+		write(110,*) "init.x"
+		write(110,*) "_real", natm*3, 1, natm*3
+		do j=1,natm
+			write(110,"(3E18.8)",advance="no") Rsamp((j-1)*3+1), Rsamp((j-1)*3+2), Rsamp((j-1)*3+3)
+		end do
+		write(110,*)
+		write(110,*) "init.p"
+		write(110,*) "_real", natm*3, 1, natm*3
+		do j=1,natm
+			write(110,"(3E18.8)",advance="no") Psamp((j-1)*3+1), Psamp((j-1)*3+2), Psamp((j-1)*3+3)
+		end do
+		close(110)
+	end if
 
 	if(i_typeout == 1)then 
 		close(11)
@@ -209,7 +231,7 @@ do i=1,nssmp
 
 end do
 
-if(i_typeout == 0)then 
+if(i_typeout == 0 .or. i_typeout == 2)then 
 	close(11)
 	close(12)
 end if
