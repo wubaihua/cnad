@@ -410,6 +410,9 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
         cfweight_rubrene(rho0,rhot, beta, R, P, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         cfweight_frozen(rho0,rhot,setm);
+    } else if (strcmp(setm->msmodelname, "SBM") == 0 ||
+        strcmp(setm->msmodelname, "sbm") == 0) {
+        cfweight_SBM(rho0, rhot, beta, R, P, setm);
     }
 }
 

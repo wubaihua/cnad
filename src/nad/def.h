@@ -377,8 +377,8 @@ struct set_slave
 
 
 
-void initial_para();
-void readinp();
+// void initial_para();
+// void readinp();
 void initial_vari(struct set_slave *sets,struct set_host *seth);
 
 // void print_info();

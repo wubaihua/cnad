@@ -221,27 +221,135 @@ void nucforce_SBM(double *R, double *nf, struct set_host *setm) {
 }
 
 // Compute the cfweight of the model
-// void cfweight_SBM(double w0[2][2], double wt[2][2], double beta) {
-//     double rho[2][2], Heff[2][2];
-//     double E[2], C[2][2], expe[2][2], F[2][2];
-//     double lbd_ohmic;
+void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, struct set_host *setm) {
+    int i, j;
+    double *rho, *Heff, *E, *C, *expe;
+    double *tempdm1, *tempdm2; 
+
+
+    rho = (double *)malloc(4 * sizeof(double));
+    Heff = (double *)malloc(4 * sizeof(double));
+    E = (double *)malloc(2 * sizeof(double));
+    C = (double *)malloc(4 * sizeof(double));
+    expe = (double *)malloc(4 * sizeof(double));
+    if(setm->if_classical == 0 || setm->if_classical == 2){
+        
+        
+        // memset(Heff, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+ 
+        // for (i = 0; i < setm->Nstate_rubrene; i++) {
+        //     if (i < setm->Nstate_rubrene - 1) {
+        //         Heff[i * setm->Nstate_rubrene + (i + 1)] = setm->Vc_rubrene;
+        //         Heff[(i + 1) * setm->Nstate_rubrene + i] = setm->Vc_rubrene;
+        //     } else {
+        //         Heff[0 * setm->Nstate_rubrene + (setm->Nstate_rubrene - 1)] = setm->Vc_rubrene;
+        //         Heff[(setm->Nstate_rubrene - 1) * setm->Nstate_rubrene + 0] = setm->Vc_rubrene;
+        //     }
+        // }
+ 
+        // double sum1 = 0.0;
+        // for (i = 0; i < setm->N_mode_rubrene; i++){
+        //     sum1 += setm->lambda_rubrene[i];
+        // }
+        // for (i = 0; i < setm->Nstate_rubrene * setm->Nstate_rubrene; i++) {
+        //     Heff[i] *= exp(- sum1 * beta / 3.0);
+        // }
+ 
+        // dia_symmat(setm->Nstate_rubrene, Heff, E, C);
+ 
+        // memset(expe, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        // for (i = 0; i < setm->Nstate_rubrene; i++) {
+        //     expe[i * setm->Nstate_rubrene + i] = exp(-beta * E[i]);
+        // }
+ 
+       
+ 
+        // tempdm1 = (double *)malloc(setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        // tempdm2 = (double *)malloc(setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        // transpose(C,tempdm1,setm->Nstate_rubrene);
+        // dd_matmul(C,expe,tempdm2,setm->Nstate_rubrene,setm->Nstate_rubrene,setm->Nstate_rubrene);
+        // dd_matmul(tempdm2,tempdm1,rho,setm->Nstate_rubrene,setm->Nstate_rubrene,setm->Nstate_rubrene);
+ 
+        // double sum = 0.0;
+        // for (i = 0; i < setm->Nstate_rubrene; i++) {
+        //     sum += rho[i * setm->Nstate_rubrene + i];
+        // }
+ 
+        
+        // for (i = 0; i < setm->Nstate_rubrene * setm->Nstate_rubrene; i++) {
+        //     rho[i] /= sum;
+        // }
+
+        // memset(w0, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+        // memset(wt, 0, setm->Nstate_rubrene * setm->Nstate_rubrene * sizeof(double));
+ 
+        // for (i = 0; i < setm->Nstate_rubrene; i++) {
+        //     if (i == 0) {
+        //         wt[(i + 1) * setm->Nstate_rubrene + i] = 1;
+        //         wt[i * setm->Nstate_rubrene + (i + 1)] = -1;
+        //         for (j = 0; j < setm->Nstate_rubrene; j++) {
+        //             w0[i * setm->Nstate_rubrene + j] = rho[(setm->Nstate_rubrene - 1) * setm->Nstate_rubrene + j] - rho[(i + 1) * setm->Nstate_rubrene + j];
+        //         }
+        //     } else if (i == setm->Nstate_rubrene - 1) {
+        //         wt[0 * setm->Nstate_rubrene + i] = 1;
+        //         wt[i * setm->Nstate_rubrene + 0] = -1;
+        //         for (j = 0; j < setm->Nstate_rubrene; j++) {
+        //             w0[i * setm->Nstate_rubrene + j] = rho[(i - 1) * setm->Nstate_rubrene + j] - rho[0 * setm->Nstate_rubrene + j];
+        //         }
+        //     } else {
+        //         wt[(i + 1) * setm->Nstate_rubrene + i] = 1;
+        //         wt[i * setm->Nstate_rubrene + (i + 1)] = -1;
+        //         for (j = 0; j < setm->Nstate_rubrene; j++) {
+        //             w0[i * setm->Nstate_rubrene + j] = rho[(i - 1) * setm->Nstate_rubrene + j] - rho[(i + 1) * setm->Nstate_rubrene + j];
+        //         }
+        //     }
+        // }
+ 
+        
+
+    } else {
+        memset(Heff, 0, 4 * sizeof(double));
+ 
     
-//     for (int i = 0; i < 2; i++) {
-//         for (int j = 0; j < 2; j++) {
-//             Heff[i][j] = 0.0;
-//             rho[i][j] = 0.0;
-//             expe[i][j] = 0.0;
-//             F[i][j] = 0.0;
-//         }
-//     }
+        double sum_val = 0.0;
+        for (j = 0; j < setm->N_bath_SBM; j++) {
+            sum_val += setm->c_SBM[j] * R[j];
+        }
+        Heff[0] = setm->eps_SBM + sum_val;
+        Heff[1] = setm->delta_SBM;
+        Heff[3] = -setm->eps_SBM - sum_val;
+        Heff[2] = setm->delta_SBM;
 
-//     Heff[0][1] = delta_SBM;
-//     Heff[1][0] = delta_SBM;
+        dia_symmat(2, Heff, E, C);
+ 
+        memset(expe, 0, 4 * sizeof(double));
+        
+        expe[0] = exp(-beta * E[0]);
+        expe[3] = exp(-beta * E[1]);
+        
+        tempdm1 = (double *)malloc(4 * sizeof(double));
+        tempdm2 = (double *)malloc(4 * sizeof(double));
+        transpose(C,tempdm1,2);
+        dd_matmul(C,expe,tempdm2,2,2,2);
+        dd_matmul(tempdm2,tempdm1,rho,2,2,2);
 
-//     lbd_ohmic = 0.5 * alpha_SBM * omega_c_SBM / 2;
-//     for (int i = 0; i < 2; i++) {
-//         for (int j = 0; j < 2; j++) {
-//             Heff[i][j] = Heff[i][j] * exp(-lbd_ohmic * beta / 3);
-//         }
-//     }
-// }
+    
+ 
+        memset(w0, 0, 4 * sizeof(double));
+        memset(wt, 0, 4 * sizeof(double));
+        
+        wt[0] = 1;
+        wt[3] = -1;
+
+        dd_matmul(rho,wt,w0,2,2,2);
+
+    }
+
+    free(rho);
+    free(Heff);
+    free(E);
+    free(C);
+    free(expe);
+    free(tempdm1);
+    free(tempdm2);
+}
