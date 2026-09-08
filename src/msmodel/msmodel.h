@@ -41,6 +41,8 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
 
 void nac_msmodel(double *R, double complex *nac, struct set_host *setm);
 
+void mqcequden_msmodel(double *rho, double beta, double *R, double *P, struct set_host *setm);
+
 // void qm_msmodel(double *R, struct set_host *setm, struct set_slave *sets);
 
 #endif 

@@ -353,3 +353,60 @@ void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, str
     free(tempdm1);
     free(tempdm2);
 }
+
+
+
+
+
+
+// Compute the cfweight of the model
+void mqcequden_SBM(double *rho, double beta, double *R, double *P, struct set_host *setm) {
+    int i, j;
+    double *Heff, *E, *C, *expe;
+    double *tempdm1, *tempdm2; 
+
+
+    Heff = (double *)malloc(4 * sizeof(double));
+    E = (double *)malloc(2 * sizeof(double));
+    C = (double *)malloc(4 * sizeof(double));
+    expe = (double *)malloc(4 * sizeof(double));
+    
+    memset(Heff, 0, 4 * sizeof(double));
+
+
+    double sum_val = 0.0;
+    for (j = 0; j < setm->N_bath_SBM; j++) {
+        sum_val += setm->c_SBM[j] * R[j];
+    }
+    Heff[0] = setm->eps_SBM + sum_val;
+    Heff[1] = setm->delta_SBM;
+    Heff[3] = -setm->eps_SBM - sum_val;
+    Heff[2] = setm->delta_SBM;
+
+    for (i = 0; i < setm->N_bath_SBM; i++) {
+        Heff[0] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
+        Heff[3] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
+    }
+
+    dia_symmat(2, Heff, E, C);
+
+    memset(expe, 0, 4 * sizeof(double));
+    
+    expe[0] = exp(-beta * E[0]);
+    expe[3] = exp(-beta * E[1]);
+    
+    tempdm1 = (double *)malloc(4 * sizeof(double));
+    tempdm2 = (double *)malloc(4 * sizeof(double));
+    transpose(C,tempdm1,2);
+    dd_matmul(C,expe,tempdm2,2,2,2);
+    dd_matmul(tempdm2,tempdm1,rho,2,2,2);
+   
+    
+    free(Heff);
+    free(E);
+    free(C);
+    free(expe);
+    free(tempdm1);
+    free(tempdm2);
+}
+

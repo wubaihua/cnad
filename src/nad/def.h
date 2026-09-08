@@ -258,7 +258,11 @@ struct set_slave
 
     // int if_st_eng;
     double *energy_est; // 1D double array: [size1]
-    double *mpi_energy_est; // 1D double array: [size1]
+    // double *mpi_energy_est; // 1D double array: [size1]
+
+
+    double *mqcequden; // 1D double array: [size1]
+
 
     // int typeevo_ele;
 

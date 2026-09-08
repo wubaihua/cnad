@@ -554,6 +554,8 @@ void initial_para(struct set_host *seth) {
     seth->if_restart = 0;
 
     seth->nproc_sw = 64;
+
+    seth->if_mqcequden = 0;
 }
 
 
@@ -1314,6 +1316,16 @@ void readinp(struct set_host *seth){
             }
         }
 
+
+
+        if (NULL != cJSON_GetObjectItem(item, "if_mqcequden")) {
+            list = cJSON_GetObjectItem(item, "if_mqcequden");
+            if (list->type == cJSON_Number) {
+                seth->if_mqcequden = list->valueint;
+            }
+        }
+
+
         item = item->next;
     }
     
@@ -1571,6 +1583,15 @@ void init_host(struct set_host *seth){
     if(seth->if_flighttime_tully == 1) {
         seth->save_flighttime = (double *)malloc(8 * seth->Ntraj/seth->mpi_size * sizeof(double));
         memset(seth->save_flighttime, 0, 8 * seth->Ntraj/seth->mpi_size * sizeof(double));
+    }
+
+
+
+    if(seth->if_mqcequden == 1) {
+        seth->mpi_mqcequden = (double *)malloc(seth->Ngrid * sizeof(double));
+        memset(seth->mpi_mqcequden, 0, seth->Ngrid * sizeof(double));
+        seth->save_mqcequden = (double *)malloc(seth->nproc_sw * seth->Ngrid * sizeof(double));
+        memset(seth->save_mqcequden, 0, seth->Ngrid * seth->nproc_sw * sizeof(double));
     }
 
 
@@ -2217,6 +2238,17 @@ void fileout(struct set_host *seth) {
             fclose(expisp_file);
         }
 
+
+        if (seth->if_mqcequden == 1) {
+            strncpy(outname, seth->filepath, len - 5);
+            strcpy(outname + len - 5,".mqcequden");
+            FILE *mqcequden_file = fopen(outname, "w");
+            for (i = 0; i < seth->Ngrid; i++) {
+                fprintf(mqcequden_file, "%18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->mpi_mqcequden[i]);
+            }
+            fclose(mqcequden_file);
+        }
+
 //     if (P_nuc_mean != NULL) {
 //         strncpy(outname, filepath, len - 5);
 //         strcpy(outname + len - 5, ".Pmean");
@@ -2492,6 +2524,21 @@ void fileout_mpi(int id, struct set_host *seth) {
         }
         fclose(P2nuc_file);
 
+    }
+
+
+    if(seth->if_mqcequden == 1){
+        strncpy(outname, seth->filepath, len - 5);
+        // strcpy(outname + len - 5, ".pop");
+        outname[len - 5] = '\0'; // 确保字符串以null结尾
+        strcpy(outname + len - 5, "_mpi");
+        strcpy(outname + len - 5 + strlen("_mpi"), cid);
+        strcpy(outname + len - 5 + strlen("_mpi") + strlen(cid), ".mqcequden");
+        FILE *mqcequden_file = fopen(outname, "w");
+        for (i = 0; i < seth->Ngrid; i++) {
+            fprintf(mqcequden_file, "%18.8E %18.8E\n", seth->fi_time_grid[i] / seth->unittrans_t, seth->fi_mqcequden[i]/seth->Ntraj*seth->mpi_size);
+        }
+        fclose(mqcequden_file);
     }
 
 

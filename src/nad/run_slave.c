@@ -263,6 +263,12 @@ void dynamics_slave(struct set_host *seth){
         }
     }
 
+    if (seth->if_mqcequden == 1) {
+        for (int i = 0; i < seth->Ngrid; i++){
+            seth->mpi_mqcequden[i] = sets.mqcequden[i];
+        }
+    }
+
     free_vari(&sets,seth);
 // exit(-1);
 #endif

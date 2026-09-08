@@ -442,6 +442,9 @@ struct set_host
 
     double *save_flighttime;
 
+    double *mpi_mqcequden;
+    double *save_mqcequden;
+
 
 
 
@@ -463,6 +466,8 @@ struct set_host
 
     double *fi_real_expisp;
     double *fi_imag_expisp;
+
+    double *fi_mqcequden;
 
 
     
@@ -705,6 +710,8 @@ struct set_host
     int if_st_eng;
     // double *energy_est; // 1D double array: [size1]
     // double *mpi_energy_est; // 1D double array: [size1]
+
+    int if_mqcequden;
 
     int typeevo_ele;
 

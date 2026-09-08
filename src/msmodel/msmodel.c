@@ -417,6 +417,15 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
 }
 
 
+void mqcequden_msmodel(double *rho, double beta, double *R, double *P, struct set_host *setm){
+    
+    if (strcmp(setm->msmodelname, "SBM") == 0 ||
+        strcmp(setm->msmodelname, "sbm") == 0) {
+        mqcequden_SBM(rho, beta, R, P, setm);
+    }
+}
+
+
 
 void nac_msmodel(double *R, double complex *nac, struct set_host *setm){
     // double *dV_real = (double *)malloc(setm->Nstate * setm->Nstate * setm->Ndof1 * setm->Ndof2 * sizeof(double));

@@ -92,6 +92,11 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
         sets->weight0 = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
         sets->weightt = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
     }
+
+    if (seth->if_mqcequden == 1) {
+        sets->mqcequden = (double *)malloc(seth->Ngrid * sizeof(double));
+        memset(sets->mqcequden, 0, seth->Ngrid * sizeof(double));
+    }
     
     // if (seth->if_st_eng == 1) {
     //     sets->energy_est = (double *)malloc(seth->Ngrid * sizeof(double));
@@ -2447,7 +2452,12 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
     double x2;
     double complex csum1,csum2;
     double complex tempcm1[seth->Nstate * seth->Nstate];
-   
+    double tempv[seth->Nstate];
+    double complex tempcm[seth->Nstate*seth->Nstate];
+    double tempdm[seth->Nstate*seth->Nstate], tempdm1[seth->Nstate * seth->Nstate],tempdm2[seth->Nstate*seth->Nstate];
+    double complex tempcm2[seth->Nstate*seth->Nstate], tempcm3[seth->Nstate*seth->Nstate];
+    double complex tempcv1[seth->Nstate], tempcv2[seth->Nstate];
+
     cal_correfun(sets,seth);
 
     // if (ifmsbranch > 0) {
@@ -2745,6 +2755,77 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
                 sets->R2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->R_nuc[i] * sets->R_nuc[i] * creal(sets->correfun_0);
                 sets->P2_nuc_mean[i * seth->Ngrid + igrid_cal] += sets->P_nuc[i] * sets->P_nuc[i] * creal(sets->correfun_0);
             }
+        }
+    }
+
+    if (seth->if_mqcequden == 1) {
+        double *temprho = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
+        mqcequden_msmodel(temprho, seth->beta, sets->R_nuc, sets->P_nuc, seth);
+        double tempden = 0.0;
+
+        if (seth->sampletype == 2) {
+        
+            for (i = 0; i < seth->Nstate; i++) {
+                tempcv1[i] = sets->xe[i] + I * sets->pe[i];
+            }
+            cc_matmul(sets->U_d2a, tempcv1, tempcv2, seth->Nstate, seth->Nstate, 1);
+            for (i = 0; i < seth->Nstate; i++) {
+                sets->xe[i] = creal(tempcv2[i]);
+                sets->pe[i] = cimag(tempcv2[i]);
+            }
+
+
+            memcpy(tempcm,sets->gamma_cv,seth->Nstate * seth->Nstate*sizeof(double complex));
+
+            // transpose(sets->U_d2a,tempdm,seth->Nstate);
+            transpose_conjugate(sets->U_d2a, tempcm1, seth->Nstate);
+            cc_matmul(sets->gamma_cv,tempcm1,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+            cc_matmul(sets->U_d2a,tempcm2,sets->gamma_cv,seth->Nstate,seth->Nstate,seth->Nstate);
+
+            if (seth->type_evo == 1 || seth->type_evo == 3) {
+                cc_matmul(sets->den_e,tempcm1,tempcm2,seth->Nstate,seth->Nstate,seth->Nstate);
+                cc_matmul(sets->U_d2a,tempcm2,sets->den_e,seth->Nstate,seth->Nstate,seth->Nstate);
+            }
+            
+        }
+        if (strcmp(seth->method, "eCMM") == 0 || strcmp(seth->method, "ecmm") == 0 ||
+            strcmp(seth->method, "CMM") == 0 || strcmp(seth->method, "cmm") == 0 ||
+            strcmp(seth->method, "scmm") == 0 || strcmp(seth->method, "SCMM") == 0 ||
+            strcmp(seth->method, "wMM") == 0 || strcmp(seth->method, "wmm") == 0 ) {
+            for (i = 0; i < seth->Nstate; i++) {
+                for (j = 0; j < seth->Nstate; j++) {
+                    if (seth->type_evo == 1 || seth->type_evo == 3) {
+                        tempden += temprho[i * seth->Nstate + j] * (creal(sets->den_e[i * seth->Nstate + j])  - seth->gamma_zpe * (i == j ? 1 : 0));
+                    } else {
+                        tempden += temprho[i * seth->Nstate + j] * (0.5 * (sets->xe[i] * sets->xe[j] + sets->pe[i] * sets->pe[j]) - seth->gamma_zpe * (i == j ? 1 : 0));
+                    }
+                }
+            }
+        }
+        sets->mqcequden[igrid_cal] += tempden;
+        free(temprho);
+
+        if (seth->sampletype == 2) {
+        
+            transpose_conjugate(sets->U_d2a, tempcm1, seth->Nstate);
+            for (i = 0; i < seth->Nstate; i++) {
+                tempcv1[i] = sets->xe[i] + I * sets->pe[i];
+            }
+            cc_matmul(tempcm1, tempcv1, tempcv2, seth->Nstate, seth->Nstate, 1);
+            for (i = 0; i < seth->Nstate; i++) {
+                sets->xe[i] = creal(tempcv2[i]);
+                sets->pe[i] = cimag(tempcv2[i]);
+            }
+        
+            cc_matmul(tempcm1, sets->gamma_cv,  tempcm2, seth->Nstate, seth->Nstate, seth->Nstate);
+            cc_matmul(tempcm2, sets->U_d2a, sets->gamma_cv, seth->Nstate, seth->Nstate, seth->Nstate);
+
+
+            if (seth->type_evo == 1 || seth->type_evo == 3) {
+                cc_matmul(tempcm1, sets->den_e,  tempcm2, seth->Nstate, seth->Nstate, seth->Nstate);
+                cc_matmul(tempcm2, sets->U_d2a, sets->den_e, seth->Nstate, seth->Nstate, seth->Nstate);
+            }
+            
         }
     }
 

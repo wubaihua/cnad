@@ -376,7 +376,30 @@ int main(int argc, char *argv[]) {
         memcpy(seth.fi_P2_nuc_mean, seth.mpi_P2_nuc_mean, seth.Ndof1 * seth.Ndof2 * seth.Ngrid * sizeof(double));  
         #endif
     }
-    
+
+
+
+    if (seth.if_mqcequden == 1) {
+        seth.fi_mqcequden = (double *)malloc(seth.Ngrid * sizeof(double)); 
+        memset(seth.fi_mqcequden, 0, seth.Ngrid * sizeof(double));
+       
+        #ifdef sunway
+        // for (int i = 0; i < seth.Ndof1 * seth.Ndof2 * seth.Ngrid; i++){
+        //     for(int j = 0; j < seth.nproc_sw; j++){
+        //         seth.fi_R_nuc_mean[i] += seth.save_R_nuc_mean[i * seth.nproc_sw + j];
+        //         seth.fi_P_nuc_mean[i] += seth.save_P_nuc_mean[i * seth.nproc_sw + j];
+        //         seth.fi_R2_nuc_mean[i] += seth.save_R2_nuc_mean[i * seth.nproc_sw + j];
+        //         seth.fi_P2_nuc_mean[i] += seth.save_P2_nuc_mean[i * seth.nproc_sw + j];
+        //     }
+        // }
+        // free(seth.save_R_nuc_mean);
+        // free(seth.save_P_nuc_mean);
+        // free(seth.save_R2_nuc_mean);
+        // free(seth.save_P2_nuc_mean);
+        #elif defined(x86)
+        memcpy(seth.fi_mqcequden, seth.mpi_mqcequden, seth.Ngrid * sizeof(double));
+        #endif
+    }
     
 
    //////////
@@ -593,6 +616,16 @@ int main(int argc, char *argv[]) {
         
     }
 
+    if (seth.if_mqcequden == 1) {
+        
+        for (int i = 0; i < seth.Ngrid; i++){
+            MPI_Reduce(&seth.fi_mqcequden[i], &seth.mpi_mqcequden[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+        }
+
+        free(seth.fi_mqcequden);
+        
+    }
+
     // // if (cfall != NULL) {
     // //     double *mpi_cfall = (double *)malloc(Nstate * Nstate * Nstate * Nstate * Ngrid * sizeof(double));
     // //     double *real_cfall = (double *)malloc(Nstate * Nstate * Nstate * Nstate * Ngrid * sizeof(double));
@@ -779,6 +812,19 @@ int main(int argc, char *argv[]) {
                     seth.mpi_P_nuc_mean[i] = seth.mpi_P_nuc_mean[i]/seth.Ntraj;
                     seth.mpi_R2_nuc_mean[i] = seth.mpi_R2_nuc_mean[i]/seth.Ntraj;
                     seth.mpi_P2_nuc_mean[i] = seth.mpi_P2_nuc_mean[i]/seth.Ntraj;
+                }
+            }
+        }
+
+
+        if (seth.if_mqcequden == 1) {
+            if (seth.if_st_nan == 1) {
+                for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
+                    seth.mpi_mqcequden[igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
+                }
+            } else {
+                for (int i = 0; i < seth.Ngrid; i++) {
+                    seth.mpi_mqcequden[i] /= seth.Ntraj;
                 }
             }
         }
