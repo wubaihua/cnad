@@ -2024,7 +2024,7 @@ void print_info(struct set_host *seth){
         // if (if_traceless_force != 0) {
         //     printf("if_traceless_force= %d\n", if_traceless_force);
         // }
-        if (seth->if_eld == 1) {
+        if (seth->if_eld != 0) {
             printf("Using equilibrium Liouville dynamics (ELD), if_eld= %d\n", seth->if_eld);
         }
 
