@@ -6208,8 +6208,8 @@ void cal_force_eld(struct set_slave *sets,struct set_host *seth, int para) {
                     csum += sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + i * seth->Ndof1 * seth->Ndof2 + j] * sets->P_nuc[j] / sets->mass[j];
                 }
                 // prob_hop[i] = 2.0 * seth->dt * (sets->xe[sets->id_state] * sets->xe[i] + sets->pe[sets->id_state] * sets->pe[i]) * sum / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
-                if (seth->type_evo == 0) prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * csum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state]);
-                if (seth->type_evo == 1) prob_hop[i] = 2.0 * seth->dt * creal(sets->den_e[i * seth->Nstate + sets->id_state] * csum) / creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state]);
+                if (seth->type_evo == 0) prob_hop[i] = 2.0 * seth->dt * creal((sets->xe[sets->id_state] - I * sets->pe[sets->id_state]) * (sets->xe[i] + I * sets->pe[i]) * csum) / (sets->xe[sets->id_state] * sets->xe[sets->id_state] + sets->pe[sets->id_state] * sets->pe[sets->id_state] - 2 * seth->gamma_zpe);
+                if (seth->type_evo == 1) prob_hop[i] = 2.0 * seth->dt * creal(sets->den_e[i * seth->Nstate + sets->id_state] * csum) / creal(sets->den_e[sets->id_state * seth->Nstate + sets->id_state] - seth->gamma_zpe);
                 if (prob_hop[i] < 0) prob_hop[i] = 0;
                 if (prob_hop[i] > 1) prob_hop[i] = 1;
             }
@@ -6266,25 +6266,25 @@ void cal_force_eld(struct set_slave *sets,struct set_host *seth, int para) {
                     }
                     deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
                     if (deltaE_mash >= 0) {
-                        sum=0;
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
-                        }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            P_para[i] *= sqrt(deltaE_mash / sum);
-                            sets->P_nuc[i] = P_para[i] + P_ver[i];
-                        }
+                        // sum=0;
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                        // }
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     P_para[i] *= sqrt(deltaE_mash / sum);
+                        //     sets->P_nuc[i] = P_para[i] + P_ver[i];
+                        // }
                         sets->id_state = id_switch;
                         // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
                     } else {
-                        if (seth->ifreflp == 0) {
-                            for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                                P_para[i] = -P_para[i];
-                            }
-                        }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sets->P_nuc[i] =P_para[i] + P_ver[i];
-                        }
+                        // if (seth->ifreflp == 0) {
+                        //     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //         P_para[i] = -P_para[i];
+                        //     }
+                        // }
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     sets->P_nuc[i] =P_para[i] + P_ver[i];
+                        // }
                         // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
                         // seth->type_traj_sed = 1;
                     }
@@ -6346,25 +6346,25 @@ void cal_force_eld(struct set_slave *sets,struct set_host *seth, int para) {
                     }
                     deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
                     if (deltaE_mash >= 0) {
-                        sum=0;
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
-                        }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            P_para[i] *= sqrt(deltaE_mash / sum);
-                            sets->P_nuc[i] = P_para[i] + P_ver[i];
-                        }
+                        // sum=0;
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                        // }
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     P_para[i] *= sqrt(deltaE_mash / sum);
+                        //     sets->P_nuc[i] = P_para[i] + P_ver[i];
+                        // }
                         sets->id_state = id_switch;
                         // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
                     } else {
-                        if (seth->ifreflp == 0) {
-                            for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                                P_para[i] = -P_para[i];
-                            }
-                        }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sets->P_nuc[i] =P_para[i] + P_ver[i];
-                        }
+                        // if (seth->ifreflp == 0) {
+                        //     for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //         P_para[i] = -P_para[i];
+                        //     }
+                        // }
+                        // for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
+                        //     sets->P_nuc[i] =P_para[i] + P_ver[i];
+                        // }
                         // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
                         // seth->type_traj_sed = 1;
                     }
