@@ -94,7 +94,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
         sets->weightt = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
     }
 
-    if (seth->if_mqcequden == 1) {
+    if (seth->if_mqcequden > 0) {
         sets->mqcequden = (double *)malloc(seth->Ngrid * sizeof(double));
         memset(sets->mqcequden, 0, seth->Ngrid * sizeof(double));
     }
@@ -2809,7 +2809,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
         }
     }
 
-    if (seth->if_mqcequden == 1) {
+    if (seth->if_mqcequden > 0) {
         double *temprho = (double *)malloc(seth->Nstate * seth->Nstate * sizeof(double));
         mqcequden_msmodel(temprho, seth->beta, sets->R_nuc, sets->P_nuc, seth);
         double tempden = 0.0;

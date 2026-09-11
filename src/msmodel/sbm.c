@@ -359,7 +359,7 @@ void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, str
 
 
 
-// Compute the cfweight of the model
+
 void mqcequden_SBM(double *rho, double beta, double *R, double *P, struct set_host *setm) {
     int i, j;
     double *Heff, *E, *C, *expe;
@@ -383,9 +383,11 @@ void mqcequden_SBM(double *rho, double beta, double *R, double *P, struct set_ho
     Heff[3] = -setm->eps_SBM - sum_val;
     Heff[2] = setm->delta_SBM;
 
-    for (i = 0; i < setm->N_bath_SBM; i++) {
-        Heff[0] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
-        Heff[3] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
+    if (setm->if_mqcequden == 1) {
+        for (i = 0; i < setm->N_bath_SBM; i++) {
+            Heff[0] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
+            Heff[3] += 0.5 * setm->omega_SBM[i] * setm->omega_SBM[i] * R[i] * R[i] + 0.5 * P[i] * P[i];
+        }
     }
 
     dia_symmat(2, Heff, E, C);
