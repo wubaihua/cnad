@@ -1587,7 +1587,7 @@ void init_host(struct set_host *seth){
 
 
 
-    if(seth->if_mqcequden == 1) {
+    if(seth->if_mqcequden > 0) {
         seth->mpi_mqcequden = (double *)malloc(seth->Ngrid * sizeof(double));
         memset(seth->mpi_mqcequden, 0, seth->Ngrid * sizeof(double));
         seth->save_mqcequden = (double *)malloc(seth->nproc_sw * seth->Ngrid * sizeof(double));
@@ -2239,7 +2239,7 @@ void fileout(struct set_host *seth) {
         }
 
 
-        if (seth->if_mqcequden == 1) {
+        if (seth->if_mqcequden > 0) {
             strncpy(outname, seth->filepath, len - 5);
             strcpy(outname + len - 5,".mqcequden");
             FILE *mqcequden_file = fopen(outname, "w");
@@ -2527,7 +2527,8 @@ void fileout_mpi(int id, struct set_host *seth) {
     }
 
 
-    if(seth->if_mqcequden == 1){
+
+    if(seth->if_mqcequden > 0){
         strncpy(outname, seth->filepath, len - 5);
         // strcpy(outname + len - 5, ".pop");
         outname[len - 5] = '\0'; // 确保字符串以null结尾

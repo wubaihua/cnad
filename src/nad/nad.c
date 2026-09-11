@@ -379,7 +379,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    if (seth.if_mqcequden == 1) {
+    if (seth.if_mqcequden > 0) {
         seth.fi_mqcequden = (double *)malloc(seth.Ngrid * sizeof(double)); 
         memset(seth.fi_mqcequden, 0, seth.Ngrid * sizeof(double));
        
@@ -616,7 +616,7 @@ int main(int argc, char *argv[]) {
         
     }
 
-    if (seth.if_mqcequden == 1) {
+    if (seth.if_mqcequden > 0) {
         
         for (int i = 0; i < seth.Ngrid; i++){
             MPI_Reduce(&seth.fi_mqcequden[i], &seth.mpi_mqcequden[i], 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
@@ -817,7 +817,8 @@ int main(int argc, char *argv[]) {
         }
 
 
-        if (seth.if_mqcequden == 1) {
+
+        if (seth.if_mqcequden > 0) {
             if (seth.if_st_nan == 1) {
                 for (int igrid = 0; igrid < seth.Ngrid; igrid++) {
                     seth.mpi_mqcequden[igrid] /= (seth.Ntraj - seth.mpi_N_nan_sum[igrid]);
