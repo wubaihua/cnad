@@ -556,6 +556,8 @@ void initial_para(struct set_host *seth) {
     seth->nproc_sw = 64;
 
     seth->if_mqcequden = 0;
+
+    seth->type_cfeff = 0;
 }
 
 
@@ -1325,6 +1327,12 @@ void readinp(struct set_host *seth){
             }
         }
 
+        if (NULL != cJSON_GetObjectItem(item, "type_cfeff")) {
+            list = cJSON_GetObjectItem(item, "type_cfeff");
+            if (list->type == cJSON_Number) {
+                seth->type_cfeff = list->valueint;
+            }
+        }
 
         item = item->next;
     }

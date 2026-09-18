@@ -71,6 +71,7 @@ struct set_slave
     double *E_adia_old; 
 
     double *R_nuc_init;
+    double *P_nuc_init;
 
 
     // 动态分配的数组声明

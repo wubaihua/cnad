@@ -715,6 +715,9 @@ struct set_host
 
     int typeevo_ele;
 
+
+    int type_cfeff;
+
     // double *A_jump; // 2D double array: [size1][size2]
     // double *lambda_jump; // 1D double array: [size1]
     // double *U_jump; // 2D double array: [size1][size2]

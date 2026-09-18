@@ -34,8 +34,8 @@ void dV_SBM(double *R, double *dH, int forcetype, struct set_host *setm) ;
 void nucforce_SBM(double *R, double *nf, struct set_host *setm) ;
 
 // Compute the cfweight of the model
-void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, struct set_host *setm);
+void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, double *Rt, double *Pt, struct set_host *setm);
 
-void mqcequden_SBM(double *rho, double beta, double *R, double *P, struct set_host *setm);
+void mqcequden_SBM(double *rho, double beta, double *R, double *P,  struct set_host *setm);
 
 #endif 

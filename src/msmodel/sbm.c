@@ -221,7 +221,7 @@ void nucforce_SBM(double *R, double *nf, struct set_host *setm) {
 }
 
 // Compute the cfweight of the model
-void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, struct set_host *setm) {
+void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, double *Rt, double *Pt, struct set_host *setm) {
     int i, j;
     double *rho, *Heff, *E, *C, *expe;
     double *tempdm1, *tempdm2; 
@@ -333,15 +333,23 @@ void cfweight_SBM(double *w0, double *wt, double beta, double *R, double *P, str
         dd_matmul(C,expe,tempdm2,2,2,2);
         dd_matmul(tempdm2,tempdm1,rho,2,2,2);
 
-    
- 
         memset(w0, 0, 4 * sizeof(double));
         memset(wt, 0, 4 * sizeof(double));
+        if (setm->type_cfeff == 0){
+            wt[0] = 1;
+            wt[3] = -1;
+            dd_matmul(rho,wt,w0,2,2,2);
+        } else if (setm->type_cfeff == 1){
+            wt[0] = Rt[0];
+            wt[3] = Rt[0];
+            for (i = 0; i < 4; i++){
+                w0[i] = rho[i] * R[0];
+            }
+           
+        } 
         
-        wt[0] = 1;
-        wt[3] = -1;
-
-        dd_matmul(rho,wt,w0,2,2,2);
+        
+        
 
     }
 

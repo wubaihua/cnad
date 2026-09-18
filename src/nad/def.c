@@ -39,6 +39,7 @@ void initial_vari(struct set_slave *sets,struct set_host *seth) {
     if(seth->if_eld != 0) sets->delta_force_eld = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
 
     sets->R_nuc_init = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
+    sets->P_nuc_init = (double *)malloc(seth->Ndof1 * seth->Ndof2 * sizeof(double));
     // printf("22222\n");
 
     if (seth->forcetype == 1) {
@@ -2626,7 +2627,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 
     if (seth->if_allcf >= 2) {
         if (seth->if_allcf == 2) {
-            cfweight_msmodel(sets->weight0,sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc, 0, seth);
+            cfweight_msmodel(sets->weight0,sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc_init, sets->R_nuc, sets->P_nuc, 0, seth);
 
             if (strcmp(seth->method, "sqc") == 0 || strcmp(seth->method, "SQC") == 0) {
                 // Q_{nnkl}, k \ne l
@@ -2737,7 +2738,7 @@ void evo_traj_calProp(int igrid_cal,struct set_slave *sets,struct set_host *seth
 
         } else if (seth->if_allcf == 3) {
             for (icfall = 1; icfall < seth->allcf_times + 1; icfall++) {
-                cfweight_msmodel(sets->weight0, sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc, icfall, seth);        
+                cfweight_msmodel(sets->weight0, sets->weightt, seth->beta, sets->R_nuc_init, sets->P_nuc_init, sets->R_nuc, sets->P_nuc, icfall, seth);        
                 csum1 = 0, csum2 = 0;
                 for (i = 0; i < seth->Nstate * seth->Nstate; i++){
                     csum1 += sets->weight0[i] * sets->cf0[i];
@@ -4102,6 +4103,7 @@ void evo_traj_new(int itraj,struct set_slave *sets,struct set_host *seth) {
 
 
     memcpy(sets->R_nuc_init,sets->R_nuc,seth->Ndof1 * seth->Ndof2 * sizeof(double));
+    memcpy(sets->P_nuc_init,sets->P_nuc,seth->Ndof1 * seth->Ndof2 * sizeof(double));
    
     R00 = sets->R_nuc[0];
     P00 = sets->P_nuc[0];
@@ -7240,6 +7242,7 @@ void free_vari(struct set_slave *sets, struct set_host *seth) {
 
 
     free(sets->R_nuc_init);
+    free(sets->P_nuc_init);
 
     if (seth->forcetype == 1) {
         free(sets->force_nuc);

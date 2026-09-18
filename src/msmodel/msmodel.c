@@ -399,7 +399,8 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
 }
 
 
-void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double *P, int icfall, struct set_host *setm){
+
+void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double *P, double *Rt, double *Pt, int icfall, struct set_host *setm){
     if (strcmp(setm->msmodelname, "SEMdp") == 0 ||
         strcmp(setm->msmodelname, "semdp") == 0) {
         cfweight_SEMdp(rho0,rhot,setm);
@@ -412,7 +413,7 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
         cfweight_frozen(rho0,rhot,setm);
     } else if (strcmp(setm->msmodelname, "SBM") == 0 ||
         strcmp(setm->msmodelname, "sbm") == 0) {
-        cfweight_SBM(rho0, rhot, beta, R, P, setm);
+        cfweight_SBM(rho0, rhot, beta, R, P, Rt, Pt, setm);
     }
 }
 
