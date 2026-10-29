@@ -5135,51 +5135,29 @@ void cal_force_switch(struct set_slave *sets, struct set_host *seth, int para) {
                     break;
                 case 1:
                     if (seth->rep == 0) cal_NACV(sets,seth);
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltavector[i] = creal(sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + i]);
-                    }
-                    sum = 0.0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        sum += deltavector[i] * deltavector[i];
-                    }
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltavector[i] /= sqrt(sum);
-                    }
-                    sum = 0.0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        sum += deltavector[i] * sets->P_nuc[i];
-                    }
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        P_para[i] = deltavector[i] * sum;
-                        P_ver[i] = sets->P_nuc[i] - P_para[i];
-                    }
-                    deltaE_mash = 0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltaE_mash += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
-                    }
-                    deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
-                    if (deltaE_mash >= 0) {
-                        sum=0;
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                    {
+                        // FSSH: P' = P + gamma * d, with a*gamma^2 + b*gamma - (E_old - E_new) = 0
+                        int ndof = seth->Ndof1 * seth->Ndof2;
+                        double qa = 0.0, qb = 0.0;
+                        double dE = sets->E_adia[sets->id_state] - sets->E_adia[id_switch];
+                        for (int i = 0; i < ndof; i++) {
+                            deltavector[i] = creal(sets->nac[sets->id_state * seth->Nstate * ndof + id_switch * ndof + i]);
+                            qa += 0.5 * deltavector[i] * deltavector[i] / sets->mass[i];
+                            qb += sets->P_nuc[i] * deltavector[i] / sets->mass[i];
                         }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            P_para[i] *= sqrt(deltaE_mash / sum);
-                            sets->P_nuc[i] = P_para[i] + P_ver[i];
-                        }
-                        sets->id_state = id_switch;
-                        // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
-                    } else {
-                        if (seth->ifreflp == 0) {
-                            for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                                P_para[i] = -P_para[i];
+                        double disc = qb * qb + 4.0 * qa * dE;
+                        if (disc >= 0) {
+                            double gamma = (qb >= 0) ? (-qb + sqrt(disc)) / (2.0 * qa) : (-qb - sqrt(disc)) / (2.0 * qa);
+                            for (int i = 0; i < ndof; i++) {
+                                sets->P_nuc[i] += gamma * deltavector[i];
+                            }
+                            sets->id_state = id_switch;
+                        } else if (seth->ifreflp == 0) {
+                            double gamma = -qb / qa;
+                            for (int i = 0; i < ndof; i++) {
+                                sets->P_nuc[i] += gamma * deltavector[i];
                             }
                         }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sets->P_nuc[i] =P_para[i] + P_ver[i];
-                        }
-                        // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
-                        // seth->type_traj_sed = 1;
                     }
                     break;
 
@@ -5776,51 +5754,29 @@ void cal_force_sh(struct set_slave *sets, struct set_host *seth, int para) {
                     break;
                 case 1:
                     if (seth->rep == 0) cal_NACV(sets,seth);
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltavector[i] = creal(sets->nac[sets->id_state * seth->Nstate * seth->Ndof1 * seth->Ndof2 + id_switch * seth->Ndof1 * seth->Ndof2 + i]);
-                    }
-                    sum = 0.0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        sum += deltavector[i] * deltavector[i];
-                    }
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltavector[i] /= sqrt(sum);
-                    }
-                    sum = 0.0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        sum += deltavector[i] * sets->P_nuc[i];
-                    }
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        P_para[i] = deltavector[i] * sum;
-                        P_ver[i] = sets->P_nuc[i] - P_para[i];
-                    }
-                    deltaE_mash = 0;
-                    for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                        deltaE_mash += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
-                    }
-                    deltaE_mash += (sets->E_adia[sets->id_state] - sets->E_adia[id_switch]);
-                    if (deltaE_mash >= 0) {
-                        sum=0;
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sum += 0.5 * P_para[i] * P_para[i] / sets->mass[i];
+                    {
+                        // FSSH: P' = P + gamma * d, with a*gamma^2 + b*gamma - (E_old - E_new) = 0
+                        int ndof = seth->Ndof1 * seth->Ndof2;
+                        double qa = 0.0, qb = 0.0;
+                        double dE = sets->E_adia[sets->id_state] - sets->E_adia[id_switch];
+                        for (int i = 0; i < ndof; i++) {
+                            deltavector[i] = creal(sets->nac[sets->id_state * seth->Nstate * ndof + id_switch * ndof + i]);
+                            qa += 0.5 * deltavector[i] * deltavector[i] / sets->mass[i];
+                            qb += sets->P_nuc[i] * deltavector[i] / sets->mass[i];
                         }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            P_para[i] *= sqrt(deltaE_mash / sum);
-                            sets->P_nuc[i] = P_para[i] + P_ver[i];
-                        }
-                        sets->id_state = id_switch;
-                        // if (seth->count_pertraj) seth->count_pertraj[1] = 1;
-                    } else {
-                        if (seth->ifreflp == 0) {
-                            for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                                P_para[i] = -P_para[i];
+                        double disc = qb * qb + 4.0 * qa * dE;
+                        if (disc >= 0) {
+                            double gamma = (qb >= 0) ? (-qb + sqrt(disc)) / (2.0 * qa) : (-qb - sqrt(disc)) / (2.0 * qa);
+                            for (int i = 0; i < ndof; i++) {
+                                sets->P_nuc[i] += gamma * deltavector[i];
+                            }
+                            sets->id_state = id_switch;
+                        } else if (seth->ifreflp == 0) {
+                            double gamma = -qb / qa;
+                            for (int i = 0; i < ndof; i++) {
+                                sets->P_nuc[i] += gamma * deltavector[i];
                             }
                         }
-                        for (int i = 0; i < seth->Ndof1 * seth->Ndof2; i++) {
-                            sets->P_nuc[i] =P_para[i] + P_ver[i];
-                        }
-                        // if (seth->count_pertraj) seth->count_pertraj[2] = 1;
-                        // seth->type_traj_sed = 1;
                     }
                     break;
 
