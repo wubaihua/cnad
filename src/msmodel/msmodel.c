@@ -22,6 +22,7 @@
 #include "semdp.h"
 #include "fmodp.h"
 #include "rubrene.h"
+#include "oc.h"
 #include "dnalvcm.h"
 #include "frozen.h"
 #include "dualho.h"
@@ -90,6 +91,9 @@ void init_msmodel(double *mass, struct set_host *setm){
         parameter_FMOdp(mass,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         parameter_rubrene(mass,setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        parameter_OC(mass, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         parameter_dnalvcm(mass,setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
@@ -156,6 +160,9 @@ void sample_msmodel(double *P, double *R, double beta, struct set_host *setm){
         sample_FMOdp(P, R, beta,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         sample_rubrene(P, R, beta,setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        sample_OC(P, R, beta, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         sample_dnalvcm(P, R, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
@@ -227,6 +234,9 @@ void V_msmodel(double *R, double complex *H, double t, struct set_host *setm){
         V_FMOdp(R, V_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         V_rubrene(R, V_real, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        V_OC(R, V_real, setm->forcetype, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
         V_dnalvcm(R, H, setm->forcetype,setm);
         ifcpy = 1;
@@ -307,6 +317,9 @@ void dV_msmodel(double *R, double complex *dH, struct set_host *setm){
         dV_FMOdp(R, dV_real, setm->forcetype,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         dV_rubrene(R, dV_real, setm->forcetype,setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        dV_OC(R, dV_real, setm->forcetype, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0 ) {
         dV_dnalvcm(R, dH, setm->forcetype,setm);
         ifcpy = 1;
@@ -384,6 +397,9 @@ void nucforce_msmodel(double *R, double *nf, struct set_host *setm){
         nucforce_FMOdp(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         nucforce_rubrene(R, nf,setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        nucforce_OC(R, nf, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         nucforce_dnalvcm(R, nf,setm);
     } else if (strcmp(setm->msmodelname, "bpy") == 0) {
@@ -409,6 +425,9 @@ void cfweight_msmodel(double *rho0, double *rhot, double beta, double *R, double
         cfweight_FMOdp(rho0,rhot, icfall, setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         cfweight_rubrene(rho0,rhot, beta, R, P, setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        cfweight_OC(rho0, rhot, beta, R, P, Rt, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
         cfweight_frozen(rho0,rhot,setm);
     } else if (strcmp(setm->msmodelname, "SBM") == 0 ||

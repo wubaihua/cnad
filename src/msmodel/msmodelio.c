@@ -1016,6 +1016,52 @@ void readinp_soctest(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct se
 
 }
 
+void readinp_OC(cJSON *item, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
+    cJSON *list;
+
+    setm->Nmole_oc = 51;
+    setm->beta_oc = 200.0 / au_2_wn;
+    setm->alpha_oc = 3500.0 * au_2_angstrom / au_2_wn;
+    setm->gamma_oc = 0.0;
+    setm->mass_oc[0] = 250.0 * amu_2_au;
+    setm->mass_oc[1] = setm->mass_oc[0];
+    setm->K_oc[0] = 14500.0 * amu_2_au * au_2_ps * au_2_ps;
+    setm->K_oc[1] = setm->K_oc[0];
+
+    if ((list = cJSON_GetObjectItem(item, "Nmole_oc")) != NULL) {
+        setm->Nmole_oc = list->valueint;
+    }
+    if (setm->Nmole_oc < 3) {
+        fprintf(stderr, "OC model requires at least three molecular sites.\n");
+        exit(EXIT_FAILURE);
+    }
+    if ((list = cJSON_GetObjectItem(item, "beta_oc")) != NULL) {
+        setm->beta_oc = list->valuedouble / au_2_wn;
+    }
+    if ((list = cJSON_GetObjectItem(item, "alpha_oc")) != NULL) {
+        setm->alpha_oc = list->valuedouble * au_2_angstrom / au_2_wn;
+    }
+    if ((list = cJSON_GetObjectItem(item, "gamma_oc")) != NULL) {
+        setm->gamma_oc = list->valuedouble * au_2_angstrom / au_2_wn;
+    }
+    if ((list = cJSON_GetObjectItem(item, "mass1_oc")) != NULL) {
+        setm->mass_oc[0] = list->valuedouble * amu_2_au;
+    }
+    if ((list = cJSON_GetObjectItem(item, "mass2_oc")) != NULL) {
+        setm->mass_oc[1] = list->valuedouble * amu_2_au;
+    }
+    if ((list = cJSON_GetObjectItem(item, "K1_oc")) != NULL) {
+        setm->K_oc[0] = list->valuedouble * amu_2_au * au_2_ps * au_2_ps;
+    }
+    if ((list = cJSON_GetObjectItem(item, "K2_oc")) != NULL) {
+        setm->K_oc[1] = list->valuedouble * amu_2_au * au_2_ps * au_2_ps;
+    }
+
+    *Ndof1 = setm->Nmole_oc;
+    *Ndof2 = 2;
+    *Nstate = setm->Nmole_oc;
+}
+
 
 void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct set_host *setm) {
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
@@ -1062,6 +1108,9 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
         readinp_FMOdp(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "rubrene") == 0) {
         readinp_rubrene(json, Ndof1, Ndof2, Nstate, setm);
+    } else if (strcmp(setm->msmodelname, "oc") == 0 ||
+               strcmp(setm->msmodelname, "OC") == 0) {
+        readinp_OC(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "dnalvcm") == 0) {
         readinp_dnalvcm(json, Ndof1, Ndof2, Nstate, setm);
     } else if (strcmp(setm->msmodelname, "frozen") == 0) {
@@ -1089,4 +1138,3 @@ void readinp_msmodel(cJSON *json, int *Ndof1, int *Ndof2, int *Nstate, struct se
 
 
 }
-

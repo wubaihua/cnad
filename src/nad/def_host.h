@@ -929,6 +929,11 @@ struct set_host
         double Vc_rubrene, factor_freq_rubrene;
         double *omega_rubrene, *lambda_rubrene, *g_rubrene, *mass_rubrene;
 
+        // Organic-crystal Holstein-Peierls model
+        int Nmole_oc;
+        double alpha_oc, beta_oc, gamma_oc;
+        double K_oc[2], mass_oc[2];
+
 
         // frozen nuclei limit
         int Nstate_frozen;
