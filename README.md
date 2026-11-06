@@ -14,3 +14,8 @@ The thermodynamic `beta` is distinct from the OC hopping parameter `beta_oc`.
 
 The x86 CMake configuration can enable the OC equilibrium-density test with
 `CNAD_BUILD_TESTS=ON`; run the `oc_mqcequden` test through CTest.
+
+The OC model uses a sparse derivative transformation for adiabatic forces and
+nonadiabatic couplings, while retaining the shared eigenstate matching logic.
+The `oc_nacv` CTest compares it against the dense transformation for both
+force types, including a near-degenerate pair of states.

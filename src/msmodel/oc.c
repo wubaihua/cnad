@@ -129,6 +129,66 @@ void dV_OC(double *R, double *dH, int forcetype, struct set_host *setm) {
     }
 }
 
+void cal_NACV_oc(const double complex *U, const double complex *dV,
+                 const double *E, double complex *dv_adia, double complex *nac,
+                 struct set_host *setm) {
+    int n = setm->Nmole_oc;
+    int ndof = 2 * n;
+    double complex gram[n * n];
+
+    /* For forcetype 0, the nuclear derivative is a scalar times the identity. */
+    if (setm->forcetype == 0) {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < n; ++j) {
+                double complex sum = 0.0;
+                for (int site = 0; site < n; ++site) {
+                    sum += conj(U[site * n + i]) * U[site * n + j];
+                }
+                gram[i * n + j] = sum;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            double gap = E[j] - E[i];
+            for (int site = 0; site < n; ++site) {
+                int next = (site + 1) % n;
+                int prev = (site + n - 1) % n;
+                int local = oc_coordinate(site, 0);
+                int nonlocal = oc_coordinate(site, 1);
+                int index = (i * n + j) * ndof;
+                double complex left = conj(U[site * n + i]);
+                double complex right = U[site * n + j];
+                double complex local_bg = 0.0, nonlocal_bg = 0.0;
+                double complex local_value, nonlocal_value;
+
+                if (setm->forcetype == 0) {
+                    local_bg = dV[(next * n + next) * ndof + local];
+                    nonlocal_bg = dV[(next * n + next) * ndof + nonlocal];
+                }
+
+                local_value = left * (dV[(site * n + site) * ndof + local]
+                                       - local_bg) * right;
+                nonlocal_value =
+                    left * (dV[(site * n + next) * ndof + nonlocal] * U[next * n + j]
+                          + dV[(site * n + prev) * ndof + nonlocal] * U[prev * n + j])
+                    + (conj(U[next * n + i]) * dV[(next * n + site) * ndof + nonlocal]
+                     + conj(U[prev * n + i]) * dV[(prev * n + site) * ndof + nonlocal]) * right;
+                if (setm->forcetype == 0) {
+                    local_value += local_bg * gram[i * n + j];
+                    nonlocal_value += nonlocal_bg * gram[i * n + j];
+                }
+
+                dv_adia[index + local] = local_value;
+                dv_adia[index + nonlocal] = nonlocal_value;
+                nac[index + local] = i == j ? 0.0 : local_value / gap;
+                nac[index + nonlocal] = i == j ? 0.0 : nonlocal_value / gap;
+            }
+        }
+    }
+}
+
 void nucforce_OC(double *R, double *nf, struct set_host *setm) {
     int site, mode;
 

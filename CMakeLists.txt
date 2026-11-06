@@ -160,6 +160,10 @@ if(x86)
             $<TARGET_OBJECTS:oc> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:constant>)
         target_link_libraries(test_oc_mqcequden lapacke lapack blas m gfortran)
         add_test(NAME oc_mqcequden COMMAND test_oc_mqcequden)
+        add_executable(test_oc_nacv test/oc_nacv.c
+            $<TARGET_OBJECTS:oc> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:constant>)
+        target_link_libraries(test_oc_nacv lapacke lapack blas m gfortran)
+        add_test(NAME oc_nacv COMMAND test_oc_nacv)
     endif()
 
 

@@ -9,6 +9,7 @@
 #include <math.h>
 #include "cJSON.h"
 #include "msmodel.h"
+#include "oc.h"
 #include "msmodelio.h"
 #include <stdbool.h>
 #include "def_host.h"
@@ -6427,6 +6428,17 @@ void cal_NACV(struct set_slave *sets,struct set_host *seth){
     memcpy(sets->U_d2a_old, sets->U_ref, seth->Nstate * seth->Nstate * sizeof(double complex));
     memcpy(sets->U_ref, sets->U_d2a, seth->Nstate * seth->Nstate * sizeof(double complex));
     sets->if_ad_nac = 1;
+
+    if (strcmp(seth->msmodelname, "oc") == 0 || strcmp(seth->msmodelname, "OC") == 0) {
+        if (seth->Nstate != seth->Nmole_oc || seth->Ndof1 != seth->Nmole_oc ||
+            seth->Ndof2 != 2 || seth->Nmole_oc < 3) {
+            fprintf(stderr, "ERROR: inconsistent OC dimensions in cal_NACV\n");
+            exit(EXIT_FAILURE);
+        }
+        cal_NACV_oc(sets->U_d2a, sets->dV, sets->E_adia,
+                    sets->dv_adia, sets->nac, seth);
+        return;
+    }
 
     // transpose(sets->U_d2a,tempdm1,seth->Nstate);
     transpose_conjugate(sets->U_d2a,tempcm1,seth->Nstate);
