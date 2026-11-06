@@ -184,6 +184,12 @@ void dynamics_slave(struct set_host *seth){
                 }
             }
 
+            if (seth->if_mqcequden > 0) {
+                for (int i = 0; i < seth->Ngrid; i++) {
+                    seth->save_mqcequden[i * seth->nproc_sw + idcore] = sets.mqcequden[i];
+                }
+            }
+
 
         }
         athread_ssync_array();

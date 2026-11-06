@@ -1,4 +1,5 @@
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "constant.h"
@@ -137,6 +138,83 @@ void nucforce_OC(double *R, double *nf, struct set_host *setm) {
             nf[coordinate] = setm->K_oc[mode] * R[coordinate];
         }
     }
+}
+
+void mqcequden_OC(double *rho, double beta, double *R, double *P,
+                  struct set_host *setm) {
+    int i, j, k;
+    int nsite = setm->Nmole_oc;
+    size_t matrix_size = (size_t)nsite * nsite;
+    double nuclear_energy = 0.0;
+    double *E = (double *)malloc(nsite * sizeof(double));
+    double *C = (double *)malloc(matrix_size * sizeof(double));
+    double *weights = (double *)malloc(nsite * sizeof(double));
+
+    if (E == NULL || C == NULL || weights == NULL) {
+        fprintf(stderr, "ERROR: unable to allocate OC equilibrium density workspace\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (!isfinite(beta)) {
+        fprintf(stderr, "ERROR: non-finite inverse temperature for OC equilibrium density\n");
+        exit(EXIT_FAILURE);
+    }
+    for (i = 0; i < 2 * nsite; ++i) {
+        if (!isfinite(R[i]) || (setm->if_mqcequden == 1 && !isfinite(P[i]))) {
+            fprintf(stderr, "ERROR: non-finite nuclear state for OC equilibrium density\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    V_OC(R, C, 1, setm);
+    for (i = 0; i < nsite * nsite; ++i) {
+        if (!isfinite(C[i])) {
+            fprintf(stderr, "ERROR: non-finite OC equilibrium Hamiltonian\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    if (setm->if_mqcequden == 1) {
+        for (i = 0; i < nsite; ++i) {
+            for (j = 0; j < 2; ++j) {
+                int coordinate = oc_coordinate(i, j);
+                if (!isfinite(setm->mass_oc[j]) || setm->mass_oc[j] <= 0.0) {
+                    fprintf(stderr, "ERROR: invalid OC mass for equilibrium density\n");
+                    exit(EXIT_FAILURE);
+                }
+                nuclear_energy += 0.5 * (setm->K_oc[j] * R[coordinate] * R[coordinate]
+                                        + P[coordinate] * P[coordinate] / setm->mass_oc[j]);
+            }
+        }
+        if (!isfinite(nuclear_energy)) {
+            fprintf(stderr, "ERROR: non-finite OC nuclear energy for equilibrium density\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (LAPACKE_dsyev(LAPACK_ROW_MAJOR, 'V', 'L', nsite, C, nsite, E) != 0) {
+        fprintf(stderr, "ERROR: OC equilibrium Hamiltonian diagonalization failed\n");
+        exit(EXIT_FAILURE);
+    }
+    for (k = 0; k < nsite; ++k) {
+        weights[k] = exp(-beta * (E[k] + nuclear_energy));
+        if (!isfinite(weights[k])) {
+            fprintf(stderr, "ERROR: non-finite OC equilibrium density weight\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+    for (i = 0; i < nsite; ++i) {
+        for (j = 0; j < nsite; ++j) {
+            double value = 0.0;
+            for (k = 0; k < nsite; ++k) {
+                value += C[i * nsite + k] * weights[k] * C[j * nsite + k];
+            }
+            rho[i * nsite + j] = value;
+        }
+    }
+
+    free(E);
+    free(C);
+    free(weights);
 }
 
 static void oc_current_operator(double *R, double *current, struct set_host *setm) {

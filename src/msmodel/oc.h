@@ -10,5 +10,7 @@ void dV_OC(double *R, double *dH, int forcetype, struct set_host *setm);
 void nucforce_OC(double *R, double *nf, struct set_host *setm);
 void cfweight_OC(double *w0, double *wt, double beta, double *R, double *P,
                  double *Rt, struct set_host *setm);
+void mqcequden_OC(double *rho, double beta, double *R, double *P,
+                  struct set_host *setm);
 
 #endif

@@ -384,18 +384,12 @@ int main(int argc, char *argv[]) {
         memset(seth.fi_mqcequden, 0, seth.Ngrid * sizeof(double));
        
         #ifdef sunway
-        // for (int i = 0; i < seth.Ndof1 * seth.Ndof2 * seth.Ngrid; i++){
-        //     for(int j = 0; j < seth.nproc_sw; j++){
-        //         seth.fi_R_nuc_mean[i] += seth.save_R_nuc_mean[i * seth.nproc_sw + j];
-        //         seth.fi_P_nuc_mean[i] += seth.save_P_nuc_mean[i * seth.nproc_sw + j];
-        //         seth.fi_R2_nuc_mean[i] += seth.save_R2_nuc_mean[i * seth.nproc_sw + j];
-        //         seth.fi_P2_nuc_mean[i] += seth.save_P2_nuc_mean[i * seth.nproc_sw + j];
-        //     }
-        // }
-        // free(seth.save_R_nuc_mean);
-        // free(seth.save_P_nuc_mean);
-        // free(seth.save_R2_nuc_mean);
-        // free(seth.save_P2_nuc_mean);
+        for (int i = 0; i < seth.Ngrid; i++) {
+            for (int j = 0; j < seth.nproc_sw; j++) {
+                seth.fi_mqcequden[i] += seth.save_mqcequden[i * seth.nproc_sw + j];
+            }
+        }
+        free(seth.save_mqcequden);
         #elif defined(x86)
         memcpy(seth.fi_mqcequden, seth.mpi_mqcequden, seth.Ngrid * sizeof(double));
         #endif
@@ -944,5 +938,4 @@ void double_reduce(double *sendbuf, double *recvbuf, int count, MPI_Op op, int r
         MPI_Send(sendbuf, count, MPI_DOUBLE, root, 0, comm);
     }
 }
-
 

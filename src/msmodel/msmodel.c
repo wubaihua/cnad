@@ -442,6 +442,9 @@ void mqcequden_msmodel(double *rho, double beta, double *R, double *P, struct se
     if (strcmp(setm->msmodelname, "SBM") == 0 ||
         strcmp(setm->msmodelname, "sbm") == 0) {
         mqcequden_SBM(rho, beta, R, P, setm);
+    } else if (strcmp(setm->msmodelname, "OC") == 0 ||
+               strcmp(setm->msmodelname, "oc") == 0) {
+        mqcequden_OC(rho, beta, R, P, setm);
     }
 }
 

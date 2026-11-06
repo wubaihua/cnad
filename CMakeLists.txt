@@ -153,6 +153,15 @@ if(x86)
             gfortran
     )
 
+    option(CNAD_BUILD_TESTS "Build CNAD tests" OFF)
+    if(CNAD_BUILD_TESTS)
+        enable_testing()
+        add_executable(test_oc_mqcequden test/oc_mqcequden.c
+            $<TARGET_OBJECTS:oc> $<TARGET_OBJECTS:gmath> $<TARGET_OBJECTS:constant>)
+        target_link_libraries(test_oc_mqcequden lapacke lapack blas m gfortran)
+        add_test(NAME oc_mqcequden COMMAND test_oc_mqcequden)
+    endif()
+
 
     
 elseif(sunway)
